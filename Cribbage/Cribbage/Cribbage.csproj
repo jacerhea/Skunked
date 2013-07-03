@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{456DF28E-8EA0-413D-982F-F67A6EB43FDF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cribbage</RootNamespace>
+    <AssemblyName>Cribbage</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Card.cs" />
+    <Compile Include="Commands\Arguments\CommandArgsBase.cs" />
+    <Compile Include="Commands\Arguments\CountCribScoreArgs.cs" />
+    <Compile Include="Commands\Arguments\CountHandScoreArgs.cs" />
+    <Compile Include="Commands\Arguments\CutCardArgs.cs" />
+    <Compile Include="Commands\Arguments\PlayCardArgs.cs" />
+    <Compile Include="Commands\Arguments\ThrowCardsToCribArgs.cs" />
+    <Compile Include="Commands\CountCribScoreCommand.cs" />
+    <Compile Include="Commands\CountHandScoreCommand.cs" />
+    <Compile Include="Commands\CreateCribbageGameStateCommand.cs" />
+    <Compile Include="Commands\CreateNewRoundCommand.cs" />
+    <Compile Include="Commands\CribbageCommandBase.cs" />
+    <Compile Include="Commands\CutCardCommand.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\PlayCardCommand.cs" />
+    <Compile Include="Commands\ThrowCardsToCribCommand.cs" />
+    <Compile Include="Player\ConsolePlayer.cs" />
+    <Compile Include="Player\CribPlayer.cs" />
+    <Compile Include="Player\ICribPlayer.cs" />
+    <Compile Include="Player\PlayerCard.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rank.cs" />
+    <Compile Include="Rules\CribGameRules.cs" />
+    <Compile Include="Rules\GameScoreType.cs" />
+    <Compile Include="Rules\HoleDefinitionLookup.cs" />
+    <Compile Include="Rules\HoleDefinitions.cs" />
+    <Compile Include="Score\CardScore.cs" />
+    <Compile Include="Score\ComboPossibleScores.cs" />
+    <Compile Include="Score\ComboScore.cs" />
+    <Compile Include="Score\CribScoreCalculator.cs" />
+    <Compile Include="Score\ScoreCalculatorResult.cs" />
+    <Compile Include="Score\PlayerScore.cs" />
+    <Compile Include="State\CribGameState.cs" />
+    <Compile Include="State\CribOpeningRoundState.cs" />
+    <Compile Include="State\CribRoundState.cs" />
+    <Compile Include="State\PlayerPlayItem.cs" />
+    <Compile Include="State\PlayerScoreShow.cs" />
+    <Compile Include="State\SerializablePlayerScore.cs" />
+    <Compile Include="Suit.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AI\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
