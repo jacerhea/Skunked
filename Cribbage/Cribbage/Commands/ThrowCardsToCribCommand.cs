@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cribbage.Commands.Arguments;
 using Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands.Arguments;
 using Games.Domain.MainModule.Entities.PlayingCards;
 using Games.Infrastructure.CrossCutting;
@@ -24,10 +25,10 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
             ValidateStateBase();
             var currentRound = _args.GameState.Rounds.MaxBy(round => round.Round);
             var playerDealtHand = currentRound.PlayerDealtCards.First(kv => kv.Key == _args.PlayerID);
-            var dealtCards = playerDealtHand.Value.Select(c => (ICard)c);
+            var dealtCards = playerDealtHand.Value.Select(c => (Card)c);
 
             //remove thrown cards from hand
-            var playerHand = currentRound.PlayerDealtCards.First(kv => kv.Key == _args.PlayerID).Value.Cast<ICard>().Except(_args.CardsToThrow);
+            var playerHand = currentRound.PlayerDealtCards.First(kv => kv.Key == _args.PlayerID).Value.Cast<Card>().Except(_args.CardsToThrow);
             currentRound.PlayerHand.Add(new SerializableKeyValuePair<int, List<SerializableCard>> { Key = _args.PlayerID, Value = playerHand.Cast<SerializableCard>().ToList() });
 
             var serializableCards = _args.CardsToThrow.Select(c => new SerializableCard(c));
@@ -61,7 +62,7 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
         {
             var currentRound = _args.GameState.Rounds.MaxBy(round => round.Round);
             var playerDealtHand = currentRound.PlayerDealtCards.First(kv => kv.Key == _args.PlayerID);
-            var dealtCards = playerDealtHand.Value.Select(c => (ICard)c);
+            var dealtCards = playerDealtHand.Value.Select(c => (Card)c);
 
             if (dealtCards.Intersect(_args.CardsToThrow).Count() != _args.CardsToThrow.Count())
             {
@@ -69,7 +70,7 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidCard);
             }
 
-            if(currentRound.Crib.Cast<ICard>().Intersect(_args.CardsToThrow).Any())
+            if(currentRound.Crib.Cast<Card>().Intersect(_args.CardsToThrow).Any())
             {
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.CardsHaveBeenThrown);
             }

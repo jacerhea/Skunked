@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Games.Domain.MainModule.Entities.CardGames.Cribbage.Score;
+using Cribbage.Score.Interface;
+using Cribbage.State;
 using Games.Domain.MainModule.Entities.CardGames.Cribbage.State;
 
 namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands.Arguments

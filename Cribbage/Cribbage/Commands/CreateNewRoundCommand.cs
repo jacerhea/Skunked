@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cribbage.State;
 using Games.Domain.MainModule.Entities.CardGames.Cribbage.State;
 using Games.Domain.MainModule.Entities.CardGames.Dealer;
 using Games.Domain.MainModule.Entities.CardGames.Player;

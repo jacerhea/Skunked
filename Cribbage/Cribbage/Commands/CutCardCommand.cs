@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands.Arguments;
-using Games.Domain.MainModule.Entities.PlayingCards;
-using Games.Infrastructure.CrossCutting;
-using MoreLinq;
+using Cribbage.Commands.Arguments;
 
 namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
 {

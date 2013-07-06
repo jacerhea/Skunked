@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cribbage.Rules;
+using Cribbage.State;
 using Games.Domain.MainModule.Entities.CardGames.Cribbage.State;
 using Games.Domain.MainModule.Entities.CardGames.Player;
 using Games.Domain.MainModule.Entities.PlayingCards;

@@ -22,7 +22,7 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
 
             var currentRound = _args.GameState.CurrentRound();
             var cutCard = currentRound.StartingCard;
-            var crib = currentRound.Crib.Cast<ICard>();
+            var crib = currentRound.Crib.Cast<Card>();
 
             var calculatedCribShowScore = _args.ScoreCalculator.CountShowScore(cutCard, crib);
             var playerScore = _args.GameState.PlayerScores.Single(ps => ps.Player == _args.PlayerID);

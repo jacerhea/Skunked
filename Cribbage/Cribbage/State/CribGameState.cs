@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using Cribbage.Rules;
+using Games.Domain.MainModule.Entities.CardGames.Cribbage.State;
 
-namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.State
+namespace Cribbage.State
 {
 #if !SILVERLIGHT
     [DataContract]

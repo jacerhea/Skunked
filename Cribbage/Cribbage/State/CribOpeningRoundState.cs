@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.Serialization;
-using Games.Domain.MainModule.Entities.PlayingCards;
-using Games.Infrastructure.CrossCutting;
 
-namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.State
+namespace Cribbage.State
 {
 #if !SILVERLIGHT
     [DataContract]

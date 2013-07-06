@@ -1,4 +1,5 @@
 ﻿using System;
+using Cribbage.State;
 using Games.Domain.MainModule.Entities.CardGames.Cribbage.State;
 
 namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands.Arguments

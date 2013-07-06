@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands.Arguments;
+using Cribbage.Commands.Arguments;
+using Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands;
 using Games.Domain.MainModule.Entities.CardGames.Cribbage.State;
-using Games.Domain.MainModule.Entities.PlayingCards;
-using Games.Domain.MainModule.Entities.PlayingCards.Value;
-using Games.Infrastructure.CrossCutting;
-using MoreLinq;
 
-namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
+namespace Cribbage.Commands
 {
     public class PlayCardCommand : CribbageCommandBase, ICommand
     {
@@ -26,18 +23,18 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
             var currentRound = _args.GameState.CurrentRound();
             var setOfPlays = currentRound.PlayersShowedCards;
 
-            var playedCards = setOfPlays.SelectMany(c => c).Select(spc => (ICard)spc.Card);
+            var playedCards = setOfPlays.SelectMany(c => c).Select(spc => (Card)spc.Card);
 
             //2. 
-            var currentPlayCount = _args.ScoreCalculator.SumValues(setOfPlays.Last().Select(scs => (ICard)scs.Card));
-            int playCount = (currentPlayCount + _args.ScoreCalculator.SumValues(new List<ICard> { new SerializableCard(_args.PlayedCard) }));
+            var currentPlayCount = _args.ScoreCalculator.SumValues(setOfPlays.Last().Select(scs => (Card)scs.Card));
+            int playCount = (currentPlayCount + _args.ScoreCalculator.SumValues(new List<Card> { new SerializableCard(_args.PlayedCard) }));
             if(playCount > 31)
             {
                 setOfPlays.Add(new List<PlayerPlayItem>());
             }
 
             var playerCardPlayedScores = setOfPlays.Last();
-            var currentRoundPlayedCards = new List<ICard>(playerCardPlayedScores.Select(psc => (ICard)psc.Card)) { _args.PlayedCard };
+            var currentRoundPlayedCards = new List<Card>(playerCardPlayedScores.Select(psc => (Card)psc.Card)) { _args.PlayedCard };
             var playScore = _args.ScoreCalculator.CountThePlay(currentRoundPlayedCards);
 
             var playerCardPlayedScore = new PlayerPlayItem
@@ -49,10 +46,10 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
 
             //create new round
             setOfPlays.Last().Add(playerCardPlayedScore);
-            var playsLeft = _args.GameState.CurrentRound().PlayerHand.SelectMany(kv => kv.Value).Cast<ICard>().Except(playedCards);
-            if (playsLeft.All(c => _args.ScoreCalculator.SumValues(setOfPlays.Last().Select(spc => (ICard)spc.Card).Union(new List<ICard> { c })) > _args.GameState.GameRules.PlayMaxScore))
+            var playsLeft = _args.GameState.CurrentRound().PlayerHand.SelectMany(kv => kv.Value).Cast<Card>().Except(playedCards);
+            if (playsLeft.All(c => _args.ScoreCalculator.SumValues(setOfPlays.Last().Select(spc => (Card)spc.Card).Union(new List<Card> { c })) > _args.GameState.GameRules.PlayMaxScore))
             {
-                int playCountNew = _args.ScoreCalculator.SumValues(setOfPlays.Last().Select(ppi => (ICard)ppi.Card));
+                int playCountNew = _args.ScoreCalculator.SumValues(setOfPlays.Last().Select(ppi => (Card)ppi.Card));
                 if (playCountNew != _args.GameState.GameRules.PlayMaxScore)
                 {
                     _args.GameState.PlayerScores.Single(ps => ps.Player == _args.PlayerID).Score += _args.ScoreCalculator.GetGoValue();                    
@@ -67,7 +64,7 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
 
 
             //is playing done
-            bool isDone = setOfPlays.SelectMany(c => c).Select(spc => (ICard)spc.Card).Count() == _args.GameState.Players.Count * _args.GameState.GameRules.HandSize;
+            bool isDone = setOfPlays.SelectMany(c => c).Select(spc => (Card)spc.Card).Count() == _args.GameState.Players.Count * _args.GameState.GameRules.HandSize;
             currentRound.PlayCardsIsDone = isDone;
             EndofCommandCheck();
         }
@@ -79,13 +76,13 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
 
             if (!currentRound.ThrowCardsIsDone || currentRound.PlayCardsIsDone) { throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidStateForPlay); }
 
-            var allPlayerCards = currentRound.PlayerHand.Single(kv => kv.Key == _args.PlayerID).Value.Cast<ICard>().ToList();
+            var allPlayerCards = currentRound.PlayerHand.Single(kv => kv.Key == _args.PlayerID).Value.Cast<Card>().ToList();
             if (allPlayerCards.Count(card => card.Equals(_args.PlayedCard)) != 1)
             {
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidCard);
             }
 
-            var playedCards = setOfPlays.SelectMany(c => c).Select(spc => (ICard)spc.Card);
+            var playedCards = setOfPlays.SelectMany(c => c).Select(spc => (Card)spc.Card);
             if (playedCards.Any(c => c.Equals(_args.PlayedCard))) { throw new InvalidCribbageOperationException(InvalidCribbageOperations.CardHasBeenPlayed); }
 
             if(setOfPlays.Count == 0)//todo: what is this? || setOfPlays.Last().Count == 0)
@@ -106,13 +103,13 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
             }
 
             //is the player starting new round with card sum over 31 and they have a playable card for current round?
-            var currentPlayCount = _args.ScoreCalculator.SumValues(setOfPlays.Last().Select(scs => (ICard)scs.Card));
-            int playCount = (currentPlayCount + _args.ScoreCalculator.SumValues(new List<ICard> { new SerializableCard(_args.PlayedCard) }));
+            var currentPlayCount = _args.ScoreCalculator.SumValues(setOfPlays.Last().Select(scs => (Card)scs.Card));
+            int playCount = (currentPlayCount + _args.ScoreCalculator.SumValues(new List<Card> { new SerializableCard(_args.PlayedCard) }));
             if (playCount > _args.GameState.GameRules.PlayMaxScore)
             {
-                var playedCardsThisRound = setOfPlays.Last().Select(ppi => (ICard) ppi.Card);
-                var playersCardsLeftToPlay = allPlayerCards.Except(playedCardsThisRound).Except(new List<ICard> {_args.PlayedCard});
-                if (playersCardsLeftToPlay.Any(c => _args.ScoreCalculator.SumValues(new List<ICard>(playedCardsThisRound){c}) <= _args.GameState.GameRules.PlayMaxScore))
+                var playedCardsThisRound = setOfPlays.Last().Select(ppi => (Card) ppi.Card);
+                var playersCardsLeftToPlay = allPlayerCards.Except(playedCardsThisRound).Except(new List<Card> {_args.PlayedCard});
+                if (playersCardsLeftToPlay.Any(c => _args.ScoreCalculator.SumValues(new List<Card>(playedCardsThisRound){c}) <= _args.GameState.GameRules.PlayMaxScore))
                 {
                     throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidCard);
                 }
@@ -123,7 +120,7 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
         {
             var currentRound = _args.GameState.CurrentRound();
             var setOfPlays = currentRound.PlayersShowedCards;
-            var playedCards = setOfPlays.SelectMany(c => c).Select(spc => (ICard)spc.Card);
+            var playedCards = setOfPlays.SelectMany(c => c).Select(spc => (Card)spc.Card);
             var playerCardPlayedScores = setOfPlays.Last();
 
             //if round is done
@@ -139,14 +136,14 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
             //move to next player with valid move
             while (true)
             {
-                var nextPlayerAvailableCardsToPlay = _args.GameState.CurrentRound().PlayerHand.Single(kv => kv.Key == nextPlayer.ID).Value.Cast<ICard>().Except(playedCards);
+                var nextPlayerAvailableCardsToPlay = _args.GameState.CurrentRound().PlayerHand.Single(kv => kv.Key == nextPlayer.ID).Value.Cast<Card>().Except(playedCards);
                 if(nextPlayerAvailableCardsToPlay.Count() == 0)
                 {
                     nextPlayer = _args.GameState.Players.NextOf(nextPlayer);
                     continue;
                 }
 
-                var nextPlayerPlaySequence = playerCardPlayedScores.Select(s => (ICard) s.Card).ToList();
+                var nextPlayerPlaySequence = playerCardPlayedScores.Select(s => (Card) s.Card).ToList();
                 nextPlayerPlaySequence.Add(nextPlayerAvailableCardsToPlay.MinBy(c => new AceLowFaceTenCardValueStrategy().ValueOf(c)));
                 var scoreTest = _args.ScoreCalculator.SumValues(nextPlayerPlaySequence);
                 if (scoreTest <= _args.GameState.GameRules.PlayMaxScore)

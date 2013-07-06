@@ -37,6 +37,12 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\CardToss\AbstractAverageDecision.cs" />
+    <Compile Include="AI\CardToss\IDecisionStrategy.cs" />
+    <Compile Include="AI\CardToss\MaxAverageDecision.cs" />
+    <Compile Include="AI\CardToss\MinAverageDecision.cs" />
+    <Compile Include="AI\CardToss\OptimisticDecision.cs" />
+    <Compile Include="AI\CardToss\RandomDecision.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="Commands\Arguments\CommandArgsBase.cs" />
     <Compile Include="Commands\Arguments\CountCribScoreArgs.cs" />
@@ -53,6 +59,9 @@
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\PlayCardCommand.cs" />
     <Compile Include="Commands\ThrowCardsToCribCommand.cs" />
+    <Compile Include="Order\Interface\IOrderStrategy.cs" />
+    <Compile Include="Order\OrderStrategy.cs" />
+    <Compile Include="Order\StandardOrder.cs" />
     <Compile Include="Player\ConsolePlayer.cs" />
     <Compile Include="Player\CribPlayer.cs" />
     <Compile Include="Player\ICribPlayer.cs" />
@@ -67,6 +76,7 @@
     <Compile Include="Score\ComboPossibleScores.cs" />
     <Compile Include="Score\ComboScore.cs" />
     <Compile Include="Score\CribScoreCalculator.cs" />
+    <Compile Include="Score\Interface\IScoreCalculator.cs" />
     <Compile Include="Score\ScoreCalculatorResult.cs" />
     <Compile Include="Score\PlayerScore.cs" />
     <Compile Include="State\CribGameState.cs" />
@@ -78,7 +88,8 @@
     <Compile Include="Suit.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AI\" />
+    <Folder Include="AI\TheCount\" />
+    <Folder Include="AI\ThePlay\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

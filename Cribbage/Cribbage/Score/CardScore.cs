@@ -4,7 +4,7 @@ namespace Cribbage.Score
 {
     public class CardScore
     {
-        public ICard Card { get; private set; }
+        public Card Card { get; private set; }
         public int Score { get; private set; }
 
         /// <summary>
@@ -12,7 +12,7 @@ namespace Cribbage.Score
         /// </summary>
         /// <param name="card"></param>
         /// <param name="score"></param>
-        public CardScore(ICard card, int score)
+        public CardScore(Card card, int score)
         {
             if (card == null) throw new ArgumentNullException("card");
             Card = card;

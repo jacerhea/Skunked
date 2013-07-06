@@ -1,11 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Cribbage;
 using Cribbage.Rules;
-using Games.Domain.MainModule.Entities.CardGames.Player;
-using Games.Domain.MainModule.Entities.PlayingCards;
 
-namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Player
+namespace Cribbage.Player
 {
     public interface ICribPlayer : IPlayer, IEquatable<ICribPlayer>
     {

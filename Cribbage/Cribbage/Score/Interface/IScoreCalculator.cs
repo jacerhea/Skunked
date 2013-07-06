@@ -1,24 +1,23 @@
 using System.Collections.Generic;
-using Games.Domain.MainModule.Entities.PlayingCards;
 
-namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Score
+namespace Cribbage.Score.Interface
 {
     public interface IScoreCalculator
     {
-        int CountCut(ICard cut);
-        CribScoreCalculatorResult CountShowScore(ICard cutCard, IEnumerable<ICard> playerHand);
-        List<IList<ICard>> CountFifteens(Dictionary<int, List<IList<ICard>>> combinationsToCount);
-        List<ICard> CountFlush(IEnumerable<ICard> playersHand, ICard cutCard);
-        List<IList<ICard>> CountPairs(Dictionary<int, List<IList<ICard>>> combinationsToCheck);
-        List<IList<ICard>> CountRuns(Dictionary<int, List<IList<ICard>>> combinationsToCount);
-        int CountThePlay(IList<ICard> pile);
-        int SumValues(IEnumerable<ICard> cards);
+        int CountCut(Card cut);
+        ScoreCalculatorResult CountShowScore(Card cutCard, IEnumerable<Card> playerHand);
+        List<IList<Card>> CountFifteens(Dictionary<int, List<IList<Card>>> combinationsToCount);
+        List<Card> CountFlush(IEnumerable<Card> playersHand, Card cutCard);
+        List<IList<Card>> CountPairs(Dictionary<int, List<IList<Card>>> combinationsToCheck);
+        List<IList<Card>> CountRuns(Dictionary<int, List<IList<Card>>> combinationsToCount);
+        int CountThePlay(IList<Card> pile);
+        int SumValues(IEnumerable<Card> cards);
         int GetGoValue();
-        bool IsFifteen(IList<ICard> cards);
-        bool AreSameKind(IEnumerable<ICard> cards);
-        bool IsRun(IList<ICard> combo);
+        bool IsFifteen(IList<Card> cards);
+        bool AreSameKind(IEnumerable<Card> cards);
+        bool IsRun(IList<Card> combo);
         bool AreContinuous(IEnumerable<int> values);
-        Dictionary<int, List<IList<ICard>>> GetCombinations(IList<ICard> sourceSet);
-        IList<ICard> Nobs(IEnumerable<ICard> cards, ICard starterCard);
+        Dictionary<int, List<IList<Card>>> GetCombinations(IList<Card> sourceSet);
+        IList<Card> Nobs(IEnumerable<Card> cards, Card starterCard);
     }
 }

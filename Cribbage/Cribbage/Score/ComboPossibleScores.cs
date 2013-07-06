@@ -9,10 +9,10 @@ namespace Cribbage.Score
     /// </summary>
     public class ComboPossibleScores
     {
-        public IList<ICard> Combo { get; private set; }
+        public IList<Card> Combo { get; private set; }
         public IList<int> PossibleScores { get; private set; }
 
-        public ComboPossibleScores(IList<ICard> combo)
+        public ComboPossibleScores(IList<Card> combo)
         {
             if (combo == null) throw new ArgumentNullException("combo");
             Combo = combo;

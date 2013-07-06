@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cribbage.Rules;
-using Games.Domain.MainModule.Entities.CardGames.Player;
-using Games.Domain.MainModule.Entities.PlayingCards;
 
-namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Player
+namespace Cribbage.Player
 {
     public class ConsolePlayer: PlayerBase, ICribPlayer
     {
@@ -13,7 +11,7 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Player
         {
         }
 
-        public List<ICard> DealHand(IList<ICard> hand)
+        public List<Card> DealHand(IList<Card> hand)
         {
             var sortedHand = hand.OrderBy(c => c.Rank).ThenBy(c => c.Suit).ToList();
 
@@ -40,12 +38,12 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Player
                 secondCardIndex = GetInt("Please choose the second valid card:");
             }
 
-            var returnCards = new List<ICard>(2) { sortedHand[firstCardIndex - 1], sortedHand[secondCardIndex - 1] };
+            var returnCards = new List<Card>(2) { sortedHand[firstCardIndex - 1], sortedHand[secondCardIndex - 1] };
 
             return returnCards;
         }
 
-        public ICard PlayShow(CribGameRules gameRules, List<ICard> pile, List<ICard> handLeft)
+        public Card PlayShow(CribGameRules gameRules, List<Card> pile, List<Card> handLeft)
         {
             Console.WriteLine("The following cards are in the pile:");
 
@@ -75,7 +73,7 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Player
             return handLeft[firstCardIndex - 1];
         }
 
-        public ICard ChooseCard(List<ICard> cardsToChoose)
+        public Card ChooseCard(List<Card> cardsToChoose)
         {
             if (cardsToChoose == null) throw new ArgumentNullException("deck");
             var randomGenerator = new Random();
@@ -83,7 +81,7 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Player
             return cardsToChoose[randomIndex];            
         }
 
-        public int CountHand(ICard card, IEnumerable<ICard> hand)
+        public int CountHand(Card card, IEnumerable<Card> hand)
         {
             while (true)
             {
@@ -107,8 +105,8 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Player
         {
             while (true)
             {
-                System.Console.Write(questionToAsk);
-                string enterText = System.Console.ReadLine();
+                Console.Write(questionToAsk);
+                string enterText = Console.ReadLine();
 
                 int enteredValue;
                 if (int.TryParse(enterText, out enteredValue))

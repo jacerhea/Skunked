@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Cribbage.Commands.Arguments;
 using Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands.Arguments;
 using Games.Domain.MainModule.Entities.PlayingCards;
 using Games.Infrastructure.CrossCutting;
@@ -27,7 +28,7 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
             var cutCard = roundState.StartingCard;
             var playerHand = roundState.PlayerHand.First(kv => kv.Key == _args.PlayerID);
 
-            var calculatedShowScore = _args.ScoreCalculator.CountShowScore(cutCard, playerHand.Value.Cast<ICard>());
+            var calculatedShowScore = _args.ScoreCalculator.CountShowScore(cutCard, playerHand.Value.Cast<Card>());
 
             var playerScore = _args.GameState.PlayerScores.Single(ps => ps.Player == _args.PlayerID);
 

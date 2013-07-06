@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Cribbage.Rules;
-using Games.Domain.MainModule.Entities.CardGames.Cribbage.AI.CardToss;
-using Games.Domain.MainModule.Entities.CardGames.Cribbage.AI.TheCount;
-using Games.Domain.MainModule.Entities.CardGames.Cribbage.AI.ThePlay;
-using Games.Domain.MainModule.Entities.CardGames.Player;
-using Games.Domain.MainModule.Entities.PlayingCards;
 
-namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Player
+namespace Cribbage.Player
 {
     public class CribPlayer : PlayerBase, ICribPlayer
     {
@@ -40,12 +34,12 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Player
         /// </summary>
         /// <param name="hand"></param>
         /// <returns>Set of Cards to throw in crib.</returns>
-        public List<ICard> DealHand(IList<ICard> hand)
+        public List<Card> DealHand(IList<Card> hand)
         {
             return _decisionStrategy.DetermineCardsToThrow(hand).ToList();
         }
 
-        public ICard PlayShow(CribGameRules gameRules, List<ICard> pile, List<ICard> handLeft)
+        public Card PlayShow(CribGameRules gameRules, List<Card> pile, List<Card> handLeft)
         {
             if (gameRules == null) throw new ArgumentNullException("gameRules");
             if (pile == null) throw new ArgumentNullException("pile");
@@ -55,7 +49,7 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Player
             return _playStrategy.DetermineCardToThrow(gameRules, pile, handLeft);
         }
 
-        public ICard ChooseCard(List<ICard> cardsToChoose)
+        public Card ChooseCard(List<Card> cardsToChoose)
         {
             if (cardsToChoose == null) throw new ArgumentNullException("cardsToChoose");
             var randomGenerator = new Random();
@@ -63,7 +57,7 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Player
             return cardsToChoose[randomIndex];
         }
 
-        public int CountHand(ICard card, IEnumerable<ICard> hand)
+        public int CountHand(Card card, IEnumerable<Card> hand)
         {
             return _scoreCountStrategy.GetCount(card, hand);
         }

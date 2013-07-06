@@ -1,22 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cribbage.Score;
-using Games.Domain.MainModule.Entities.PlayingCards;
-using Games.Domain.MainModule.Entities.PlayingCards.Order;
-using Games.Domain.MainModule.Entities.PlayingCards.Value;
-using Games.Infrastructure.CrossCutting;
-using Games.Infrastructure.CrossCutting.Combinatorics;
-using MoreLinq;
+using Cribbage.Order.Interface;
+using Cribbage.Score.Interface;
 
-namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Score
+namespace Cribbage.Score
 {
     public class ScoreCalculator : IScoreCalculator
     {
-        private readonly ICardValueStrategy _valueStrategy;
+        private readonly CardValueStrategy _valueStrategy;
         private readonly IOrderStrategy _order;
 
-        public ScoreCalculator(ICardValueStrategy valueStrategy, IOrderStrategy order)
+        public ScoreCalculator(CardValueStrategy valueStrategy, IOrderStrategy order)
         {
             if (valueStrategy == null) throw new ArgumentNullException("valueStrategy");
             if (order == null) throw new ArgumentNullException("order");
@@ -25,7 +20,7 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Score
         }
 
         //Check cut card for dealer
-        public int CountCut(ICard cut)
+        public int CountCut(Card cut)
         {
             if (cut.Rank == Rank.Jack)
             {
@@ -34,9 +29,9 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Score
             return 0;
         }
 
-        public CribScoreCalculatorResult CountShowScore(ICard cutCard, IEnumerable<ICard> playerHand)
+        public ScoreCalculatorResult CountShowScore(Card cutCard, IEnumerable<Card> playerHand)
         {
-            var completeSet = new List<ICard>(playerHand) { cutCard };
+            var completeSet = new List<Card>(playerHand) { cutCard };
             var allCombinations = GetCombinations(completeSet);
 
             var fifteens = CountFifteens(allCombinations);
@@ -53,12 +48,12 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Score
 
             int totalScore = fifteenScore + flushScore + pairScore + runScore + hisNobsScore;
 
-            var scoreResult = new CribScoreCalculatorResult(fifteens, pairs, runs, flush, hisNobs, totalScore, fifteenScore, pairScore, runScore, flushScore, hisNobsScore);
+            var scoreResult = new ScoreCalculatorResult(fifteens, pairs, runs, flush, hisNobs, totalScore, fifteenScore, pairScore, runScore, flushScore, hisNobsScore);
 
             return scoreResult;
         }
 
-        public int CountThePlay(IList<ICard> pile)
+        public int CountThePlay(IList<Card> pile)
         {
             if (pile.Count < 2)
             {
@@ -105,7 +100,7 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Score
             return scored;
         }
 
-        public List<IList<ICard>> CountFifteens(Dictionary<int, List<IList<ICard>>> combinationsToCount)
+        public List<IList<Card>> CountFifteens(Dictionary<int, List<IList<Card>>> combinationsToCount)
         {
             return combinationsToCount
                 .Where(d => d.Key > 1)
@@ -114,11 +109,11 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Score
                 .ToList();
         }
 
-        public List<ICard> CountFlush(IEnumerable<ICard> playersHand, ICard cutCard)
+        public List<Card> CountFlush(IEnumerable<Card> playersHand, Card cutCard)
         {
             if (playersHand == null) throw new ArgumentNullException("playersHand");
             if (cutCard == null) throw new ArgumentNullException("cutCard");
-            if (playersHand.Count() < 4) { return new List<ICard>(); }
+            if (playersHand.Count() < 4) { return new List<Card>(); }
 
             var fourCardFlush = playersHand.GroupBy(c => c.Suit).Where(g => g.Count() > 3).ToList();
 
@@ -134,10 +129,10 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Score
                 }
                 return playersHand.ToList();
             }
-            return new List<ICard>(0);
+            return new List<Card>(0);
         }
 
-        public List<IList<ICard>> CountPairs(Dictionary<int, List<IList<ICard>>> combinationsToCheck)
+        public List<IList<Card>> CountPairs(Dictionary<int, List<IList<Card>>> combinationsToCheck)
         {
             var combinationsOfTwoCards = combinationsToCheck[2];
 
@@ -145,7 +140,7 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Score
         }
 
         //only looking for runs of 3,4, and 5
-        public List<IList<ICard>> CountRuns(Dictionary<int, List<IList<ICard>>> combinationsToCount)
+        public List<IList<Card>> CountRuns(Dictionary<int, List<IList<Card>>> combinationsToCount)
         {
             var returnList = combinationsToCount[5].Where(IsRun).ToList();
 
@@ -166,12 +161,12 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Score
             return returnList;
         }
 
-        public IList<ICard> Nobs(IEnumerable<ICard> cards, ICard starterCard)
+        public IList<Card> Nobs(IEnumerable<Card> cards, Card starterCard)
         {
             return cards.Where(c => c.Rank == Rank.Jack && c.Suit == starterCard.Suit).ToList();
         }
 
-        public int SumValues(IEnumerable<ICard> cards)
+        public int SumValues(IEnumerable<Card> cards)
         {
             return cards.Sum(c => _valueStrategy.ValueOf(c));
         }
@@ -181,17 +176,17 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Score
             return 1;
         }
 
-        public bool IsFifteen(IList<ICard> cards)
+        public bool IsFifteen(IList<Card> cards)
         {
             return SumValues(cards) == 15;
         }
 
-        public bool AreSameKind(IEnumerable<ICard> cards)
+        public bool AreSameKind(IEnumerable<Card> cards)
         {
             return cards.DistinctBy(c => c.Rank).Count() == 1;
         }
 
-        public bool IsRun(IList<ICard> combo)
+        public bool IsRun(IList<Card> combo)
         {
             if (combo == null) throw new ArgumentNullException("combo");
             if (combo.Count < 3) return false;
@@ -212,14 +207,14 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Score
         /// </summary>
         /// <param name="sourceSet"></param>
         /// <returns></returns>
-        public Dictionary<int, List<IList<ICard>>> GetCombinations(IList<ICard> sourceSet)
+        public Dictionary<int, List<IList<Card>>> GetCombinations(IList<Card> sourceSet)
         {
-            var returnLookup = new Dictionary<int, List<IList<ICard>>>(sourceSet.Count);
+            var returnLookup = new Dictionary<int, List<IList<Card>>>(sourceSet.Count);
 
             foreach (int value in Enumerable.Range(1, sourceSet.Count))
             {
-                returnLookup.Add(value, new List<IList<ICard>>());
-                var comboGen = new Combinations<ICard>(sourceSet, value);
+                returnLookup.Add(value, new List<IList<Card>>());
+                var comboGen = new Combinations<Card>(sourceSet, value);
                 foreach (var set in comboGen)
                 {
                     returnLookup[value].Add(set);

@@ -1,5 +1,5 @@
 ﻿using System;
-using Games.Domain.MainModule.Entities.CardGames.Cribbage.Player;
+using Cribbage.Player;
 
 
 namespace Cribbage.Score
@@ -35,4 +35,4 @@ namespace Cribbage.Score
             return string.Format("{0}: {1}", Player.Name, Score.Value);
         }
     }
-}3
+}
