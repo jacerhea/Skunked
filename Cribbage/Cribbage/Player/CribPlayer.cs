@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cribbage.Rules;
+using Games.Domain.MainModule.Entities.CardGames.Cribbage.AI.CardToss;
 
 namespace Cribbage.Player
 {

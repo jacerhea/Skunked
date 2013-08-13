@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Cribbage;
 using Cribbage.AI.CardToss;
-using Games.Domain.MainModule.Entities.CardGames.Cribbage.Score;
-using Games.Domain.MainModule.Entities.PlayingCards;
-using MoreLinq;
+using Cribbage.Score.Interface;
 
 namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.AI.CardToss
 {
@@ -15,7 +14,7 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.AI.CardToss
         public MaxAverageDecision(IScoreCalculator scoreCalculator) : base(scoreCalculator)
         {}
 
-        public IEnumerable<ICard> DetermineCardsToThrow(IEnumerable<ICard> hand)
+        public IEnumerable<Card> DetermineCardsToThrow(IEnumerable<Card> hand)
         {
             var comboPossibleScoreses = BaseAverageDecision(hand);
             var highestScoringCombo = comboPossibleScoreses.MaxBy(cps => cps.GetScoreSummation());

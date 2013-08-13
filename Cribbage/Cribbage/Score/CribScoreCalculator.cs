@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cribbage.Order.Interface;
+using Cribbage.PlayingCards;
 using Cribbage.Score.Interface;
 
 namespace Cribbage.Score
 {
     public class ScoreCalculator : IScoreCalculator
     {
-        private readonly CardValueStrategy _valueStrategy;
+        private readonly ICardValueStrategy _valueStrategy;
         private readonly IOrderStrategy _order;
 
-        public ScoreCalculator(CardValueStrategy valueStrategy, IOrderStrategy order)
+        public ScoreCalculator(ICardValueStrategy valueStrategy, IOrderStrategy order)
         {
             if (valueStrategy == null) throw new ArgumentNullException("valueStrategy");
             if (order == null) throw new ArgumentNullException("order");

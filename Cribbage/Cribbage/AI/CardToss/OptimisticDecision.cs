@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Games.Domain.MainModule.Entities.CardGames.Cribbage.Score;
-using Games.Domain.MainModule.Entities.PlayingCards;
-using Games.Domain.MainModule.Entities.PlayingCards.Collections;
-using Games.Infrastructure.CrossCutting.Combinatorics;
+using Cribbage;
+using Cribbage.Score;
+using Cribbage.Score.Interface;
+
 
 namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.AI.CardToss
 {
@@ -21,9 +21,9 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.AI.CardToss
             _scoreCalculator = scoreCalculator;
         }
 
-        public IEnumerable<ICard> DetermineCardsToThrow(IEnumerable<ICard> hand)
+        public IEnumerable<Card> DetermineCardsToThrow(IEnumerable<Card> hand)
         {
-            var combinations = new Combinations<ICard>(hand.ToList(), 4);
+            var combinations = new Combinations<Card>(hand.ToList(), 4);
 
             var deck = new Standard52CardDeck();
             var possibleCardsCut = deck.Cards.Where(card => !hand.Contains(card));
@@ -34,7 +34,7 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.AI.CardToss
             {
                 foreach (var cutCard in possibleCardsCut)
                 {
-                    var possibleCombo = new List<ICard>(combo) { cutCard };
+                    var possibleCombo = new List<Card>(combo) { cutCard };
                     var comboScore = _scoreCalculator.CountShowScore(cutCard, combo);
 
                     totalPossibleCombinations.Add(new ComboScore(possibleCombo, comboScore.Score));

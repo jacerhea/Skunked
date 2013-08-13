@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Games.Domain.MainModule.Entities.PlayingCards;
+using Cribbage;
 
 namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.AI.CardToss
 {
@@ -10,6 +10,6 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.AI.CardToss
         /// </summary>
         /// <param name="hand">dealt hand</param>
         /// <returns>cards to throw</returns>
-        IEnumerable<ICard> DetermineCardsToThrow(IEnumerable<ICard> hand);
+        IEnumerable<Card> DetermineCardsToThrow(IEnumerable<Card> hand);
     }
 }

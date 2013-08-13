@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cribbage.State;
 using Games.Domain.MainModule.Entities.CardGames.Cribbage.State;
-using Games.Domain.MainModule.Entities.CardGames.Dealer;
-using Games.Domain.MainModule.Entities.CardGames.Player;
-using Games.Domain.MainModule.Entities.PlayingCards;
-using Games.Domain.MainModule.Entities.PlayingCards.Collections;
-using Games.Infrastructure.CrossCutting;
+
 
 namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
 {

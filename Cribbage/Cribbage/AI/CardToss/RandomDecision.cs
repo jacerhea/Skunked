@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Games.Domain.MainModule.Entities.PlayingCards;
+using Cribbage;
 
 namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.AI.CardToss
 {
     public class RandomDecision : IDecisionStrategy
     {
-        public IEnumerable<ICard> DetermineCardsToThrow(IEnumerable<ICard> hand)
+        public IEnumerable<Card> DetermineCardsToThrow(IEnumerable<Card> hand)
         {
             var handCopy = hand.ToList();
 

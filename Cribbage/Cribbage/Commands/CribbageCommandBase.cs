@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Cribbage.Exceptions;
 using Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands.Arguments;
 
 namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands

@@ -59,6 +59,9 @@
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\PlayCardCommand.cs" />
     <Compile Include="Commands\ThrowCardsToCribCommand.cs" />
+    <Compile Include="Exceptions\InvalidCribbageOperationException.cs" />
+    <Compile Include="Exceptions\InvalidCribbageOperations.cs" />
+    <Compile Include="Exceptions\InvalidGamePlayOperation.cs" />
     <Compile Include="Order\Interface\IOrderStrategy.cs" />
     <Compile Include="Order\OrderStrategy.cs" />
     <Compile Include="Order\StandardOrder.cs" />
@@ -66,6 +69,8 @@
     <Compile Include="Player\CribPlayer.cs" />
     <Compile Include="Player\ICribPlayer.cs" />
     <Compile Include="Player\PlayerCard.cs" />
+    <Compile Include="PlayingCards\ICardValueStrategy.cs" />
+    <Compile Include="PlayingCards\StandardCardValueStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rank.cs" />
     <Compile Include="Rules\CribGameRules.cs" />
@@ -79,6 +84,7 @@
     <Compile Include="Score\Interface\IScoreCalculator.cs" />
     <Compile Include="Score\ScoreCalculatorResult.cs" />
     <Compile Include="Score\PlayerScore.cs" />
+    <Compile Include="SerializableCard.cs" />
     <Compile Include="State\CribGameState.cs" />
     <Compile Include="State\CribOpeningRoundState.cs" />
     <Compile Include="State\CribRoundState.cs" />
@@ -86,6 +92,7 @@
     <Compile Include="State\PlayerScoreShow.cs" />
     <Compile Include="State\SerializablePlayerScore.cs" />
     <Compile Include="Suit.cs" />
+    <Compile Include="Utility\EnumHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AI\TheCount\" />

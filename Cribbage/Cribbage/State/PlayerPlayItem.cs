@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
+using Cribbage;
 using Games.Domain.MainModule.Entities.CardGames.Player;
-using Games.Domain.MainModule.Entities.PlayingCards;
 
 namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.State
 {

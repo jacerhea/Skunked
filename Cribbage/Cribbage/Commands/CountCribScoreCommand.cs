@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
+using Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands;
 using Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands.Arguments;
-using Games.Domain.MainModule.Entities.PlayingCards;
 
-namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
+namespace Cribbage.Commands
 {
     public class CountCribScoreCommand : CribbageCommandBase, ICommand
     {
