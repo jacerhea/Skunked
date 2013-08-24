@@ -32,7 +32,11 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
 
         public void Execute()
         {
-            var deck = EnumHelper.GetValues<Rank>().SelectMany(rank => EnumHelper.GetValues<Suit>().Select(suit => new SerializableCard { Rank = rank, Suit = suit })).ToList();
+            var deck =
+                EnumHelper.GetValues<Rank>()
+                    .Cartesian(EnumHelper.GetValues<Suit>(),
+                        (rank, suit) => new SerializableCard {Rank = rank, Suit = suit})
+                    .ToList();
             deck.Shuffle();
             _cribGameState = new CribGameState
                                  {

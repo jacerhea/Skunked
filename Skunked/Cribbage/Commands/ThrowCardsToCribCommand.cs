@@ -7,7 +7,6 @@ using Cribbage.Exceptions;
 using Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands.Arguments;
 using Games.Infrastructure.CrossCutting;
 using Games.Infrastructure.CrossCutting.Collections;
-using MoreLinq;
 
 namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
 {

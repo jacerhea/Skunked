@@ -93,6 +93,7 @@
     <Compile Include="State\SerializablePlayerScore.cs" />
     <Compile Include="Suit.cs" />
     <Compile Include="Utility\EnumHelper.cs" />
+    <Compile Include="Utility\LinqExtended.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AI\TheCount\" />
