@@ -4,9 +4,9 @@ using System.Linq;
 using Cribbage;
 using Cribbage.Commands.Arguments;
 using Cribbage.Exceptions;
+using Cribbage.Utility;
 using Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands.Arguments;
-using Games.Infrastructure.CrossCutting;
-using Games.Infrastructure.CrossCutting.Collections;
+
 
 namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
 {
@@ -37,8 +37,7 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
             var playersDoneThrowing = _args.GameState.CurrentRound().Crib.Count == _args.GameState.GameRules.HandSize;
             if(playersDoneThrowing)
             {
-                var enumEnumerator = new EnumEnumerator();
-                var deck = enumEnumerator.GetEnumerator<Rank>().SelectMany(rank => enumEnumerator.GetEnumerator<Suit>().Select(suit => new SerializableCard { Rank = rank, Suit = suit })).ToList();
+                var deck = EnumHelper.GetValues<Rank>().Cartesian(EnumHelper.GetValues<Suit>(), (rank, suit) => new SerializableCard { Rank = rank, Suit = suit }).ToList();
                 var cardsNotDealt = deck.Except(currentRound.Crib).Except(currentRound.PlayerHand.SelectMany(s => s.Value)).ToList();
 
                 var randomIndex = new Random().Next(0, cardsNotDealt.Count - 1);

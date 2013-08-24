@@ -4,8 +4,8 @@ using Cribbage;
 using Cribbage.AI.CardToss;
 using Cribbage.Score;
 using Cribbage.Score.Interface;
-using Games.Domain.MainModule.Entities.CardGames.Cribbage.Score;
-using MoreLinq;
+using Cribbage.Utility;
+
 
 namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.AI.CardToss
 {
