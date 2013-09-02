@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Cribbage.Commands;
 using Cribbage.Commands.Arguments;
 using Cribbage.Exceptions;
 

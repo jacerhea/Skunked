@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using Cribbage;
-using Games.Domain.MainModule.Entities.CardGames.Player;
+﻿using System.Runtime.Serialization;
 
-namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.State
+namespace Cribbage.State
 {
 #if !SILVERLIGHT
     [DataContract]

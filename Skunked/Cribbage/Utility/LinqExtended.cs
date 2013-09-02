@@ -103,5 +103,39 @@ namespace Cribbage.Utility
                 return max;
             }
         }
+
+        public static IEnumerable<T> TakeLast<T>(this IEnumerable<T> enumerable, int count)
+        {
+            return enumerable.Reverse().Take(count);
+        }
+
+        public static IEnumerable<T> Append<T>(this IEnumerable<T> enumerable, T item)
+        {
+            foreach (var item2 in enumerable)
+            {
+                yield return item2;
+            }
+            yield return item;
+        }
+
+        public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source,
+            Func<TSource, TKey> keySelector)
+        {
+            return source.DistinctBy(keySelector, null);
+        }
+
+        public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source,
+            Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer)
+        {
+            if (source == null) throw new ArgumentNullException("source");
+            if (keySelector == null) throw new ArgumentNullException("keySelector");
+            return DistinctByImpl(source, keySelector, comparer);
+        }
+
+        private static IEnumerable<TSource> DistinctByImpl<TSource, TKey>(IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer)
+        {
+            var knownKeys = new HashSet<TKey>(comparer);
+            return source.Where(element => knownKeys.Add(keySelector(element)));
+        }
     }
 }

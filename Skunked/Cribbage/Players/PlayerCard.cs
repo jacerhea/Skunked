@@ -1,13 +1,13 @@
 ﻿using System;
 
-namespace Cribbage.Player
+namespace Cribbage.Players
 {
     public class PlayerCard
     {
-        public ICribPlayer Player { get; private set; }
+        public Player Player { get; private set; }
         public Card Card { get; private set; }
 
-        public PlayerCard(ICribPlayer player, Card card)
+        public PlayerCard(Player player, Card card)
         {
             if (player == null) throw new ArgumentNullException("player");
             if (card == null) throw new ArgumentNullException("card");

@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cribbage;
+using Cribbage.Player;
 using Cribbage.Rules;
 using Cribbage.State;
 using Cribbage.Utility;
-using Games.Domain.MainModule.Entities.CardGames.Cribbage.State;
 
-namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
+namespace Cribbage.Commands
 {
     public class CreateCribbageGameStateCommand : ICommand
     {

@@ -1,8 +1,6 @@
 ﻿using System;
 using Cribbage.Score.Interface;
 using Cribbage.State;
-using Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands.Arguments;
-using Games.Domain.MainModule.Entities.CardGames.Cribbage.State;
 
 namespace Cribbage.Commands.Arguments
 {

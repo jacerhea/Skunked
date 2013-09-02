@@ -1,34 +1,58 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
+using Cribbage.AI.CardToss;
+using Cribbage.AI.TheCount;
+using Cribbage.AI.ThePlay;
 using Cribbage.Rules;
-using Games.Domain.MainModule.Entities.CardGames.Cribbage.AI.CardToss;
 
-namespace Cribbage.Player
+namespace Cribbage.Players
 {
-    public class CribPlayer : PlayerBase, ICribPlayer
+    public class Player : ISerializable
     {
         private readonly IPlayStrategy _playStrategy;
         private readonly IDecisionStrategy _decisionStrategy;
         private readonly IScoreCountStrategy _scoreCountStrategy;
 
-        public CribPlayer(string name, IPlayStrategy playStrategy, IDecisionStrategy decisionStrategy, IScoreCountStrategy scoreCountStrategy) : base(name)
+        public Player()
         {
-            if (playStrategy == null) throw new ArgumentNullException("playStrategy");
-            if (decisionStrategy == null) throw new ArgumentNullException("decisionStrategy");
-            if (scoreCountStrategy == null) throw new ArgumentNullException("scoreCountStrategy");
-            _playStrategy = playStrategy;
-            _decisionStrategy = decisionStrategy;
-            _scoreCountStrategy = scoreCountStrategy;
+            var guid = Guid.NewGuid();
+            Name = guid.ToString();
+            ID = new Random().Next();            
         }
 
-        public CribPlayer(string name, int id, IPlayStrategy playStrategy, IDecisionStrategy decisionStrategy)
-            : base(name, id)
+        public Player(string name)
         {
-            if (playStrategy == null) throw new ArgumentNullException("playStrategy");
-            if (decisionStrategy == null) throw new ArgumentNullException("decisionStrategy");
-            _playStrategy = playStrategy;
-            _decisionStrategy = decisionStrategy;
+            if (name == null) throw new ArgumentNullException("name");
+            Name = name;
+            ID = new Random().Next();
+        }
+
+        public Player(string name, int id)
+        {
+            if (name == null) throw new ArgumentNullException("name");
+            ID = id;
+            Name = name;
+        }
+
+        public string Name { get; private set; }
+        public int ID { get; private set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        public override int GetHashCode()
+        {
+            return ID.GetHashCode();
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            Name = info.GetString("Name");
+            ID = info.GetInt32("ID");
         }
 
         /// <summary>
@@ -64,7 +88,7 @@ namespace Cribbage.Player
             return _scoreCountStrategy.GetCount(card, hand);
         }
 
-        public bool Equals(ICribPlayer other)
+        public bool Equals(Player other)
         {
             if (other == null) throw new ArgumentNullException("other");
             return other.ID == ID;

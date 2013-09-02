@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands;
-using Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands.Arguments;
+using Cribbage.Commands.Arguments;
 
 namespace Cribbage.Commands
 {
@@ -22,7 +21,7 @@ namespace Cribbage.Commands
 
             var currentRound = _args.GameState.CurrentRound();
             var cutCard = currentRound.StartingCard;
-            var crib = currentRound.Crib.Cast<Card>();
+            var crib = currentRound.Crib;
 
             var calculatedCribShowScore = _args.ScoreCalculator.CountShowScore(cutCard, crib);
             var playerScore = _args.GameState.PlayerScores.Single(ps => ps.Player == _args.PlayerID);

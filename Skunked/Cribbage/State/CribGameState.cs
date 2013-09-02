@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using Cribbage.Rules;
-using Games.Domain.MainModule.Entities.CardGames.Cribbage.State;
+using Cribbage.Utility;
 
 namespace Cribbage.State
 {
@@ -15,7 +15,7 @@ namespace Cribbage.State
 #if !SILVERLIGHT
         [DataMember]
 #endif
-        public List<SerializablePlayer> Players { get; set; }
+        public List<Player> Players { get; set; }
 
 #if !SILVERLIGHT
         [DataMember]

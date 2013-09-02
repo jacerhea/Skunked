@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cribbage;
 using Cribbage.Score;
 using Cribbage.Score.Interface;
 
-
-namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.AI.CardToss
+namespace Cribbage.AI.CardToss
 {
     /// <summary>
     /// Returns cards to throw away in a hand of Cribbage based on the highest possible score of all possibly cut cards.

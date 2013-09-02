@@ -5,7 +5,7 @@ namespace Cribbage.Score.Interface
     public interface IScoreCalculator
     {
         int CountCut(Card cut);
-        ScoreCalculatorResult CountShowScore(Card cutCard, IEnumerable<Card> playerHand);
+        ScoreCalculatorResult CountShowScore(Card cutCard, List<Card> playerHand);
         List<IList<Card>> CountFifteens(Dictionary<int, List<IList<Card>>> combinationsToCount);
         List<Card> CountFlush(IEnumerable<Card> playersHand, Card cutCard);
         List<IList<Card>> CountPairs(Dictionary<int, List<IList<Card>>> combinationsToCheck);

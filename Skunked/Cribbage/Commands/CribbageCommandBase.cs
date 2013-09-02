@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
+using Cribbage.Commands.Arguments;
 using Cribbage.Exceptions;
-using Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands.Arguments;
 
-namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
+namespace Cribbage.Commands
 {
     public abstract class CribbageCommandBase
     {

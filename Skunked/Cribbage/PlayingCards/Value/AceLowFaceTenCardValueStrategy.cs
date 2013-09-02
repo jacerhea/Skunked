@@ -2,11 +2,13 @@
 
 namespace Cribbage.PlayingCards
 {
-    class StandardCardValueStrategy : ICardValueStrategy
+    public class AceLowFaceTenCardValueStrategy : ICardValueStrategy
     {
+
         public int ValueOf(Card card)
         {
             if (card == null) throw new ArgumentNullException("card");
+            //tried as dictionary lookup, but was slower than switch
             switch (card.Rank)
             {
                 case Rank.Ace:
@@ -27,17 +29,14 @@ namespace Cribbage.PlayingCards
                     return 8;
                 case Rank.Nine:
                     return 9;
-                case Rank.Ten:
-                    return 10;
-                case Rank.Jack:
-                    return 11;
-                case Rank.Queen:
-                    return 12;
-                case Rank.King:
-                    return 13;
                 default:
-                    throw new ArgumentException("Card value could not be found.");
+                    return 10;
             }
+        }
+
+        public int ValueOf(Card card, Func<Card, int> valueFunc)
+        {
+            return ValueOf(card);
         }
     }
 }

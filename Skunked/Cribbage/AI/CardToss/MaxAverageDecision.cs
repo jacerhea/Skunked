@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Cribbage;
-using Cribbage.AI.CardToss;
 using Cribbage.Score.Interface;
+using Cribbage.Utility;
 
-namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.AI.CardToss
+namespace Cribbage.AI.CardToss
 {
     /// <summary>
     /// Returns cards to throw away based on the summation of each combination possible with every possible cut card.

@@ -37,13 +37,31 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\AIDifficulty.cs" />
+    <Compile Include="AI\AIPlayerFactory.cs" />
     <Compile Include="AI\CardToss\AbstractAverageDecision.cs" />
     <Compile Include="AI\CardToss\IDecisionStrategy.cs" />
     <Compile Include="AI\CardToss\MaxAverageDecision.cs" />
     <Compile Include="AI\CardToss\MinAverageDecision.cs" />
     <Compile Include="AI\CardToss\OptimisticDecision.cs" />
     <Compile Include="AI\CardToss\RandomDecision.cs" />
+    <Compile Include="AI\IAIPlayerFactory.cs" />
+    <Compile Include="AI\TheCount\IScoreCountStrategy.cs" />
+    <Compile Include="AI\TheCount\PercentageScoreCountStrategy.cs" />
+    <Compile Include="AI\ThePlay\BasePlay.cs" />
+    <Compile Include="AI\ThePlay\FirstPlay.cs" />
+    <Compile Include="AI\ThePlay\IPlayStrategy.cs" />
+    <Compile Include="AI\ThePlay\LowestCardPlayStrategy.cs" />
+    <Compile Include="AI\ThePlay\MinPlayStrategy.cs" />
+    <Compile Include="AI\ThePlay\PlayStrategy.cs" />
+    <Compile Include="AI\ThePlay\RandomPlayStrategy.cs" />
     <Compile Include="Card.cs" />
+    <Compile Include="Combinatorics\Combinations.cs" />
+    <Compile Include="Combinatorics\GenerateOption.cs" />
+    <Compile Include="Combinatorics\IMetaCollection.cs" />
+    <Compile Include="Combinatorics\Permutations.cs" />
+    <Compile Include="Combinatorics\SmallPrimeUtility.cs" />
+    <Compile Include="Combinatorics\Variations.cs" />
     <Compile Include="Commands\Arguments\CommandArgsBase.cs" />
     <Compile Include="Commands\Arguments\CountCribScoreArgs.cs" />
     <Compile Include="Commands\Arguments\CountHandScoreArgs.cs" />
@@ -62,17 +80,17 @@
     <Compile Include="Exceptions\InvalidCribbageOperationException.cs" />
     <Compile Include="Exceptions\InvalidCribbageOperations.cs" />
     <Compile Include="Exceptions\InvalidGamePlayOperation.cs" />
-    <Compile Include="Order\Interface\IOrderStrategy.cs" />
-    <Compile Include="Order\OrderStrategy.cs" />
-    <Compile Include="Order\StandardOrder.cs" />
-    <Compile Include="Player\ConsolePlayer.cs" />
-    <Compile Include="Player\CribPlayer.cs" />
-    <Compile Include="Player\ICribPlayer.cs" />
-    <Compile Include="Player\PlayerCard.cs" />
-    <Compile Include="PlayingCards\ICardValueStrategy.cs" />
-    <Compile Include="PlayingCards\StandardCardValueStrategy.cs" />
+    <Compile Include="PlayingCards\Order\Interface\IOrderStrategy.cs" />
+    <Compile Include="PlayingCards\Order\OrderStrategy.cs" />
+    <Compile Include="PlayingCards\Order\StandardOrder.cs" />
+    <Compile Include="Players\PlayerBase.cs" />
+    <Compile Include="Players\PlayerCard.cs" />
+    <Compile Include="Players\PlayerHand.cs" />
+    <Compile Include="Players\PlayerType.cs" />
+    <Compile Include="PlayingCards\Value\AceLowFaceTenCardValueStrategy.cs" />
+    <Compile Include="PlayingCards\Value\ICardValueStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rank.cs" />
+    <Compile Include="PlayingCards\Rank.cs" />
     <Compile Include="Rules\CribGameRules.cs" />
     <Compile Include="Rules\GameScoreType.cs" />
     <Compile Include="Rules\HoleDefinitionLookup.cs" />
@@ -83,7 +101,6 @@
     <Compile Include="Score\CribScoreCalculator.cs" />
     <Compile Include="Score\Interface\IScoreCalculator.cs" />
     <Compile Include="Score\ScoreCalculatorResult.cs" />
-    <Compile Include="Score\PlayerScore.cs" />
     <Compile Include="SerializableCard.cs" />
     <Compile Include="State\CribGameState.cs" />
     <Compile Include="State\CribOpeningRoundState.cs" />
@@ -91,14 +108,12 @@
     <Compile Include="State\PlayerPlayItem.cs" />
     <Compile Include="State\PlayerScoreShow.cs" />
     <Compile Include="State\SerializablePlayerScore.cs" />
-    <Compile Include="Suit.cs" />
+    <Compile Include="PlayingCards\Suit.cs" />
     <Compile Include="Utility\EnumHelper.cs" />
+    <Compile Include="Utility\Extensions.cs" />
     <Compile Include="Utility\LinqExtended.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="AI\TheCount\" />
-    <Folder Include="AI\ThePlay\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

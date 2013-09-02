@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using Cribbage;
 
-namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.AI.CardToss
+namespace Cribbage.AI.CardToss
 {
     public interface IDecisionStrategy
     {

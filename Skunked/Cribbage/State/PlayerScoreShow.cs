@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.State
+namespace Cribbage.State
 {
 #if !SILVERLIGHT
     [DataContract]

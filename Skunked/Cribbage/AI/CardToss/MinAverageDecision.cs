@@ -1,13 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Cribbage;
-using Cribbage.AI.CardToss;
 using Cribbage.Score;
 using Cribbage.Score.Interface;
 using Cribbage.Utility;
 
-
-namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.AI.CardToss
+namespace Cribbage.AI.CardToss
 {
     public class MinAverageDecision : AbstractAverageDecision, IDecisionStrategy
     {

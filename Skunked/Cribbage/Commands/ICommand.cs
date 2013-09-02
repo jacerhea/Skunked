@@ -1,4 +1,4 @@
-﻿namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
+﻿namespace Cribbage.Commands
 {
     /// <summary>
     /// Client's will execute commands against the game invoker.

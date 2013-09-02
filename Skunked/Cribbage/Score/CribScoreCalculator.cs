@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cribbage.Combinatorics;
 using Cribbage.Order.Interface;
 using Cribbage.PlayingCards;
 using Cribbage.Score.Interface;
+using Cribbage.Utility;
 
 namespace Cribbage.Score
 {
@@ -30,9 +32,9 @@ namespace Cribbage.Score
             return 0;
         }
 
-        public ScoreCalculatorResult CountShowScore(Card cutCard, IEnumerable<Card> playerHand)
+        public ScoreCalculatorResult CountShowScore(Card cutCard, List<Card> playerHand)
         {
-            var completeSet = new List<Card>(playerHand) { cutCard };
+            var completeSet = playerHand.Append(cutCard).ToList();
             var allCombinations = GetCombinations(completeSet);
 
             var fifteens = CountFifteens(allCombinations);
