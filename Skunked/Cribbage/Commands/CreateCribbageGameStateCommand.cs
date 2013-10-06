@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cribbage.Player;
+using Cribbage.Players;
 using Cribbage.Rules;
 using Cribbage.State;
 using Cribbage.Utility;
@@ -10,7 +10,7 @@ namespace Cribbage.Commands
 {
     public class CreateCribbageGameStateCommand : ICommand
     {
-        private readonly IEnumerable<IPlayer> _players;
+        private readonly IEnumerable<Player> _players;
         private readonly CribGameRules _rules;
         private CribGameState _cribGameState;
 
@@ -22,7 +22,7 @@ namespace Cribbage.Commands
             }
         }
 
-        public CreateCribbageGameStateCommand(IEnumerable<IPlayer> players, CribGameRules rules)
+        public CreateCribbageGameStateCommand(IEnumerable<Player> players, CribGameRules rules)
         {
             if (players == null) throw new ArgumentNullException("players");
             _players = players;
@@ -31,8 +31,9 @@ namespace Cribbage.Commands
 
         public void Execute()
         {
-            var deck = EnumHelper.GetValues<Rank>().Cartesian(EnumHelper.GetValues<Suit>(),(rank, suit) => new SerializableCard {Rank = rank, Suit = suit}).ToList();
+            var deck = EnumHelper.GetValues<Rank>().Cartesian(EnumHelper.GetValues<Suit>(), (rank, suit) => new Card(rank, suit)).ToList();
             deck.Shuffle();
+            DateTime now = DateTime.Now;
             _cribGameState = new CribGameState
                                  {
                                      GameRules = _rules,
@@ -40,14 +41,14 @@ namespace Cribbage.Commands
                                                              {
                                                                  Deck = deck,
                                                                  IsDone = false,
-                                                                 PlayersCutCard =new List<SerializableKeyValuePair<int, SerializableCard>>(),
+                                                                 PlayersCutCard = new List<SerializableKeyValuePair<int, Card>>(),
                                                                  WinningPlayerCut = null
                                                              },
                                      Rounds = new List<CribRoundState>(),
                                      PlayerScores = new List<SerializablePlayerScore>(_players.Select(player => new SerializablePlayerScore { Player = player.ID, Score = 0 })),
-                                     Players = _players.Select(p => new SerializablePlayer { ID = p.ID, Name = p.Name }).ToList(),
-                                     StartedAt = DateTime.Now,
-                                     LastUpdated = DateTime.Now
+                                     Players = _players.Select(p => new Player (p.Name, p.ID)).ToList(),
+                                     StartedAt = now,
+                                     LastUpdated = now
                                  };
         }
 

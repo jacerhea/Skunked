@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cribbage.Combinatorics;
 using Cribbage.Score;
 using Cribbage.Score.Interface;
 
@@ -19,8 +20,8 @@ namespace Cribbage.AI.CardToss
         protected IEnumerable<ComboPossibleScores> BaseAverageDecision(IEnumerable<Card> hand)
         {
             var combinations = new Combinations<Card>(hand.ToList(), 4);
-            var deck = new Standard52CardDeck();
-            var possibleCardsCut = deck.Cards.Where(card => !hand.Contains(card)).ToList();
+            var deck = new List<Card>();
+            var possibleCardsCut = deck.Where(card => !hand.Contains(card)).ToList();
 
             var comboPossibleScoreses = new List<ComboPossibleScores>();
 

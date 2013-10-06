@@ -13,10 +13,10 @@ namespace Cribbage.AI.ThePlay
             if (!handLeft.Any()) throw new ArgumentOutOfRangeException("handLeft");
         }
 
-
         protected Card StandardFirstCardPlay(IEnumerable<Card> hand)
         {
             if (hand == null) throw new ArgumentNullException("hand");
+            hand = hand.ToList();
             if (hand.Any(c => c.Rank == Rank.Four))
                 return hand.First(c => c.Rank == Rank.Four);
 
@@ -34,7 +34,5 @@ namespace Cribbage.AI.ThePlay
 
             return hand.First();
         }
-
-
     }
 }

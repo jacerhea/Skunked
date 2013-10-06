@@ -53,12 +53,17 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="PlayingCards\Order\StandardOrderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="PlayingCards\Order\" />
     <Folder Include="PlayingCards\Value\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cribbage\Skunked.csproj">
+      <Project>{456df28e-8ea0-413d-982f-f67a6eb43fdf}</Project>
+      <Name>Skunked</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

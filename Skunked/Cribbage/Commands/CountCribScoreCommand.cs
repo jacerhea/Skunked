@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Cribbage.Commands.Arguments;
+using Cribbage.Exceptions;
 
 namespace Cribbage.Commands
 {

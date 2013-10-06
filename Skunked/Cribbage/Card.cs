@@ -16,6 +16,12 @@ namespace Cribbage
             Suit = suit;
         }
 
+        public Card(Card card)
+        {
+            Rank = card.Rank;
+            Suit = card.Suit;
+        }
+
         public override string ToString()
         {
             return string.Format("{0} of {1}", Rank, Suit);

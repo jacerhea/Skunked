@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cribbage.Player;
+using Cribbage.Dealer;
+using Cribbage.Players;
+using Cribbage.PlayingCards;
 using Cribbage.State;
+using Cribbage.Utility;
 
 namespace Cribbage.Commands
 {
@@ -20,17 +23,17 @@ namespace Cribbage.Commands
 
         public void Execute()
         {
-            var deck = new Standard52CardDeck();
+            var deck = new Deck();
             var playerHandFactory = new StandardHandDealer();
-            var players = _gameState.Players.Cast<IPlayer>().ToList();
+            var players = _gameState.Players.Cast<Player>().ToList();
 
             var playerHands = playerHandFactory.CreatePlayerHands(deck, players, _gameState.GameRules.HandSizeToDeal);
 
-            var serializedPlayerHands = playerHands.Select( kv => new SerializableKeyValuePair<int, List<SerializableCard>>
+            var serializedPlayerHands = playerHands.Select( kv => new SerializableKeyValuePair<int, List<Card>>
                     {
                         Key = kv.Key.ID,
                         Value = kv.Value.Select(
-                        c => new SerializableCard(c)).
+                        c => new Card(c)).
                         ToList()
                     }).ToList();
 
@@ -49,11 +52,11 @@ namespace Cribbage.Commands
 
             var roundState = new CribRoundState
             {
-                Crib = new List<SerializableCard>(),
+                Crib = new List<Card>(),
                 PlayerDealtCards = serializedPlayerHands,
                 IsDone = false,
                 PlayerCrib = cribPlayerID,
-                PlayerHand = new List<SerializableKeyValuePair<int, List<SerializableCard>>>(),
+                PlayerHand = new List<SerializableKeyValuePair<int, List<Card>>>(),
                 PlayersShowedCards = new List<List<PlayerPlayItem>> { new List<PlayerPlayItem>() },
                 Round = _currentRound + 1,
                 PlayerShowScores = playerShowScores

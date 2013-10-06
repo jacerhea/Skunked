@@ -24,6 +24,12 @@ namespace Cribbage.Utility
             list.Shuffle(random);
         }
 
+        public static T NextOf<T>(this IList<T> list, T item)
+        {
+            if (list.Count == 0) throw new ArgumentOutOfRangeException("list");
+            return list[(list.IndexOf(item) + 1) % list.Count];
+        }
+
         private static void Shuffle<T>(this IList<T> list, Random random)
         {
             for (int index = list.Count - 1; index > 0; index--)

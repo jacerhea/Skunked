@@ -7,8 +7,8 @@
     <ProjectGuid>{456DF28E-8EA0-413D-982F-F67A6EB43FDF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Cribbage</RootNamespace>
-    <AssemblyName>Cribbage</AssemblyName>
+    <RootNamespace>Skunked</RootNamespace>
+    <AssemblyName>Skunked</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -77,13 +77,16 @@
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\PlayCardCommand.cs" />
     <Compile Include="Commands\ThrowCardsToCribCommand.cs" />
+    <Compile Include="Dealer\IPlayerHandFactory.cs" />
+    <Compile Include="Dealer\StandardHandDealer.cs" />
     <Compile Include="Exceptions\InvalidCribbageOperationException.cs" />
     <Compile Include="Exceptions\InvalidCribbageOperations.cs" />
     <Compile Include="Exceptions\InvalidGamePlayOperation.cs" />
+    <Compile Include="PlayingCards\Deck.cs" />
     <Compile Include="PlayingCards\Order\Interface\IOrderStrategy.cs" />
     <Compile Include="PlayingCards\Order\OrderStrategy.cs" />
     <Compile Include="PlayingCards\Order\StandardOrder.cs" />
-    <Compile Include="Players\PlayerBase.cs" />
+    <Compile Include="Players\Player.cs" />
     <Compile Include="Players\PlayerCard.cs" />
     <Compile Include="Players\PlayerHand.cs" />
     <Compile Include="Players\PlayerType.cs" />
@@ -101,7 +104,6 @@
     <Compile Include="Score\CribScoreCalculator.cs" />
     <Compile Include="Score\Interface\IScoreCalculator.cs" />
     <Compile Include="Score\ScoreCalculatorResult.cs" />
-    <Compile Include="SerializableCard.cs" />
     <Compile Include="State\CribGameState.cs" />
     <Compile Include="State\CribOpeningRoundState.cs" />
     <Compile Include="State\CribRoundState.cs" />
@@ -109,6 +111,7 @@
     <Compile Include="State\PlayerScoreShow.cs" />
     <Compile Include="State\SerializablePlayerScore.cs" />
     <Compile Include="PlayingCards\Suit.cs" />
+    <Compile Include="Utility\SerializableKeyValuePair.cs" />
     <Compile Include="Utility\EnumHelper.cs" />
     <Compile Include="Utility\Extensions.cs" />
     <Compile Include="Utility\LinqExtended.cs" />

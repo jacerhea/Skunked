@@ -32,16 +32,17 @@ namespace Cribbage.Score
             return 0;
         }
 
-        public ScoreCalculatorResult CountShowScore(Card cutCard, List<Card> playerHand)
+        public ScoreCalculatorResult CountShowScore(Card cutCard, IEnumerable<Card> playerHand)
         {
-            var completeSet = playerHand.Append(cutCard).ToList();
+            var playerHandList = playerHand.ToList();
+            var completeSet = playerHandList.Append(cutCard).ToList();
             var allCombinations = GetCombinations(completeSet);
 
             var fifteens = CountFifteens(allCombinations);
-            var flush = CountFlush(playerHand, cutCard);
+            var flush = CountFlush(playerHandList, cutCard);
             var pairs = CountPairs(allCombinations);
             var runs = CountRuns(allCombinations);
-            var hisNobs = Nobs(playerHand, cutCard);
+            var hisNobs = Nobs(playerHandList, cutCard);
 
             int fifteenScore = fifteens.Count * 2;
             int flushScore = flush.Count;

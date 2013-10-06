@@ -2,6 +2,7 @@
 using System.Linq;
 using Cribbage.Commands.Arguments;
 using Cribbage.Exceptions;
+using Cribbage.Utility;
 
 namespace Cribbage.Commands
 {

@@ -15,7 +15,7 @@ namespace Cribbage.State
 #if !SILVERLIGHT
         [DataMember]
 #endif
-        public SerializableCard Card { get; set; }
+        public Card Card { get; set; }
 
 #if !SILVERLIGHT
         [DataMember]

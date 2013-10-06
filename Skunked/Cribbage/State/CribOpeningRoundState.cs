@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.Serialization;
+using Cribbage.Utility;
 
 namespace Cribbage.State
 {
@@ -13,12 +14,12 @@ namespace Cribbage.State
         #if !SILVERLIGHT
         [DataMember]
         #endif
-        public List<SerializableCard> Deck { get; set; }
+        public List<Card> Deck { get; set; }
 
         #if !SILVERLIGHT
         [DataMember]
         #endif
-        public List<SerializableKeyValuePair<int, SerializableCard>> PlayersCutCard { get; set; }
+        public List<SerializableKeyValuePair<int, Card>> PlayersCutCard { get; set; }
     
         #if !SILVERLIGHT
         [DataMember]

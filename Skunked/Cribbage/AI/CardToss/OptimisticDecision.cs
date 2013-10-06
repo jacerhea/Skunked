@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cribbage.Combinatorics;
+using Cribbage.PlayingCards;
 using Cribbage.Score;
 using Cribbage.Score.Interface;
 
@@ -23,7 +25,7 @@ namespace Cribbage.AI.CardToss
         {
             var combinations = new Combinations<Card>(hand.ToList(), 4);
 
-            var deck = new Standard52CardDeck();
+            var deck = new Deck();
             var possibleCardsCut = deck.Cards.Where(card => !hand.Contains(card));
 
             var totalPossibleCombinations = new List<ComboScore>();

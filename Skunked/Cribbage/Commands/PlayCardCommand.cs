@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Cribbage.Commands.Arguments;
 using Cribbage.Exceptions;
+using Cribbage.PlayingCards;
 using Cribbage.State;
+using Cribbage.Utility;
 using Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands;
 
 namespace Cribbage.Commands
@@ -28,7 +30,7 @@ namespace Cribbage.Commands
 
             //2. 
             var currentPlayCount = _args.ScoreCalculator.SumValues(setOfPlays.Last().Select(scs => (Card)scs.Card));
-            int playCount = (currentPlayCount + _args.ScoreCalculator.SumValues(new List<Card> { new SerializableCard(_args.PlayedCard) }));
+            int playCount = (currentPlayCount + _args.ScoreCalculator.SumValues(new List<Card> { new Card(_args.PlayedCard) }));
             if(playCount > 31)
             {
                 setOfPlays.Add(new List<PlayerPlayItem>());
@@ -40,7 +42,7 @@ namespace Cribbage.Commands
 
             var playerCardPlayedScore = new PlayerPlayItem
             {
-                Card = new SerializableCard(_args.PlayedCard),
+                Card = new Card(_args.PlayedCard),
                 Player = _args.PlayerID
             };
             _args.GameState.PlayerScores.Single(ps => ps.Player == _args.PlayerID).Score += playScore;
@@ -105,7 +107,7 @@ namespace Cribbage.Commands
 
             //is the player starting new round with card sum over 31 and they have a playable card for current round?
             var currentPlayCount = _args.ScoreCalculator.SumValues(setOfPlays.Last().Select(scs => (Card)scs.Card));
-            int playCount = (currentPlayCount + _args.ScoreCalculator.SumValues(new List<Card> { new SerializableCard(_args.PlayedCard) }));
+            int playCount = (currentPlayCount + _args.ScoreCalculator.SumValues(new List<Card> { new Card(_args.PlayedCard) }));
             if (playCount > _args.GameState.GameRules.PlayMaxScore)
             {
                 var playedCardsThisRound = setOfPlays.Last().Select(ppi => (Card) ppi.Card);

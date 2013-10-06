@@ -11,9 +11,9 @@ namespace Cribbage.Players
 {
     public class Player : ISerializable
     {
-        private readonly IPlayStrategy _playStrategy;
-        private readonly IDecisionStrategy _decisionStrategy;
-        private readonly IScoreCountStrategy _scoreCountStrategy;
+        private IPlayStrategy _playStrategy;
+        private IDecisionStrategy _decisionStrategy;
+        private IScoreCountStrategy _scoreCountStrategy;
 
         public Player()
         {
@@ -36,8 +36,25 @@ namespace Cribbage.Players
             Name = name;
         }
 
+        public Player(string name, IPlayStrategy playStrategy, IDecisionStrategy decisionStrategy, IScoreCountStrategy scoreCountStrategy)
+        {
+            _playStrategy = playStrategy;
+            _decisionStrategy = decisionStrategy;
+            _scoreCountStrategy = scoreCountStrategy;
+            if (name == null) throw new ArgumentNullException("name");
+            ID = new Random().Next();
+            Name = name;
+        }
+
         public string Name { get; private set; }
         public int ID { get; private set; }
+
+        public void SetStrategies(IPlayStrategy playStrategy, IDecisionStrategy decisionStrategy, IScoreCountStrategy scoreCountStrategy)
+        {
+            _playStrategy = playStrategy;
+            _decisionStrategy = decisionStrategy;
+            _scoreCountStrategy = scoreCountStrategy;            
+        }
 
         public override string ToString()
         {
