@@ -1,4 +1,4 @@
-﻿namespace Cribbage.Players
+﻿namespace Skunked.Players
 {
     public enum PlayerType
     {

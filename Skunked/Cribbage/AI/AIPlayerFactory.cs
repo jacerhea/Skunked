@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cribbage.AI.CardToss;
-using Cribbage.AI.TheCount;
-using Cribbage.AI.ThePlay;
 using Skunked.AI.CardToss;
+using Skunked.AI.TheCount;
+using Skunked.AI.ThePlay;
 using Skunked.Players;
 using Skunked.PlayingCards.Order;
 using Skunked.PlayingCards.Value;

@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.Serialization;
-using Cribbage.Utility;
-using Skunked;
+using Skunked.Utility;
 
-namespace Cribbage.State
+namespace Skunked.State
 {
 #if !SILVERLIGHT
     [DataContract]
@@ -20,7 +19,7 @@ namespace Cribbage.State
         #if !SILVERLIGHT
         [DataMember]
         #endif
-        public List<SerializableKeyValuePair<int, Card>> PlayersCutCard { get; set; }
+        public List<CustomKeyValuePair<int, Card>> PlayersCutCard { get; set; }
     
         #if !SILVERLIGHT
         [DataMember]

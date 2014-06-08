@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Skunked;
 
-namespace Cribbage.Score
+namespace Skunked.Score
 {
     public class ComboScore
     {

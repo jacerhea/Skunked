@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cribbage.Order.Interface;
-using Cribbage.Rules;
-using Skunked;
+using Skunked.PlayingCards.Order.Interface;
+using Skunked.Rules;
 
-namespace Cribbage.AI.ThePlay
+namespace Skunked.AI.ThePlay
 {
     public class LowestCardPlayStrategy : BasePlay, IPlayStrategy
     {
@@ -17,7 +16,7 @@ namespace Cribbage.AI.ThePlay
             _orderStrategy = orderStrategy;
         }
 
-        public Card DetermineCardToThrow(CribGameRules gameRules, IList<Card> pile, IEnumerable<Card> handLeft)
+        public Card DetermineCardToThrow(GameRules gameRules, IList<Card> pile, IEnumerable<Card> handLeft)
         {
             ArgumentCheck(pile, handLeft);
             return handLeft.OrderBy(c => _orderStrategy.Order(c)).ThenBy(c => (int) c.Suit).First();

@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Cribbage.Score.Interface;
-using Cribbage.Utility;
-using Skunked;
-using Skunked.AI.CardToss;
+using Skunked.Score.Interface;
+using Skunked.Utility;
 
-namespace Cribbage.AI.CardToss
+namespace Skunked.AI.CardToss
 {
     /// <summary>
     /// Returns cards to throw away based on the summation of each combination possible with every possible cut card.

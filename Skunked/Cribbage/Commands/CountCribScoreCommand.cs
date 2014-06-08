@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Linq;
 using Cribbage.Commands.Arguments;
-using Cribbage.Exceptions;
+using Skunked.Commands;
+using Skunked.Exceptions;
 
 namespace Cribbage.Commands
 {
@@ -20,7 +21,7 @@ namespace Cribbage.Commands
         {
             ValidateStateBase();
 
-            var currentRound = _args.GameState.CurrentRound();
+            var currentRound = _args.GameState.GetCurrentRound();
             var cutCard = currentRound.StartingCard;
             var crib = currentRound.Crib;
 
@@ -50,7 +51,7 @@ namespace Cribbage.Commands
             }
 
 
-            var playerShowScore = _args.GameState.CurrentRound().PlayerShowScores.Single(pss => pss.Player == _args.PlayerID);
+            var playerShowScore = _args.GameState.GetCurrentRound().PlayerShowScores.Single(pss => pss.Player == _args.PlayerID);
             playerShowScore.CribScore = calculatedCribScore;
             playerShowScore.HasShowedCrib = true;
             playerShowScore.IsDone = true;
@@ -80,7 +81,7 @@ namespace Cribbage.Commands
 
         protected override void ValidateState()
         {
-            var currentRound = _args.GameState.CurrentRound();
+            var currentRound = _args.GameState.GetCurrentRound();
             if (currentRound.IsDone || !currentRound.ThrowCardsIsDone || !currentRound.PlayCardsIsDone)
             {
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidStateForCribCount);

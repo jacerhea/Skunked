@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cribbage;
 using Cribbage.Commands;
-using Cribbage.Rules;
 using Cribbage.State;
-using Cribbage.Utility;
 using Skunked.Players;
 using Skunked.PlayingCards;
+using Skunked.Rules;
+using Skunked.State;
 using Skunked.Utility;
 
 namespace Skunked.Commands
@@ -15,18 +14,18 @@ namespace Skunked.Commands
     public class CreateCribbageGameStateCommand : ICommand
     {
         private readonly IEnumerable<Player> _players;
-        private readonly CribGameRules _rules;
-        private CribGameState _cribGameState;
+        private readonly GameRules _rules;
+        private GameState _gameState;
 
-        public CribGameState CribGameState
+        public GameState GameState
         {
             get
             {
-                return _cribGameState;
+                return _gameState;
             }
         }
 
-        public CreateCribbageGameStateCommand(IEnumerable<Player> players, CribGameRules rules)
+        public CreateCribbageGameStateCommand(IEnumerable<Player> players, GameRules rules)
         {
             if (players == null) throw new ArgumentNullException("players");
             _players = players;
@@ -38,18 +37,18 @@ namespace Skunked.Commands
             var deck = EnumHelper.GetValues<Rank>().Cartesian(EnumHelper.GetValues<Suit>(), (rank, suit) => new Card(rank, suit)).ToList();
             deck.Shuffle();
             DateTime now = DateTime.Now;
-            _cribGameState = new CribGameState
+            _gameState = new GameState
                                  {
                                      GameRules = _rules,
                                      OpeningRoundState = new CribOpeningRoundState
                                                              {
                                                                  Deck = deck,
                                                                  IsDone = false,
-                                                                 PlayersCutCard = new List<SerializableKeyValuePair<int, Card>>(),
+                                                                 PlayersCutCard = new List<CustomKeyValuePair<int, Card>>(),
                                                                  WinningPlayerCut = null
                                                              },
-                                     Rounds = new List<CribRoundState>(),
-                                     PlayerScores = new List<SerializablePlayerScore>(_players.Select(player => new SerializablePlayerScore { Player = player.ID, Score = 0 })),
+                                     Rounds = new List<RoundState>(),
+                                     PlayerScores = new List<PlayerScore>(_players.Select(player => new PlayerScore { Player = player.ID, Score = 0 })),
                                      Players = _players.Select(p => new Player (p.Name, p.ID)).ToList(),
                                      StartedAt = now,
                                      LastUpdated = now

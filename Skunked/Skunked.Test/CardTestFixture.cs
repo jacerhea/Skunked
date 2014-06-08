@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using Cribbage;
-using Cribbage.Utility;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Skunked.PlayingCards;
 using Skunked.Utility;
@@ -8,7 +6,7 @@ using Skunked.Utility;
 namespace Skunked.Test
 {
     [TestClass]
-    public class CardTest
+    public class CardTestFixture
     {
         [TestMethod]
         public void TestCardProperties()

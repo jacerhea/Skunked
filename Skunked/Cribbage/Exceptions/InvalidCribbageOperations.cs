@@ -1,4 +1,4 @@
-﻿namespace Cribbage.Exceptions
+﻿namespace Skunked.Exceptions
 {
     public enum InvalidCribbageOperations
     {

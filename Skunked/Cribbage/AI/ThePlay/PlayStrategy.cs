@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cribbage.PlayingCards;
-using Cribbage.Rules;
-using Cribbage.Score;
-using Cribbage.Score.Interface;
-using Cribbage.Utility;
-using Skunked;
+using Skunked.PlayingCards.Value;
+using Skunked.Rules;
+using Skunked.Score;
+using Skunked.Score.Interface;
+using Skunked.Utility;
 
-namespace Cribbage.AI.ThePlay
+namespace Skunked.AI.ThePlay
 {
     public class PlayStrategy : BasePlay, IPlayStrategy
     {
@@ -23,7 +22,7 @@ namespace Cribbage.AI.ThePlay
             _valueStrategy = valueStrategy;
         }
 
-        public Card DetermineCardToThrow(CribGameRules gameRules, IList<Card> pile, IEnumerable<Card> handLeft)
+        public Card DetermineCardToThrow(GameRules gameRules, IList<Card> pile, IEnumerable<Card> handLeft)
         {
             ArgumentCheck(pile, handLeft);
 

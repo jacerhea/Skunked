@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cribbage.Score.Interface;
-using Cribbage.Utility;
-using Skunked;
+using Skunked.Score.Interface;
+using Skunked.Utility;
 
-namespace Cribbage.AI.TheCount
+namespace Skunked.AI.TheCount
 {
     public class PercentageScoreCountStrategy : IScoreCountStrategy
     {

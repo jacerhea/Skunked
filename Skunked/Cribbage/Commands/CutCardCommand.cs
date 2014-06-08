@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using Cribbage;
 using Cribbage.Commands;
 using Cribbage.Commands.Arguments;
-using Cribbage.Exceptions;
-using Cribbage.Utility;
 using Skunked;
+using Skunked.Commands;
+using Skunked.Exceptions;
+using Skunked.Utility;
 
 namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
 {
@@ -24,7 +24,7 @@ namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
             ValidateState();
             if (_args.GameState.OpeningRoundState.PlayersCutCard.All(kv => kv.Key != _args.PlayerID))
             {
-                _args.GameState.OpeningRoundState.PlayersCutCard.Add(new SerializableKeyValuePair<int, Card> { Key = _args.PlayerID, Value = new Card(_args.CutCard) });
+                _args.GameState.OpeningRoundState.PlayersCutCard.Add(new CustomKeyValuePair<int, Card> { Key = _args.PlayerID, Value = new Card(_args.CutCard) });
             }
 
             bool isDone = (_args.GameState.GameRules.PlayerCount == _args.GameState.OpeningRoundState.PlayersCutCard.Count);

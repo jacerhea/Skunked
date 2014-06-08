@@ -1,8 +1,6 @@
 ﻿using System;
-using Skunked;
-using Skunked.Players;
 
-namespace Cribbage.Players
+namespace Skunked.Players
 {
     public class PlayerCard
     {

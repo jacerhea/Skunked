@@ -3,23 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using Cribbage.Commands;
 using Cribbage.Commands.Arguments;
-using Cribbage.Exceptions;
-using Cribbage.Rules;
 using Cribbage.State;
-using Cribbage.Utility;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Skunked.Exceptions;
 using Skunked.Players;
 using Skunked.PlayingCards;
 using Skunked.PlayingCards.Order;
 using Skunked.PlayingCards.Value;
+using Skunked.Rules;
 using Skunked.Score;
+using Skunked.State;
+using Skunked.Utility;
 
 namespace Skunked.Test.Commands
 {
     [TestClass]
     public class CountScoreCommandTestFixture
     {
-        private CribGameState _gameState;
+        private GameState _gameState;
         private ScoreCalculator _scoreCalculator;
 
         [TestInitialize]
@@ -27,9 +28,9 @@ namespace Skunked.Test.Commands
         {
             _scoreCalculator = new ScoreCalculator(new AceLowFaceTenCardValueStrategy(), new StandardOrder());
 
-            _gameState = new CribGameState
+            _gameState = new GameState
             {
-                GameRules = new CribGameRules(GameScoreType.Standard121, 2),
+                GameRules = new GameRules(GameScoreType.Standard121, 2),
                 Players =
                     new List<Player>
                                          {
@@ -37,20 +38,20 @@ namespace Skunked.Test.Commands
                                              new Player("Player2", 2)
                                          },
                 OpeningRoundState = new CribOpeningRoundState { },
-                PlayerScores = new List<SerializablePlayerScore>
+                PlayerScores = new List<PlayerScore>
                                          {
-                                             new SerializablePlayerScore {Player = 1, Score = 0},
-                                             new SerializablePlayerScore {Player = 2, Score = 0}
+                                             new PlayerScore {Player = 1, Score = 0},
+                                             new PlayerScore {Player = 2, Score = 0}
                                          },
-                Rounds = new List<CribRoundState>
+                Rounds = new List<RoundState>
                                               {
-                                                  new CribRoundState
+                                                  new RoundState
                                                       {
                                                           PlayerCrib = 1,
                                                           PlayerHand =
-                                                              new List<SerializableKeyValuePair<int, List<Card>>>
+                                                              new List<CustomKeyValuePair<int, List<Card>>>
                                                                   {
-                                                                      new SerializableKeyValuePair<int, List<Card>>
+                                                                      new CustomKeyValuePair<int, List<Card>>
                                                                           {
                                                                               Key = 1,
                                                                               Value = new List<Card>
@@ -61,7 +62,7 @@ namespace Skunked.Test.Commands
                                                                                               new Card(Rank.Eight, Suit.Spades)
                                                                                           }
                                                                           },
-                                                                      new SerializableKeyValuePair<int, List<Card>>
+                                                                      new CustomKeyValuePair<int, List<Card>>
                                                                           {
                                                                               Key = 2,
                                                                               Value = new List<Card>
@@ -94,7 +95,7 @@ namespace Skunked.Test.Commands
         [TestMethod]
         public void Test_Current_Round_Is_Done_Throws_Exception()
         {
-            _gameState.CurrentRound().IsDone = true;
+            _gameState.GetCurrentRound().IsDone = true;
             var command = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, _scoreCalculator, 10));
 
             try
@@ -111,7 +112,7 @@ namespace Skunked.Test.Commands
         [TestMethod]
         public void Test_Current_Round_Throw_Cards_Is_Not_Done_Throws_Exception()
         {
-            _gameState.CurrentRound().ThrowCardsIsDone = false;
+            _gameState.GetCurrentRound().ThrowCardsIsDone = false;
             var command = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, _scoreCalculator, 10));
 
             try
@@ -128,7 +129,7 @@ namespace Skunked.Test.Commands
         [TestMethod]
         public void Test_Current_Round_Play_Cards_Is_Not_Done_Throws_Exception()
         {
-            _gameState.CurrentRound().PlayCardsIsDone = false;
+            _gameState.GetCurrentRound().PlayCardsIsDone = false;
             var command = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, _scoreCalculator, 10));
 
             try
@@ -153,7 +154,7 @@ namespace Skunked.Test.Commands
         public void Test_Count_Player1_Score()
         {
             const int playerID = 1;
-            _gameState.CurrentRound().PlayerCrib = 2;
+            _gameState.GetCurrentRound().PlayerCrib = 2;
 
             var command = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, _scoreCalculator, 1));
             command.Execute();
@@ -181,7 +182,7 @@ namespace Skunked.Test.Commands
         public void Test_Count_Player2_Score()
         {
             const int playerID = 2;
-            _gameState.CurrentRound().PlayerCrib = 2;
+            _gameState.GetCurrentRound().PlayerCrib = 2;
 
             var command1 = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, _scoreCalculator, 24));
             command1.Execute();

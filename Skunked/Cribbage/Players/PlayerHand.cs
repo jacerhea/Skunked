@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Skunked;
-using Skunked.Players;
 
-namespace Cribbage.Players
+namespace Skunked.Players
 {
     public class PlayerHand
     {

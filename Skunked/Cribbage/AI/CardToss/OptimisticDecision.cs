@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cribbage;
-using Cribbage.AI.CardToss;
 using Cribbage.Combinatorics;
-using Cribbage.Score;
-using Cribbage.Score.Interface;
-using Cribbage.Utility;
 using Skunked.PlayingCards;
+using Skunked.Score;
+using Skunked.Score.Interface;
+using Skunked.Utility;
 
 namespace Skunked.AI.CardToss
 {

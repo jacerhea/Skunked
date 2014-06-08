@@ -1,7 +1,7 @@
 ﻿using System;
-using Cribbage.Order.Interface;
-using Cribbage.State;
 using Skunked;
+using Skunked.PlayingCards.Order.Interface;
+using Skunked.State;
 
 namespace Cribbage.Commands.Arguments
 {
@@ -10,7 +10,7 @@ namespace Cribbage.Commands.Arguments
         public Card CutCard { get; set; }
         public IOrderStrategy OrderStrategy { get; set; }
 
-        public CutCardArgs(CribGameState gameState, int playerID, int round, Card cutCard, IOrderStrategy orderStrategy) : base(gameState, playerID, round)
+        public CutCardArgs(GameState gameState, int playerID, int round, Card cutCard, IOrderStrategy orderStrategy) : base(gameState, playerID, round)
         {
             if (cutCard == null) throw new ArgumentNullException("cutCard");
             if (orderStrategy == null) throw new ArgumentNullException("orderStrategy");

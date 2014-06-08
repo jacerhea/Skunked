@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using Cribbage.Commands.Arguments;
-using Cribbage.Exceptions;
-using Cribbage.Utility;
 using Skunked;
+using Skunked.Exceptions;
+using Skunked.Utility;
 
 namespace Cribbage.Commands
 {
@@ -24,7 +24,7 @@ namespace Cribbage.Commands
         {
             ValidateStateBase();
 
-            var roundState = _args.GameState.CurrentRound();
+            var roundState = _args.GameState.GetCurrentRound();
             var cutCard = roundState.StartingCard;
             var playerHand = roundState.PlayerHand.First(kv => kv.Key == _args.PlayerID);
 
@@ -53,7 +53,7 @@ namespace Cribbage.Commands
                 playerScore.Score += _args.PlayerCountedScore;
             }
 
-            var playerShowScore = _args.GameState.CurrentRound().PlayerShowScores.Single(pss => pss.Player == _args.PlayerID);
+            var playerShowScore = _args.GameState.GetCurrentRound().PlayerShowScores.Single(pss => pss.Player == _args.PlayerID);
             playerShowScore.ShowScore = calculatedShowScore.Score;
             playerShowScore.HasShowed = true;
             playerShowScore.IsDone = _args.PlayerID != roundState.PlayerCrib;
@@ -68,7 +68,7 @@ namespace Cribbage.Commands
 
         protected override void ValidateState()
         {
-            var currentRound = _args.GameState.CurrentRound();
+            var currentRound = _args.GameState.GetCurrentRound();
             if(currentRound.IsDone || !currentRound.ThrowCardsIsDone || !currentRound.PlayCardsIsDone)
             {
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidStateForCount);

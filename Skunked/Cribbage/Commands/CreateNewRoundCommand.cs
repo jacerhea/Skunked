@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cribbage.Commands;
 using Cribbage.Dealer;
-using Cribbage.Players;
-using Cribbage.PlayingCards;
 using Cribbage.State;
-using Cribbage.Utility;
-using Skunked;
+using Skunked.Dealer;
 using Skunked.Players;
 using Skunked.PlayingCards;
+using Skunked.State;
+using Skunked.Utility;
 
-namespace Cribbage.Commands
+namespace Skunked.Commands
 {
     public class CreateNewRoundCommand : ICommand
     {
-        private readonly CribGameState _gameState;
+        private readonly GameState _gameState;
         private readonly int _currentRound;
 
-        public CreateNewRoundCommand(CribGameState gameState, int currentRound)
+        public CreateNewRoundCommand(GameState gameState, int currentRound)
         {
             if (gameState == null) throw new ArgumentNullException("gameState");
             _gameState = gameState;
@@ -32,7 +32,7 @@ namespace Cribbage.Commands
 
             var playerHands = playerHandFactory.CreatePlayerHands(deck, players, _gameState.GameRules.HandSizeToDeal);
 
-            var serializedPlayerHands = playerHands.Select( kv => new SerializableKeyValuePair<int, List<Card>>
+            var serializedPlayerHands = playerHands.Select( kv => new CustomKeyValuePair<int, List<Card>>
                     {
                         Key = kv.Key.ID,
                         Value = kv.Value.Select(
@@ -53,13 +53,13 @@ namespace Cribbage.Commands
             }
 
 
-            var roundState = new CribRoundState
+            var roundState = new RoundState
             {
                 Crib = new List<Card>(),
                 PlayerDealtCards = serializedPlayerHands,
                 IsDone = false,
                 PlayerCrib = cribPlayerID,
-                PlayerHand = new List<SerializableKeyValuePair<int, List<Card>>>(),
+                PlayerHand = new List<CustomKeyValuePair<int, List<Card>>>(),
                 PlayersShowedCards = new List<List<PlayerPlayItem>> { new List<PlayerPlayItem>() },
                 Round = _currentRound + 1,
                 PlayerShowScores = playerShowScores

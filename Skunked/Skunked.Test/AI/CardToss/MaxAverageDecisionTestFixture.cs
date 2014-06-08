@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Cribbage.AI.CardToss;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Skunked.AI.CardToss;
 using Skunked.PlayingCards;
 using Skunked.PlayingCards.Order;
 using Skunked.PlayingCards.Value;

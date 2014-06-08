@@ -2,11 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using Cribbage;
-using Cribbage.AI.TheCount;
-using Cribbage.AI.ThePlay;
-using Cribbage.Rules;
 using Skunked.AI.CardToss;
+using Skunked.AI.TheCount;
+using Skunked.AI.ThePlay;
+using Skunked.Rules;
 
 namespace Skunked.Players
 {
@@ -83,7 +82,7 @@ namespace Skunked.Players
             return _decisionStrategy.DetermineCardsToThrow(hand).ToList();
         }
 
-        public Card PlayShow(CribGameRules gameRules, List<Card> pile, List<Card> handLeft)
+        public Card PlayShow(GameRules gameRules, List<Card> pile, List<Card> handLeft)
         {
             if (gameRules == null) throw new ArgumentNullException("gameRules");
             if (pile == null) throw new ArgumentNullException("pile");

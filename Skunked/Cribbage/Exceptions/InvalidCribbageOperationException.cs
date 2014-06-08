@@ -1,6 +1,4 @@
-﻿using Games.Domain.MainModule.Entities.CardGames.Exceptions;
-
-namespace Cribbage.Exceptions
+﻿namespace Skunked.Exceptions
 {
     public class InvalidCribbageOperationException : InvalidGamePlayOperation
     {

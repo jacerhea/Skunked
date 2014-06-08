@@ -2,28 +2,29 @@
 using System.Collections.Generic;
 using Cribbage.Commands;
 using Cribbage.Commands.Arguments;
-using Cribbage.Exceptions;
-using Cribbage.Rules;
 using Cribbage.State;
-using Cribbage.Utility;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Skunked.Exceptions;
 using Skunked.Players;
 using Skunked.PlayingCards;
+using Skunked.Rules;
+using Skunked.State;
+using Skunked.Utility;
 
 namespace Skunked.Test.Commands
 {
     [TestClass]
     public class CribbageCommandBaseTestFixture
     {
-        private CribGameState _gameState;
+        private GameState _gameState;
 
         [TestInitialize]
         public void SetUp()
         {
 
-            _gameState = new CribGameState
+            _gameState = new GameState
             {
-                GameRules = new CribGameRules(GameScoreType.Standard121, 2),
+                GameRules = new GameRules(GameScoreType.Standard121, 2),
                 Players =
                     new List<Player>
                                          {
@@ -31,20 +32,20 @@ namespace Skunked.Test.Commands
                                              new Player("Player2", 2)
                                          },
                 OpeningRoundState = new CribOpeningRoundState { },
-                PlayerScores = new List<SerializablePlayerScore>
+                PlayerScores = new List<PlayerScore>
                                          {
-                                             new SerializablePlayerScore {Player = 1, Score = 120},
-                                             new SerializablePlayerScore {Player = 2, Score = 122}
+                                             new PlayerScore {Player = 1, Score = 120},
+                                             new PlayerScore {Player = 2, Score = 122}
                                          },
-                Rounds = new List<CribRoundState>
+                Rounds = new List<RoundState>
                                               {
-                                                  new CribRoundState
+                                                  new RoundState
                                                       {
                                                           PlayerCrib = 1,
                                                           PlayerHand =
-                                                              new List<SerializableKeyValuePair<int, List<Card>>>
+                                                              new List<CustomKeyValuePair<int, List<Card>>>
                                                                   {
-                                                                      new SerializableKeyValuePair<int, List<Card>>
+                                                                      new CustomKeyValuePair<int, List<Card>>
                                                                           {
                                                                               Key = 1,
                                                                               Value = new List<Card>
@@ -55,7 +56,7 @@ namespace Skunked.Test.Commands
                                                                                               new Card(Rank.Eight, Suit.Spades)
                                                                                           }
                                                                           },
-                                                                      new SerializableKeyValuePair<int, List<Card>>
+                                                                      new CustomKeyValuePair<int, List<Card>>
                                                                           {
                                                                               Key = 2,
                                                                               Value = new List<Card>
@@ -87,18 +88,12 @@ namespace Skunked.Test.Commands
         }
 
         [TestMethod]
+        [ExpectedException(typeof(InvalidCribbageOperationException))]
         public void Test_Command_Base_Validation_Player_Score_Exception()
         {
-            try
-            {
-                var command = new CribbageCommandBaseTestClass(new CommandArgsBaseMock(_gameState, 1, 0));
-                command.Execute();
-                Assert.Fail();
-            }
-            catch (InvalidCribbageOperationException)
-            {
-                Assert.IsTrue(true);
-            }
+            var command = new CribbageCommandBaseTestClass(new CommandArgsBaseMock(_gameState, 1, 0));
+            command.Execute();
+            Assert.Fail();
         }
     }
 
@@ -127,8 +122,8 @@ namespace Skunked.Test.Commands
 
     public class CommandArgsBaseMock : CommandArgsBase
     {
-        public CommandArgsBaseMock(CribGameState cribGameState, int playerId, int round)
-            : base(cribGameState, playerId, round)
+        public CommandArgsBaseMock(GameState gameState, int playerId, int round)
+            : base(gameState, playerId, round)
         {
         }
     }

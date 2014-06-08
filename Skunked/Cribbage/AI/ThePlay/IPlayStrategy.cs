@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using Cribbage.Rules;
-using Skunked;
+using Skunked.Rules;
 
-namespace Cribbage.AI.ThePlay
+namespace Skunked.AI.ThePlay
 {
     public interface IPlayStrategy
     {
-        Card DetermineCardToThrow(CribGameRules gameRules, IList<Card> pile, IEnumerable<Card> handLeft);
+        Card DetermineCardToThrow(GameRules gameRules, IList<Card> pile, IEnumerable<Card> handLeft);
     }
 }

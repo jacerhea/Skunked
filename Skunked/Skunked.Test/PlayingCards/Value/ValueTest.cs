@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cribbage.PlayingCards;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Skunked.PlayingCards;
 using Skunked.PlayingCards.Value;

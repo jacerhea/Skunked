@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using Skunked;
 
-namespace Cribbage.Score.Interface
+namespace Skunked.Score.Interface
 {
     public interface IScoreCalculator
     {

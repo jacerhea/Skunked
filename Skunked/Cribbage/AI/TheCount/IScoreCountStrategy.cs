@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using Skunked;
 
-namespace Cribbage.AI.TheCount
+namespace Skunked.AI.TheCount
 {
     public interface IScoreCountStrategy
     {

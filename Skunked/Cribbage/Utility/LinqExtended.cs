@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Cribbage.Utility
+namespace Skunked.Utility
 {
     public static partial class LinqExtended
     {

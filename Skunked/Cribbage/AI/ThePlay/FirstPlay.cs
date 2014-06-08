@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Skunked;
 using Skunked.PlayingCards;
 
-namespace Cribbage.AI.ThePlay
+namespace Skunked.AI.ThePlay
 {
     public abstract class FirstPlay
     {
         protected Card PlayFirstCard(IEnumerable<Card> hand)
         {
             if (hand == null) throw new ArgumentNullException("hand");
+            hand = hand.ToList();
             if (hand.Any(c => c.Rank == Rank.Four))
                 return hand.First(c => c.Rank == Rank.Four);
 

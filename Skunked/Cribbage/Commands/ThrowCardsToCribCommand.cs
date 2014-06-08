@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cribbage;
 using Cribbage.Commands;
 using Cribbage.Commands.Arguments;
-using Cribbage.Exceptions;
-using Cribbage.Utility;
+using Skunked.Exceptions;
 using Skunked.PlayingCards;
 using Skunked.Utility;
 
@@ -31,12 +29,12 @@ namespace Skunked.Commands
 
             //remove thrown cards from hand
             var playerHand = currentRound.PlayerDealtCards.First(kv => kv.Key == _args.PlayerID).Value.Cast<Card>().Except(_args.CardsToThrow);
-            currentRound.PlayerHand.Add(new SerializableKeyValuePair<int, List<Card>> { Key = _args.PlayerID, Value = playerHand.Cast<Card>().ToList() });
+            currentRound.PlayerHand.Add(new CustomKeyValuePair<int, List<Card>> { Key = _args.PlayerID, Value = playerHand.Cast<Card>().ToList() });
 
             var serializableCards = _args.CardsToThrow.Select(c => new Card(c));
             currentRound.Crib.AddRange(serializableCards);
 
-            var playersDoneThrowing = _args.GameState.CurrentRound().Crib.Count == _args.GameState.GameRules.HandSize;
+            var playersDoneThrowing = _args.GameState.GetCurrentRound().Crib.Count == _args.GameState.GameRules.HandSize;
             if (playersDoneThrowing)
             {
                 var deck = EnumHelper.GetValues<Rank>().Cartesian(EnumHelper.GetValues<Suit>(), (rank, suit) => new Card(rank, suit)).ToList();

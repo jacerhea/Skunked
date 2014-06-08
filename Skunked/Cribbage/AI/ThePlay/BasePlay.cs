@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Skunked;
 using Skunked.PlayingCards;
 
-namespace Cribbage.AI.ThePlay
+namespace Skunked.AI.ThePlay
 {
     public abstract class BasePlay
     {

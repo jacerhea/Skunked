@@ -1,6 +1,6 @@
 ﻿using System;
-using Cribbage.Score.Interface;
-using Cribbage.State;
+using Skunked.Score.Interface;
+using Skunked.State;
 
 namespace Cribbage.Commands.Arguments
 {
@@ -9,8 +9,8 @@ namespace Cribbage.Commands.Arguments
         public IScoreCalculator ScoreCalculator { get; private set; }
         public int PlayerCountedScore { get; private set; }
 
-        public CountCribScoreArgs(CribGameState cribGameState, int playerID, int round, IScoreCalculator scoreCalculator, int playerCountedCribScore)
-            : base(cribGameState, playerID, round)
+        public CountCribScoreArgs(GameState gameState, int playerID, int round, IScoreCalculator scoreCalculator, int playerCountedCribScore)
+            : base(gameState, playerID, round)
         {
             if (scoreCalculator == null) throw new ArgumentNullException("scoreCalculator");
             if (playerCountedCribScore < 0) throw new ArgumentOutOfRangeException("playerCountedScore");

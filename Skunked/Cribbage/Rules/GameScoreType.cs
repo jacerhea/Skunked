@@ -1,4 +1,4 @@
-﻿namespace Cribbage.Rules
+﻿namespace Skunked.Rules
 {
     public enum GameScoreType
     {

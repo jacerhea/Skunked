@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Cribbage.Commands;
 using Cribbage.Commands.Arguments;
-using Cribbage.Exceptions;
 using Cribbage.State;
-using Cribbage.Utility;
+using Skunked.Exceptions;
 using Skunked.PlayingCards.Value;
+using Skunked.Utility;
 
 namespace Skunked.Commands
 {
@@ -23,7 +23,7 @@ namespace Skunked.Commands
         public void Execute()
         {
             ValidateStateBase();
-            var currentRound = _args.GameState.CurrentRound();
+            var currentRound = _args.GameState.GetCurrentRound();
             var setOfPlays = currentRound.PlayersShowedCards;
 
             var playedCards = setOfPlays.SelectMany(c => c).Select(spc => (Card)spc.Card);
@@ -49,7 +49,7 @@ namespace Skunked.Commands
 
             //create new round
             setOfPlays.Last().Add(playerCardPlayedScore);
-            var playsLeft = _args.GameState.CurrentRound().PlayerHand.SelectMany(kv => kv.Value).Cast<Card>().Except(playedCards);
+            var playsLeft = _args.GameState.GetCurrentRound().PlayerHand.SelectMany(kv => kv.Value).Cast<Card>().Except(playedCards);
             if (playsLeft.All(c => _args.ScoreCalculator.SumValues(setOfPlays.Last().Select(spc => (Card)spc.Card).Union(new List<Card> { c })) > _args.GameState.GameRules.PlayMaxScore))
             {
                 int playCountNew = _args.ScoreCalculator.SumValues(setOfPlays.Last().Select(ppi => (Card)ppi.Card));
@@ -74,7 +74,7 @@ namespace Skunked.Commands
 
         protected override void ValidateState()
         {
-            var currentRound = _args.GameState.CurrentRound();
+            var currentRound = _args.GameState.GetCurrentRound();
             var setOfPlays = currentRound.PlayersShowedCards;
 
             if (!currentRound.ThrowCardsIsDone || currentRound.PlayCardsIsDone) { throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidStateForPlay); }
@@ -121,7 +121,7 @@ namespace Skunked.Commands
 
         private int? FindNextPlayer()
         {
-            var currentRound = _args.GameState.CurrentRound();
+            var currentRound = _args.GameState.GetCurrentRound();
             var setOfPlays = currentRound.PlayersShowedCards;
             var playedCards = setOfPlays.SelectMany(c => c).Select(spc => (Card)spc.Card);
             var playerCardPlayedScores = setOfPlays.Last();
@@ -139,7 +139,7 @@ namespace Skunked.Commands
             //move to next player with valid move
             while (true)
             {
-                var nextPlayerAvailableCardsToPlay = _args.GameState.CurrentRound().PlayerHand.Single(kv => kv.Key == nextPlayer.ID).Value.Cast<Card>().Except(playedCards);
+                var nextPlayerAvailableCardsToPlay = _args.GameState.GetCurrentRound().PlayerHand.Single(kv => kv.Key == nextPlayer.ID).Value.Cast<Card>().Except(playedCards);
                 if(nextPlayerAvailableCardsToPlay.Count() == 0)
                 {
                     nextPlayer = _args.GameState.Players.NextOf(nextPlayer);

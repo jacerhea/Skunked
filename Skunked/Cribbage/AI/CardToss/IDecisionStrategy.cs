@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Cribbage;
 
 namespace Skunked.AI.CardToss
 {

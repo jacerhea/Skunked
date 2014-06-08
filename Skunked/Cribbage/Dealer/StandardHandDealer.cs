@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Cribbage.Players;
-using Cribbage.PlayingCards;
-using Cribbage.Utility;
-using Skunked;
+using Cribbage.Dealer;
 using Skunked.Players;
 using Skunked.PlayingCards;
+using Skunked.Utility;
 
-namespace Cribbage.Dealer
+namespace Skunked.Dealer
 {
     /// <summary>
     /// Standard deal.  One card per pass.

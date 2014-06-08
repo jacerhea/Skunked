@@ -1,5 +1,5 @@
 ﻿using System;
-using Cribbage.Order.Interface;
+using Skunked.PlayingCards.Order.Interface;
 
 namespace Skunked.PlayingCards.Order
 {

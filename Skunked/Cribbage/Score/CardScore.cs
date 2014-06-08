@@ -1,7 +1,6 @@
 ﻿using System;
-using Skunked;
 
-namespace Cribbage.Score
+namespace Skunked.Score
 {
     public class CardScore
     {

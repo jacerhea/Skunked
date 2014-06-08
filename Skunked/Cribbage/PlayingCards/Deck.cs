@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Cribbage;
-using Cribbage.Utility;
 using Skunked.Utility;
 
 namespace Skunked.PlayingCards

@@ -1,20 +1,20 @@
 ﻿using System;
-using Cribbage.State;
+using Skunked.State;
 
 namespace Cribbage.Commands.Arguments
 {
     public abstract class CommandArgsBase
     {
-        public CribGameState GameState { get; private set; }
+        public GameState GameState { get; private set; }
         public int PlayerID { get; private set;}
         public int Round { get; private set; }
 
-        public CommandArgsBase(CribGameState cribGameState, int playerID, int round)
+        public CommandArgsBase(GameState gameState, int playerID, int round)
         {
-            if (cribGameState == null) throw new ArgumentNullException("cribGameState");
+            if (gameState == null) throw new ArgumentNullException("gameState");
             if (playerID < 0) throw new ArgumentOutOfRangeException("playerID");
             if (round < 0) throw new ArgumentOutOfRangeException("round");
-            GameState = cribGameState;
+            GameState = gameState;
             PlayerID = playerID;
             Round = round;
         }

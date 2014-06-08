@@ -59,7 +59,7 @@
     <Compile Include="AI\CardToss\MinAverageDecisionTestFixture.cs" />
     <Compile Include="AI\CardToss\MaxAverageDecisionTestFixture.cs" />
     <Compile Include="AI\CardToss\OptimisticDecisionTestFixture.cs" />
-    <Compile Include="CardTest.cs" />
+    <Compile Include="CardTestFixture.cs" />
     <Compile Include="Commands\CountScoreCommandTestFixture.cs" />
     <Compile Include="Commands\CribbageCommandBaseTestFixture.cs" />
     <Compile Include="PlayingCards\Order\StandardOrderTest.cs" />

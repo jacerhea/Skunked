@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Cribbage.State
+namespace Skunked.State
 {
 #if !SILVERLIGHT
     [DataContract]

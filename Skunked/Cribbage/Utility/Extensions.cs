@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Cribbage.Utility
+namespace Skunked.Utility
 {
     public static class Extensions
     {

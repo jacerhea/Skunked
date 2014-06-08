@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cribbage.Score.Interface;
-using Cribbage.State;
 using Skunked;
+using Skunked.Score.Interface;
+using Skunked.State;
 
 namespace Cribbage.Commands.Arguments
 {
@@ -11,7 +11,7 @@ namespace Cribbage.Commands.Arguments
         public IEnumerable<Card> CardsToThrow { get; set; }
         public IScoreCalculator ScoreCalculator { get; set; }
 
-        public ThrowCardsToCribArgs(CribGameState gameState, int playerID, int round, IEnumerable<Card> cardsToThrow, IScoreCalculator scoreCalculator)
+        public ThrowCardsToCribArgs(GameState gameState, int playerID, int round, IEnumerable<Card> cardsToThrow, IScoreCalculator scoreCalculator)
             : base(gameState, playerID, round)
         {
             if (cardsToThrow == null) throw new ArgumentNullException("cardsToThrow");

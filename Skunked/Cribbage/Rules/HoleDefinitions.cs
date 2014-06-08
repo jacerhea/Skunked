@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cribbage.Rules
+namespace Skunked.Rules
 {
     [Flags]
     public enum HoleDefinitions

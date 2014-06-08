@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Cribbage.Rules
+namespace Skunked.Rules
 {
     public class HoleDefinitionLookup
     {

@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cribbage;
 using Cribbage.Combinatorics;
-using Cribbage.Order.Interface;
-using Cribbage.PlayingCards;
-using Cribbage.Score;
-using Cribbage.Score.Interface;
-using Cribbage.Utility;
 using Skunked.PlayingCards;
+using Skunked.PlayingCards.Order.Interface;
+using Skunked.PlayingCards.Value;
+using Skunked.Score.Interface;
+using Skunked.Utility;
 
 namespace Skunked.Score
 {

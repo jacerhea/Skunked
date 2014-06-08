@@ -1,5 +1,4 @@
 ﻿using System;
-using Cribbage.PlayingCards;
 
 namespace Skunked.PlayingCards.Value
 {
