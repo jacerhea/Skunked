@@ -6,7 +6,7 @@ using Skunked.Rules;
 using Skunked.Score;
 using Skunked.Score.Interface;
 
-namespace Skunked.AI.ThePlay
+namespace Skunked.AI.Play
 {
     public class MinPlayStrategy : BasePlay, IPlayStrategy
     {

@@ -1,28 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Skunked.Score;
 using Skunked.Score.Interface;
 using Skunked.Utility;
 
-namespace Skunked.AI.TheCount
+namespace Skunked.AI.Count
 {
     public class PercentageScoreCountStrategy : IScoreCountStrategy
     {
         private readonly int _percentageCorrect;
         private readonly IScoreCalculator _scoreCalculator;
-        private readonly Random _random = new Random();
 
-        public PercentageScoreCountStrategy(int percentageCorrect, IScoreCalculator scoreCalculator)
+        public PercentageScoreCountStrategy(int percentageCorrect = 100, IScoreCalculator scoreCalculator = null)
         {
-            if (!percentageCorrect.IsBetween(0, 100)) { throw new ArgumentOutOfRangeException("percentageCorrect"); }
             _percentageCorrect = percentageCorrect;
-            _scoreCalculator = scoreCalculator;
+            _scoreCalculator = scoreCalculator ?? new ScoreCalculator();
         }
 
         public int GetCount(Card card, IEnumerable<Card> hand)
         {
-            var x = _random.Next(0, 100);
-            if(x < _percentageCorrect)
+            var randomPercentage = RandomProvider.GetThreadRandom().Next(0, 100);
+            if(randomPercentage > _percentageCorrect)
             {
+                //todo: come up with better guess
                 return 10;
             }
             return _scoreCalculator.CountShowScore(card, hand).Score;

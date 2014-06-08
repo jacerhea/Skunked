@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Linq;
-using Cribbage.Commands.Arguments;
-using Skunked.Commands;
+using Skunked.Commands.Arguments;
 using Skunked.Exceptions;
 
-namespace Cribbage.Commands
+namespace Skunked.Commands
 {
     public class CountCribScoreCommand : CribbageCommandBase, ICommand
     {

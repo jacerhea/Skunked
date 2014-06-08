@@ -1,9 +1,8 @@
 ﻿using System;
-using Skunked;
 using Skunked.Score.Interface;
 using Skunked.State;
 
-namespace Cribbage.Commands.Arguments
+namespace Skunked.Commands.Arguments
 {
     public class PlayCardArgs : CommandArgsBase
     {

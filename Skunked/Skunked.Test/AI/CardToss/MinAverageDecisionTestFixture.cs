@@ -3,8 +3,6 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Skunked.AI.CardToss;
 using Skunked.PlayingCards;
-using Skunked.PlayingCards.Order;
-using Skunked.PlayingCards.Value;
 using Skunked.Score;
 
 namespace Skunked.Test.AI.CardToss
@@ -24,10 +22,10 @@ namespace Skunked.Test.AI.CardToss
                                new Card(Rank.Nine, Suit.Hearts),
                                new Card(Rank.Two, Suit.Spades),
                            };
-            var calculator = new ScoreCalculator(new AceLowFaceTenCardValueStrategy(), new StandardOrder());
+            var calculator = new ScoreCalculator();
             var decisionStrategy = new MinAverageDecision(calculator);
 
-            var cardsToThrow = decisionStrategy.DetermineCardsToThrow(hand);
+            var cardsToThrow = decisionStrategy.DetermineCardsToThrow(hand).ToList();
 
             Assert.AreEqual(2, cardsToThrow.Count());
             Assert.IsTrue(cardsToThrow.Contains(new Card(Rank.Two, Suit.Spades)));
@@ -45,10 +43,10 @@ namespace Skunked.Test.AI.CardToss
                                new Card(Rank.King, Suit.Clubs),
                                new Card(Rank.Nine, Suit.Hearts),
                            };
-            var calculator = new ScoreCalculator(new AceLowFaceTenCardValueStrategy(), new StandardOrder());
+            var calculator = new ScoreCalculator();
             var decisionStrategy = new MinAverageDecision(calculator);
 
-            var cardsToThrow = decisionStrategy.DetermineCardsToThrow(hand);
+            var cardsToThrow = decisionStrategy.DetermineCardsToThrow(hand).ToList();
 
             Assert.AreEqual(1, cardsToThrow.Count());
             Assert.IsTrue(cardsToThrow.Contains(new Card(Rank.Nine, Suit.Hearts)));

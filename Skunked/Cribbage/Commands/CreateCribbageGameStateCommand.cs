@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cribbage.Commands;
-using Cribbage.State;
 using Skunked.Players;
 using Skunked.PlayingCards;
 using Skunked.Rules;
@@ -40,7 +38,7 @@ namespace Skunked.Commands
             _gameState = new GameState
                                  {
                                      GameRules = _rules,
-                                     OpeningRoundState = new CribOpeningRoundState
+                                     OpeningRoundState = new OpeningRoundState
                                                              {
                                                                  Deck = deck,
                                                                  IsDone = false,
@@ -48,8 +46,8 @@ namespace Skunked.Commands
                                                                  WinningPlayerCut = null
                                                              },
                                      Rounds = new List<RoundState>(),
-                                     PlayerScores = new List<PlayerScore>(_players.Select(player => new PlayerScore { Player = player.ID, Score = 0 })),
-                                     Players = _players.Select(p => new Player (p.Name, p.ID)).ToList(),
+                                     PlayerScores = new List<PlayerScore>(_players.Select(player => new PlayerScore { Player = player.Id, Score = 0 })),
+                                     Players = _players.Select(p => new Player (p.Name, p.Id)).ToList(),
                                      StartedAt = now,
                                      LastUpdated = now
                                  };

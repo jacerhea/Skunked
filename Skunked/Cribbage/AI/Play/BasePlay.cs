@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using Skunked.PlayingCards;
 
-namespace Skunked.AI.ThePlay
+namespace Skunked.AI.Play
 {
-    public abstract class FirstPlay
+    public abstract class BasePlay
     {
-        protected Card PlayFirstCard(IEnumerable<Card> hand)
+        protected void ArgumentCheck(IList<Card> pile, IEnumerable<Card> handLeft)
+        {
+            if (pile == null) throw new ArgumentNullException("pile");
+            if (handLeft == null) throw new ArgumentNullException("handLeft");
+            if (!handLeft.Any()) throw new ArgumentOutOfRangeException("handLeft");
+        }
+
+        protected Card StandardFirstCardPlay(IEnumerable<Card> hand)
         {
             if (hand == null) throw new ArgumentNullException("hand");
             hand = hand.ToList();

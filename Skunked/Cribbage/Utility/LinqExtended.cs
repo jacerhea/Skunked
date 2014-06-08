@@ -20,8 +20,7 @@ namespace Skunked.Utility
 
         public static void Shuffle<T>(this IList<T> list)
         {
-            var random = new Random();
-            list.Shuffle(random);
+            list.Shuffle(RandomProvider.GetThreadRandom());
         }
 
         public static T NextOf<T>(this IList<T> list, T item)
@@ -136,6 +135,18 @@ namespace Skunked.Utility
             if (source == null) throw new ArgumentNullException("source");
             if (keySelector == null) throw new ArgumentNullException("keySelector");
             return DistinctByImpl(source, keySelector, comparer);
+        }
+
+        public static IEnumerable<TSource> Infinite<TSource>(this IEnumerable<TSource> source)
+        {
+            if (source == null) throw new ArgumentNullException("source");
+            while (true)
+            {
+                foreach (var item in source)
+                {
+                    yield return item;
+                }
+            }
         }
 
         private static IEnumerable<TSource> DistinctByImpl<TSource, TKey>(IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer)

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Skunked.AI.TheCount
+namespace Skunked.AI.Count
 {
     public interface IScoreCountStrategy
     {

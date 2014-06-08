@@ -4,7 +4,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Cribbage.Combinatorics
+namespace Skunked.Combinatorics
 {
     /// <summary>
     /// Utility class that maintains a small table of prime numbers and provides

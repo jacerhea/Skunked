@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cribbage.Commands;
-using Cribbage.Dealer;
-using Cribbage.State;
 using Skunked.Dealer;
 using Skunked.Players;
 using Skunked.PlayingCards;
@@ -34,18 +31,18 @@ namespace Skunked.Commands
 
             var serializedPlayerHands = playerHands.Select( kv => new CustomKeyValuePair<int, List<Card>>
                     {
-                        Key = kv.Key.ID,
+                        Key = kv.Key.Id,
                         Value = kv.Value.Select(
                         c => new Card(c)).
                         ToList()
                     }).ToList();
 
-            var playerShowScores = new List<PlayerScoreShow>(_gameState.Players.Select(sp => new PlayerScoreShow { CribScore = null, HasShowed = false, Player = sp.ID, PlayerCountedShowScore = 0, ShowScore = 0}));
+            var playerShowScores = new List<PlayerScoreShow>(_gameState.Players.Select(sp => new PlayerScoreShow { CribScore = null, HasShowed = false, Player = sp.Id, PlayerCountedShowScore = 0, ShowScore = 0}));
 
             int cribPlayerID;
             if(_gameState.OpeningRoundState.IsDone && _gameState.Rounds.Count != 0)
             {
-                cribPlayerID = _gameState.Players.NextOf(_gameState.Players.Single(sp => _gameState.Rounds.Single(r => r.Round == _currentRound).PlayerCrib == sp.ID)).ID;
+                cribPlayerID = _gameState.Players.NextOf(_gameState.Players.Single(sp => _gameState.Rounds.Single(r => r.Round == _currentRound).PlayerCrib == sp.Id)).Id;
             }   
             else
             {

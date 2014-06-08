@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace Cribbage.Combinatorics
+namespace Skunked.Combinatorics
 {
     /// <summary>
     /// Combinations defines a meta-collection, typically a list of lists, of all possible 
@@ -36,7 +36,6 @@ namespace Cribbage.Combinatorics
         /// No default constructor, must provided a list of values and size.
         /// </summary>
         protected Combinations() {
-            ;
         }
 
         /// <summary>
@@ -76,7 +75,7 @@ namespace Cribbage.Combinatorics
         /// <summary>
         /// Gets an enumerator for collecting the list of combinations.
         /// </summary>
-        /// <returns>The enumerator.returns>
+        /// <returns>The enumerator.returns></returns>
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
             return new Enumerator(this);
         }
@@ -149,7 +148,6 @@ namespace Cribbage.Combinatorics
             /// Cleans up non-managed resources, of which there are none used here.
             /// </summary>
             public void Dispose() {
-                ;
             }
 
             #endregion
@@ -186,7 +184,7 @@ namespace Cribbage.Combinatorics
                 if(myCurrentList == null) {
                     myCurrentList = new List<T>();
                     int index = 0;
-                    IList<bool> currentPermutation = (IList<bool>)myPermutationsEnumerator.Current;
+                    var currentPermutation = (IList<bool>)myPermutationsEnumerator.Current;
                     for(int i = 0; i < currentPermutation.Count; ++i) {
                         if(currentPermutation[i] == false) {
                             myCurrentList.Add(myParent.myValues[index]);
@@ -208,7 +206,7 @@ namespace Cribbage.Combinatorics
             /// <summary>
             /// Parent object this is an enumerator for.
             /// </summary>
-            private Combinations<T> myParent;
+            private readonly Combinations<T> myParent;
 
             /// <summary>
             /// The current list of values, this is lazy evaluated by the Current property.
@@ -218,7 +216,7 @@ namespace Cribbage.Combinatorics
             /// <summary>
             /// An enumertor of the parents list of lexicographic orderings.
             /// </summary>
-            private Permutations<bool>.Enumerator myPermutationsEnumerator;
+            private readonly Permutations<bool>.Enumerator myPermutationsEnumerator;
             
             #endregion
         }

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cribbage.Commands;
-using Cribbage.Commands.Arguments;
-using Cribbage.State;
+using Skunked.Commands.Arguments;
 using Skunked.Exceptions;
 using Skunked.PlayingCards.Value;
+using Skunked.State;
 using Skunked.Utility;
 
 namespace Skunked.Commands
@@ -123,7 +122,7 @@ namespace Skunked.Commands
         {
             var currentRound = _args.GameState.GetCurrentRound();
             var setOfPlays = currentRound.PlayersShowedCards;
-            var playedCards = setOfPlays.SelectMany(c => c).Select(spc => (Card)spc.Card);
+            var playedCards = setOfPlays.SelectMany(c => c).Select(spc => (Card)spc.Card).ToList();
             var playerCardPlayedScores = setOfPlays.Last();
 
             //if round is done
@@ -133,14 +132,14 @@ namespace Skunked.Commands
             }
 
             //move to current player
-            var currentPlayer = _args.GameState.Players.Single(sp => sp.ID == _args.PlayerID);
+            var currentPlayer = _args.GameState.Players.Single(sp => sp.Id == _args.PlayerID);
             var nextPlayer = _args.GameState.Players.NextOf(currentPlayer);
 
             //move to next player with valid move
             while (true)
             {
-                var nextPlayerAvailableCardsToPlay = _args.GameState.GetCurrentRound().PlayerHand.Single(kv => kv.Key == nextPlayer.ID).Value.Cast<Card>().Except(playedCards);
-                if(nextPlayerAvailableCardsToPlay.Count() == 0)
+                var nextPlayerAvailableCardsToPlay = _args.GameState.GetCurrentRound().PlayerHand.Single(kv => kv.Key == nextPlayer.Id).Value.Cast<Card>().Except(playedCards).ToList();
+                if(!nextPlayerAvailableCardsToPlay.Any())
                 {
                     nextPlayer = _args.GameState.Players.NextOf(nextPlayer);
                     continue;
@@ -151,7 +150,7 @@ namespace Skunked.Commands
                 var scoreTest = _args.ScoreCalculator.SumValues(nextPlayerPlaySequence);
                 if (scoreTest <= _args.GameState.GameRules.PlayMaxScore)
                 {
-                    return nextPlayer.ID;
+                    return nextPlayer.Id;
                 }
 
                 nextPlayer = _args.GameState.Players.NextOf(nextPlayer);

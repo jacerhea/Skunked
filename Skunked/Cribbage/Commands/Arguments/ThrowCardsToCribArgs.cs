@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Skunked;
 using Skunked.Score.Interface;
 using Skunked.State;
 
-namespace Cribbage.Commands.Arguments
+namespace Skunked.Commands.Arguments
 {
     public class ThrowCardsToCribArgs : CommandArgsBase
     {

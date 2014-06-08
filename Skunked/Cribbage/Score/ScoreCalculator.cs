@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cribbage.Combinatorics;
+using Skunked.Combinatorics;
 using Skunked.PlayingCards;
+using Skunked.PlayingCards.Order;
 using Skunked.PlayingCards.Order.Interface;
 using Skunked.PlayingCards.Value;
 using Skunked.Score.Interface;
@@ -15,12 +16,10 @@ namespace Skunked.Score
         private readonly ICardValueStrategy _valueStrategy;
         private readonly IOrderStrategy _order;
 
-        public ScoreCalculator(ICardValueStrategy valueStrategy, IOrderStrategy order)
+        public ScoreCalculator(ICardValueStrategy valueStrategy = null, IOrderStrategy order = null)
         {
-            if (valueStrategy == null) throw new ArgumentNullException("valueStrategy");
-            if (order == null) throw new ArgumentNullException("order");
-            _valueStrategy = valueStrategy;
-            _order = order;
+            _valueStrategy = valueStrategy ?? new AceLowFaceTenCardValueStrategy();
+            _order = order ?? new StandardOrder();
         }
 
         //Check cut card for dealer

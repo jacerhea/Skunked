@@ -4,7 +4,7 @@ using System.Linq;
 using Skunked.PlayingCards.Order.Interface;
 using Skunked.Rules;
 
-namespace Skunked.AI.ThePlay
+namespace Skunked.AI.Play
 {
     public class LowestCardPlayStrategy : BasePlay, IPlayStrategy
     {

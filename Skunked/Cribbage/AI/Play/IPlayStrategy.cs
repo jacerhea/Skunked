@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Skunked.Rules;
 
-namespace Skunked.AI.ThePlay
+namespace Skunked.AI.Play
 {
     public interface IPlayStrategy
     {

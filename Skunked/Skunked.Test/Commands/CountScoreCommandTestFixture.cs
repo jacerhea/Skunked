@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cribbage.Commands;
-using Cribbage.Commands.Arguments;
-using Cribbage.State;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Skunked.Commands;
+using Skunked.Commands.Arguments;
 using Skunked.Exceptions;
 using Skunked.Players;
 using Skunked.PlayingCards;
-using Skunked.PlayingCards.Order;
-using Skunked.PlayingCards.Value;
 using Skunked.Rules;
 using Skunked.Score;
 using Skunked.State;
@@ -26,7 +23,7 @@ namespace Skunked.Test.Commands
         [TestInitialize]
         public void SetUp()
         {
-            _scoreCalculator = new ScoreCalculator(new AceLowFaceTenCardValueStrategy(), new StandardOrder());
+            _scoreCalculator = new ScoreCalculator();
 
             _gameState = new GameState
             {
@@ -37,7 +34,7 @@ namespace Skunked.Test.Commands
                                              new Player("Player1", 1),
                                              new Player("Player2", 2)
                                          },
-                OpeningRoundState = new CribOpeningRoundState { },
+                OpeningRoundState = new OpeningRoundState { },
                 PlayerScores = new List<PlayerScore>
                                          {
                                              new PlayerScore {Player = 1, Score = 0},

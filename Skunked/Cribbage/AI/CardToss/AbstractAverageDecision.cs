@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Cribbage.Combinatorics;
+using Skunked.Combinatorics;
 using Skunked.Score;
 using Skunked.Score.Interface;
 
@@ -11,14 +10,14 @@ namespace Skunked.AI.CardToss
     {
         private readonly IScoreCalculator _scoreCalculator;
 
-        protected AbstractAverageDecision(IScoreCalculator scoreCalculator)
+        protected AbstractAverageDecision(IScoreCalculator scoreCalculator = null)
         {
-            if (scoreCalculator == null) throw new ArgumentNullException("scoreCalculator");
-            _scoreCalculator = scoreCalculator;
+            _scoreCalculator = scoreCalculator ?? new ScoreCalculator();
         }
 
         protected IEnumerable<ComboPossibleScores> BaseAverageDecision(IEnumerable<Card> hand)
         {
+            hand = hand.ToList();
             var combinations = new Combinations<Card>(hand.ToList(), 4);
             var deck = new List<Card>();
             var possibleCardsCut = deck.Where(card => !hand.Contains(card)).ToList();

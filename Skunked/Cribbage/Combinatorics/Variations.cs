@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Cribbage.Combinatorics
+namespace Skunked.Combinatorics
 {
     /// <summary>
     /// Variations defines a meta-collection, typically a list of lists, of all possible 

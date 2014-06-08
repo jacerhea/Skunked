@@ -5,7 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Cribbage.Combinatorics
+namespace Skunked.Combinatorics
 {
     /// <summary>
     /// Permutations defines a meta-collection, typically a list of lists, of all

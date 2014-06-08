@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace Cribbage.Combinatorics
+namespace Skunked.Combinatorics
 {
     /// <summary>
     /// Interface for Permutations, Combinations and any other classes that present

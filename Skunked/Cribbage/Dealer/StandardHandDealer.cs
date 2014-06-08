@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Cribbage.Dealer;
 using Skunked.Players;
 using Skunked.PlayingCards;
 using Skunked.Utility;

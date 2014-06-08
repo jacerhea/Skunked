@@ -1,7 +1,7 @@
 ﻿using System;
 using Skunked.State;
 
-namespace Cribbage.Commands.Arguments
+namespace Skunked.Commands.Arguments
 {
     public abstract class CommandArgsBase
     {
@@ -9,7 +9,7 @@ namespace Cribbage.Commands.Arguments
         public int PlayerID { get; private set;}
         public int Round { get; private set; }
 
-        public CommandArgsBase(GameState gameState, int playerID, int round)
+        protected CommandArgsBase(GameState gameState, int playerID, int round)
         {
             if (gameState == null) throw new ArgumentNullException("gameState");
             if (playerID < 0) throw new ArgumentOutOfRangeException("playerID");

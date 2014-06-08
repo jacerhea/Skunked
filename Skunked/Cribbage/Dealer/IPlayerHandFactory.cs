@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using Skunked;
 using Skunked.Players;
 using Skunked.PlayingCards;
 
-namespace Cribbage.Dealer
+namespace Skunked.Dealer
 {
     public interface IPlayerHandFactory
     {

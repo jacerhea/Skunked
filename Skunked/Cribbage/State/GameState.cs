@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cribbage.State;
 using Skunked.Players;
 using Skunked.Rules;
 using Skunked.Utility;
@@ -13,7 +12,7 @@ namespace Skunked.State
         public List<Player> Players { get; set; }
         public List<PlayerScore> PlayerScores { get; set; }
         public GameRules GameRules { get; set; }
-        public CribOpeningRoundState OpeningRoundState { get; set; }
+        public OpeningRoundState OpeningRoundState { get; set; }
 
         public List<RoundState> Rounds { get; set; }
 

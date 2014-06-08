@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using Skunked.AI.CardToss;
-using Skunked.AI.TheCount;
-using Skunked.AI.ThePlay;
+using Skunked.AI.Count;
+using Skunked.AI.Play;
 using Skunked.Rules;
+using Skunked.Utility;
 
 namespace Skunked.Players
 {
@@ -19,20 +20,20 @@ namespace Skunked.Players
         {
             var guid = Guid.NewGuid();
             Name = guid.ToString();
-            ID = new Random().Next();            
+            Id = RandomProvider.GetThreadRandom().Next();            
         }
 
         public Player(string name)
         {
             if (name == null) throw new ArgumentNullException("name");
             Name = name;
-            ID = new Random().Next();
+            Id = RandomProvider.GetThreadRandom().Next();
         }
 
         public Player(string name, int id)
         {
             if (name == null) throw new ArgumentNullException("name");
-            ID = id;
+            Id = id;
             Name = name;
         }
 
@@ -42,12 +43,12 @@ namespace Skunked.Players
             _decisionStrategy = decisionStrategy;
             _scoreCountStrategy = scoreCountStrategy;
             if (name == null) throw new ArgumentNullException("name");
-            ID = new Random().Next();
+            Id = RandomProvider.GetThreadRandom().Next();
             Name = name;
         }
 
         public string Name { get; private set; }
-        public int ID { get; private set; }
+        public int Id { get; private set; }
 
         public void SetStrategies(IPlayStrategy playStrategy, IDecisionStrategy decisionStrategy, IScoreCountStrategy scoreCountStrategy)
         {
@@ -63,13 +64,13 @@ namespace Skunked.Players
 
         public override int GetHashCode()
         {
-            return ID.GetHashCode();
+            return Id.GetHashCode();
         }
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             Name = info.GetString("Name");
-            ID = info.GetInt32("ID");
+            Id = info.GetInt32("Id");
         }
 
         /// <summary>
@@ -95,8 +96,7 @@ namespace Skunked.Players
         public Card ChooseCard(List<Card> cardsToChoose)
         {
             if (cardsToChoose == null) throw new ArgumentNullException("cardsToChoose");
-            var randomGenerator = new Random();
-            var randomIndex = randomGenerator.Next(0 ,cardsToChoose.Count);
+            var randomIndex = RandomProvider.GetThreadRandom().Next(0 ,cardsToChoose.Count);
             return cardsToChoose[randomIndex];
         }
 
@@ -108,7 +108,7 @@ namespace Skunked.Players
         public bool Equals(Player other)
         {
             if (other == null) throw new ArgumentNullException("other");
-            return other.ID == ID;
+            return other.Id == Id;
         }
     }
 }

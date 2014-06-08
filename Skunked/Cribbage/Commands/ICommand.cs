@@ -1,4 +1,4 @@
-﻿namespace Cribbage.Commands
+﻿namespace Skunked.Commands
 {
     /// <summary>
     /// Client's will execute commands against the game invoker.

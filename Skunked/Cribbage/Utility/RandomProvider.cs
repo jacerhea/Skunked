@@ -11,7 +11,20 @@ namespace Skunked.Utility
     {
         private static int seed = Environment.TickCount;
 
-        private static readonly ThreadLocal<Random> randomWrapper = new ThreadLocal<Random>(() => new Random(Interlocked.Increment(ref seed)));
+        private static ThreadLocal<Random> randomWrapper;
+
+        static RandomProvider()
+        {
+             randomWrapper = new ThreadLocal<Random>(() => new Random(Interlocked.Increment(ref seed)));
+        }
+
+        /// <summary>
+        /// For Testing purposes only
+        /// </summary>
+        public static ThreadLocal<Random> RandomInstance 
+        {
+            set { randomWrapper = value; }
+        }
 
         public static Random GetThreadRandom()
         {

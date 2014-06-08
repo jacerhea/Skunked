@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cribbage.Commands;
-using Cribbage.Commands.Arguments;
+using Skunked.Commands.Arguments;
 using Skunked.Exceptions;
 using Skunked.PlayingCards;
 using Skunked.Utility;
@@ -25,7 +24,6 @@ namespace Skunked.Commands
             ValidateStateBase();
             var currentRound = _args.GameState.Rounds.MaxBy(round => round.Round);
             var playerDealtHand = currentRound.PlayerDealtCards.First(kv => kv.Key == _args.PlayerID);
-            var dealtCards = playerDealtHand.Value.Select(c => (Card)c);
 
             //remove thrown cards from hand
             var playerHand = currentRound.PlayerDealtCards.First(kv => kv.Key == _args.PlayerID).Value.Cast<Card>().Except(_args.CardsToThrow);
@@ -40,7 +38,7 @@ namespace Skunked.Commands
                 var deck = EnumHelper.GetValues<Rank>().Cartesian(EnumHelper.GetValues<Suit>(), (rank, suit) => new Card(rank, suit)).ToList();
                 var cardsNotDealt = deck.Except(currentRound.Crib).Except(currentRound.PlayerHand.SelectMany(s => s.Value)).ToList();
 
-                var randomIndex = new Random().Next(0, cardsNotDealt.Count - 1);
+                var randomIndex = RandomProvider.GetThreadRandom().Next(0, cardsNotDealt.Count - 1);
                 var startingCard = cardsNotDealt[randomIndex];
 
                 var playerScore = _args.GameState.PlayerScores.First(ps => ps.Player == _args.PlayerID);

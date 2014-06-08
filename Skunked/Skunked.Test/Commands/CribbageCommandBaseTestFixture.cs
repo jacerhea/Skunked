@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cribbage.Commands;
-using Cribbage.Commands.Arguments;
-using Cribbage.State;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Skunked.Commands;
+using Skunked.Commands.Arguments;
 using Skunked.Exceptions;
 using Skunked.Players;
 using Skunked.PlayingCards;
@@ -31,7 +30,7 @@ namespace Skunked.Test.Commands
                                              new Player("Player1", 1),
                                              new Player("Player2", 2)
                                          },
-                OpeningRoundState = new CribOpeningRoundState { },
+                OpeningRoundState = new OpeningRoundState { },
                 PlayerScores = new List<PlayerScore>
                                          {
                                              new PlayerScore {Player = 1, Score = 120},

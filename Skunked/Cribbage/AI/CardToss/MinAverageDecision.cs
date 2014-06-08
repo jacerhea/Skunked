@@ -8,7 +8,7 @@ namespace Skunked.AI.CardToss
 {
     public class MinAverageDecision : AbstractAverageDecision, IDecisionStrategy
     {
-        public MinAverageDecision(IScoreCalculator scoreCalculator) : base(scoreCalculator)
+        public MinAverageDecision(IScoreCalculator scoreCalculator = null) : base(scoreCalculator)
         {}
 
         public IEnumerable<Card> DetermineCardsToThrow(IEnumerable<Card> hand)

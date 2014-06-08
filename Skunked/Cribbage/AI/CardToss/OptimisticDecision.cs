@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Cribbage.Combinatorics;
+using Skunked.Combinatorics;
 using Skunked.PlayingCards;
 using Skunked.Score;
 using Skunked.Score.Interface;
@@ -18,10 +17,9 @@ namespace Skunked.AI.CardToss
         private readonly Deck _deck;
         
 
-        public OptimisticDecision(IScoreCalculator scoreCalculator)
+        public OptimisticDecision(IScoreCalculator scoreCalculator = null)
         {
-            if (scoreCalculator == null) throw new ArgumentNullException("scoreCalculator");
-            _scoreCalculator = scoreCalculator;
+            _scoreCalculator = scoreCalculator ?? new ScoreCalculator();
             _deck = new Deck();
         }
 

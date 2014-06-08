@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Linq;
-using Cribbage.Commands.Arguments;
-using Skunked;
+using Skunked.Commands.Arguments;
 using Skunked.Exceptions;
 using Skunked.Utility;
 
-namespace Cribbage.Commands
+namespace Skunked.Commands
 {
     public class CountHandScoreCommand : CribbageCommandBase, ICommand
     {
@@ -79,10 +78,10 @@ namespace Cribbage.Commands
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.PlayerHasAlreadyCounted);
             }
 
-            var currentPlayer = _args.GameState.Players.NextOf(_args.GameState.Players.Single(sp => sp.ID == currentRound.PlayerCrib));
+            var currentPlayer = _args.GameState.Players.NextOf(_args.GameState.Players.Single(sp => sp.Id == currentRound.PlayerCrib));
             foreach (var enumeration in Enumerable.Range(1, _args.GameState.Players.Count))
             {
-                var currentPSS = currentRound.PlayerShowScores.Single(pss => pss.Player == currentPlayer.ID);
+                var currentPSS = currentRound.PlayerShowScores.Single(pss => pss.Player == currentPlayer.Id);
 
                 if (currentPSS.Player == _args.PlayerID) { break; }
                 if(!currentPSS.HasShowed) { throw new InvalidCribbageOperationException(InvalidCribbageOperations.NotPlayersTurn);}

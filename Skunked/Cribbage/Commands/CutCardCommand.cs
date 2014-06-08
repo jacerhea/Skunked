@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Linq;
-using Cribbage.Commands;
-using Cribbage.Commands.Arguments;
-using Skunked;
-using Skunked.Commands;
+using Skunked.Commands.Arguments;
 using Skunked.Exceptions;
 using Skunked.Utility;
 
-namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
+namespace Skunked.Commands
 {
     public class CutCardCommand : CribbageCommandBase, ICommand
     {

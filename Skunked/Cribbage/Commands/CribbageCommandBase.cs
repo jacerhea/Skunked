@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Linq;
-using Cribbage.Commands.Arguments;
+using Skunked.Commands.Arguments;
 using Skunked.Exceptions;
 
-namespace Cribbage.Commands
+namespace Skunked.Commands
 {
     public abstract class CribbageCommandBase
     {
         private readonly CommandArgsBase _args;
 
-        public CribbageCommandBase(CommandArgsBase args)
+        protected CribbageCommandBase(CommandArgsBase args)
         {
             if (args == null) throw new ArgumentNullException("args");
             _args = args;
@@ -18,7 +18,7 @@ namespace Cribbage.Commands
         protected void ValidateStateBase()
         {
             CheckEndOfGame();
-            if (_args.GameState.Players.All(sp => sp.ID != _args.PlayerID)) { throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidPlayer); }
+            if (_args.GameState.Players.All(sp => sp.Id != _args.PlayerID)) { throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidPlayer); }
 
             if(_args.GameState.Rounds.Count(r => r.Round == _args.Round) != 1)
             {

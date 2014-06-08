@@ -9,9 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Skunked</RootNamespace>
     <AssemblyName>Skunked</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,8 +36,6 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI\AIDifficulty.cs" />
@@ -49,15 +47,15 @@
     <Compile Include="AI\CardToss\OptimisticDecision.cs" />
     <Compile Include="AI\CardToss\RandomDecision.cs" />
     <Compile Include="AI\IAIPlayerFactory.cs" />
-    <Compile Include="AI\TheCount\IScoreCountStrategy.cs" />
-    <Compile Include="AI\TheCount\PercentageScoreCountStrategy.cs" />
-    <Compile Include="AI\ThePlay\BasePlay.cs" />
-    <Compile Include="AI\ThePlay\FirstPlay.cs" />
-    <Compile Include="AI\ThePlay\IPlayStrategy.cs" />
-    <Compile Include="AI\ThePlay\LowestCardPlayStrategy.cs" />
-    <Compile Include="AI\ThePlay\MinPlayStrategy.cs" />
-    <Compile Include="AI\ThePlay\PlayStrategy.cs" />
-    <Compile Include="AI\ThePlay\RandomPlayStrategy.cs" />
+    <Compile Include="AI\Count\IScoreCountStrategy.cs" />
+    <Compile Include="AI\Count\PercentageScoreCountStrategy.cs" />
+    <Compile Include="AI\Play\BasePlay.cs" />
+    <Compile Include="AI\Play\FirstPlay.cs" />
+    <Compile Include="AI\Play\IPlayStrategy.cs" />
+    <Compile Include="AI\Play\LowestCardPlayStrategy.cs" />
+    <Compile Include="AI\Play\MinPlayStrategy.cs" />
+    <Compile Include="AI\Play\PlayStrategy.cs" />
+    <Compile Include="AI\Play\RandomPlayStrategy.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="Combinatorics\Combinations.cs" />
     <Compile Include="Combinatorics\GenerateOption.cs" />
@@ -108,12 +106,13 @@
     <Compile Include="Score\Interface\IScoreCalculator.cs" />
     <Compile Include="Score\ScoreCalculatorResult.cs" />
     <Compile Include="State\GameState.cs" />
-    <Compile Include="State\CribOpeningRoundState.cs" />
+    <Compile Include="State\OpeningRoundState.cs" />
     <Compile Include="State\RoundState.cs" />
     <Compile Include="State\PlayerPlayItem.cs" />
     <Compile Include="State\PlayerScoreShow.cs" />
     <Compile Include="State\PlayerScore.cs" />
     <Compile Include="PlayingCards\Suit.cs" />
+    <Compile Include="Utility\RAndomOverride.cs" />
     <Compile Include="Utility\RandomProvider.cs" />
     <Compile Include="Utility\CustomKeyValuePair.cs" />
     <Compile Include="Utility\EnumHelper.cs" />
