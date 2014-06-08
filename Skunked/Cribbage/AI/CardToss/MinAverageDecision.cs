@@ -4,7 +4,7 @@ using Cribbage.Score;
 using Cribbage.Score.Interface;
 using Cribbage.Utility;
 
-namespace Cribbage.AI.CardToss
+namespace Skunked.AI.CardToss
 {
     public class MinAverageDecision : AbstractAverageDecision, IDecisionStrategy
     {

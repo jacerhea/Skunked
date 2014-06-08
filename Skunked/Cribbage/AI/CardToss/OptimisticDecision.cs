@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cribbage;
+using Cribbage.AI.CardToss;
 using Cribbage.Combinatorics;
-using Cribbage.PlayingCards;
 using Cribbage.Score;
 using Cribbage.Score.Interface;
+using Cribbage.Utility;
+using Skunked.PlayingCards;
 
-namespace Cribbage.AI.CardToss
+namespace Skunked.AI.CardToss
 {
     /// <summary>
     /// Returns cards to throw away in a hand of Cribbage based on the highest possible score of all possibly cut cards.
@@ -14,19 +17,22 @@ namespace Cribbage.AI.CardToss
     public class OptimisticDecision : IDecisionStrategy
     {
         private readonly IScoreCalculator _scoreCalculator;
+        private readonly Deck _deck;
+        
 
         public OptimisticDecision(IScoreCalculator scoreCalculator)
         {
             if (scoreCalculator == null) throw new ArgumentNullException("scoreCalculator");
             _scoreCalculator = scoreCalculator;
+            _deck = new Deck();
         }
 
         public IEnumerable<Card> DetermineCardsToThrow(IEnumerable<Card> hand)
         {
-            var combinations = new Combinations<Card>(hand.ToList(), 4);
+            var handList = hand.ToList();
+            var combinations = new Combinations<Card>(handList, 4);
 
-            var deck = new Deck();
-            var possibleCardsCut = deck.Cards.Where(card => !hand.Contains(card));
+            var possibleCardsCut = _deck.Cards.Where(card => !handList.Contains(card)).ToList();
 
             var totalPossibleCombinations = new List<ComboScore>();
 
@@ -41,9 +47,8 @@ namespace Cribbage.AI.CardToss
                 }
             }
 
-            var highestScore = totalPossibleCombinations.Max(cs => cs.Score);
-            var highestScoringCombo = totalPossibleCombinations.First(cs => cs.Score == highestScore);
-            return hand.Where(card => !highestScoringCombo.Combo.Contains(card));
+            var highestScoringCombo = totalPossibleCombinations.MaxBy(cs => cs.Score);
+            return handList.Where(card => !highestScoringCombo.Combo.Contains(card));
         }
     }
 }

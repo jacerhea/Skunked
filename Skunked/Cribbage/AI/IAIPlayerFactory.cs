@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Cribbage.Players;
+using Skunked.Players;
 
-namespace Cribbage.AI
+namespace Skunked.AI
 {
     public interface IAIPlayerFactory
     {

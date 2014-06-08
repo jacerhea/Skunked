@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using Cribbage.AI.CardToss;
+using Cribbage;
 using Cribbage.AI.TheCount;
 using Cribbage.AI.ThePlay;
 using Cribbage.Rules;
+using Skunked.AI.CardToss;
 
-namespace Cribbage.Players
+namespace Skunked.Players
 {
     public class Player : ISerializable
     {

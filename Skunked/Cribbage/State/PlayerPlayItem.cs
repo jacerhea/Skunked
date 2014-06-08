@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using Skunked;
 
 namespace Cribbage.State
 {

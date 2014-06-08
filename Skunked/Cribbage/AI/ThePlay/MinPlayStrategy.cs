@@ -5,6 +5,7 @@ using Cribbage.PlayingCards;
 using Cribbage.Rules;
 using Cribbage.Score;
 using Cribbage.Score.Interface;
+using Skunked;
 
 namespace Cribbage.AI.ThePlay
 {

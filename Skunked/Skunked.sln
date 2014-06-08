@@ -1,9 +1,26 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked", "Cribbage\Skunked.csproj", "{456DF28E-8EA0-413D-982F-F67A6EB43FDF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked.Test", "Skunked.Test\Skunked.Test.csproj", "{C64EBFFC-53F9-422F-881A-987033025912}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{446CA3CE-C95D-43A0-A22A-8F73A6AA2EBD}"
+	ProjectSection(SolutionItems) = preProject
+		README.txt = README.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5AF76AE4-377F-4175-BF54-F857338B4BFA}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build Packages", "Build Packages", "{0CA42EF2-F639-4987-9DDF-106A71FA6E48}"
+	ProjectSection(SolutionItems) = preProject
+		Skunked Packages\Skunked.0.5.0.nupkg = Skunked Packages\Skunked.0.5.0.nupkg
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,5 +39,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0CA42EF2-F639-4987-9DDF-106A71FA6E48} = {446CA3CE-C95D-43A0-A22A-8F73A6AA2EBD}
 	EndGlobalSection
 EndGlobal

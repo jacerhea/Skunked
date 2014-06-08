@@ -2,6 +2,8 @@
 using System.Linq;
 using Cribbage.Score.Interface;
 using Cribbage.Utility;
+using Skunked;
+using Skunked.AI.CardToss;
 
 namespace Cribbage.AI.CardToss
 {

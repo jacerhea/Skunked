@@ -1,4 +1,4 @@
-﻿namespace Cribbage
+﻿namespace Skunked.PlayingCards
 {
     public enum Suit
     {

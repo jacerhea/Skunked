@@ -1,4 +1,6 @@
 ﻿using System;
+using Skunked;
+using Skunked.Players;
 
 namespace Cribbage.Players
 {

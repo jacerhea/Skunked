@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Cribbage.Score.Interface;
 using Cribbage.Utility;
+using Skunked;
 
 namespace Cribbage.AI.TheCount
 {

@@ -5,6 +5,7 @@ using Cribbage.Commands;
 using Cribbage.Commands.Arguments;
 using Cribbage.Exceptions;
 using Cribbage.Utility;
+using Skunked;
 
 namespace Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands
 {

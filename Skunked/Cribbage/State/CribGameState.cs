@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using Cribbage.Players;
 using Cribbage.Rules;
 using Cribbage.Utility;
+using Skunked.Players;
 
 namespace Cribbage.State
 {

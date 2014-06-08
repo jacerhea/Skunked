@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cribbage;
 using Cribbage.Combinatorics;
 using Cribbage.Order.Interface;
 using Cribbage.PlayingCards;
+using Cribbage.Score;
 using Cribbage.Score.Interface;
 using Cribbage.Utility;
+using Skunked.PlayingCards;
 
-namespace Cribbage.Score
+namespace Skunked.Score
 {
     public class ScoreCalculator : IScoreCalculator
     {
@@ -146,6 +149,7 @@ namespace Cribbage.Score
         //only looking for runs of 3,4, and 5
         public List<IList<Card>> CountRuns(Dictionary<int, List<IList<Card>>> combinationsToCount)
         {
+            if (combinationsToCount == null) throw new ArgumentNullException("combinationsToCount");
             var returnList = combinationsToCount[5].Where(IsRun).ToList();
 
             if (returnList.Count > 0)

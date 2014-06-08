@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 using Cribbage.Utility;
+using Skunked;
 
 namespace Cribbage.State
 {

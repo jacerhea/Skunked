@@ -1,4 +1,6 @@
-﻿namespace Cribbage.PlayingCards
+﻿using Skunked;
+
+namespace Cribbage.PlayingCards
 {
     public interface ICardValueStrategy
     {

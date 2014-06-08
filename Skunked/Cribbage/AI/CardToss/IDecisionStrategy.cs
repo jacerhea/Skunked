@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using Cribbage;
 
-namespace Cribbage.AI.CardToss
+namespace Skunked.AI.CardToss
 {
     public interface IDecisionStrategy
     {

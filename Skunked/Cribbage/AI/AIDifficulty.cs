@@ -1,4 +1,4 @@
-﻿namespace Cribbage.AI
+﻿namespace Skunked.AI
 {
     public enum AIDifficulty
     {

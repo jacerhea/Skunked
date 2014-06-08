@@ -6,6 +6,7 @@ using Cribbage.Rules;
 using Cribbage.Score;
 using Cribbage.Score.Interface;
 using Cribbage.Utility;
+using Skunked;
 
 namespace Cribbage.AI.ThePlay
 {

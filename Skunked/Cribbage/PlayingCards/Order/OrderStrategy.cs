@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Cribbage.Order
+namespace Skunked.PlayingCards.Order
 {
     public static class OrderStrategy
     {

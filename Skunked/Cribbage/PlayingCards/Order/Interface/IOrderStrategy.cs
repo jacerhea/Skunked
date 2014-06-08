@@ -1,4 +1,6 @@
-﻿namespace Cribbage.Order.Interface
+﻿using Skunked;
+
+namespace Cribbage.Order.Interface
 {
     public interface IOrderStrategy
     {

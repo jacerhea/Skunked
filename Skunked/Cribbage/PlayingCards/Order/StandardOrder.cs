@@ -1,7 +1,7 @@
 ﻿using System;
 using Cribbage.Order.Interface;
 
-namespace Cribbage.Order
+namespace Skunked.PlayingCards.Order
 {
     public class StandardOrder : IOrderStrategy
     {

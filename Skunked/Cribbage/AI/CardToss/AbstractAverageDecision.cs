@@ -5,7 +5,7 @@ using Cribbage.Combinatorics;
 using Cribbage.Score;
 using Cribbage.Score.Interface;
 
-namespace Cribbage.AI.CardToss
+namespace Skunked.AI.CardToss
 {
     public abstract class AbstractAverageDecision
     {

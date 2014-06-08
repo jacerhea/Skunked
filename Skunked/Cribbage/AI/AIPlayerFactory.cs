@@ -4,12 +4,13 @@ using System.Linq;
 using Cribbage.AI.CardToss;
 using Cribbage.AI.TheCount;
 using Cribbage.AI.ThePlay;
-using Cribbage.Order;
-using Cribbage.Players;
-using Cribbage.PlayingCards;
-using Cribbage.Score;
+using Skunked.AI.CardToss;
+using Skunked.Players;
+using Skunked.PlayingCards.Order;
+using Skunked.PlayingCards.Value;
+using Skunked.Score;
 
-namespace Cribbage.AI
+namespace Skunked.AI
 {
     public class AIPlayerFactory : IAIPlayerFactory
     {

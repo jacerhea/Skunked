@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cribbage.Commands;
 using Cribbage.Commands.Arguments;
 using Cribbage.Exceptions;
-using Cribbage.PlayingCards;
 using Cribbage.State;
 using Cribbage.Utility;
-using Games.Domain.MainModule.Entities.CardGames.Cribbage.Commands;
+using Skunked.PlayingCards.Value;
 
-namespace Cribbage.Commands
+namespace Skunked.Commands
 {
     public class PlayCardCommand : CribbageCommandBase, ICommand
     {

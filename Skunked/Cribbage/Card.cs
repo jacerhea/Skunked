@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using Skunked.PlayingCards;
 
-namespace Cribbage
+namespace Skunked
 {
     public class Card : IEquatable<Card>, ISerializable 
     {

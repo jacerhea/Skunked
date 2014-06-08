@@ -1,6 +1,7 @@
 ﻿using System;
+using Cribbage.PlayingCards;
 
-namespace Cribbage.PlayingCards
+namespace Skunked.PlayingCards.Value
 {
     public class AceLowFaceTenCardValueStrategy : ICardValueStrategy
     {

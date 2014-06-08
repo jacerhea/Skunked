@@ -3,6 +3,9 @@ using System.Linq;
 using Cribbage.Players;
 using Cribbage.PlayingCards;
 using Cribbage.Utility;
+using Skunked;
+using Skunked.Players;
+using Skunked.PlayingCards;
 
 namespace Cribbage.Dealer
 {
