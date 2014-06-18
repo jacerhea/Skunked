@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Skunked.PlayingCards;
-using Skunked.PlayingCards.Order;
-using Skunked.PlayingCards.Value;
 using Skunked.Score;
 
 namespace Skunked.Test.Score
@@ -16,9 +14,7 @@ namespace Skunked.Test.Score
         [TestInitialize]
         public void Setup()
         {
-            var strategy = new AceLowFaceTenCardValueStrategy();
-            var order = new StandardOrder();
-            _scoreCalculator = new ScoreCalculator(strategy, order);
+            _scoreCalculator = new ScoreCalculator();
         }
 
         [TestMethod]
@@ -48,17 +44,14 @@ namespace Skunked.Test.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Two, Suit.Spades),
                                new Card(Rank.Three, Suit.Spades),
                                new Card(Rank.Two, Suit.Clubs),
                                new Card(Rank.Seven, Suit.Hearts),
                                new Card(Rank.Six, Suit.Diamonds)
                            };
 
-            var combos = _scoreCalculator.GetCombinations(hand);
-
-            var combosMakeFifteen = _scoreCalculator.CountFifteens(combos);
-            Assert.AreEqual(2, combosMakeFifteen.Count);
+            var result = _scoreCalculator.CountShowScore(new Card(Rank.Two, Suit.Spades), hand);
+            Assert.AreEqual(2, result.Fifteens.Count);
         }
 
         [TestMethod]
@@ -277,6 +270,37 @@ namespace Skunked.Test.Score
         }
 
         [TestMethod]
+        public void IsNotFifteenTest()
+        {
+            var play = new List<Card>
+                           {
+                               new Card(Rank.Ace, Suit.Spades),
+                               new Card(Rank.Two, Suit.Spades),
+                               new Card(Rank.Three, Suit.Hearts),
+                               new Card(Rank.Four, Suit.Clubs),
+                           };
+
+            var isFifteen = _scoreCalculator.IsFifteen(play);
+            Assert.IsFalse(isFifteen);
+        }
+
+        [TestMethod]
+        public void IsFifteenTest()
+        {
+            var play = new List<Card>
+                           {
+                               new Card(Rank.Ace, Suit.Spades),
+                               new Card(Rank.Two, Suit.Spades),
+                               new Card(Rank.Three, Suit.Hearts),
+                               new Card(Rank.Four, Suit.Clubs),
+                               new Card(Rank.Five, Suit.Diamonds),
+                           };
+
+            var isFifteen = _scoreCalculator.IsFifteen(play);
+            Assert.IsTrue(isFifteen);
+        }
+
+        [TestMethod]
         public void ScoreCalculatorHasNobsTest()
         {
             var play = new List<Card>
@@ -292,7 +316,7 @@ namespace Skunked.Test.Score
         }
 
         [TestMethod]
-        public void ScoreCalculatorHasNobsFalseTest()
+        public void ScoreCalculatorDoesNotHaveNobsTest()
         {
             var play = new List<Card>
                            {
@@ -307,25 +331,43 @@ namespace Skunked.Test.Score
         }
 
         [TestMethod]
-        public void ScoreCalculatoAreContinousTest()
+        public void ScoreCalculatoAreContinousTestOne()
         {
-            var play = new List<int> { 109, 110, 111, 112 };
+            var play = new List<int> { 109 };
 
             bool areContinuous = _scoreCalculator.AreContinuous(play);
             Assert.IsTrue(areContinuous);
         }
 
         [TestMethod]
-        public void ScoreCalculatoAreContinousFalseTest()
+        public void ScoreCalculatorAreContinousTestTwo()
         {
-            var play = new List<int> { 109, 110, 112 };
+            var play = new List<int> { 109, 110 };
 
             bool areContinuous = _scoreCalculator.AreContinuous(play);
-            Assert.IsFalse(areContinuous);
+            Assert.IsTrue(areContinuous);
         }
 
         [TestMethod]
-        public void ScoreCalculatorIsRunTest()
+        public void ScoreCalculatoAreContinousTestThree()
+        {
+            var play = new List<int> { 109, 110, 111 };
+
+            bool areContinuous = _scoreCalculator.AreContinuous(play);
+            Assert.IsTrue(areContinuous);
+        }
+
+        [TestMethod]
+        public void ScoreCalculatoAreContinousTest()
+        {
+            var play = new List<int> { 0, -1 };
+
+            bool areContinuous = _scoreCalculator.AreContinuous(play);
+            Assert.IsTrue(areContinuous);
+        }
+
+        [TestMethod]
+        public void ScoreCalculatorIsRun()
         {
             var hand = new List<Card>
                            {
@@ -339,7 +381,68 @@ namespace Skunked.Test.Score
         }
 
         [TestMethod]
-        public void ScoreCalculatorIsRunFalseTest()
+        public void ScoreCalculatorIsRunAll()
+        {
+            var hand = new List<Card>
+                           {
+                               new Card(Rank.Ace, Suit.Spades),
+                               new Card(Rank.Two, Suit.Clubs),
+                               new Card(Rank.Three, Suit.Hearts),
+                               new Card(Rank.Four, Suit.Hearts),
+                               new Card(Rank.Five, Suit.Hearts),
+                               new Card(Rank.Six, Suit.Hearts),
+                               new Card(Rank.Seven, Suit.Hearts),
+                               new Card(Rank.Eight, Suit.Hearts),
+                               new Card(Rank.Nine, Suit.Hearts),
+                               new Card(Rank.Ten, Suit.Hearts),
+                               new Card(Rank.Jack, Suit.Hearts),
+                               new Card(Rank.Queen, Suit.Hearts),
+                               new Card(Rank.King, Suit.Hearts)
+                           };
+
+            var isRun = _scoreCalculator.IsRun(hand);
+            Assert.IsTrue(isRun);
+        }
+
+        [TestMethod]
+        public void ScoreCalculatorIsNotRunMissingSix()
+        {
+            var hand = new List<Card>
+                           {
+                               new Card(Rank.Ace, Suit.Spades),
+                               new Card(Rank.Two, Suit.Clubs),
+                               new Card(Rank.Three, Suit.Hearts),
+                               new Card(Rank.Four, Suit.Hearts),
+                               new Card(Rank.Five, Suit.Hearts),
+                               new Card(Rank.Seven, Suit.Hearts),
+                               new Card(Rank.Eight, Suit.Hearts),
+                               new Card(Rank.Nine, Suit.Hearts),
+                               new Card(Rank.Ten, Suit.Hearts),
+                               new Card(Rank.Jack, Suit.Hearts),
+                               new Card(Rank.Queen, Suit.Hearts),
+                               new Card(Rank.King, Suit.Hearts)
+                           };
+
+            var isRun = _scoreCalculator.IsRun(hand);
+            Assert.IsFalse(isRun);
+        }
+
+        [TestMethod]
+        public void ScoreCalculatorIsRunFaceCards()
+        {
+            var hand = new List<Card>
+                           {
+                               new Card(Rank.Jack, Suit.Spades),
+                               new Card(Rank.King, Suit.Clubs),
+                               new Card(Rank.Queen, Suit.Hearts),
+                           };
+
+            var isRun = _scoreCalculator.IsRun(hand);
+            Assert.IsTrue(isRun);
+        }
+
+        [TestMethod]
+        public void ScoreCalculatorIsNotRun()
         {
             var hand = new List<Card>
                            {

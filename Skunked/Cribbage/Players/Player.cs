@@ -12,50 +12,25 @@ namespace Skunked.Players
 {
     public class Player : ISerializable
     {
-        private IPlayStrategy _playStrategy;
-        private IDecisionStrategy _decisionStrategy;
-        private IScoreCountStrategy _scoreCountStrategy;
+        private readonly IPlayStrategy _playStrategy;
+        private readonly IDecisionStrategy _decisionStrategy;
+        private readonly IScoreCountStrategy _scoreCountStrategy;
 
-        public Player()
+        public Player(string name = null, int id = -1, IPlayStrategy playStrategy = null, IDecisionStrategy decisionStrategy = null, IScoreCountStrategy scoreCountStrategy = null)
         {
             var guid = Guid.NewGuid();
-            Name = guid.ToString();
-            Id = RandomProvider.GetThreadRandom().Next();            
-        }
-
-        public Player(string name)
-        {
-            if (name == null) throw new ArgumentNullException("name");
-            Name = name;
-            Id = RandomProvider.GetThreadRandom().Next();
-        }
-
-        public Player(string name, int id)
-        {
-            if (name == null) throw new ArgumentNullException("name");
-            Id = id;
-            Name = name;
-        }
-
-        public Player(string name, IPlayStrategy playStrategy, IDecisionStrategy decisionStrategy, IScoreCountStrategy scoreCountStrategy)
-        {
-            _playStrategy = playStrategy;
-            _decisionStrategy = decisionStrategy;
-            _scoreCountStrategy = scoreCountStrategy;
-            if (name == null) throw new ArgumentNullException("name");
-            Id = RandomProvider.GetThreadRandom().Next();
-            Name = name;
+            Name = name ?? guid.ToString();
+            if (id == -1)
+            {
+                Id = RandomProvider.GetThreadRandom().Next();
+            }   
+            _playStrategy = playStrategy ?? new MaxPlayStrategy();
+            _decisionStrategy = decisionStrategy ?? new MaxAverageDecision();
+            _scoreCountStrategy = scoreCountStrategy ?? new PercentageScoreCountStrategy();
         }
 
         public string Name { get; private set; }
         public int Id { get; private set; }
-
-        public void SetStrategies(IPlayStrategy playStrategy, IDecisionStrategy decisionStrategy, IScoreCountStrategy scoreCountStrategy)
-        {
-            _playStrategy = playStrategy;
-            _decisionStrategy = decisionStrategy;
-            _scoreCountStrategy = scoreCountStrategy;            
-        }
 
         public override string ToString()
         {

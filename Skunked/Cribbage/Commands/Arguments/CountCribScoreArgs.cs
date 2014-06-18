@@ -9,8 +9,8 @@ namespace Skunked.Commands.Arguments
         public IScoreCalculator ScoreCalculator { get; private set; }
         public int PlayerCountedScore { get; private set; }
 
-        public CountCribScoreArgs(GameState gameState, int playerID, int round, IScoreCalculator scoreCalculator, int playerCountedCribScore)
-            : base(gameState, playerID, round)
+        public CountCribScoreArgs(GameState gameState, int playerId, int round, IScoreCalculator scoreCalculator, int playerCountedCribScore)
+            : base(gameState, playerId, round)
         {
             if (scoreCalculator == null) throw new ArgumentNullException("scoreCalculator");
             if (playerCountedCribScore < 0) throw new ArgumentOutOfRangeException("playerCountedScore");

@@ -25,7 +25,7 @@ namespace Skunked.Commands
             var crib = currentRound.Crib;
 
             var calculatedCribShowScore = _args.ScoreCalculator.CountShowScore(cutCard, crib);
-            var playerScore = _args.GameState.PlayerScores.Single(ps => ps.Player == _args.PlayerID);
+            var playerScore = _args.GameState.PlayerScores.Single(ps => ps.Player == _args.PlayerId);
 
             var calculatedCribScore = calculatedCribShowScore.Score;
             if (_args.PlayerCountedScore == calculatedCribScore)
@@ -50,7 +50,7 @@ namespace Skunked.Commands
             }
 
 
-            var playerShowScore = _args.GameState.GetCurrentRound().PlayerShowScores.Single(pss => pss.Player == _args.PlayerID);
+            var playerShowScore = _args.GameState.GetCurrentRound().PlayerShowScores.Single(pss => pss.Player == _args.PlayerId);
             playerShowScore.CribScore = calculatedCribScore;
             playerShowScore.HasShowedCrib = true;
             playerShowScore.IsDone = true;
@@ -86,7 +86,7 @@ namespace Skunked.Commands
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidStateForCribCount);
             }
 
-            if (!currentRound.PlayerShowScores.Where(pss => pss.Player != _args.PlayerID).All(pss => pss.HasShowed))
+            if (!currentRound.PlayerShowScores.Where(pss => pss.Player != _args.PlayerId).All(pss => pss.HasShowed))
             {
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.NotPlayersTurn);
             }

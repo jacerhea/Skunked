@@ -9,13 +9,7 @@
         public int PlayerCount { get; set; }
         public int WinningScore { get { return ScoreType == GameScoreType.Standard121 ? 121 : 61; } }
 
-        public GameRules()
-        {
-            PlayerCount = 2;
-            ScoreType = GameScoreType.Standard121;
-        }
-
-        public GameRules(GameScoreType scoreType, int numberOfPlayers)
+        public GameRules(GameScoreType scoreType = GameScoreType.Standard121, int numberOfPlayers = 2)
         {
             PlayerCount = numberOfPlayers;
             ScoreType = scoreType;

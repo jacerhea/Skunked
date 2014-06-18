@@ -31,7 +31,7 @@ namespace Skunked.AI
             foreach (var iteration in Enumerable.Range(1, numberOfPlayers))
             {
                 var playerName = string.Format("Player {0}", iteration);
-                var player = new Player(playerName, _playStrategy, _decisionStrategy, new PercentageScoreCountStrategy(100, new ScoreCalculator()));
+                var player = new Player(playerName, iteration, _playStrategy, _decisionStrategy, new PercentageScoreCountStrategy(100, new ScoreCalculator()));
                 players.Add(player);
             }
 
@@ -46,13 +46,13 @@ namespace Skunked.AI
             switch (difficulty)
             {
                 case AIDifficulty.Easy:
-                    return new Player(name, new LowestCardPlayStrategy(standardOrder), new MinAverageDecision(scoreCalculator), new PercentageScoreCountStrategy(70, scoreCalculator));
+                    return new Player(name, -1, new LowestCardPlayStrategy(standardOrder), new MinAverageDecision(scoreCalculator), new PercentageScoreCountStrategy(70, scoreCalculator));
                 case AIDifficulty.Medium:
-                    return new Player(name, new LowestCardPlayStrategy(standardOrder), new RandomDecision(), new PercentageScoreCountStrategy(80, scoreCalculator));
+                    return new Player(name, -1, new LowestCardPlayStrategy(standardOrder), new RandomDecision(), new PercentageScoreCountStrategy(80, scoreCalculator));
                 case AIDifficulty.Hard:
-                    return new Player(name, new LowestCardPlayStrategy(standardOrder), new OptimisticDecision(), new PercentageScoreCountStrategy(90, scoreCalculator));
+                    return new Player(name, -1, new LowestCardPlayStrategy(standardOrder), new OptimisticDecision(), new PercentageScoreCountStrategy(90, scoreCalculator));
                 case AIDifficulty.Expert:
-                    return new Player(name, new LowestCardPlayStrategy(standardOrder), new MaxAverageDecision(scoreCalculator), new PercentageScoreCountStrategy(100, scoreCalculator));
+                    return new Player(name, -1, new LowestCardPlayStrategy(standardOrder), new MaxAverageDecision(scoreCalculator), new PercentageScoreCountStrategy(100, scoreCalculator));
                 default:
                     throw new NotSupportedException("Difficulty type not supported.");
             }

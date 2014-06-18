@@ -18,7 +18,7 @@ namespace Skunked.Commands
         protected void ValidateStateBase()
         {
             CheckEndOfGame();
-            if (_args.GameState.Players.All(sp => sp.Id != _args.PlayerID)) { throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidPlayer); }
+            if (_args.GameState.Players.All(sp => sp.Id != _args.PlayerId)) { throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidPlayer); }
 
             if(_args.GameState.Rounds.Count(r => r.Round == _args.Round) != 1)
             {

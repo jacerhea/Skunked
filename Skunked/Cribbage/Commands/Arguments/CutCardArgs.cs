@@ -1,4 +1,5 @@
 ﻿using System;
+using Skunked.PlayingCards.Order;
 using Skunked.PlayingCards.Order.Interface;
 using Skunked.State;
 
@@ -9,12 +10,11 @@ namespace Skunked.Commands.Arguments
         public Card CutCard { get; set; }
         public IOrderStrategy OrderStrategy { get; set; }
 
-        public CutCardArgs(GameState gameState, int playerID, int round, Card cutCard, IOrderStrategy orderStrategy) : base(gameState, playerID, round)
+        public CutCardArgs(GameState gameState, int playerId, int round, Card cutCard, IOrderStrategy orderStrategy = null) : base(gameState, playerId, round)
         {
             if (cutCard == null) throw new ArgumentNullException("cutCard");
-            if (orderStrategy == null) throw new ArgumentNullException("orderStrategy");
             CutCard = cutCard;
-            OrderStrategy = orderStrategy;
+            OrderStrategy = orderStrategy ?? new StandardOrder();
         }
     }
 }

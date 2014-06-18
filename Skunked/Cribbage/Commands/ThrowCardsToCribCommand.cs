@@ -23,11 +23,11 @@ namespace Skunked.Commands
         {
             ValidateStateBase();
             var currentRound = _args.GameState.Rounds.MaxBy(round => round.Round);
-            var playerDealtHand = currentRound.PlayerDealtCards.First(kv => kv.Key == _args.PlayerID);
+            var playerDealtHand = currentRound.PlayerDealtCards.First(kv => kv.Key == _args.PlayerId);
 
             //remove thrown cards from hand
-            var playerHand = currentRound.PlayerDealtCards.First(kv => kv.Key == _args.PlayerID).Value.Cast<Card>().Except(_args.CardsToThrow);
-            currentRound.PlayerHand.Add(new CustomKeyValuePair<int, List<Card>> { Key = _args.PlayerID, Value = playerHand.Cast<Card>().ToList() });
+            var playerHand = currentRound.PlayerDealtCards.First(kv => kv.Key == _args.PlayerId).Value.Cast<Card>().Except(_args.CardsToThrow);
+            currentRound.PlayerHand.Add(new CustomKeyValuePair<int, List<Card>> { Key = _args.PlayerId, Value = playerHand.Cast<Card>().ToList() });
 
             var serializableCards = _args.CardsToThrow.Select(c => new Card(c));
             currentRound.Crib.AddRange(serializableCards);
@@ -41,7 +41,7 @@ namespace Skunked.Commands
                 var randomIndex = RandomProvider.GetThreadRandom().Next(0, cardsNotDealt.Count - 1);
                 var startingCard = cardsNotDealt[randomIndex];
 
-                var playerScore = _args.GameState.PlayerScores.First(ps => ps.Player == _args.PlayerID);
+                var playerScore = _args.GameState.PlayerScores.First(ps => ps.Player == _args.PlayerId);
                 playerScore.Score += _args.ScoreCalculator.CountCut(startingCard);
                 currentRound.StartingCard = startingCard;
             }
@@ -58,7 +58,7 @@ namespace Skunked.Commands
         protected override void ValidateState()
         {
             var currentRound = _args.GameState.Rounds.MaxBy(round => round.Round);
-            var playerDealtHand = currentRound.PlayerDealtCards.First(kv => kv.Key == _args.PlayerID);
+            var playerDealtHand = currentRound.PlayerDealtCards.First(kv => kv.Key == _args.PlayerId);
             var dealtCards = playerDealtHand.Value.Select(c => (Card)c);
 
             if (dealtCards.Intersect(_args.CardsToThrow).Count() != _args.CardsToThrow.Count())

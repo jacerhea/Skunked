@@ -34,7 +34,7 @@ namespace Skunked.Test.Commands
                                              new Player("Player1", 1),
                                              new Player("Player2", 2)
                                          },
-                OpeningRoundState = new OpeningRoundState { },
+                OpeningRoundState = new OpeningRoundState(),
                 PlayerScores = new List<PlayerScore>
                                          {
                                              new PlayerScore {Player = 1, Score = 0},
@@ -144,26 +144,24 @@ namespace Skunked.Test.Commands
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Test_Invalid_Player_Counted_Score()
         {
-            var command = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, -1, 1, _scoreCalculator, 24));
+            new CountHandScoreCommand(new CountHandScoreArgs(_gameState, -1, 1, _scoreCalculator, 24));
         }
 
         [TestMethod]
         public void Test_Count_Player1_Score()
         {
-            const int playerID = 1;
+            const int playerId = 1;
             _gameState.GetCurrentRound().PlayerCrib = 2;
 
             var command = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, _scoreCalculator, 1));
             command.Execute();
 
-            Assert.AreEqual(1, _gameState.PlayerScores.Single(ps => ps.Player == playerID).Score);
+            Assert.AreEqual(1, _gameState.PlayerScores.Single(ps => ps.Player == playerId).Score);
         }
 
         [TestMethod]
         public void Test_Count_Not_Players_Turn_To_Count_Exception()
         {
-            const int playerID = 2;
-
             try
             {
                 new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, _scoreCalculator, 24)).Execute();
@@ -178,16 +176,16 @@ namespace Skunked.Test.Commands
         [TestMethod]
         public void Test_Count_Player2_Score()
         {
-            const int playerID = 2;
+            const int playerId = 2;
             _gameState.GetCurrentRound().PlayerCrib = 2;
 
             var command1 = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, _scoreCalculator, 24));
             command1.Execute();
 
-            var command2 = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, playerID, 1, _scoreCalculator, 1));
+            var command2 = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, playerId, 1, _scoreCalculator, 1));
             command2.Execute();
 
-            Assert.AreEqual(1, _gameState.PlayerScores.Single(ps => ps.Player == playerID).Score);
+            Assert.AreEqual(1, _gameState.PlayerScores.Single(ps => ps.Player == playerId).Score);
         }
     }
 }

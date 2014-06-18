@@ -9,7 +9,7 @@ namespace Skunked.Commands.Arguments
         public Card PlayedCard { get; private set; }
         public IScoreCalculator ScoreCalculator { get; private set; }
 
-        public PlayCardArgs(GameState gameState, int playerID, int round, Card playedCard, IScoreCalculator scoreCalculator) : base(gameState, playerID, round)
+        public PlayCardArgs(GameState gameState, int playerId, int round, Card playedCard, IScoreCalculator scoreCalculator) : base(gameState, playerId, round)
         {
             if (playedCard == null) throw new ArgumentNullException("playedCard");
             if (scoreCalculator == null) throw new ArgumentNullException("scoreCalculator");

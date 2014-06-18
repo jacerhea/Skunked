@@ -42,9 +42,9 @@ namespace Skunked.Commands
             var playerCardPlayedScore = new PlayerPlayItem
             {
                 Card = new Card(_args.PlayedCard),
-                Player = _args.PlayerID
+                Player = _args.PlayerId
             };
-            _args.GameState.PlayerScores.Single(ps => ps.Player == _args.PlayerID).Score += playScore;
+            _args.GameState.PlayerScores.Single(ps => ps.Player == _args.PlayerId).Score += playScore;
 
             //create new round
             setOfPlays.Last().Add(playerCardPlayedScore);
@@ -54,7 +54,7 @@ namespace Skunked.Commands
                 int playCountNew = _args.ScoreCalculator.SumValues(setOfPlays.Last().Select(ppi => (Card)ppi.Card));
                 if (playCountNew != _args.GameState.GameRules.PlayMaxScore)
                 {
-                    _args.GameState.PlayerScores.Single(ps => ps.Player == _args.PlayerID).Score += _args.ScoreCalculator.GetGoValue();                    
+                    _args.GameState.PlayerScores.Single(ps => ps.Player == _args.PlayerId).Score += _args.ScoreCalculator.GetGoValue();                    
                 }
                 //todo : make this less hacky.  adding than removing round so FindNextPlayer() can work
                 setOfPlays.Add(new List<PlayerPlayItem>());
@@ -78,7 +78,7 @@ namespace Skunked.Commands
 
             if (!currentRound.ThrowCardsIsDone || currentRound.PlayCardsIsDone) { throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidStateForPlay); }
 
-            var allPlayerCards = currentRound.PlayerHand.Single(kv => kv.Key == _args.PlayerID).Value.Cast<Card>().ToList();
+            var allPlayerCards = currentRound.PlayerHand.Single(kv => kv.Key == _args.PlayerId).Value.Cast<Card>().ToList();
             if (allPlayerCards.Count(card => card.Equals(_args.PlayedCard)) != 1)
             {
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidCard);
@@ -89,7 +89,7 @@ namespace Skunked.Commands
 
             if(setOfPlays.Count == 0)//todo: what is this? || setOfPlays.Last().Count == 0)
             {
-                if (currentRound.PlayerCrib != _args.PlayerID)
+                if (currentRound.PlayerCrib != _args.PlayerId)
                 {
                     throw new InvalidCribbageOperationException(InvalidCribbageOperations.NotPlayersTurn);
                 }
@@ -99,7 +99,7 @@ namespace Skunked.Commands
                 }
             }
 
-            if (setOfPlays.Last().Count > 0 && setOfPlays.SelectMany(s => s).Last().NextPlayer != _args.PlayerID)
+            if (setOfPlays.Last().Count > 0 && setOfPlays.SelectMany(s => s).Last().NextPlayer != _args.PlayerId)
             {
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.NotPlayersTurn);
             }
@@ -132,7 +132,7 @@ namespace Skunked.Commands
             }
 
             //move to current player
-            var currentPlayer = _args.GameState.Players.Single(sp => sp.Id == _args.PlayerID);
+            var currentPlayer = _args.GameState.Players.Single(sp => sp.Id == _args.PlayerId);
             var nextPlayer = _args.GameState.Players.NextOf(currentPlayer);
 
             //move to next player with valid move

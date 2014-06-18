@@ -6,16 +6,16 @@ namespace Skunked.Commands.Arguments
     public abstract class CommandArgsBase
     {
         public GameState GameState { get; private set; }
-        public int PlayerID { get; private set;}
+        public int PlayerId { get; private set;}
         public int Round { get; private set; }
 
-        protected CommandArgsBase(GameState gameState, int playerID, int round)
+        protected CommandArgsBase(GameState gameState, int playerId, int round)
         {
             if (gameState == null) throw new ArgumentNullException("gameState");
-            if (playerID < 0) throw new ArgumentOutOfRangeException("playerID");
+            if (playerId < 0) throw new ArgumentOutOfRangeException("playerId");
             if (round < 0) throw new ArgumentOutOfRangeException("round");
             GameState = gameState;
-            PlayerID = playerID;
+            PlayerId = playerId;
             Round = round;
         }
     }

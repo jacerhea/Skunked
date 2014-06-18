@@ -19,9 +19,9 @@ namespace Skunked.Commands
         public void Execute()
         {
             ValidateState();
-            if (_args.GameState.OpeningRoundState.PlayersCutCard.All(kv => kv.Key != _args.PlayerID))
+            if (_args.GameState.OpeningRoundState.PlayersCutCard.All(kv => kv.Key != _args.PlayerId))
             {
-                _args.GameState.OpeningRoundState.PlayersCutCard.Add(new CustomKeyValuePair<int, Card> { Key = _args.PlayerID, Value = new Card(_args.CutCard) });
+                _args.GameState.OpeningRoundState.PlayersCutCard.Add(new CustomKeyValuePair<int, Card> { Key = _args.PlayerId, Value = new Card(_args.CutCard) });
             }
 
             bool isDone = (_args.GameState.GameRules.PlayerCount == _args.GameState.OpeningRoundState.PlayersCutCard.Count);
@@ -44,7 +44,7 @@ namespace Skunked.Commands
 
         protected override void ValidateState()
         {
-            if(_args.GameState.OpeningRoundState.PlayersCutCard.Any(kv => kv.Key == _args.PlayerID))
+            if(_args.GameState.OpeningRoundState.PlayersCutCard.Any(kv => kv.Key == _args.PlayerId))
             {
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.CutCardPlayerAlreadyCut);    
             }

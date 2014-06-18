@@ -13,14 +13,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5AF76AE4-377F-4175-BF54-F857338B4BFA}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\packages.config = .nuget\packages.config
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build Packages", "Build Packages", "{0CA42EF2-F639-4987-9DDF-106A71FA6E48}"
 	ProjectSection(SolutionItems) = preProject
 		Skunked Packages\Skunked.0.5.0.nupkg = Skunked Packages\Skunked.0.5.0.nupkg
+		Skunked Packages\Skunked.0.6.0.nupkg = Skunked Packages\Skunked.0.6.0.nupkg
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked.Test.System", "Skunked.Test.System\Skunked.Test.System.csproj", "{D4F47431-7874-4A77-9963-588DA2A31D0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +36,10 @@ Global
 		{C64EBFFC-53F9-422F-881A-987033025912}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C64EBFFC-53F9-422F-881A-987033025912}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C64EBFFC-53F9-422F-881A-987033025912}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4F47431-7874-4A77-9963-588DA2A31D0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4F47431-7874-4A77-9963-588DA2A31D0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4F47431-7874-4A77-9963-588DA2A31D0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4F47431-7874-4A77-9963-588DA2A31D0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

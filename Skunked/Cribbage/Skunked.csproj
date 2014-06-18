@@ -35,7 +35,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI\AIDifficulty.cs" />
@@ -54,7 +53,7 @@
     <Compile Include="AI\Play\IPlayStrategy.cs" />
     <Compile Include="AI\Play\LowestCardPlayStrategy.cs" />
     <Compile Include="AI\Play\MinPlayStrategy.cs" />
-    <Compile Include="AI\Play\PlayStrategy.cs" />
+    <Compile Include="AI\Play\MaxPlayStrategy.cs" />
     <Compile Include="AI\Play\RandomPlayStrategy.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="Combinatorics\Combinations.cs" />
@@ -78,6 +77,7 @@
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\PlayCardCommand.cs" />
     <Compile Include="Commands\ThrowCardsToCribCommand.cs" />
+    <Compile Include="CribbageGame.cs" />
     <Compile Include="Dealer\IPlayerHandFactory.cs" />
     <Compile Include="Dealer\StandardHandDealer.cs" />
     <Compile Include="Exceptions\InvalidCribbageOperationException.cs" />
