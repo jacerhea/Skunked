@@ -4,11 +4,14 @@ using System.Linq;
 using Skunked.Commands;
 using Skunked.Commands.Arguments;
 using Skunked.Dealer;
+using Skunked.Exceptions;
 using Skunked.Players;
 using Skunked.PlayingCards;
 using Skunked.Rules;
+using Skunked.Score;
 using Skunked.Score.Interface;
 using Skunked.State;
+using Skunked.Utility;
 
 namespace Skunked
 {
@@ -28,13 +31,12 @@ namespace Skunked
         public CribbageGame(GameRules gameRules = null, List<Player> players = null, Deck deck = null, IScoreCalculator scoreCalculator = null, IPlayerHandFactory handFactory = null)
         {
             //if (deck == null) throw new ArgumentNullException("deck");
-            //if (scoreCalculator == null) throw new ArgumentNullException("scoreCalculator");
             //if (handFactory == null) throw new ArgumentNullException("handFactory");
 
             _gameRules = gameRules ?? new GameRules();
 
             _players = players ?? new List<Player> { new Player("Player 1"), new Player("Player 2") };
-            if (players.Count > 4 || players.Count < 2) throw new ArgumentOutOfRangeException("players");
+            if (_players.Count > 4 || _players.Count < 2) throw new ArgumentOutOfRangeException("players");
             //var gameScoresToCreate = _players.Count == 3 ? 3 : 2;
             //var gameScores = Enumerable.Range(1, gameScoresToCreate).Select(x => new GameScore(0)).ToList();
 
@@ -48,7 +50,7 @@ namespace Skunked
             //}
 
             _deck = deck ?? new Deck();
-            //_scoreCalculator = scoreCalculator;
+            _scoreCalculator = scoreCalculator ?? new ScoreCalculator();
             _handFactory = handFactory ?? new StandardHandDealer();
         }
 
@@ -59,16 +61,6 @@ namespace Skunked
 
         public GameState Run()
         {
-            //GameState = new CribGameState
-            //                {
-            //                    GameRules = _gameRules,
-            //                    Players =
-            //                        _players.Select(cp => new SerializablePlayer {ID = cp.ID, Name = cp.Name}).ToList(),
-            //                        Rounds = new List<CribRoundState>(),
-            //                        OpeningRoundState = new CribOpeningRoundState{IsDone = true, WinningPlayerCut = }
-            //                };
-            //GameState.PlayerScores = GameState.Players.Select(sp => new SerializablePlayerScore{Player = sp.ID, Score = 0}).ToList();
-
             var gameState = new GameState();
             var createGame = new CreateCribbageGameStateCommand(_players, gameState, _gameRules);
             createGame.Execute();
@@ -83,46 +75,47 @@ namespace Skunked
                 command.Execute();
             }
 
-            //var winningPlayerCut = _theCut.GetWinningCut(_players, _deck);
-            //var dealer = winningPlayerCut.Player;
-
-            while (true)
+            try
             {
-                var roundHands = _handFactory.CreatePlayerHands(_deck, _players.ToList(), _gameRules.HandSizeToDeal);
-
-                var crib = new List<Card>(_gameRules.HandSize);
-
-                foreach (var playerDiscard in _players.Select(p => new {Player = p, ThrowToCrib = p.DealHand(roundHands[p])}))
+                while (true)
                 {
-                    playerDiscard.ThrowToCrib.ForEach(c => roundHands[playerDiscard.Player].Remove(c));
-                    crib.AddRange(playerDiscard.ThrowToCrib);
+                    var roundHands = _handFactory.CreatePlayerHands(_deck, _players.ToList(), _gameRules.HandSizeToDeal);
+
+                    var round = gameState.GetCurrentRound().Round;
+                    foreach (var playerDiscard in _players.Select(p => new { Player = p, ThrowToCrib = p.DealHand(roundHands[p]) }))
+                    {
+                        playerDiscard.ThrowToCrib.ForEach(c => roundHands[playerDiscard.Player].Remove(c));
+                        var throwToCribCommand = new ThrowCardsToCribCommand(new ThrowCardsToCribArgs(gameState, playerDiscard.Player.Id,
+                                round, playerDiscard.ThrowToCrib, _scoreCalculator));
+                        throwToCribCommand.Execute();
+                    }
+
+                    while (!gameState.GetCurrentRound().PlayCardsIsDone)
+                    {
+                        var currentPlayerPlayItems = gameState.GetCurrentRound().PlayersShowedCards.Last();
+                        var ppi = currentPlayerPlayItems.Last();
+                        var player = _players.Single(p => p.Id == ppi.Player);
+                        var jkflasdkdf = currentPlayerPlayItems.Select(p => p.Card);
+                        var command = new PlayCardCommand(new PlayCardArgs(gameState, player.Id, round, 
+                            player.PlayShow(_gameRules, currentPlayerPlayItems.Select(y => y.Card).ToList(), jkflasdkdf.ToList()), _scoreCalculator));
+                        command.Execute();
+                    }
+
+                    foreach (var player in _players)
+                    {
+                        player.CountHand(gameState.GetCurrentRound().StartingCard, gameState.GetCurrentRound().PlayerHand.Single(kv => kv.Key == player.Id).Value);
+                    }
                 }
-
-                ////card cut
-                //var cardsNotDealt = _deck.Cards.Skip(_gameRules.HandSizeToDeal * _players.Count).ToList();
-                //var starterCard = _players.NextOf(dealer).ChooseCard(cardsNotDealt);
-                //PlayerScoreLookup[dealer].Score.AddPoints(_scoreCalculator.CountCut(starterCard));
-
-                ////the play
-                //_thePlay.Execute(GameState, _players, PlayerScoreLookup, roundHands, dealer);
-
-                ////the show
-                //_theShow.Execute(_players, PlayerScoreLookup, roundHands, dealer, crib, starterCard);
-                //change dealers for next round
-                //dealer = _players.NextOf(dealer);
+            }
+            catch (InvalidCribbageOperationException exception)
+            {
+                if (exception.Operation != InvalidCribbageOperations.GameFinished)
+                {
+                    throw;
+                }
             }
 
             return gameState;
         }
-
-        //private void ScoreChanged(object sender, GameScoreEventArgs e)
-        //{
-        //    var ps = sender as PlayerScore;
-        //    if (ps != null && ps.Score.Value >= _gameRules.WinningScore)
-        //    {
-        //        throw new GameException(GameExceptionTypes.Won);
-        //    }
-        //}
-
     }
 }

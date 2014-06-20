@@ -2,7 +2,7 @@
 
 namespace Skunked.Utility
 {
-    public class RAndomOverride : Random
+    public class RandomOverride : Random
     {
         public override int Next()
         {
