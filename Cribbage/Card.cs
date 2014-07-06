@@ -35,6 +35,18 @@ namespace Skunked
             Suit = (Suit)Enum.Parse(typeof(Suit), info.GetString("Suit"));
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null) throw new ArgumentNullException("other");
+            var card = (Card) obj;
+            return card.Rank == Rank && card.Suit == Suit;
+        }
+
+        public override int GetHashCode()
+        {
+            return (int)Suit ^ (int)Rank;
+        }
+
         public bool Equals(Card other)
         {
             if (other == null) throw new ArgumentNullException("other");
@@ -48,7 +60,7 @@ namespace Skunked
 
         public int GetHashCode(Card obj)
         {
-            return (int)Suit ^ (int)Rank;
+            return (int)obj.Suit ^ (int)obj.Rank;
         }
     }
 

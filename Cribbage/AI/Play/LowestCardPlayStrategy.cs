@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Skunked.PlayingCards.Order;
 using Skunked.PlayingCards.Order.Interface;
 using Skunked.Rules;
 
@@ -10,10 +11,9 @@ namespace Skunked.AI.Play
     {
         private readonly IOrderStrategy _orderStrategy;
 
-        public LowestCardPlayStrategy(IOrderStrategy orderStrategy)
+        public LowestCardPlayStrategy(IOrderStrategy orderStrategy = null)
         {
-            if (orderStrategy == null) throw new ArgumentNullException("orderStrategy");
-            _orderStrategy = orderStrategy;
+            _orderStrategy = orderStrategy ?? new StandardOrder();
         }
 
         public Card DetermineCardToThrow(GameRules gameRules, IList<Card> pile, IEnumerable<Card> handLeft)
