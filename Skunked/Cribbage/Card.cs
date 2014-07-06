@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Skunked.PlayingCards;
 
 namespace Skunked
 {
-    public class Card : IEquatable<Card>, ISerializable 
+    public class Card : IEquatable<Card>, ISerializable , IEqualityComparer<Card>
     {
         public Rank Rank { get; private set; }
         public Suit Suit { get; private set; }
@@ -38,6 +39,36 @@ namespace Skunked
         {
             if (other == null) throw new ArgumentNullException("other");
             return other.Rank == Rank && other.Suit == Suit;
+        }
+
+        public bool Equals(Card x, Card y)
+        {
+            return x.Rank == y.Rank && x.Suit == y.Suit;
+        }
+
+        public int GetHashCode(Card obj)
+        {
+            return (int)Suit ^ (int)Rank;
+        }
+    }
+
+    public class CardValueEquality : IEqualityComparer<Card>
+    {
+        static CardValueEquality()
+        {
+            Instance = new CardValueEquality();
+        }
+
+        public static CardValueEquality Instance { get; private set; }
+
+        public bool Equals(Card x, Card y)
+        {
+            return x.Rank == y.Rank && x.Suit == y.Suit;
+        }
+
+        public int GetHashCode(Card obj)
+        {
+            return (int)obj.Suit ^ (int)obj.Rank;
         }
     }
 }

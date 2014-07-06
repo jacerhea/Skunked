@@ -13,7 +13,7 @@ namespace Skunked.Commands.Arguments
             : base(gameState, playerId, round)
         {
             if (scoreCalculator == null) throw new ArgumentNullException("scoreCalculator");
-            if (playerCountedCribScore < 0) throw new ArgumentOutOfRangeException("playerCountedScore");
+            if (playerCountedCribScore < 0) throw new ArgumentOutOfRangeException("playerCountedCribScore");
             ScoreCalculator = scoreCalculator;
             PlayerCountedScore = playerCountedCribScore;
         }

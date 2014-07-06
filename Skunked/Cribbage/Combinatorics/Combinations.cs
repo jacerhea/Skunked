@@ -294,7 +294,7 @@ namespace Skunked.Combinatorics
             myLowerIndex = lowerIndex;
             myValues = new List<T>();
             myValues.AddRange(values);
-            List<bool> myMap = new List<bool>();
+            var myMap = new List<bool>();
             if(type == GenerateOption.WithoutRepetition) {
                 for(int i = 0; i < myValues.Count; ++i) {
                     if(i >= myValues.Count - myLowerIndex) {

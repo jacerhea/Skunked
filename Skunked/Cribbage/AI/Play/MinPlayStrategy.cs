@@ -23,17 +23,12 @@ namespace Skunked.AI.Play
             ArgumentCheck(pile, handLeft);
             int currentPileCount = _scoreCalculator.SumValues(pile);
             var validPlays = handLeft.Where(c => currentPileCount + _valueStrategy.ValueOf(c) <= gameRules.PlayMaxScore);
-            var cardScores = new List<CardScore>(handLeft.Count());
+            var x = validPlays.Select(card => new {card, theoreticalPlayHand = new List<Card>(pile) {card}})
+                    .Select(@t => new {t = @t, score = _scoreCalculator.CountThePlay(@t.theoreticalPlayHand)})
+                    .Select(@t => new CardScore(@t.@t.card, @t.score));
 
-            foreach (var card in validPlays)
-            {
-                var theoreticalPlayHand = new List<Card>(pile) { card };
-                int score = _scoreCalculator.CountThePlay(theoreticalPlayHand);
-                cardScores.Add(new CardScore(card, score));
-            }
-
-            var lowScore = cardScores.Min(cs => cs.Score);
-            return cardScores.First(c => lowScore == c.Score).Card;
+            var lowScore = x.Min(cs => cs.Score);
+            return x.First(c => lowScore == c.Score).Card;
         }
     }
 }

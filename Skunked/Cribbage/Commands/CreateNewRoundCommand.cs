@@ -26,7 +26,7 @@ namespace Skunked.Commands
             var playerHandFactory = new StandardHandDealer();
             var players = _gameState.Players.ToList();
 
-            var playerHands = playerHandFactory.CreatePlayerHands(deck, players, _gameState.GameRules.HandSizeToDeal);
+            var playerHands = playerHandFactory.CreatePlayerHands(deck, players, players[0], _gameState.GameRules.HandSizeToDeal);
 
             var serializedPlayerHands = playerHands.Select( kv => new CustomKeyValuePair<int, List<Card>>
                     {

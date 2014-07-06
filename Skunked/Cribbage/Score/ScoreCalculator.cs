@@ -113,7 +113,7 @@ namespace Skunked.Score
                 .ToList();
         }
 
-        public List<Card> CountFlush(IEnumerable<Card> playersHand, Card cutCard)
+        public List<Card> CountFlush(List<Card> playersHand, Card cutCard)
         {
             if (playersHand == null) throw new ArgumentNullException("playersHand");
             if (cutCard == null) throw new ArgumentNullException("cutCard");

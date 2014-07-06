@@ -18,45 +18,29 @@ namespace Skunked
     public class CribbageGame
     {
         private readonly List<Player> _players;
-        private readonly Dictionary<Player, PlayerScore> _playerScoreLookup;
         private readonly GameRules _gameRules;
         private readonly Deck _deck;
 
         private readonly IScoreCalculator _scoreCalculator;
-        private readonly IPlayerHandFactory _handFactory;
 
         /// <summary>
-        /// Game of Cribbage, only supports 2 or 4 players currently.
+        /// Synchronous Game of Cribbage
         /// </summary>
-        public CribbageGame(GameRules gameRules = null, List<Player> players = null, Deck deck = null, IScoreCalculator scoreCalculator = null, IPlayerHandFactory handFactory = null)
+        /// <param name="gameRules">Set of rules the game will abide by.</param>
+        /// <param name="players">2-4 players</param>
+        /// <param name="deck"></param>
+        /// <param name="scoreCalculator"></param>
+        /// <param name="dealer"></param>
+        public CribbageGame(GameRules gameRules = null, List<Player> players = null, Deck deck = null, IScoreCalculator scoreCalculator = null, IPlayerHandFactory dealer = null)
         {
-            //if (deck == null) throw new ArgumentNullException("deck");
-            //if (handFactory == null) throw new ArgumentNullException("handFactory");
-
             _gameRules = gameRules ?? new GameRules();
 
             _players = players ?? new List<Player> { new Player("Player 1"), new Player("Player 2") };
-            if (_players.Count > 4 || _players.Count < 2) throw new ArgumentOutOfRangeException("players");
-            //var gameScoresToCreate = _players.Count == 3 ? 3 : 2;
-            //var gameScores = Enumerable.Range(1, gameScoresToCreate).Select(x => new GameScore(0)).ToList();
-
-            //_playerScoreLookup = new Dictionary<Player, PlayerScore>(_players.Count);
-            //for (int i = 0; i < _players.Count; i++)
-            //{
-            //    var indexOfGameScore = _players.Count == 3 ? i : i % 2;
-            //    var playerScore = new PlayerScore(_players[i], gameScores[indexOfGameScore]);
-
-            //    PlayerScoreLookup.Add(_players[i], playerScore);
-            //}
+            if (_players.Count > 4 || _players.Count < 2 ) throw new ArgumentOutOfRangeException("players");
+            if (_players.Count != _gameRules.PlayerCount) throw new ArgumentOutOfRangeException("players");
 
             _deck = deck ?? new Deck();
             _scoreCalculator = scoreCalculator ?? new ScoreCalculator();
-            _handFactory = handFactory ?? new StandardHandDealer();
-        }
-
-        public Dictionary<Player, PlayerScore> PlayerScoreLookup
-        {
-            get { return _playerScoreLookup; }
         }
 
         public GameState Run()
@@ -79,31 +63,30 @@ namespace Skunked
             {
                 while (true)
                 {
-                    var roundHands = _handFactory.CreatePlayerHands(_deck, _players.ToList(), _gameRules.HandSizeToDeal);
-
-                    var round = gameState.GetCurrentRound().Round;
-                    foreach (var playerDiscard in _players.Select(p => new { Player = p, ThrowToCrib = p.DealHand(roundHands[p]) }))
+                    var currentRound = gameState.GetCurrentRound();
+                    foreach (var playerDiscard in _players)
                     {
-                        playerDiscard.ThrowToCrib.ForEach(c => roundHands[playerDiscard.Player].Remove(c));
-                        var throwToCribCommand = new ThrowCardsToCribCommand(new ThrowCardsToCribArgs(gameState, playerDiscard.Player.Id,
-                                round, playerDiscard.ThrowToCrib, _scoreCalculator));
+                        var tossed = playerDiscard.DealHand(currentRound.PlayerDealtCards.Single(p => p.Key == playerDiscard.Id).Value);
+                        var throwToCribCommand = new ThrowCardsToCribCommand(new ThrowCardsToCribArgs(gameState, playerDiscard.Id,
+                                currentRound.Round, tossed, _scoreCalculator));
                         throwToCribCommand.Execute();
                     }
 
-                    while (!gameState.GetCurrentRound().PlayCardsIsDone)
+                    while (!currentRound.PlayCardsIsDone)
                     {
-                        var currentPlayerPlayItems = gameState.GetCurrentRound().PlayersShowedCards.Last();
-                        var ppi = currentPlayerPlayItems.Last();
-                        var player = _players.Single(p => p.Id == ppi.Player);
-                        var jkflasdkdf = currentPlayerPlayItems.Select(p => p.Card);
-                        var command = new PlayCardCommand(new PlayCardArgs(gameState, player.Id, round, 
-                            player.PlayShow(_gameRules, currentPlayerPlayItems.Select(y => y.Card).ToList(), jkflasdkdf.ToList()), _scoreCalculator));
+                        var currentPlayerPlayItems = currentRound.PlayersShowedCards.Last();
+                        var lastPPI = currentPlayerPlayItems.LastOrDefault();
+                        Player player = lastPPI == null ? _players.NextOf(_players.Single(p => p.Id == currentRound.PlayerCrib)) : _players.Single(p => p.Id == lastPPI.NextPlayer);
+                        var playedCards = currentRound.PlayersShowedCards.SelectMany(ppi => ppi).Select(ppi => ppi.Card).ToList();
+                        var handLeft = currentRound.PlayerHand.Single(kv => kv.Key == player.Id).Value.Except(playedCards, CardValueEquality.Instance).ToList();
+                        var show = player.PlayShow(_gameRules, currentPlayerPlayItems.Select(y => y.Card).ToList(), handLeft);
+                        var command = new PlayCardCommand(new PlayCardArgs(gameState, player.Id, currentRound.Round, show, _scoreCalculator));
                         command.Execute();
                     }
 
                     foreach (var player in _players)
                     {
-                        player.CountHand(gameState.GetCurrentRound().StartingCard, gameState.GetCurrentRound().PlayerHand.Single(kv => kv.Key == player.Id).Value);
+                        player.CountHand(currentRound.StartingCard, currentRound.PlayerHand.Single(kv => kv.Key == player.Id).Value);
                     }
                 }
             }

@@ -3,7 +3,7 @@ using Skunked.Score;
 using Skunked.Score.Interface;
 using Skunked.Utility;
 
-namespace Skunked.AI.Count
+namespace Skunked.AI.Show
 {
     public class PercentageScoreCountStrategy : IScoreCountStrategy
     {

@@ -8,7 +8,7 @@ namespace Skunked.PlayingCards.Order
         public static IEnumerable<T> OrderCards<T>(this IEnumerable<T> cards) where T : Card
         {
             var orderStrategy = new StandardOrder();
-            return cards.OrderBy(c => orderStrategy.Order(c)).ThenBy(c => c.Suit);
+            return cards.OrderBy(orderStrategy.Order).ThenBy(c => c.Suit);
         }
     }
 }

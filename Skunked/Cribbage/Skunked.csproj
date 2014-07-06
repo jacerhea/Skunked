@@ -46,8 +46,8 @@
     <Compile Include="AI\CardToss\OptimisticDecision.cs" />
     <Compile Include="AI\CardToss\RandomDecision.cs" />
     <Compile Include="AI\IAIPlayerFactory.cs" />
-    <Compile Include="AI\Count\IScoreCountStrategy.cs" />
-    <Compile Include="AI\Count\PercentageScoreCountStrategy.cs" />
+    <Compile Include="AI\Show\IScoreCountStrategy.cs" />
+    <Compile Include="AI\Show\PercentageScoreCountStrategy.cs" />
     <Compile Include="AI\Play\BasePlay.cs" />
     <Compile Include="AI\Play\FirstPlay.cs" />
     <Compile Include="AI\Play\IPlayStrategy.cs" />

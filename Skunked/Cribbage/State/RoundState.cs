@@ -4,7 +4,7 @@ using Skunked.Utility;
 
 namespace Skunked.State
 {
-    [DebuggerDisplay("Round {0} - Done: {1}")]
+    [DebuggerDisplay("Round {Round} - Done: {IsDone}")]
     public class RoundState
     {
         public Card StartingCard { get; set; }

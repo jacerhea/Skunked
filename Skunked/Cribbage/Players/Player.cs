@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using Skunked.AI.CardToss;
-using Skunked.AI.Count;
 using Skunked.AI.Play;
+using Skunked.AI.Show;
 using Skunked.Rules;
 using Skunked.Utility;
 
@@ -20,10 +20,7 @@ namespace Skunked.Players
         {
             var guid = Guid.NewGuid();
             Name = name ?? guid.ToString();
-            if (id == -1)
-            {
-                Id = RandomProvider.GetThreadRandom().Next();
-            }   
+            Id = id == -1 ? RandomProvider.GetThreadRandom().Next() : id;
             _playStrategy = playStrategy ?? new MaxPlayStrategy();
             _decisionStrategy = decisionStrategy ?? new MaxAverageDecision();
             _scoreCountStrategy = scoreCountStrategy ?? new PercentageScoreCountStrategy();

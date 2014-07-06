@@ -118,7 +118,7 @@ namespace Skunked.Combinatorics
             // Build Sieve Of Eratosthenes
             BitArray sieve = new BitArray(65536, true);
             for(int possiblePrime = 2; possiblePrime <= 256; ++possiblePrime) {
-                if(sieve[possiblePrime] == true) {
+                if(sieve[possiblePrime]) {
                     // It is prime, so remove all future factors...
                     for(int nonPrime = 2 * possiblePrime; nonPrime < 65536; nonPrime += possiblePrime) {
                         sieve[nonPrime] = false;
@@ -128,7 +128,7 @@ namespace Skunked.Combinatorics
             // Scan sieve for primes...
             myPrimes = new List<int>();
             for(int i = 2; i < 65536; ++i) {
-                if(sieve[i] == true) {
+                if(sieve[i]) {
                     myPrimes.Add(i);
                 }
             }

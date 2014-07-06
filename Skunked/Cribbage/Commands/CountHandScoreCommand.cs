@@ -27,7 +27,7 @@ namespace Skunked.Commands
             var cutCard = roundState.StartingCard;
             var playerHand = roundState.PlayerHand.First(kv => kv.Key == _args.PlayerId);
 
-            var calculatedShowScore = _args.ScoreCalculator.CountShowScore(cutCard, playerHand.Value.Cast<Card>());
+            var calculatedShowScore = _args.ScoreCalculator.CountShowScore(cutCard, playerHand.Value);
 
             var playerScore = _args.GameState.PlayerScores.Single(ps => ps.Player == _args.PlayerId);
 

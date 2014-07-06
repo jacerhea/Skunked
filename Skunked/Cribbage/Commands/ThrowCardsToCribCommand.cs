@@ -23,11 +23,10 @@ namespace Skunked.Commands
         {
             ValidateStateBase();
             var currentRound = _args.GameState.Rounds.MaxBy(round => round.Round);
-            var playerDealtHand = currentRound.PlayerDealtCards.First(kv => kv.Key == _args.PlayerId);
 
             //remove thrown cards from hand
-            var playerHand = currentRound.PlayerDealtCards.First(kv => kv.Key == _args.PlayerId).Value.Cast<Card>().Except(_args.CardsToThrow);
-            currentRound.PlayerHand.Add(new CustomKeyValuePair<int, List<Card>> { Key = _args.PlayerId, Value = playerHand.Cast<Card>().ToList() });
+            var playerHand = currentRound.PlayerDealtCards.First(kv => kv.Key == _args.PlayerId).Value.Except(_args.CardsToThrow, CardValueEquality.Instance);
+            currentRound.PlayerHand.Add(new CustomKeyValuePair<int, List<Card>> { Key = _args.PlayerId, Value = playerHand.ToList() });
 
             var serializableCards = _args.CardsToThrow.Select(c => new Card(c));
             currentRound.Crib.AddRange(serializableCards);
@@ -36,7 +35,7 @@ namespace Skunked.Commands
             if (playersDoneThrowing)
             {
                 var deck = EnumHelper.GetValues<Rank>().Cartesian(EnumHelper.GetValues<Suit>(), (rank, suit) => new Card(rank, suit)).ToList();
-                var cardsNotDealt = deck.Except(currentRound.Crib).Except(currentRound.PlayerHand.SelectMany(s => s.Value)).ToList();
+                var cardsNotDealt = deck.Except(currentRound.Crib).Except(currentRound.PlayerHand.SelectMany(s => s.Value), CardValueEquality.Instance).ToList();
 
                 var randomIndex = RandomProvider.GetThreadRandom().Next(0, cardsNotDealt.Count - 1);
                 var startingCard = cardsNotDealt[randomIndex];
@@ -57,9 +56,9 @@ namespace Skunked.Commands
 
         protected override void ValidateState()
         {
-            var currentRound = _args.GameState.Rounds.MaxBy(round => round.Round);
+            var currentRound = _args.GameState.GetCurrentRound();
             var playerDealtHand = currentRound.PlayerDealtCards.First(kv => kv.Key == _args.PlayerId);
-            var dealtCards = playerDealtHand.Value.Select(c => (Card)c);
+            var dealtCards = playerDealtHand.Value;
 
             if (dealtCards.Intersect(_args.CardsToThrow).Count() != _args.CardsToThrow.Count())
             {
@@ -67,7 +66,7 @@ namespace Skunked.Commands
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidCard);
             }
 
-            if (currentRound.Crib.Cast<Card>().Intersect(_args.CardsToThrow).Any())
+            if (currentRound.Crib.Intersect(_args.CardsToThrow).Any())
             {
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.CardsHaveBeenThrown);
             }

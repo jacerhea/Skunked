@@ -7,21 +7,17 @@ using Skunked.Utility;
 namespace Skunked.Dealer
 {
     /// <summary>
-    /// Standard deal.  One card per pass.
+    /// Standard dealer.  One card per pass.
     /// </summary>
     public class StandardHandDealer : IPlayerHandFactory
     {
-        public Dictionary<Player, List<Card>> CreatePlayerHands(Deck deck, IList<Player> players, int handSize)
+        //make the startingWith into the dealer.  this saves a step for the caller to figure out who needs to be dealt to first.
+        public Dictionary<Player, List<Card>> CreatePlayerHands(Deck deck, IList<Player> players, Player startingWith, int handSize)
         {
-            deck.Cards.Shuffle();
-            var roundHands = players.ToDictionary(p => p, p => new List<Card>(handSize));
-
-            for (int c = 0; c < players.Count * handSize; c++)
-            {
-                roundHands[players[c % players.Count]].Add(deck.Cards[c]);
-            }
-
-            return roundHands;
+            deck.Shuffle();
+            var startingIndex = players.IndexOf(startingWith);
+            var playersOrdered = players.Infinite().Skip(startingIndex).Take(players.Count).ToList();
+            return players.ToDictionary(p => p, p => deck.Cards.Skip(playersOrdered.IndexOf(p)).TakeEvery(2).Take(handSize).ToList());
         }
     }
 }

@@ -7,17 +7,24 @@ namespace Skunked.PlayingCards
     public class Deck
     {
         // Make a list.
-        private readonly List<Card> _deck;
+        protected readonly List<Card> _deck;
+
         public Deck()
         {
             var ranks = EnumHelper.GetValues<Rank>();
-            var suits = new List<Suit> { Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades };
+            var suits = EnumHelper.GetValues<Suit>();
             _deck = ranks.Cartesian(suits, (rank, suit) => new Card(rank, suit)).ToList();
         }
 
-        public List<Card> Cards
+        public virtual IEnumerable<Card> Cards
         {
             get { return _deck; }
+        }
+
+
+        public virtual void Shuffle()
+        {
+            _deck.Shuffle();
         }
     }
 }

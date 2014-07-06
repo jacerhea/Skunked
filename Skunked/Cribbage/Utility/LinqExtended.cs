@@ -23,13 +23,7 @@ namespace Skunked.Utility
             list.Shuffle(RandomProvider.GetThreadRandom());
         }
 
-        public static T NextOf<T>(this IList<T> list, T item)
-        {
-            if (list.Count == 0) throw new ArgumentOutOfRangeException("list");
-            return list[(list.IndexOf(item) + 1) % list.Count];
-        }
-
-        private static void Shuffle<T>(this IList<T> list, Random random)
+        public static void Shuffle<T>(this IList<T> list, Random random)
         {
             for (int index = list.Count - 1; index > 0; index--)
             {
@@ -38,6 +32,12 @@ namespace Skunked.Utility
                 list[index] = list[position];
                 list[position] = temp;
             }
+        }
+
+        public static T NextOf<T>(this IList<T> list, T item)
+        {
+            if (list.Count == 0) throw new ArgumentOutOfRangeException("list");
+            return list[(list.IndexOf(item) + 1) % list.Count];
         }
 
         public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source,
@@ -109,6 +109,14 @@ namespace Skunked.Utility
             }
         }
 
+        public static IEnumerable<T> TakeEvery<T>(this IEnumerable<T> source, int nStep)
+        {
+            if (source == null) throw new ArgumentNullException("source");
+            return source.Where((x, i) => i % nStep == 0);
+
+        }
+
+
         public static IEnumerable<T> TakeLast<T>(this IEnumerable<T> enumerable, int count)
         {
             return enumerable.Reverse().Take(count);
@@ -123,6 +131,18 @@ namespace Skunked.Utility
             yield return item;
         }
 
+        public static IEnumerable<TSource> Infinite<TSource>(this IEnumerable<TSource> source)
+        {
+            if (source == null) throw new ArgumentNullException("source");
+            while (true)
+            {
+                foreach (var item in source)
+                {
+                    yield return item;
+                }
+            }
+        }
+
         public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector)
         {
@@ -135,18 +155,6 @@ namespace Skunked.Utility
             if (source == null) throw new ArgumentNullException("source");
             if (keySelector == null) throw new ArgumentNullException("keySelector");
             return DistinctByImpl(source, keySelector, comparer);
-        }
-
-        public static IEnumerable<TSource> Infinite<TSource>(this IEnumerable<TSource> source)
-        {
-            if (source == null) throw new ArgumentNullException("source");
-            while (true)
-            {
-                foreach (var item in source)
-                {
-                    yield return item;
-                }
-            }
         }
 
         private static IEnumerable<TSource> DistinctByImpl<TSource, TKey>(IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer)

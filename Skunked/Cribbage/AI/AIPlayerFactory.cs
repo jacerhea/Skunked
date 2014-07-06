@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Skunked.AI.CardToss;
-using Skunked.AI.Count;
 using Skunked.AI.Play;
+using Skunked.AI.Show;
 using Skunked.Players;
 using Skunked.PlayingCards.Order;
 using Skunked.Score;
@@ -27,15 +27,10 @@ namespace Skunked.AI
         {
             if (numberOfPlayers < 0) throw new ArgumentOutOfRangeException("numberOfPlayers");
 
-            var players = new List<Player>(numberOfPlayers);
-            foreach (var iteration in Enumerable.Range(1, numberOfPlayers))
-            {
-                var playerName = string.Format("Player {0}", iteration);
-                var player = new Player(playerName, iteration, _playStrategy, _decisionStrategy, new PercentageScoreCountStrategy(100, new ScoreCalculator()));
-                players.Add(player);
-            }
-
-            return players;
+            return Enumerable.Range(1, numberOfPlayers)
+                    .Select(iteration => new {iteration, playerName = string.Format("Player {0}", iteration)})
+                    .Select(t => new Player(t.playerName, t.iteration, _playStrategy, _decisionStrategy,new PercentageScoreCountStrategy()))
+                    .ToList();
         }
 
         public Player CreatePlayer(AIDifficulty difficulty, string name)
