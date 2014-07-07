@@ -16,18 +16,9 @@ namespace Skunked.State
 
         public List<RoundState> Rounds { get; set; }
 
-        public DateTime StartedAt { get; set; }
+        public DateTimeOffset StartedAt { get; set; }
 
-        public DateTime LastUpdated { get; set; }
-
-        public RoundState GetCurrentRound()
-        {
-            return Rounds.MaxBy(round => round.Round);
-        }
-
-        public bool IsGameFinished()
-        {
-            return PlayerScores.Any(ps => ps.Score >= GameRules.WinningScore);
-        }
+        public DateTimeOffset LastUpdated { get; set; }
+        public DateTimeOffset? CompletedAt { get; set; }
     }
 }

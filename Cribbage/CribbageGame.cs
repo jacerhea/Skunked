@@ -84,10 +84,19 @@ namespace Skunked
                         command.Execute();
                     }
 
-                    foreach (var player in _players)
+                    var cribPlayer = _players.Single(p => p.Id == currentRound.Round);
+                    var startingPlayer = _players.NextOf(cribPlayer);
+                    foreach (var player in _players.Infinite().Skip(_players.IndexOf(startingPlayer)).Take(_players.Count).ToList())
                     {
-                        player.CountHand(currentRound.StartingCard, currentRound.PlayerHand.Single(kv => kv.Key == player.Id).Value);
+                        var playerCount = player.CountHand(currentRound.StartingCard, currentRound.PlayerHand.Single(kv => kv.Key == player.Id).Value);
+                        var countCommand = new CountHandScoreCommand(new CountHandScoreArgs(gameState, player.Id, currentRound.Round, _scoreCalculator, playerCount));
+                        countCommand.Execute();                            
                     }
+
+
+                    var cribCount = _players.Single(p => p.Id == currentRound.PlayerCrib).CountHand(currentRound.StartingCard, currentRound.Crib);
+                    var countCribCommand = new CountCribScoreCommand(new CountCribScoreArgs(gameState, currentRound.PlayerCrib, currentRound.Round, _scoreCalculator, cribCount));
+                    countCribCommand.Execute();
                 }
             }
             catch (InvalidCribbageOperationException exception)

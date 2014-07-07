@@ -29,7 +29,7 @@ namespace Skunked.Commands
         {
             var deck = EnumHelper.GetValues<Rank>().Cartesian(EnumHelper.GetValues<Suit>(), (rank, suit) => new Card(rank, suit)).ToList();
             deck.Shuffle();
-            DateTime now = DateTime.Now;
+            DateTimeOffset now = DateTimeOffset.Now;
             _gameState.GameRules = _rules;
             _gameState.OpeningRoundState = new OpeningRoundState
                                                              {

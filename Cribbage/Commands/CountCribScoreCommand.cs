@@ -2,6 +2,7 @@
 using System.Linq;
 using Skunked.Commands.Arguments;
 using Skunked.Exceptions;
+using Skunked.Utility;
 
 namespace Skunked.Commands
 {
