@@ -1,7 +1,11 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using Skunked.Commands.Arguments;
 using Skunked.Exceptions;
+using Skunked.State;
 using Skunked.Utility;
 
 namespace Skunked.Commands
@@ -15,6 +19,8 @@ namespace Skunked.Commands
             if (args == null) throw new ArgumentNullException("args");
             _args = args;
         }
+
+        protected GameState GameState { get { return _args.GameState; } }
 
         protected void ValidateStateBase()
         {
@@ -36,10 +42,24 @@ namespace Skunked.Commands
 
         private void CheckEndOfGame()
         {
-            if (_args.GameState.IsGameFinished())
+            var gameState = _args.GameState;
+            if (gameState.IsGameFinished())
             {
+                if (gameState.CompletedAt == null)
+                {
+                    gameState.CompletedAt = DateTimeOffset.Now;
+                }
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.GameFinished);
-            }            
+            }
+        }
+
+        protected void UndoBase()
+        {
+            var stream = new MemoryStream();
+            IFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(stream, _args.GameState);
+            stream.Seek(0, SeekOrigin.Begin);
+            var gameState = (GameState)formatter.Deserialize(stream);
         }
 
         protected abstract void ValidateState();

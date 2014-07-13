@@ -10,7 +10,6 @@ namespace Skunked.Commands
     {
         private const int ScorePenalty = 2;
 
-
         private readonly CountHandScoreArgs _args;
 
         public CountHandScoreCommand(CountHandScoreArgs args) : base(args)
@@ -25,9 +24,9 @@ namespace Skunked.Commands
 
             var roundState = _args.GameState.GetCurrentRound();
             var cutCard = roundState.Starter;
-            var playerHand = roundState.Hands.First(kv => kv.Key == _args.PlayerId);
+            var playerHand = roundState.Hands.First(ph => ph.Id == _args.PlayerId);
 
-            var calculatedShowScore = _args.ScoreCalculator.CountShowScore(cutCard, playerHand.Value);
+            var calculatedShowScore = _args.ScoreCalculator.CountShowScore(cutCard, playerHand.Hand);
 
             var playerScore = _args.GameState.Scores.Single(ps => ps.Player == _args.PlayerId);
 

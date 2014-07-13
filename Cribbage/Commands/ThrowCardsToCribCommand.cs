@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using Skunked.Commands.Arguments;
 using Skunked.Exceptions;
+using Skunked.Players;
 using Skunked.PlayingCards;
-using Skunked.State;
 using Skunked.Utility;
 
 namespace Skunked.Commands
@@ -29,8 +26,8 @@ namespace Skunked.Commands
             var currentRound = _args.GameState.Rounds.MaxBy(round => round.Round);
 
             //remove thrown cards from hand
-            var playerHand = currentRound.DealtCards.First(kv => kv.Key == _args.PlayerId).Value.Except(_args.CardsToThrow, CardValueEquality.Instance);
-            currentRound.Hands.Add(new CustomKeyValuePair<int, List<Card>> { Key = _args.PlayerId, Value = playerHand.ToList() });
+            var playerHand = currentRound.DealtCards.First(ph => ph.Id == _args.PlayerId).Hand.Except(_args.CardsToThrow, CardValueEquality.Instance);
+            currentRound.Hands.Add(new PlayerIdHand(_args.PlayerId, playerHand.ToList()));
 
             var serializableCards = _args.CardsToThrow.Select(c => new Card(c));
             currentRound.Crib.AddRange(serializableCards);
@@ -39,7 +36,7 @@ namespace Skunked.Commands
             if (playersDoneThrowing)
             {
                 var deck = EnumHelper.GetValues<Rank>().Cartesian(EnumHelper.GetValues<Suit>(), (rank, suit) => new Card(rank, suit)).ToList();
-                var cardsNotDealt = deck.Except(currentRound.Crib).Except(currentRound.Hands.SelectMany(s => s.Value), CardValueEquality.Instance).ToList();
+                var cardsNotDealt = deck.Except(currentRound.Crib).Except(currentRound.Hands.SelectMany(s => s.Hand), CardValueEquality.Instance).ToList();
 
                 var randomIndex = RandomProvider.GetThreadRandom().Next(0, cardsNotDealt.Count - 1);
                 var startingCard = cardsNotDealt[randomIndex];
@@ -55,18 +52,14 @@ namespace Skunked.Commands
 
         public void Undo()
         {
-            var stream = new MemoryStream();
-            IFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(stream, _args.GameState);
-            stream.Seek(0, SeekOrigin.Begin);
-            var gameState = (GameState)formatter.Deserialize(stream);
+            UndoBase();
         }
 
         protected override void ValidateState()
         {
             var currentRound = _args.GameState.GetCurrentRound();
-            var playerDealtHand = currentRound.DealtCards.First(kv => kv.Key == _args.PlayerId);
-            var dealtCards = playerDealtHand.Value;
+            var playerDealtHand = currentRound.DealtCards.First(playerHand => playerHand.Id == _args.PlayerId);
+            var dealtCards = playerDealtHand.Hand;
 
             if (dealtCards.Intersect(_args.CardsToThrow).Count() != _args.CardsToThrow.Count())
             {

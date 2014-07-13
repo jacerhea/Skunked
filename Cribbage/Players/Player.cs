@@ -10,7 +10,8 @@ using Skunked.Utility;
 
 namespace Skunked.Players
 {
-    public class Player : ISerializable
+    [Serializable]
+    public class Player : IEquatable<Player>, ISerializable
     {
         private readonly IPlayStrategy _playStrategy;
         private readonly IDecisionStrategy _decisionStrategy;
@@ -39,7 +40,7 @@ namespace Skunked.Players
             return Id.GetHashCode();
         }
 
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             Name = info.GetString("Name");
             Id = info.GetInt32("Id");
@@ -79,7 +80,10 @@ namespace Skunked.Players
 
         public bool Equals(Player other)
         {
-            if (other == null) throw new ArgumentNullException("other");
+            if (other == null)
+            {
+                return false;
+            }
             return other.Id == Id;
         }
     }

@@ -9,12 +9,12 @@ namespace Skunked.Players
         public Player Player { get; private set; }
         public List<Card> Hand { get; private set; }
 
-        public PlayerHand(Player player, List<Card> playersHand)
+        public PlayerHand(Player player, List<Card> hand)
         {
             if (player == null) throw new ArgumentNullException("player");
-            if (playersHand == null) throw new ArgumentNullException("playersHand");
+            if (hand == null) throw new ArgumentNullException("hand");
             Player = player;
-            Hand = playersHand;
+            Hand = hand;
         }
 
         public override string ToString()

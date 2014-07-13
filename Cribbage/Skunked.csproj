@@ -83,6 +83,7 @@
     <Compile Include="Exceptions\InvalidCribbageOperationException.cs" />
     <Compile Include="Exceptions\InvalidCribbageOperations.cs" />
     <Compile Include="Exceptions\InvalidGamePlayOperation.cs" />
+    <Compile Include="Players\PlayerIdHand.cs" />
     <Compile Include="PlayingCards\Deck.cs" />
     <Compile Include="PlayingCards\Order\Interface\IOrderStrategy.cs" />
     <Compile Include="PlayingCards\Order\OrderStrategy.cs" />

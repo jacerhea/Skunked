@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using Skunked.Utility;
+using Skunked.Players;
 
 namespace Skunked.State
 {
-    [DebuggerDisplay("Round {Round} - Done: {Complete}")]
+    [DebuggerDisplay("Round: {Round} - Complete?: {Complete}")]
     public class RoundState
     {
         public Card Starter { get; set; }
         public int Round { get; set; }
-        public List<CustomKeyValuePair<int, List<Card>>> DealtCards { get; set; }
-        public List<CustomKeyValuePair<int, List<Card>>> Hands { get; set; }
-        public List<List<PlayerPlayItem>> PlayedCards { get; set; }
+        public List<PlayerIdHand> DealtCards { get; set; }
+        public List<PlayerIdHand> Hands { get; set; }
+        public List<List<PlayerPlayItem>> ThePlay { get; set; }
         public bool ThrowCardsComplete { get; set; }
         public bool PlayedCardsComplete { get; set; }
         public bool Complete { get; set; }

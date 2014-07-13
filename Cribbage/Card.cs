@@ -5,6 +5,7 @@ using Skunked.PlayingCards;
 
 namespace Skunked
 {
+    [Serializable]
     public class Card : IEquatable<Card>, ISerializable , IEqualityComparer<Card>
     {
         public Rank Rank { get; private set; }
@@ -29,7 +30,7 @@ namespace Skunked
             return string.Format("{0} of {1}", Rank, Suit);
         }
 
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             Rank = (Rank) Enum.Parse(typeof(Rank), info.GetString("Rank"));
             Suit = (Suit)Enum.Parse(typeof(Suit), info.GetString("Suit"));
@@ -37,7 +38,10 @@ namespace Skunked
 
         public override bool Equals(object obj)
         {
-            if (obj == null) throw new ArgumentNullException("other");
+            if (obj == null)
+            {
+                return false;
+            }
             var card = (Card) obj;
             return card.Rank == Rank && card.Suit == Suit;
         }
@@ -49,7 +53,10 @@ namespace Skunked
 
         public bool Equals(Card other)
         {
-            if (other == null) throw new ArgumentNullException("other");
+            if (other == null)
+            {
+                return false;
+            }
             return other.Rank == Rank && other.Suit == Suit;
         }
 

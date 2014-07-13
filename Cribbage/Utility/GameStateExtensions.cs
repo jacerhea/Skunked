@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Skunked.Players;
 using Skunked.State;
 
 namespace Skunked.Utility
@@ -13,6 +14,12 @@ namespace Skunked.Utility
         public static RoundState GetCurrentRound(this GameState game)
         {
             return game.Rounds.MaxBy(round => round.Round);
+        }
+
+        public static Player GetNextPlayerFrom(this GameState gameState, int playerId)
+        {
+            var currentPlayer = gameState.Players.Single(p => p.Id == playerId);
+            return gameState.Players.NextOf(currentPlayer);
         }
     }
 }

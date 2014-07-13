@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Skunked.Dealer;
+using Skunked.Players;
 using Skunked.PlayingCards;
 using Skunked.State;
 using Skunked.Utility;
@@ -22,20 +23,6 @@ namespace Skunked.Commands
 
         public void Execute()
         {
-            var deck = new Deck();
-            var playerHandFactory = new StandardHandDealer();
-            var players = _gameState.Players.ToList();
-
-            var playerHands = playerHandFactory.CreatePlayerHands(deck, players, players[0], _gameState.Rules.HandSizeToDeal);
-
-            var serializedPlayerHands = playerHands.Select( kv => new CustomKeyValuePair<int, List<Card>>
-                    {
-                        Key = kv.Key.Id,
-                        Value = kv.Value.Select(
-                        c => new Card(c)).
-                        ToList()
-                    }).ToList();
-
             var playerShowScores = new List<PlayerScoreShow>(_gameState.Players.Select(sp => new PlayerScoreShow { CribScore = null, HasShowed = false, Player = sp.Id, PlayerCountedShowScore = 0, ShowScore = 0}));
 
             int cribPlayerId;
@@ -48,6 +35,13 @@ namespace Skunked.Commands
                 cribPlayerId = _gameState.OpeningRound.WinningPlayerCut.Value;
             }
 
+            var deck = new Deck();
+            var playerHandFactory = new StandardHandDealer();
+            var players = _gameState.Players.ToList();
+
+            var playerHands = playerHandFactory.CreatePlayerHands(deck, players, players[0], _gameState.Rules.HandSizeToDeal);
+
+            var serializedPlayerHands = playerHands.Select(kv => new PlayerIdHand(kv.Key.Id, kv.Value.Select(c => new Card(c)).ToList())).ToList();
 
             var roundState = new RoundState
             {
@@ -55,8 +49,8 @@ namespace Skunked.Commands
                 DealtCards = serializedPlayerHands,
                 Complete = false,
                 PlayerCrib = cribPlayerId,
-                Hands = new List<CustomKeyValuePair<int, List<Card>>>(),
-                PlayedCards = new List<List<PlayerPlayItem>> { new List<PlayerPlayItem>() },
+                Hands = new List<PlayerIdHand>(),
+                ThePlay = new List<List<PlayerPlayItem>> { new List<PlayerPlayItem>() },
                 Round = _currentRound + 1,
                 ShowScores = playerShowScores
             };

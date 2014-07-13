@@ -15,7 +15,7 @@ namespace Skunked.Test.System
         [TestMethod]
         public void TestCardProperties()
         {
-            var game = new CribbageGame(new GameRules(), new List<Player>{new Player(), new Player()}, new Deck(), new ScoreCalculator(), new StandardHandDealer());
+            var game = new CribbageGame(new GameRules(), new List<Player>{new Player(), new Player()}, new Deck(), new ScoreCalculator());
             var  result = game.Run();
             Assert.IsTrue(result.IsGameFinished());
         }

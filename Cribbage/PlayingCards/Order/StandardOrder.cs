@@ -1,44 +1,31 @@
 ﻿using System;
+using System.Collections.Generic;
 using Skunked.PlayingCards.Order.Interface;
 
 namespace Skunked.PlayingCards.Order
 {
     public class StandardOrder : IOrderStrategy
     {
+        private static readonly Dictionary<Rank, int> ValueLookup = new Dictionary<Rank, int>
+        {
+            {Rank.Ace, 1},
+            {Rank.Two, 2},
+            {Rank.Three, 3},
+            {Rank.Four, 4},
+            {Rank.Five, 5},
+            {Rank.Six, 6},
+            {Rank.Seven, 7},
+            {Rank.Eight, 8},
+            {Rank.Nine, 9},
+            {Rank.Ten, 10},
+            {Rank.Jack, 11},
+            {Rank.Queen, 12},
+            {Rank.King, 13}
+        };
         public int Order(Card card)
         {
             if (card == null) throw new ArgumentNullException("card");
-            switch (card.Rank)
-            {
-                case Rank.Ace:
-                    return 1;
-                case Rank.Two:
-                    return 2;
-                case Rank.Three:
-                    return 3;
-                case Rank.Four:
-                    return 4;
-                case Rank.Five:
-                    return 5;
-                case Rank.Six:
-                    return 6;
-                case Rank.Seven:
-                    return 7;
-                case Rank.Eight:
-                    return 8;
-                case Rank.Nine:
-                    return 9;
-                case Rank.Ten:
-                    return 10;
-                case Rank.Jack:
-                    return 11;
-                case Rank.Queen:
-                    return 12;
-                case Rank.King:
-                    return 13;
-                default:
-                    throw new ArgumentException("card");
-            }
+            return ValueLookup[card.Rank];
         }
     }
 }

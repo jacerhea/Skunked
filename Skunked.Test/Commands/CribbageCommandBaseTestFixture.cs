@@ -42,32 +42,27 @@ namespace Skunked.Test.Commands
                                                       {
                                                           PlayerCrib = 1,
                                                           Hands =
-                                                              new List<CustomKeyValuePair<int, List<Card>>>
+                                                              new List<PlayerIdHand>
                                                                   {
-                                                                      new CustomKeyValuePair<int, List<Card>>
-                                                                          {
-                                                                              Key = 1,
-                                                                              Value = new List<Card>
+                                                                      new PlayerIdHand(1, new List<Card>
                                                                                           {
                                                                                               new Card(Rank.Six, Suit.Clubs),
                                                                                               new Card(Rank.Seven, Suit.Diamonds),
                                                                                               new Card(Rank.Seven, Suit.Hearts),
                                                                                               new Card(Rank.Eight, Suit.Spades)
                                                                                           }
-                                                                          },
-                                                                      new CustomKeyValuePair<int, List<Card>>
-                                                                          {
-                                                                              Key = 2,
-                                                                              Value = new List<Card>
+                                                                          ),
+                                                                      new PlayerIdHand
+                                                                          (2, new List<Card>
                                                                                           {
                                                                                               new Card(Rank.Four, Suit.Spades),
                                                                                               new Card(Rank.Jack, Suit.Hearts),
                                                                                               new Card(Rank.Six, Suit.Diamonds),
                                                                                               new Card(Rank.Five, Suit.Clubs)
                                                                                           }
-                                                                          }
+                                                                          )
                                                                   },
-                                                          PlayedCards = new List<List<PlayerPlayItem>>
+                                                          ThePlay = new List<List<PlayerPlayItem>>
                                                                                    {
                                                                                        new List<PlayerPlayItem>()
                                                                                    },

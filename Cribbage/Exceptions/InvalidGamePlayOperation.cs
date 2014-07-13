@@ -2,6 +2,7 @@
 
 namespace Skunked.Exceptions
 {
+    [Serializable]
     public class InvalidGamePlayOperation : InvalidOperationException
     {
         public InvalidGamePlayOperation(string message)

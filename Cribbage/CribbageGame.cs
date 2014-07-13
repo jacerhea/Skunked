@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Skunked.Commands;
 using Skunked.Commands.Arguments;
-using Skunked.Dealer;
 using Skunked.Exceptions;
 using Skunked.Players;
 using Skunked.PlayingCards;
@@ -30,8 +29,7 @@ namespace Skunked
         /// <param name="players">2-4 players</param>
         /// <param name="deck"></param>
         /// <param name="scoreCalculator"></param>
-        /// <param name="dealer"></param>
-        public CribbageGame(GameRules gameRules = null, List<Player> players = null, Deck deck = null, IScoreCalculator scoreCalculator = null, IPlayerHandFactory dealer = null)
+        public CribbageGame(GameRules gameRules = null, List<Player> players = null, Deck deck = null, IScoreCalculator scoreCalculator = null)
         {
             _gameRules = gameRules ?? new GameRules();
 
@@ -66,7 +64,7 @@ namespace Skunked
                     var currentRound = gameState.GetCurrentRound();
                     foreach (var playerDiscard in _players)
                     {
-                        var tossed = playerDiscard.DealHand(currentRound.DealtCards.Single(p => p.Key == playerDiscard.Id).Value);
+                        var tossed = playerDiscard.DealHand(currentRound.DealtCards.Single(p => p.Id == playerDiscard.Id).Hand);
                         var throwToCribCommand = new ThrowCardsToCribCommand(new ThrowCardsToCribArgs(gameState, playerDiscard.Id,
                                 currentRound.Round, tossed, _scoreCalculator));
                         throwToCribCommand.Execute();
@@ -74,21 +72,20 @@ namespace Skunked
 
                     while (!currentRound.PlayedCardsComplete)
                     {
-                        var currentPlayerPlayItems = currentRound.PlayedCards.Last();
-                        var lastPPI = currentPlayerPlayItems.LastOrDefault();
-                        Player player = lastPPI == null ? _players.NextOf(_players.Single(p => p.Id == currentRound.PlayerCrib)) : _players.Single(p => p.Id == lastPPI.NextPlayer);
-                        var playedCards = currentRound.PlayedCards.SelectMany(ppi => ppi).Select(ppi => ppi.Card).ToList();
-                        var handLeft = currentRound.Hands.Single(kv => kv.Key == player.Id).Value.Except(playedCards, CardValueEquality.Instance).ToList();
+                        var currentPlayerPlayItems = currentRound.ThePlay.Last();
+                        var lastPPI = currentRound.ThePlay.SelectMany(ppi => ppi).LastOrDefault();
+                        Player player = currentRound.ThePlay.Count == 1 && lastPPI == null ? _players.NextOf(_players.Single(p => p.Id == currentRound.PlayerCrib)) : _players.Single(p => p.Id == lastPPI.NextPlayer);
+                        var playedCards = currentRound.ThePlay.SelectMany(ppi => ppi).Select(ppi => ppi.Card).ToList();
+                        var handLeft = currentRound.Hands.Single(playerHand => playerHand.Id == player.Id).Hand.Except(playedCards, CardValueEquality.Instance).ToList();
                         var show = player.PlayShow(_gameRules, currentPlayerPlayItems.Select(y => y.Card).ToList(), handLeft);
                         var command = new PlayCardCommand(new PlayCardArgs(gameState, player.Id, currentRound.Round, show, _scoreCalculator));
                         command.Execute();
                     }
 
-                    var cribPlayer = _players.Single(p => p.Id == currentRound.PlayerCrib);
-                    var startingPlayer = _players.NextOf(cribPlayer);
+                    var startingPlayer = gameState.GetNextPlayerFrom(currentRound.PlayerCrib);
                     foreach (var player in _players.Infinite().Skip(_players.IndexOf(startingPlayer)).Take(_players.Count).ToList())
                     {
-                        var playerCount = player.CountHand(currentRound.Starter, currentRound.Hands.Single(kv => kv.Key == player.Id).Value);
+                        var playerCount = player.CountHand(currentRound.Starter, currentRound.Hands.Single(kv => kv.Id == player.Id).Hand);
                         var countCommand = new CountHandScoreCommand(new CountHandScoreArgs(gameState, player.Id, currentRound.Round, _scoreCalculator, playerCount));
                         countCommand.Execute();                            
                     }
