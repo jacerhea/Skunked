@@ -66,35 +66,35 @@ namespace Skunked
                     var currentRound = gameState.GetCurrentRound();
                     foreach (var playerDiscard in _players)
                     {
-                        var tossed = playerDiscard.DealHand(currentRound.PlayerDealtCards.Single(p => p.Key == playerDiscard.Id).Value);
+                        var tossed = playerDiscard.DealHand(currentRound.DealtCards.Single(p => p.Key == playerDiscard.Id).Value);
                         var throwToCribCommand = new ThrowCardsToCribCommand(new ThrowCardsToCribArgs(gameState, playerDiscard.Id,
                                 currentRound.Round, tossed, _scoreCalculator));
                         throwToCribCommand.Execute();
                     }
 
-                    while (!currentRound.PlayCardsIsDone)
+                    while (!currentRound.PlayedCardsComplete)
                     {
-                        var currentPlayerPlayItems = currentRound.PlayersShowedCards.Last();
+                        var currentPlayerPlayItems = currentRound.PlayedCards.Last();
                         var lastPPI = currentPlayerPlayItems.LastOrDefault();
                         Player player = lastPPI == null ? _players.NextOf(_players.Single(p => p.Id == currentRound.PlayerCrib)) : _players.Single(p => p.Id == lastPPI.NextPlayer);
-                        var playedCards = currentRound.PlayersShowedCards.SelectMany(ppi => ppi).Select(ppi => ppi.Card).ToList();
-                        var handLeft = currentRound.PlayerHand.Single(kv => kv.Key == player.Id).Value.Except(playedCards, CardValueEquality.Instance).ToList();
+                        var playedCards = currentRound.PlayedCards.SelectMany(ppi => ppi).Select(ppi => ppi.Card).ToList();
+                        var handLeft = currentRound.Hands.Single(kv => kv.Key == player.Id).Value.Except(playedCards, CardValueEquality.Instance).ToList();
                         var show = player.PlayShow(_gameRules, currentPlayerPlayItems.Select(y => y.Card).ToList(), handLeft);
                         var command = new PlayCardCommand(new PlayCardArgs(gameState, player.Id, currentRound.Round, show, _scoreCalculator));
                         command.Execute();
                     }
 
-                    var cribPlayer = _players.Single(p => p.Id == currentRound.Round);
+                    var cribPlayer = _players.Single(p => p.Id == currentRound.PlayerCrib);
                     var startingPlayer = _players.NextOf(cribPlayer);
                     foreach (var player in _players.Infinite().Skip(_players.IndexOf(startingPlayer)).Take(_players.Count).ToList())
                     {
-                        var playerCount = player.CountHand(currentRound.StartingCard, currentRound.PlayerHand.Single(kv => kv.Key == player.Id).Value);
+                        var playerCount = player.CountHand(currentRound.Starter, currentRound.Hands.Single(kv => kv.Key == player.Id).Value);
                         var countCommand = new CountHandScoreCommand(new CountHandScoreArgs(gameState, player.Id, currentRound.Round, _scoreCalculator, playerCount));
                         countCommand.Execute();                            
                     }
 
 
-                    var cribCount = _players.Single(p => p.Id == currentRound.PlayerCrib).CountHand(currentRound.StartingCard, currentRound.Crib);
+                    var cribCount = _players.Single(p => p.Id == currentRound.PlayerCrib).CountHand(currentRound.Starter, currentRound.Crib);
                     var countCribCommand = new CountCribScoreCommand(new CountCribScoreArgs(gameState, currentRound.PlayerCrib, currentRound.Round, _scoreCalculator, cribCount));
                     countCribCommand.Execute();
                 }

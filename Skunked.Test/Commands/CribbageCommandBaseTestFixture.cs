@@ -23,15 +23,15 @@ namespace Skunked.Test.Commands
 
             _gameState = new GameState
             {
-                GameRules = new GameRules(GameScoreType.Standard121, 2),
+                Rules = new GameRules(GameScoreType.Standard121, 2),
                 Players =
                     new List<Player>
                                          {
                                              new Player("Player1", 1),
                                              new Player("Player2", 2)
                                          },
-                OpeningRoundState = new OpeningRoundState { },
-                PlayerScores = new List<PlayerScore>
+                OpeningRound = new OpeningRoundState { },
+                Scores = new List<PlayerScore>
                                          {
                                              new PlayerScore {Player = 1, Score = 120},
                                              new PlayerScore {Player = 2, Score = 122}
@@ -41,7 +41,7 @@ namespace Skunked.Test.Commands
                                                   new RoundState
                                                       {
                                                           PlayerCrib = 1,
-                                                          PlayerHand =
+                                                          Hands =
                                                               new List<CustomKeyValuePair<int, List<Card>>>
                                                                   {
                                                                       new CustomKeyValuePair<int, List<Card>>
@@ -67,14 +67,14 @@ namespace Skunked.Test.Commands
                                                                                           }
                                                                           }
                                                                   },
-                                                          PlayersShowedCards = new List<List<PlayerPlayItem>>
+                                                          PlayedCards = new List<List<PlayerPlayItem>>
                                                                                    {
                                                                                        new List<PlayerPlayItem>()
                                                                                    },
-                                                          ThrowCardsIsDone = true,
-                                                          PlayCardsIsDone = true,
-                                                          StartingCard = new Card(Rank.Eight, Suit.Clubs),
-                                                          PlayerShowScores = new List<PlayerScoreShow>
+                                                          ThrowCardsComplete = true,
+                                                          PlayedCardsComplete = true,
+                                                          Starter = new Card(Rank.Eight, Suit.Clubs),
+                                                          ShowScores = new List<PlayerScoreShow>
                                                                                  {
                                                                                      new PlayerScoreShow{ ShowScore = 0, HasShowed = false, Player = 1, PlayerCountedShowScore = 0, CribScore = null },
                                                                                      new PlayerScoreShow{ ShowScore = 0, HasShowed = false, Player = 2, PlayerCountedShowScore = 0, CribScore = null }

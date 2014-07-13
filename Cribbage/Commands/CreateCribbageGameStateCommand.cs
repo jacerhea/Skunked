@@ -30,16 +30,16 @@ namespace Skunked.Commands
             var deck = EnumHelper.GetValues<Rank>().Cartesian(EnumHelper.GetValues<Suit>(), (rank, suit) => new Card(rank, suit)).ToList();
             deck.Shuffle();
             DateTimeOffset now = DateTimeOffset.Now;
-            _gameState.GameRules = _rules;
-            _gameState.OpeningRoundState = new OpeningRoundState
+            _gameState.Rules = _rules;
+            _gameState.OpeningRound = new OpeningRoundState
                                                              {
                                                                  Deck = deck,
-                                                                 IsDone = false,
-                                                                 PlayersCutCard = new List<CustomKeyValuePair<int, Card>>(),
+                                                                 Complete = false,
+                                                                 CutCards = new List<CustomKeyValuePair<int, Card>>(),
                                                                  WinningPlayerCut = null
                                                              };
             _gameState.Rounds = new List<RoundState>();
-            _gameState.PlayerScores = new List<PlayerScore>(_players.Select(player => new PlayerScore { Player = player.Id, Score = 0 }));
+            _gameState.Scores = new List<PlayerScore>(_players.Select(player => new PlayerScore { Player = player.Id, Score = 0 }));
             _gameState.Players = _players.Select(p => new Player(p.Name, p.Id)).ToList();
             _gameState.StartedAt = now;
             _gameState.LastUpdated = now;

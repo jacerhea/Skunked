@@ -71,6 +71,7 @@
     <Compile Include="CardTestFixture.cs" />
     <Compile Include="Commands\CountScoreCommandTestFixture.cs" />
     <Compile Include="Commands\CribbageCommandBaseTestFixture.cs" />
+    <Compile Include="Commands\PlayCardCommandTestFixture.cs" />
     <Compile Include="Commands\ThrowCardsToCribCommandTestFixture.cs" />
     <Compile Include="Dealer\StandardHandDealerTestFixture.cs" />
     <Compile Include="PlayingCards\Order\StandardOrderTest.cs" />

@@ -26,7 +26,7 @@ namespace Skunked.Commands
             var playerHandFactory = new StandardHandDealer();
             var players = _gameState.Players.ToList();
 
-            var playerHands = playerHandFactory.CreatePlayerHands(deck, players, players[0], _gameState.GameRules.HandSizeToDeal);
+            var playerHands = playerHandFactory.CreatePlayerHands(deck, players, players[0], _gameState.Rules.HandSizeToDeal);
 
             var serializedPlayerHands = playerHands.Select( kv => new CustomKeyValuePair<int, List<Card>>
                     {
@@ -39,26 +39,26 @@ namespace Skunked.Commands
             var playerShowScores = new List<PlayerScoreShow>(_gameState.Players.Select(sp => new PlayerScoreShow { CribScore = null, HasShowed = false, Player = sp.Id, PlayerCountedShowScore = 0, ShowScore = 0}));
 
             int cribPlayerId;
-            if(_gameState.OpeningRoundState.IsDone && _gameState.Rounds.Count != 0)
+            if(_gameState.OpeningRound.Complete && _gameState.Rounds.Count != 0)
             {
                 cribPlayerId = _gameState.Players.NextOf(_gameState.Players.Single(sp => _gameState.Rounds.Single(r => r.Round == _currentRound).PlayerCrib == sp.Id)).Id;
             }   
             else
             {
-                cribPlayerId = _gameState.OpeningRoundState.WinningPlayerCut.Value;
+                cribPlayerId = _gameState.OpeningRound.WinningPlayerCut.Value;
             }
 
 
             var roundState = new RoundState
             {
                 Crib = new List<Card>(),
-                PlayerDealtCards = serializedPlayerHands,
-                IsDone = false,
+                DealtCards = serializedPlayerHands,
+                Complete = false,
                 PlayerCrib = cribPlayerId,
-                PlayerHand = new List<CustomKeyValuePair<int, List<Card>>>(),
-                PlayersShowedCards = new List<List<PlayerPlayItem>> { new List<PlayerPlayItem>() },
+                Hands = new List<CustomKeyValuePair<int, List<Card>>>(),
+                PlayedCards = new List<List<PlayerPlayItem>> { new List<PlayerPlayItem>() },
                 Round = _currentRound + 1,
-                PlayerShowScores = playerShowScores
+                ShowScores = playerShowScores
             };
 
             _gameState.Rounds.Add(roundState);

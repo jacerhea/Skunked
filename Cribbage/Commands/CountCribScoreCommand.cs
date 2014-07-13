@@ -22,11 +22,11 @@ namespace Skunked.Commands
             ValidateStateBase();
 
             var currentRound = _args.GameState.GetCurrentRound();
-            var cutCard = currentRound.StartingCard;
+            var cutCard = currentRound.Starter;
             var crib = currentRound.Crib;
 
             var calculatedCribShowScore = _args.ScoreCalculator.CountShowScore(cutCard, crib);
-            var playerScore = _args.GameState.PlayerScores.Single(ps => ps.Player == _args.PlayerId);
+            var playerScore = _args.GameState.Scores.Single(ps => ps.Player == _args.PlayerId);
 
             var calculatedCribScore = calculatedCribShowScore.Score;
             if (_args.PlayerCountedScore == calculatedCribScore)
@@ -51,12 +51,12 @@ namespace Skunked.Commands
             }
 
 
-            var playerShowScore = _args.GameState.GetCurrentRound().PlayerShowScores.Single(pss => pss.Player == _args.PlayerId);
+            var playerShowScore = _args.GameState.GetCurrentRound().ShowScores.Single(pss => pss.Player == _args.PlayerId);
             playerShowScore.CribScore = calculatedCribScore;
             playerShowScore.HasShowedCrib = true;
-            playerShowScore.IsDone = true;
+            playerShowScore.Complete = true;
 
-            currentRound.IsDone = true;
+            currentRound.Complete = true;
 
             EndofCommandCheck();
             //setup next round
@@ -73,7 +73,7 @@ namespace Skunked.Commands
             var currentRound = _args.GameState.Rounds.Single(r => r.Round == _args.Round);
 
 
-            currentRound.IsDone = true;
+            currentRound.Complete = true;
 
             var command = new CreateNewRoundCommand(_args.GameState, _args.Round);
             command.Execute();        
@@ -82,12 +82,12 @@ namespace Skunked.Commands
         protected override void ValidateState()
         {
             var currentRound = _args.GameState.GetCurrentRound();
-            if (currentRound.IsDone || !currentRound.ThrowCardsIsDone || !currentRound.PlayCardsIsDone)
+            if (currentRound.Complete || !currentRound.ThrowCardsComplete || !currentRound.PlayedCardsComplete)
             {
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidStateForCribCount);
             }
 
-            if (!currentRound.PlayerShowScores.Where(pss => pss.Player != _args.PlayerId).All(pss => pss.HasShowed))
+            if (!currentRound.ShowScores.Where(pss => pss.Player != _args.PlayerId).All(pss => pss.HasShowed))
             {
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.NotPlayersTurn);
             }

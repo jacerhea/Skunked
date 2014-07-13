@@ -24,12 +24,12 @@ namespace Skunked.Commands
             ValidateStateBase();
 
             var roundState = _args.GameState.GetCurrentRound();
-            var cutCard = roundState.StartingCard;
-            var playerHand = roundState.PlayerHand.First(kv => kv.Key == _args.PlayerId);
+            var cutCard = roundState.Starter;
+            var playerHand = roundState.Hands.First(kv => kv.Key == _args.PlayerId);
 
             var calculatedShowScore = _args.ScoreCalculator.CountShowScore(cutCard, playerHand.Value);
 
-            var playerScore = _args.GameState.PlayerScores.Single(ps => ps.Player == _args.PlayerId);
+            var playerScore = _args.GameState.Scores.Single(ps => ps.Player == _args.PlayerId);
 
             if (_args.PlayerCountedScore == calculatedShowScore.Score)
             {
@@ -52,10 +52,10 @@ namespace Skunked.Commands
                 playerScore.Score += _args.PlayerCountedScore;
             }
 
-            var playerShowScore = _args.GameState.GetCurrentRound().PlayerShowScores.Single(pss => pss.Player == _args.PlayerId);
+            var playerShowScore = _args.GameState.GetCurrentRound().ShowScores.Single(pss => pss.Player == _args.PlayerId);
             playerShowScore.ShowScore = calculatedShowScore.Score;
             playerShowScore.HasShowed = true;
-            playerShowScore.IsDone = _args.PlayerId != roundState.PlayerCrib;
+            playerShowScore.Complete = _args.PlayerId != roundState.PlayerCrib;
             playerShowScore.PlayerCountedShowScore = _args.PlayerCountedScore;
             EndofCommandCheck();            
         }
@@ -68,12 +68,12 @@ namespace Skunked.Commands
         protected override void ValidateState()
         {
             var currentRound = _args.GameState.GetCurrentRound();
-            if(currentRound.IsDone || !currentRound.ThrowCardsIsDone || !currentRound.PlayCardsIsDone)
+            if(currentRound.Complete || !currentRound.ThrowCardsComplete || !currentRound.PlayedCardsComplete)
             {
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidStateForCount);
             }
 
-            if (currentRound.PlayerShowScores.Single(pss => pss.Player == _args.PlayerId).HasShowed)
+            if (currentRound.ShowScores.Single(pss => pss.Player == _args.PlayerId).HasShowed)
             {
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.PlayerHasAlreadyCounted);
             }
@@ -81,7 +81,7 @@ namespace Skunked.Commands
             var currentPlayer = _args.GameState.Players.NextOf(_args.GameState.Players.Single(sp => sp.Id == currentRound.PlayerCrib));
             foreach (var enumeration in Enumerable.Range(1, _args.GameState.Players.Count))
             {
-                var currentPSS = currentRound.PlayerShowScores.Single(pss => pss.Player == currentPlayer.Id);
+                var currentPSS = currentRound.ShowScores.Single(pss => pss.Player == currentPlayer.Id);
 
                 if (currentPSS.Player == _args.PlayerId) { break; }
                 if(!currentPSS.HasShowed) { throw new InvalidCribbageOperationException(InvalidCribbageOperations.NotPlayersTurn);}
