@@ -24,8 +24,9 @@ namespace Skunked.AI.Play
             int currentPileCount = _scoreCalculator.SumValues(pile);
             var validPlays = handLeft.Where(c => currentPileCount + _valueStrategy.ValueOf(c) <= gameRules.PlayMaxScore);
             var x = validPlays.Select(card => new {card, theoreticalPlayHand = new List<Card>(pile) {card}})
-                    .Select(@t => new {t = @t, score = _scoreCalculator.CountThePlay(@t.theoreticalPlayHand)})
-                    .Select(@t => new CardScore(@t.@t.card, @t.score));
+                .Select(a => new {t = a, score = _scoreCalculator.CountThePlay(a.theoreticalPlayHand)})
+                .Select(@t => new CardScore(@t.@t.card, @t.score))
+                .ToList();
 
             var lowScore = x.Min(cs => cs.Score);
             return x.First(c => lowScore == c.Score).Card;

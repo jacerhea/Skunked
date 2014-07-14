@@ -9,6 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked.Test", "Skunked.Tes
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{446CA3CE-C95D-43A0-A22A-8F73A6AA2EBD}"
 	ProjectSection(SolutionItems) = preProject
+		Performance1.psess = Performance1.psess
 		README.txt = README.txt
 	EndProjectSection
 EndProject
@@ -21,6 +22,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build Packages", "Build Pac
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked.Test.System", "Skunked.Test.System\Skunked.Test.System.csproj", "{D4F47431-7874-4A77-9963-588DA2A31D0A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{8FE34C12-58B9-4E0A-8D50-9CDE0FA1ACD8}"
+	ProjectSection(SolutionItems) = preProject
+		Release Packages\Skunked.0.9.nupkg = Release Packages\Skunked.0.9.nupkg
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,5 +52,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0CA42EF2-F639-4987-9DDF-106A71FA6E48} = {446CA3CE-C95D-43A0-A22A-8F73A6AA2EBD}
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal

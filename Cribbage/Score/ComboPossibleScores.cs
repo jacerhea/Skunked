@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace Skunked.Score
@@ -31,7 +32,7 @@ namespace Skunked.Score
 
         public override string ToString()
         {
-            var psString = string.Join(", ", (PossibleScores.Select(s => s.ToString())).ToArray());
+            var psString = string.Join(", ", (PossibleScores.Select(s => s.ToString(CultureInfo.InvariantCulture))).ToArray());
             var cString = string.Join(", ", (Combo.Select(c => c.ToString()).ToArray()));
 
             return string.Format("{0} : {{{1}}}", psString, cString);

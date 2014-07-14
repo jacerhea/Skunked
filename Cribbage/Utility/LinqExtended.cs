@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Skunked.Utility
 {
-    public static partial class LinqExtended
+    public static class LinqExtended
     {
         public static IEnumerable<TResult> Cartesian<TFirst, TSecond, TResult>(this IEnumerable<TFirst> first,
             IEnumerable<TSecond> second, Func<TFirst, TSecond, TResult> resultSelector)

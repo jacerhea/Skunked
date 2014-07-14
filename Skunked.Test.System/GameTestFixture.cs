@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Skunked.Dealer;
 using Skunked.Players;
 using Skunked.PlayingCards;
 using Skunked.Rules;
@@ -15,9 +15,12 @@ namespace Skunked.Test.System
         [TestMethod]
         public void TestCardProperties()
         {
-            var game = new CribbageGame(new GameRules(), new List<Player>{new Player(), new Player()}, new Deck(), new ScoreCalculator());
-            var  result = game.Run();
-            Assert.IsTrue(result.IsGameFinished());
+            foreach (var source in Enumerable.Range(0, 100))
+            {
+                var game = new CribbageGame(new GameRules(), new List<Player> { new Player(), new Player() }, new Deck(), new ScoreCalculator());
+                var result = game.Run();
+                Assert.IsTrue(result.IsGameFinished());                
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Skunked.Test.AI.Count
+namespace Skunked.Test.AI.Show
 {
     [TestClass]
     public class PercentageScoreCountStrategyTestFixture

@@ -24,6 +24,7 @@ namespace Skunked.PlayingCards.Value
 
         public int ValueOf(Card card)
         {
+            if (card == null) throw new ArgumentNullException("card");
             return ValueLookup[card.Rank];
         }
     }

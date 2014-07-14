@@ -9,13 +9,13 @@ namespace Skunked.Utility
     /// </summary>
     public static class RandomProvider
     {
-        private static int seed = Environment.TickCount;
+        private static int _seed = Environment.TickCount;
 
-        private static ThreadLocal<Random> randomWrapper;
+        private static ThreadLocal<Random> _randomWrapper;
 
         static RandomProvider()
         {
-             randomWrapper = new ThreadLocal<Random>(() => new Random(Interlocked.Increment(ref seed)));
+             _randomWrapper = new ThreadLocal<Random>(() => new Random(Interlocked.Increment(ref _seed)));
         }
 
         /// <summary>
@@ -23,12 +23,12 @@ namespace Skunked.Utility
         /// </summary>
         public static ThreadLocal<Random> RandomInstance 
         {
-            set { randomWrapper = value; }
+            set { _randomWrapper = value; }
         }
 
         public static Random GetThreadRandom()
         {
-            return randomWrapper.Value;
+            return _randomWrapper.Value;
         }
     }
 }

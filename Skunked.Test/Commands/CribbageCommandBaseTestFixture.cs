@@ -8,7 +8,6 @@ using Skunked.Players;
 using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.State;
-using Skunked.Utility;
 
 namespace Skunked.Test.Commands
 {
