@@ -28,6 +28,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{8F
 		Release Packages\Skunked.0.9.nupkg = Release Packages\Skunked.0.9.nupkg
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked.Test.Analytics", "Skunked.Test.Analytics\Skunked.Test.Analytics.csproj", "{0F182C6C-2769-4491-AA63-5FDC4C15B64B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{D4F47431-7874-4A77-9963-588DA2A31D0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4F47431-7874-4A77-9963-588DA2A31D0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4F47431-7874-4A77-9963-588DA2A31D0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F182C6C-2769-4491-AA63-5FDC4C15B64B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F182C6C-2769-4491-AA63-5FDC4C15B64B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F182C6C-2769-4491-AA63-5FDC4C15B64B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F182C6C-2769-4491-AA63-5FDC4C15B64B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
