@@ -69,7 +69,7 @@ namespace Skunked.Players
         public Card ChooseCard(List<Card> cardsToChoose)
         {
             if (cardsToChoose == null) throw new ArgumentNullException("cardsToChoose");
-            var randomIndex = RandomProvider.GetThreadRandom().Next(0 ,cardsToChoose.Count);
+            var randomIndex = RandomProvider.GetThreadRandom().Next(0 ,cardsToChoose.Count - 1);
             return cardsToChoose[randomIndex];
         }
 

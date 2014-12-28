@@ -88,6 +88,14 @@
       <Project>{456df28e-8ea0-413d-982f-f67a6eb43fdf}</Project>
       <Name>Skunked</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Skunked.Test.Analytics\Skunked.Test.Analytics.csproj">
+      <Project>{0f182c6c-2769-4491-aa63-5fdc4c15b64b}</Project>
+      <Name>Skunked.Test.Analytics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Skunked.Test.System\Skunked.Test.System.csproj">
+      <Project>{d4f47431-7874-4a77-9963-588da2a31d0a}</Project>
+      <Name>Skunked.Test.System</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

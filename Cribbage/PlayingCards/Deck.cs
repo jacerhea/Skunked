@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Skunked.Utility;
 
 namespace Skunked.PlayingCards
 {
-    public class Deck
+    public class Deck : IEnumerable<Card>
     {
         // Make a list.
-        protected readonly List<Card> _deck;
+        private readonly List<Card> _deck;
 
         public Deck()
         {
@@ -16,15 +17,19 @@ namespace Skunked.PlayingCards
             _deck = ranks.Cartesian(suits, (rank, suit) => new Card(rank, suit)).ToList();
         }
 
-        public virtual IEnumerable<Card> Cards
-        {
-            get { return _deck; }
-        }
-
-
-        public virtual void Shuffle()
+        public void Shuffle()
         {
             _deck.Shuffle();
+        }
+
+        public virtual IEnumerator<Card> GetEnumerator()
+        {
+            return _deck.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

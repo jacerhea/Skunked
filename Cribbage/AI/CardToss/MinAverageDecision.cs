@@ -13,9 +13,10 @@ namespace Skunked.AI.CardToss
 
         public IEnumerable<Card> DetermineCardsToThrow(IEnumerable<Card> hand)
         {
-            IEnumerable<ComboPossibleScores> comboPossibleScoreses = BaseAverageDecision(hand);
+            var cards = hand as IList<Card> ?? hand.ToList();
+            IEnumerable<ComboPossibleScores> comboPossibleScoreses = BaseAverageDecision(cards);
             var lowestScoringCombo = comboPossibleScoreses.MinBy(cps => cps.GetScoreSummation());
-            return hand.Where(c => !lowestScoringCombo.Combo.Contains(c));
+            return cards.Where(c => !lowestScoringCombo.Combo.Contains(c));
         }
     }
 }

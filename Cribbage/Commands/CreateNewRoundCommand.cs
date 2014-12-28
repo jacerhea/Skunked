@@ -11,6 +11,7 @@ namespace Skunked.Commands
 {
     public class CreateNewRoundCommand : ICommand
     {
+        private readonly IPlayerHandFactory _playerHandFactory = new StandardHandDealer();
         private readonly GameState _gameState;
         private readonly int _currentRound;
 
@@ -36,10 +37,9 @@ namespace Skunked.Commands
             }
 
             var deck = new Deck();
-            var playerHandFactory = new StandardHandDealer();
             var players = _gameState.Players.ToList();
 
-            var playerHands = playerHandFactory.CreatePlayerHands(deck, players, players[0], _gameState.Rules.HandSizeToDeal);
+            var playerHands = _playerHandFactory.CreatePlayerHands(deck, players, players[0], _gameState.Rules.HandSizeToDeal);
 
             var serializedPlayerHands = playerHands.Select(kv => new PlayerIdHand(kv.Key.Id, kv.Value.Select(c => new Card(c)).ToList())).ToList();
 

@@ -4,7 +4,7 @@ using Skunked.Players;
 
 namespace Skunked.State
 {
-    [DebuggerDisplay("Round: {Round} - Complete?: {Complete}")]
+    [DebuggerDisplay("Round: {Round} - Complete: {Complete}")]
     public class RoundState
     {
         public Card Starter { get; set; }

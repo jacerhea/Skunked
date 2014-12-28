@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Skunked.Combinatorics;
+using Combinatorics.Collections;
 using Skunked.PlayingCards;
 using Skunked.PlayingCards.Order;
 using Skunked.PlayingCards.Order.Interface;
@@ -176,9 +176,9 @@ namespace Skunked.Score
             return cards.Sum(c => _valueStrategy.ValueOf(c));
         }
 
-        public int GetGoValue()
+        public int GoValue
         {
-            return 1;
+            get { return 1; }
         }
 
         public bool IsFifteen(IList<Card> cards)

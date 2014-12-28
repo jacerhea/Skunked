@@ -34,7 +34,7 @@ namespace Skunked.Commands
             var playersDoneThrowing = _args.GameState.GetCurrentRound().Crib.Count == _args.GameState.Rules.HandSize;
             if (playersDoneThrowing)
             {
-                var deck = EnumHelper.GetValues<Rank>().Cartesian(EnumHelper.GetValues<Suit>(), (rank, suit) => new Card(rank, suit)).ToList();
+                var deck = new Deck();
                 var cardsNotDealt = deck.Except(currentRound.Crib).Except(currentRound.Hands.SelectMany(s => s.Hand), CardValueEquality.Instance).ToList();
 
                 var randomIndex = RandomProvider.GetThreadRandom().Next(0, cardsNotDealt.Count - 1);

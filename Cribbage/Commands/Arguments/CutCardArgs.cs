@@ -7,8 +7,8 @@ namespace Skunked.Commands.Arguments
 {
     public class CutCardArgs : CommandArgsBase
     {
-        public Card CutCard { get; set; }
-        public IOrderStrategy OrderStrategy { get; set; }
+        public Card CutCard { get; private set; }
+        public IOrderStrategy OrderStrategy { get; private set; }
 
         public CutCardArgs(GameState gameState, int playerId, int round, Card cutCard, IOrderStrategy orderStrategy = null) : base(gameState, playerId, round)
         {

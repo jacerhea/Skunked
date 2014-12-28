@@ -1,4 +1,6 @@
-﻿namespace Skunked.Rules
+﻿using System;
+
+namespace Skunked.Rules
 {
     public class GameRules
     {
@@ -11,6 +13,7 @@
 
         public GameRules(GameScoreType scoreType = GameScoreType.Standard121, int numberOfPlayers = 2)
         {
+            if (numberOfPlayers != 2 && numberOfPlayers != 4) { throw new ArgumentOutOfRangeException();}
             PlayerCount = numberOfPlayers;
             ScoreType = scoreType;
         }

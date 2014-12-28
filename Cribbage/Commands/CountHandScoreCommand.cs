@@ -80,10 +80,10 @@ namespace Skunked.Commands
             var currentPlayer = _args.GameState.Players.NextOf(_args.GameState.Players.Single(sp => sp.Id == currentRound.PlayerCrib));
             foreach (var enumeration in Enumerable.Range(1, _args.GameState.Players.Count))
             {
-                var currentPSS = currentRound.ShowScores.Single(pss => pss.Player == currentPlayer.Id);
+                var playerScoreShow = currentRound.ShowScores.Single(pss => pss.Player == currentPlayer.Id);
 
-                if (currentPSS.Player == _args.PlayerId) { break; }
-                if(!currentPSS.HasShowed) { throw new InvalidCribbageOperationException(InvalidCribbageOperations.NotPlayersTurn);}
+                if (playerScoreShow.Player == _args.PlayerId) { break; }
+                if(!playerScoreShow.HasShowed) { throw new InvalidCribbageOperationException(InvalidCribbageOperations.NotPlayersTurn);}
 
                 currentPlayer = _args.GameState.Players.NextOf(currentPlayer);
             }

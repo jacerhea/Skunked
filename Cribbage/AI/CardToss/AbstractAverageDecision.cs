@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Skunked.Combinatorics;
+using Combinatorics.Collections;
+using Skunked.PlayingCards;
 using Skunked.Score;
 using Skunked.Score.Interface;
 
@@ -17,10 +18,10 @@ namespace Skunked.AI.CardToss
 
         protected IEnumerable<ComboPossibleScores> BaseAverageDecision(IEnumerable<Card> hand)
         {
-            hand = hand.ToList();
-            var combinations = new Combinations<Card>(hand.ToList(), 4);
-            var deck = new List<Card>();
-            var possibleCardsCut = deck.Where(card => !hand.Contains(card)).ToList();
+            var handIter = hand.ToList();
+            var combinations = new Combinations<Card>(handIter, 4);
+            var deck = new Deck();
+            var possibleCardsCut = deck.Where(card => !handIter.Contains(card)).ToList();
 
             var comboPossibleScoreses = new List<ComboPossibleScores>();
 
@@ -36,7 +37,7 @@ namespace Skunked.AI.CardToss
                 }
             }
 
-            return comboPossibleScoreses;              
+            return comboPossibleScoreses;
         }
     }
 }

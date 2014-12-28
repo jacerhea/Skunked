@@ -12,7 +12,7 @@ namespace Skunked.Score.Interface
         List<IList<Card>> CountRuns(Dictionary<int, List<IList<Card>>> combinationsToCount);
         int CountThePlay(IList<Card> pile);
         int SumValues(IEnumerable<Card> cards);
-        int GetGoValue();
+        int GoValue { get; }
         bool IsFifteen(IList<Card> cards);
         bool AreSameKind(IEnumerable<Card> cards);
         bool IsRun(IList<Card> combo);

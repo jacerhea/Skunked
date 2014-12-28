@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Skunked.Combinatorics;
+using Combinatorics.Collections;
 using Skunked.PlayingCards;
 using Skunked.Score;
 using Skunked.Score.Interface;
@@ -28,7 +28,7 @@ namespace Skunked.AI.CardToss
             var handList = hand.ToList();
             var combinations = new Combinations<Card>(handList, 4);
 
-            var possibleCardsCut = _deck.Cards.Where(card => !handList.Contains(card)).ToList();
+            var possibleCardsCut = _deck.Where(card => !handList.Contains(card)).ToList();
 
             var totalPossibleCombinations = new List<ComboScore>();
 

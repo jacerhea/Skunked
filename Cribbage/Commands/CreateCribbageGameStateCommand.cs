@@ -27,7 +27,7 @@ namespace Skunked.Commands
 
         public void Execute()
         {
-            var deck = EnumHelper.GetValues<Rank>().Cartesian(EnumHelper.GetValues<Suit>(), (rank, suit) => new Card(rank, suit)).ToList();
+            var deck = new Deck().ToList();
             deck.Shuffle();
             DateTimeOffset now = DateTimeOffset.Now;
             _gameState.Rules = _rules;

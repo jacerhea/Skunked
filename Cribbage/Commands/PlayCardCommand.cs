@@ -57,8 +57,8 @@ namespace Skunked.Commands
                 int playCountNew = _args.ScoreCalculator.SumValues(currentPlayRound.Select(ppi => ppi.Card));
                 if (playCountNew != GameState.Rules.PlayMaxScore)
                 {
-                    var goValue = _args.ScoreCalculator.GetGoValue();
-                    currentPlayerScore.Score += goValue;
+                    var goValue = _args.ScoreCalculator.GoValue;
+                    currentPlayerScore.Score += _args.ScoreCalculator.GoValue;
                     playerCardPlayedScore.Score += goValue;
                 }
                 setOfPlays.Add(new List<PlayerPlayItem>());

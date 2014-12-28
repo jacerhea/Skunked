@@ -15,7 +15,7 @@ namespace Skunked.Test.Dealer
         public void Test_Deal()
         {
             var deck = new Mock<Deck>();
-            deck.Setup(d => d.Cards).Returns(() => new List<Card>
+            deck.Setup(d => d.GetEnumerator()).Returns(() => new List<Card>
             {
                 new Card(Rank.King, Suit.Clubs),
                 new Card(Rank.Ace, Suit.Diamonds),
@@ -32,7 +32,7 @@ namespace Skunked.Test.Dealer
                 new Card(Rank.Three, Suit.Spades),
                 new Card(Rank.Three, Suit.Spades),
                 new Card(Rank.Three, Suit.Spades),
-            });
+            }.GetEnumerator());
             var handFactory = new StandardHandDealer();
             var player1 = new Player();
             var player2 = new Player();
@@ -62,7 +62,7 @@ namespace Skunked.Test.Dealer
         public void Test_Deal_StartingWithPlayer2()
         {
             var deck = new Mock<Deck>();
-            deck.Setup(d => d.Cards).Returns(() => new List<Card>
+            deck.Setup(d => d.GetEnumerator()).Returns(() => new List<Card>
             {
                 new Card(Rank.King, Suit.Clubs),
                 new Card(Rank.Ace, Suit.Diamonds),
@@ -77,7 +77,7 @@ namespace Skunked.Test.Dealer
                 new Card(Rank.Ten, Suit.Clubs),
                 new Card(Rank.Three, Suit.Spades),
                 new Card(Rank.Three, Suit.Spades),
-            });
+            }.GetEnumerator());
             var handFactory = new StandardHandDealer();
             var player1 = new Player();
             var player2 = new Player();
@@ -107,7 +107,7 @@ namespace Skunked.Test.Dealer
         public void Test_Deal0Cards()
         {
             var deck = new Mock<Deck>();
-            deck.Setup(d => d.Cards).Returns(() => new List<Card>());
+            deck.Setup(d => d.GetEnumerator()).Returns(() => new List<Card>().GetEnumerator());
             var handFactory = new StandardHandDealer();
             var player1 = new Player();
             var player2 = new Player();

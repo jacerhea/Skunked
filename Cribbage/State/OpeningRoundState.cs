@@ -4,7 +4,7 @@ using Skunked.Utility;
 
 namespace Skunked.State
 {
-    [DebuggerDisplay("Complete?: {Complete}")]
+    [DebuggerDisplay("Complete = {Complete}")]
     public class OpeningRoundState
     {
         public List<Card> Deck { get; set; }

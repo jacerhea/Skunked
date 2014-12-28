@@ -48,6 +48,7 @@ namespace Skunked.Commands
                 if (gameState.CompletedAt == null)
                 {
                     gameState.CompletedAt = DateTimeOffset.Now;
+                    gameState.GetCurrentRound().Complete = true;
                 }
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.GameFinished);
             }
@@ -60,6 +61,7 @@ namespace Skunked.Commands
             formatter.Serialize(stream, _args.GameState);
             stream.Seek(0, SeekOrigin.Begin);
             var gameState = (GameState)formatter.Deserialize(stream);
+            
         }
 
         protected abstract void ValidateState();

@@ -3,9 +3,9 @@
 namespace Skunked.Exceptions
 {
     [Serializable]
-    public class InvalidGamePlayOperation : InvalidOperationException
+    public abstract class InvalidGamePlayOperation : InvalidOperationException
     {
-        public InvalidGamePlayOperation(string message)
+        protected InvalidGamePlayOperation(string message)
             : base(message)
         {
 

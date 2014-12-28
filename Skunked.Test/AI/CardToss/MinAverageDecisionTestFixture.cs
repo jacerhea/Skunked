@@ -28,8 +28,8 @@ namespace Skunked.Test.AI.CardToss
             var cardsToThrow = decisionStrategy.DetermineCardsToThrow(hand).ToList();
 
             Assert.AreEqual(2, cardsToThrow.Count());
-            Assert.IsTrue(cardsToThrow.Contains(new Card(Rank.Two, Suit.Spades)));
-            Assert.IsTrue(cardsToThrow.Contains(new Card(Rank.Nine, Suit.Hearts)));
+            Assert.IsTrue(cardsToThrow.Contains(new Card(Rank.Jack, Suit.Clubs)));
+            Assert.IsTrue(cardsToThrow.Contains(new Card(Rank.Five, Suit.Clubs)));
         }
 
         [TestMethod]
@@ -49,7 +49,7 @@ namespace Skunked.Test.AI.CardToss
             var cardsToThrow = decisionStrategy.DetermineCardsToThrow(hand).ToList();
 
             Assert.AreEqual(1, cardsToThrow.Count());
-            Assert.IsTrue(cardsToThrow.Contains(new Card(Rank.Nine, Suit.Hearts)));
+            Assert.IsTrue(cardsToThrow.Contains(new Card(Rank.Five, Suit.Clubs)));
         }
     }
 }

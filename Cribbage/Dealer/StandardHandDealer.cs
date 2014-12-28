@@ -17,7 +17,7 @@ namespace Skunked.Dealer
             deck.Shuffle();
             var startingIndex = players.IndexOf(startingWith);
             var playersOrdered = players.Infinite().Skip(startingIndex).Take(players.Count).ToList();
-            return players.ToDictionary(p => p, p => deck.Cards.Skip(playersOrdered.IndexOf(p)).TakeEvery(2).Take(handSize).ToList());
+            return players.ToDictionary(p => p, p => deck.Skip(playersOrdered.IndexOf(p)).TakeEvery(2).Take(handSize).ToList());
         }
     }
 }

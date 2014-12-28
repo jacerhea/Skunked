@@ -11,7 +11,7 @@ namespace Skunked.Score
     public class ComboPossibleScores
     {
         public IList<Card> Combo { get; private set; }
-        public IList<int> PossibleScores { get; private set; }
+        private IList<int> PossibleScores { get; set; }
 
         public ComboPossibleScores(IList<Card> combo)
         {

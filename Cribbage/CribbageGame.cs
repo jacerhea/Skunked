@@ -29,7 +29,7 @@ namespace Skunked
         /// <param name="players">2-4 players</param>
         /// <param name="deck"></param>
         /// <param name="scoreCalculator"></param>
-        public CribbageGame(GameRules gameRules = null, List<Player> players = null, Deck deck = null, IScoreCalculator scoreCalculator = null)
+        public CribbageGame(List<Player> players = null, GameRules gameRules = null, Deck deck = null, IScoreCalculator scoreCalculator = null)
         {
             _gameRules = gameRules ?? new GameRules();
 
@@ -47,7 +47,7 @@ namespace Skunked
             var createGame = new CreateCribbageGameStateCommand(_players, gameState, _gameRules);
             createGame.Execute();
 
-            var cardsForCut = _deck.Cards.ToList();
+            var cardsForCut = _deck.ToList();
 
             foreach (var player in _players)
             {
@@ -73,8 +73,8 @@ namespace Skunked
                     while (!currentRound.PlayedCardsComplete)
                     {
                         var currentPlayerPlayItems = currentRound.ThePlay.Last();
-                        var lastPPI = currentRound.ThePlay.SelectMany(ppi => ppi).LastOrDefault();
-                        Player player = currentRound.ThePlay.Count == 1 && lastPPI == null ? _players.NextOf(_players.Single(p => p.Id == currentRound.PlayerCrib)) : _players.Single(p => p.Id == lastPPI.NextPlayer);
+                        var lastPlayerPlayItem = currentRound.ThePlay.SelectMany(ppi => ppi).LastOrDefault();
+                        Player player = currentRound.ThePlay.Count == 1 && lastPlayerPlayItem == null ? _players.NextOf(_players.Single(p => p.Id == currentRound.PlayerCrib)) : _players.Single(p => p.Id == lastPlayerPlayItem.NextPlayer);
                         var playedCards = currentRound.ThePlay.SelectMany(ppi => ppi).Select(ppi => ppi.Card).ToList();
                         var handLeft = currentRound.Hands.Single(playerHand => playerHand.Id == player.Id).Hand.Except(playedCards, CardValueEquality.Instance).ToList();
                         var show = player.PlayShow(_gameRules, currentPlayerPlayItems.Select(y => y.Card).ToList(), handLeft);
