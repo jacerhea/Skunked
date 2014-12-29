@@ -30,7 +30,7 @@ namespace Skunked.Test.Commands
                                              new Player("Player2", 2)
                                          },
                 OpeningRound = new OpeningRoundState { },
-                Scores = new List<PlayerScore>
+                IndividualScores = new List<PlayerScore>
                                          {
                                              new PlayerScore {Player = 1, Score = 120},
                                              new PlayerScore {Player = 2, Score = 122}

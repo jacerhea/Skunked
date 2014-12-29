@@ -110,6 +110,7 @@
     <Compile Include="State\PlayerScoreShow.cs" />
     <Compile Include="State\PlayerScore.cs" />
     <Compile Include="PlayingCards\Suit.cs" />
+    <Compile Include="State\TeamScore.cs" />
     <Compile Include="Utility\GameStateExtensions.cs" />
     <Compile Include="Utility\RandomProvider.cs" />
     <Compile Include="Utility\CustomKeyValuePair.cs" />

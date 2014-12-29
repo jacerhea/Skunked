@@ -5,6 +5,9 @@ namespace Skunked.Rules
     public class GameRules
     {
         public GameScoreType ScoreType { get; set; }
+        /// <summary>
+        /// 31
+        /// </summary>
         public int PlayMaxScore { get { return 31; } }
         public int HandSize { get { return 4; } }
         public int HandSizeToDeal { get { return PlayerCount == 2 ? 6 : 5; } }

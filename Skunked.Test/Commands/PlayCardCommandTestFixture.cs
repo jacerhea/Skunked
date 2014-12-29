@@ -41,7 +41,7 @@ namespace Skunked.Test.Commands
                 },
                 Rules = new GameRules(),
                 Players = new List<Player> { new Player(id: 1), new Player(id: 2) },
-                Scores = new List<PlayerScore> { new PlayerScore { Player = 1 }, new PlayerScore { Player = 2 } },
+                IndividualScores = new List<PlayerScore> { new PlayerScore { Player = 1 }, new PlayerScore { Player = 2 } },
             };
         }
 
@@ -52,9 +52,11 @@ namespace Skunked.Test.Commands
         {
             var gameState = CreateGameState();
             var command = new PlayCardCommand(new PlayCardArgs(gameState, 2, 1, new Card(Rank.Ace, Suit.Hearts), new ScoreCalculator()));
+            var playerScorePrior = gameState.IndividualScores.Single(ps => ps.Player == 2).Score;
             command.Execute();
             var currentRound = gameState.GetCurrentRound();
             Assert.AreEqual(currentRound.ThePlay.First().Last().Score, 1);
+            Assert.AreEqual(playerScorePrior + 1, gameState.IndividualScores.Single(ps => ps.Player == 2).Score);
         }
     }
 }

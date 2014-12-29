@@ -35,7 +35,7 @@ namespace Skunked.Test.Commands
                                              new Player("Player2", 2)
                                          },
                 OpeningRound = new OpeningRoundState(),
-                Scores = new List<PlayerScore>
+                IndividualScores = new List<PlayerScore>
                                          {
                                              new PlayerScore {Player = 1, Score = 0},
                                              new PlayerScore {Player = 2, Score = 0}
@@ -150,7 +150,7 @@ namespace Skunked.Test.Commands
             var command = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, _scoreCalculator, 1));
             command.Execute();
 
-            Assert.AreEqual(1, _gameState.Scores.Single(ps => ps.Player == playerId).Score);
+            Assert.AreEqual(1, _gameState.IndividualScores.Single(ps => ps.Player == playerId).Score);
         }
 
         [TestMethod]
@@ -179,7 +179,7 @@ namespace Skunked.Test.Commands
             var command2 = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, playerId, 1, _scoreCalculator, 1));
             command2.Execute();
 
-            Assert.AreEqual(1, _gameState.Scores.Single(ps => ps.Player == playerId).Score);
+            Assert.AreEqual(1, _gameState.IndividualScores.Single(ps => ps.Player == playerId).Score);
         }
     }
 }

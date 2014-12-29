@@ -39,7 +39,7 @@ namespace Skunked.Commands
                                                                  WinningPlayerCut = null
                                                              };
             _gameState.Rounds = new List<RoundState>();
-            _gameState.Scores = new List<PlayerScore>(_players.Select(player => new PlayerScore { Player = player.Id, Score = 0 }));
+            _gameState.IndividualScores = new List<PlayerScore>(_players.Select(player => new PlayerScore { Player = player.Id, Score = 0 }));
             _gameState.Players = _players.Select(p => new Player(p.Name, p.Id)).ToList();
             _gameState.StartedAt = now;
             _gameState.LastUpdated = now;

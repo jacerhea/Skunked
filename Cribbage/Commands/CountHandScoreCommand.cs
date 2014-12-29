@@ -28,7 +28,7 @@ namespace Skunked.Commands
 
             var calculatedShowScore = _args.ScoreCalculator.CountShowScore(cutCard, playerHand.Hand);
 
-            var playerScore = _args.GameState.Scores.Single(ps => ps.Player == _args.PlayerId);
+            var playerScore = _args.GameState.IndividualScores.Single(ps => ps.Player == _args.PlayerId);
 
             if (_args.PlayerCountedScore == calculatedShowScore.Score)
             {

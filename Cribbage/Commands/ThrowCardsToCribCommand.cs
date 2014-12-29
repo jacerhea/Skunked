@@ -40,7 +40,7 @@ namespace Skunked.Commands
                 var randomIndex = RandomProvider.GetThreadRandom().Next(0, cardsNotDealt.Count - 1);
                 var startingCard = cardsNotDealt[randomIndex];
 
-                var playerScore = _args.GameState.Scores.First(ps => ps.Player == _args.PlayerId);
+                var playerScore = _args.GameState.IndividualScores.First(ps => ps.Player == _args.PlayerId);
                 playerScore.Score += _args.ScoreCalculator.CountCut(startingCard);
                 currentRound.Starter = startingCard;
             }

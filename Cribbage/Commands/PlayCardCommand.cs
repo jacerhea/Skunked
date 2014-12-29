@@ -22,54 +22,57 @@ namespace Skunked.Commands
 
         public void Execute()
         {
+            //1.  validate
             ValidateStateBase();
+            
+            //2. Declare round variables
             var currentRound = GameState.GetCurrentRound();
             var setOfPlays = currentRound.ThePlay;
 
-            var playedCards = setOfPlays.SelectMany(c => c).Select(spc => spc.Card);
-
-            //2. 
+            //3.  Set new Round before play, if necessary
             var currentPlayRound = setOfPlays.Last();
-            var currentPlayCount = _args.ScoreCalculator.SumValues(currentPlayRound.Select(scs => scs.Card));
-            int playCount = (currentPlayCount + _args.ScoreCalculator.SumValues(new List<Card> { new Card(_args.PlayedCard) }));
-            if (playCount > 31)
-            {
-                setOfPlays.Add(new List<PlayerPlayItem>());
-            }
+            //int playCount = _args.ScoreCalculator.SumValues(currentPlayRound.Select(scs => scs.Card).Append(_args.PlayedCard));
+            //if (playCount > GameState.Rules.PlayMaxScore)
+            //{
+            //    var playerPlayItems = new List<PlayerPlayItem>();
+            //    setOfPlays.Add(playerPlayItems);
+            //    currentPlayRound = playerPlayItems;
+            //}
 
-            var playerCardPlayedScores = currentPlayRound;
-            var currentRoundPlayedCards = new List<Card>(playerCardPlayedScores.Select(psc => psc.Card)) { _args.PlayedCard };
-            var playScore = _args.ScoreCalculator.CountThePlay(currentRoundPlayedCards);
-
+            //4.  Card is played
             var playerCardPlayedScore = new PlayerPlayItem
             {
                 Card = new Card(_args.PlayedCard),
                 Player = _args.PlayerId
             };
-            var currentPlayerScore = GameState.Scores.Single(ps => ps.Player == _args.PlayerId);
-            currentPlayerScore.Score += playScore;
+            currentPlayRound.Add(playerCardPlayedScore);
+            var playScore = _args.ScoreCalculator.CountThePlay(currentPlayRound.Select(psc => psc.Card).ToList());
+            //currentPlayerScore.Score += playScore;
 
             //create new round
-            currentPlayRound.Add(playerCardPlayedScore);
+            var playedCards = setOfPlays.SelectMany(c => c).Select(spc => spc.Card);
             var playsLeft = GameState.GetCurrentRound().Hands.SelectMany(kv => kv.Hand).Except(playedCards, CardValueEquality.Instance);
-            if (playsLeft.All(c => _args.ScoreCalculator.SumValues(currentPlayRound.Select(spc => spc.Card).Union(new List<Card> { c }, CardValueEquality.Instance)) > GameState.Rules.PlayMaxScore))
+            if (playsLeft.All(c => _args.ScoreCalculator.SumValues(currentPlayRound.Select(spc => spc.Card).Append(c)) > GameState.Rules.PlayMaxScore))
             {
+                //add Go Value.  not counted if 31 as was included with ScoreCalculation.CountThePlay
                 int playCountNew = _args.ScoreCalculator.SumValues(currentPlayRound.Select(ppi => ppi.Card));
                 if (playCountNew != GameState.Rules.PlayMaxScore)
                 {
                     var goValue = _args.ScoreCalculator.GoValue;
-                    currentPlayerScore.Score += _args.ScoreCalculator.GoValue;
-                    playerCardPlayedScore.Score += goValue;
+                    playScore += goValue;
                 }
+
+
+                //not done playing, so add new play round
                 setOfPlays.Add(new List<PlayerPlayItem>());
             }
 
-            var nextPlayer = FindNextPlayer();
-            playerCardPlayedScore.NextPlayer = nextPlayer;
+            var currentPlayerScore = GameState.IndividualScores.Single(ps => ps.Player == _args.PlayerId);
+            playerCardPlayedScore.NextPlayer = FindNextPlayer();
             playerCardPlayedScore.Score += playScore;
+            currentPlayerScore.Score += playScore;
 
-
-            //is playing done
+            //5.  Check if done with Play
             bool isDone = setOfPlays.SelectMany(c => c).Select(spc => spc.Card).Count() == GameState.Players.Count * GameState.Rules.HandSize;
             currentRound.PlayedCardsComplete = isDone;
             EndofCommandCheck();

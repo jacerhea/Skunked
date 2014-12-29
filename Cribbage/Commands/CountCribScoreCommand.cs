@@ -26,7 +26,7 @@ namespace Skunked.Commands
             var crib = currentRound.Crib;
 
             var calculatedCribShowScore = _args.ScoreCalculator.CountShowScore(cutCard, crib);
-            var playerScore = _args.GameState.Scores.Single(ps => ps.Player == _args.PlayerId);
+            var playerScore = _args.GameState.IndividualScores.Single(ps => ps.Player == _args.PlayerId);
 
             var calculatedCribScore = calculatedCribShowScore.Score;
             if (_args.PlayerCountedScore == calculatedCribScore)
