@@ -74,7 +74,8 @@ namespace Skunked.Test.Commands
                                                                                      new PlayerScoreShow{ ShowScore = 0, HasShowed = false, Player = 2, PlayerCountedShowScore = 0, CribScore = null }
                                                                                  }
                                                       }
-                                              }
+                                              },
+                TeamScores = new List<TeamScore> { new TeamScore { Players = new List<int> { 1 }, Score = 120}, new TeamScore { Players = new List<int> { 2}, Score = 122} }
             };
 
 

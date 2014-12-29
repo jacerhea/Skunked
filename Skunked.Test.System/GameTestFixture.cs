@@ -20,7 +20,7 @@ namespace Skunked.Test.System
         [TestMethod]
         public void SmokeTest()
         {
-            foreach (var source in Enumerable.Range(0, 10).AsParallel())
+            foreach (var source in Enumerable.Range(0, 100).AsParallel())
             {
                 var playerCount = _random.Next() % 2 == 0 ? 2 : 4;
                 var game = new CribbageGame(Enumerable.Range(0, playerCount).Select(i => CreateRandomizedPlayer()).ToList(), CreateRandomizedGameRules(playerCount), new Deck(), new ScoreCalculator());

@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Skunked.AI.CardToss;
 using Skunked.PlayingCards;
+using Skunked.Utility;
 
 namespace Skunked.Test.AI.CardToss
 {
