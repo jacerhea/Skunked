@@ -41,7 +41,10 @@ namespace Skunked.Commands
                 var startingCard = cardsNotDealt[randomIndex];
 
                 var playerScore = _args.GameState.IndividualScores.First(ps => ps.Player == _args.PlayerId);
-                playerScore.Score += _args.ScoreCalculator.CountCut(startingCard);
+                var team = GameState.TeamScores.Single(t => t.Players.Contains(_args.PlayerId));
+                var cutScore = _args.ScoreCalculator.CountCut(startingCard);
+                playerScore.Score += cutScore;
+                team.Score += cutScore;
                 currentRound.Starter = startingCard;
             }
 

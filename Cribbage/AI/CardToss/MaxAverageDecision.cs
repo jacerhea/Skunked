@@ -20,5 +20,6 @@ namespace Skunked.AI.CardToss
             var highestScoringCombo = comboPossibleScoreses.MaxBy(cps => cps.GetScoreSummation());
             return cards.Where(card => !highestScoringCombo.Combo.Contains(card));
         }
+ 
     }
 }

@@ -26,30 +26,35 @@ namespace Skunked.Commands
             var crib = currentRound.Crib;
 
             var calculatedCribShowScore = _args.ScoreCalculator.CountShowScore(cutCard, crib);
-            var playerScore = _args.GameState.IndividualScores.Single(ps => ps.Player == _args.PlayerId);
 
             var calculatedCribScore = calculatedCribShowScore.Score;
+            //penalty for overcounting
+            var applicableScore = 0;
             if (_args.PlayerCountedScore == calculatedCribScore)
             {
-                playerScore.Score += calculatedCribScore;
+                applicableScore = calculatedCribScore;
             }
             else if (_args.PlayerCountedScore > calculatedCribScore)
             {
                 var score = calculatedCribScore - ScorePenalty;
                 if (score < 0)
                 {
-
+                    applicableScore = 0;
                 }
                 else
                 {
-                    playerScore.Score += score;
+                    applicableScore = score;
                 }
             }
             else
             {
-                playerScore.Score += _args.PlayerCountedScore;
+                applicableScore = _args.PlayerCountedScore;
             }
 
+            var playerScore = _args.GameState.IndividualScores.Single(ps => ps.Player == _args.PlayerId);
+            var teamScore = _args.GameState.TeamScores.Single(ps => ps.Players.Contains(_args.PlayerId));
+            playerScore.Score += applicableScore;
+            teamScore.Score += applicableScore;
 
             var playerShowScore = _args.GameState.GetCurrentRound().ShowScores.Single(pss => pss.Player == _args.PlayerId);
             playerShowScore.CribScore = calculatedCribScore;

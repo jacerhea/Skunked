@@ -48,5 +48,26 @@ namespace Skunked.Test.AI.CardToss
             Assert.AreEqual(1, cardsToThrow.Count());
             Assert.IsTrue(cardsToThrow.Contains(new Card(Rank.Nine, Suit.Hearts)));
         }
+
+        [TestMethod]
+        public void MaxAverageDecisionTest_Test_Six_With_Prior_Failure()
+        {
+            var hand = new List<Card>
+                           {
+                               new Card(Rank.Six, Suit.Spades),
+                               new Card(Rank.King, Suit.Clubs),
+                               new Card(Rank.King, Suit.Spades),
+                               new Card(Rank.Seven, Suit.Spades),
+                               new Card(Rank.Eight, Suit.Clubs),
+                               new Card(Rank.Eight, Suit.Spades),
+                           };
+            var decisionStrategy = new MaxAverageDecision();
+
+            var cardsToThrow = decisionStrategy.DetermineCardsToThrow(hand).ToList();
+
+            Assert.AreEqual(2, cardsToThrow.Count());
+            Assert.IsTrue(cardsToThrow.Contains(new Card(Rank.King, Suit.Clubs)));
+            Assert.IsTrue(cardsToThrow.Contains(new Card(Rank.King, Suit.Spades)));
+        }
     }
 }

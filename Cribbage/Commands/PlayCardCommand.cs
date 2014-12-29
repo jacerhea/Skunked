@@ -68,9 +68,11 @@ namespace Skunked.Commands
             }
 
             var currentPlayerScore = GameState.IndividualScores.Single(ps => ps.Player == _args.PlayerId);
+            var currentTeamScore = GameState.TeamScores.Single(ps => ps.Players.Contains(_args.PlayerId));
             playerCardPlayedScore.NextPlayer = FindNextPlayer();
             playerCardPlayedScore.Score += playScore;
             currentPlayerScore.Score += playScore;
+            currentTeamScore.Score += playScore;
 
             //5.  Check if done with Play
             bool isDone = setOfPlays.SelectMany(c => c).Select(spc => spc.Card).Count() == GameState.Players.Count * GameState.Rules.HandSize;

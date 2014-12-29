@@ -15,7 +15,12 @@ namespace Skunked.Utility
 
         static RandomProvider()
         {
-             _randomWrapper = new ThreadLocal<Random>(() => new Random(Interlocked.Increment(ref _seed)));
+            ResetInstance();
+        }
+
+        public static void ResetInstance()
+        {
+            _randomWrapper = new ThreadLocal<Random>(() => new Random(Interlocked.Increment(ref _seed)));
         }
 
         /// <summary>

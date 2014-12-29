@@ -28,28 +28,33 @@ namespace Skunked.Commands
 
             var calculatedShowScore = _args.ScoreCalculator.CountShowScore(cutCard, playerHand.Hand);
 
-            var playerScore = _args.GameState.IndividualScores.Single(ps => ps.Player == _args.PlayerId);
-
+            //penalty for overcounting
+            var applicableScore = 0;
             if (_args.PlayerCountedScore == calculatedShowScore.Score)
             {
-                playerScore.Score += calculatedShowScore.Score;
+                applicableScore = calculatedShowScore.Score;
             }
             else if (_args.PlayerCountedScore > calculatedShowScore.Score)
             {
                 var score = calculatedShowScore.Score - ScorePenalty;
                 if(score < 0)
                 {
-                    
+                    applicableScore = 0;
                 }
                 else
                 {
-                    playerScore.Score += score;
+                    applicableScore  = score;
                 }
             }
             else
             {
-                playerScore.Score += _args.PlayerCountedScore;
+                applicableScore = _args.PlayerCountedScore;
             }
+            var playerScore = _args.GameState.IndividualScores.Single(ps => ps.Player == _args.PlayerId);
+            var teamScore = _args.GameState.TeamScores.Single(ps => ps.Players.Contains(_args.PlayerId));
+            playerScore.Score += applicableScore;
+            teamScore.Score += applicableScore;
+
 
             var playerShowScore = _args.GameState.GetCurrentRound().ShowScores.Single(pss => pss.Player == _args.PlayerId);
             playerShowScore.ShowScore = calculatedShowScore.Score;

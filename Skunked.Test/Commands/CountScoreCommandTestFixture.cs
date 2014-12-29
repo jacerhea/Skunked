@@ -79,7 +79,8 @@ namespace Skunked.Test.Commands
                                                                                  },
                                                           Round = 1
                                                       }
-                                              }
+                                              },
+                TeamScores = new List<TeamScore> { new TeamScore { Players = new List<int> { 1 } }, new TeamScore { Players = new List<int> { 2} } }
             };
         }
 
