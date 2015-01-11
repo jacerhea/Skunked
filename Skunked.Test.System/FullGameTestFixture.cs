@@ -20,7 +20,7 @@ namespace Skunked.Test.System
         }
 
         [ClassCleanupAttribute]
-        public void Cleanup()
+        public static void Cleanup()
         {
             RandomProvider.ResetInstance();
         }

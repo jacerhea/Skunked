@@ -84,7 +84,7 @@
     <Folder Include="Utility\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cribbage\Skunked.csproj">
+    <ProjectReference Include="..\Skunked\Skunked.csproj">
       <Project>{456df28e-8ea0-413d-982f-f67a6eb43fdf}</Project>
       <Name>Skunked</Name>
     </ProjectReference>
