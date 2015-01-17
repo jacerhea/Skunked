@@ -19,7 +19,7 @@ namespace Skunked.Test.System
             RandomProvider.RandomInstance = new ThreadLocal<Random>(() => new IncrementalRandom());
         }
 
-        [ClassCleanupAttribute]
+        [ClassCleanup]
         public static void Cleanup()
         {
             RandomProvider.ResetInstance();

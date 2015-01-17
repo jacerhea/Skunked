@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -8,9 +7,7 @@ using Skunked.AI.CardToss;
 using Skunked.AI.Play;
 using Skunked.AI.Show;
 using Skunked.Players;
-using Skunked.PlayingCards;
 using Skunked.Rules;
-using Skunked.Score;
 using Skunked.State;
 using Skunked.Utility;
 
@@ -22,7 +19,7 @@ namespace Skunked.Test.System
         private readonly Random _random = new Random(Environment.TickCount);
 
         [TestMethod]
-        public async void SmokeTest()
+        public void SmokeTest()
         {
             var results = new ConcurrentBag<GameState>();
             Task.WaitAll(Enumerable.Range(0, 100).Select(it =>
