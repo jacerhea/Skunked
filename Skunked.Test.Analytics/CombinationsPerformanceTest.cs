@@ -26,9 +26,9 @@ namespace Skunked.Test.Analytics
         }
 
         [TestMethod]
-        public void Combinations1()
+        public void Combinations()
         {
-            foreach (var VARIABLE in Enumerable.Range(0, 1000))
+            foreach (var i in Enumerable.Range(0, 1000))
             {
                 foreach (int value in Enumerable.Range(1, _hand.Count))
                 {
@@ -40,6 +40,5 @@ namespace Skunked.Test.Analytics
                 }
             }
         }
-
     }
 }
