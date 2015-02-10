@@ -33,13 +33,9 @@ namespace Skunked.Test.System
                 });
             }).ToArray());
 
-            Assert.IsTrue(results.All(r => r.IsGameFinished()));
             foreach (var gameState in results)
             {
-                foreach (var teamScore in gameState.TeamScores)
-                {
-                    Assert.AreEqual(teamScore.Score, gameState.IndividualScores.Where(s => teamScore.Players.Contains(s.Player)).Sum(ps => ps.Score));
-                }
+                TestEndGame.Test(gameState);
             }
         }
 
