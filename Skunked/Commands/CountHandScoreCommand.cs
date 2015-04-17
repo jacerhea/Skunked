@@ -37,14 +37,7 @@ namespace Skunked.Commands
             else if (_args.PlayerCountedScore > calculatedShowScore.Score)
             {
                 var score = calculatedShowScore.Score - ScorePenalty;
-                if(score < 0)
-                {
-                    applicableScore = 0;
-                }
-                else
-                {
-                    applicableScore  = score;
-                }
+                applicableScore = score < 0 ? 0 : score;
             }
             else
             {

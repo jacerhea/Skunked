@@ -3,6 +3,6 @@
     public enum PlayerType
     {
         Human,
-        AI
+        Ai
     }
 }

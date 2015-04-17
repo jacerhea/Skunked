@@ -27,11 +27,11 @@ namespace Skunked.Commands
             CheckEndOfGame();
             if (_args.GameState.Players.All(sp => sp.Id != _args.PlayerId)) { throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidPlayer); }
 
-            if(_args.GameState.Rounds.Count(r => r.Round == _args.Round) != 1)
+            if (_args.GameState.Rounds.Count(r => r.Round == _args.Round) != 1)
             {
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidRequest);
             }
-            
+
             ValidateState();
         }
 
@@ -61,7 +61,7 @@ namespace Skunked.Commands
             formatter.Serialize(stream, _args.GameState);
             stream.Seek(0, SeekOrigin.Begin);
             var gameState = (GameState)formatter.Deserialize(stream);
-            
+
         }
 
         protected abstract void ValidateState();

@@ -22,7 +22,7 @@ namespace Skunked.Test.Commands
 
             _gameState = new GameState
             {
-                Rules = new GameRules(GameScoreType.Standard121, 2),
+                GameRules = new GameRules(GameScoreType.Standard121, 2),
                 Players =
                     new List<Player>
                                          {

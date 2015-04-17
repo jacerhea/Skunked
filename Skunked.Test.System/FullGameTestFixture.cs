@@ -29,7 +29,7 @@ namespace Skunked.Test.System
         public void FullGameTest()
         {
             var game =
-                new CribbageGame(new List<Player>
+                new CribbageGameRunner(new List<Player>
                 {
                     new Player("Player 1", 1, new MaxPlayStrategy(), new MaxAverageDecision()),
                     new Player("Player 2", 2, new MaxPlayStrategy(), new MaxAverageDecision())

@@ -9,20 +9,20 @@ using Skunked.Utility;
 
 namespace Skunked.Commands
 {
-    public class CreateCribbageGameStateCommand : ICommand
+    public class CreateNewCribbageGameCommand : ICommand
     {
         private readonly List<Player> _players;
-        private readonly GameRules _rules;
+        private readonly GameRules _gameRules;
         private readonly GameState _gameState;
 
-        public CreateCribbageGameStateCommand(IEnumerable<Player> players, GameState gameState, GameRules rules)
+        public CreateNewCribbageGameCommand(IEnumerable<Player> players, GameState gameState, GameRules gameRules)
         {
             if (players == null) throw new ArgumentNullException("players");
             if (gameState == null) throw new ArgumentNullException("gameState");
-            if (rules == null) throw new ArgumentNullException("rules");
+            if (gameRules == null) throw new ArgumentNullException("gameRules");
             _players = players.ToList();
             _gameState = gameState;
-            _rules = rules;
+            _gameRules = gameRules;
         }
 
         public void Execute()
@@ -30,7 +30,7 @@ namespace Skunked.Commands
             var deck = new Deck().ToList();
             deck.Shuffle();
             DateTimeOffset now = DateTimeOffset.Now;
-            _gameState.Rules = _rules;
+            _gameState.GameRules = _gameRules;
             _gameState.OpeningRound = new OpeningRoundState
                                                              {
                                                                  Deck = deck,

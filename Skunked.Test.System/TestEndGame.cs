@@ -14,11 +14,11 @@ namespace Skunked.Test.System
                 Assert.AreEqual(teamScore.Score, gameState.IndividualScores.Where(s => teamScore.Players.Contains(s.Player)).Sum(ps => ps.Score));
             }   
          
-            Assert.IsTrue(gameState.TeamScores.Count(ts => ts.Score >= gameState.Rules.WinningScore) == 1);
+            Assert.IsTrue(gameState.TeamScores.Count(ts => ts.Score >= gameState.GameRules.WinningScore) == 1);
 
             Assert.IsTrue(gameState.IsGameFinished());
-            Assert.IsTrue(gameState.Rounds.All(r => r.DealtCards.Select(p => p.Hand).All(cards => cards.Distinct().Count() == gameState.Rules.HandSizeToDeal)));
-            Assert.IsTrue(gameState.Rounds.All(r => r.Hands.Select(p => p.Hand).All(cards => cards.Distinct().Count() == gameState.Rules.HandSize)));
+            Assert.IsTrue(gameState.Rounds.All(r => r.DealtCards.Select(p => p.Hand).All(cards => cards.Distinct().Count() == gameState.GameRules.HandSizeToDeal)));
+            Assert.IsTrue(gameState.Rounds.All(r => r.Hands.Select(p => p.Hand).All(cards => cards.Distinct().Count() == gameState.GameRules.HandSize)));
         }
     }
 }

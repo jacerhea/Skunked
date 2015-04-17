@@ -37,7 +37,6 @@
       <HintPath>..\packages\Combinatorics.1.0.3.2\lib\net40\Combinatorics.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI\AIDifficulty.cs" />
@@ -58,7 +57,7 @@
     <Compile Include="AI\Play\MinPlayStrategy.cs" />
     <Compile Include="AI\Play\MaxPlayStrategy.cs" />
     <Compile Include="AI\Play\RandomPlayStrategy.cs" />
-    <Compile Include="Card.cs" />
+    <Compile Include="Game\Card.cs" />
     <Compile Include="Commands\Arguments\CommandArgsBase.cs" />
     <Compile Include="Commands\Arguments\CountCribScoreArgs.cs" />
     <Compile Include="Commands\Arguments\CountHandScoreArgs.cs" />
@@ -67,19 +66,27 @@
     <Compile Include="Commands\Arguments\ThrowCardsToCribArgs.cs" />
     <Compile Include="Commands\CountCribScoreCommand.cs" />
     <Compile Include="Commands\CountHandScoreCommand.cs" />
-    <Compile Include="Commands\CreateCribbageGameStateCommand.cs" />
+    <Compile Include="Commands\CreateNewCribbageGameCommand.cs" />
     <Compile Include="Commands\CreateNewRoundCommand.cs" />
     <Compile Include="Commands\CribbageCommandBase.cs" />
     <Compile Include="Commands\CutCardCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\PlayCardCommand.cs" />
     <Compile Include="Commands\ThrowCardsToCribCommand.cs" />
-    <Compile Include="CribbageGame.cs" />
+    <Compile Include="State\Events\CountCribEvent.cs" />
+    <Compile Include="State\Events\CountHandEvent.cs" />
+    <Compile Include="Cribbage.cs" />
+    <Compile Include="Game\CribbageGameRunner.cs" />
+    <Compile Include="State\Events\CutCardEvent.cs" />
     <Compile Include="Dealer\IPlayerHandFactory.cs" />
     <Compile Include="Dealer\StandardHandDealer.cs" />
+    <Compile Include="State\Events\EventDispatcher.cs" />
     <Compile Include="Exceptions\InvalidCribbageOperationException.cs" />
     <Compile Include="Exceptions\InvalidCribbageOperations.cs" />
     <Compile Include="Exceptions\InvalidGamePlayOperation.cs" />
+    <Compile Include="State\Events\GameStateEventListener.cs" />
+    <Compile Include="State\Events\IEventListener.cs" />
+    <Compile Include="State\Events\PlayCardEvent.cs" />
     <Compile Include="Players\PlayerIdHand.cs" />
     <Compile Include="PlayingCards\Deck.cs" />
     <Compile Include="PlayingCards\Order\Interface\IOrderStrategy.cs" />
@@ -103,6 +110,10 @@
     <Compile Include="Score\ScoreCalculator.cs" />
     <Compile Include="Score\Interface\IScoreCalculator.cs" />
     <Compile Include="Score\ScoreCalculatorResult.cs" />
+    <Compile Include="State\Events\DeckShuffledEvent.cs" />
+    <Compile Include="State\Events\Event.cs" />
+    <Compile Include="State\Events\GameEventStream.cs" />
+    <Compile Include="State\Events\NewGameStartedEvent.cs" />
     <Compile Include="State\GameState.cs" />
     <Compile Include="State\OpeningRoundState.cs" />
     <Compile Include="State\RoundState.cs" />
@@ -111,6 +122,7 @@
     <Compile Include="State\PlayerScore.cs" />
     <Compile Include="PlayingCards\Suit.cs" />
     <Compile Include="State\TeamScore.cs" />
+    <Compile Include="State\Events\ThrowCardsEvent.cs" />
     <Compile Include="Utility\GameStateExtensions.cs" />
     <Compile Include="Utility\RandomProvider.cs" />
     <Compile Include="Utility\CustomKeyValuePair.cs" />
@@ -121,9 +133,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="PlayingCards\Cards\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

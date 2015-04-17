@@ -39,7 +39,7 @@ namespace Skunked.Commands
             var deck = new Deck();
             var players = _gameState.Players.ToList();
 
-            var playerHands = _playerHandFactory.CreatePlayerHands(deck, players, players[0], _gameState.Rules.HandSizeToDeal);
+            var playerHands = _playerHandFactory.CreatePlayerHands(deck, players, players[0], _gameState.GameRules.HandSizeToDeal);
 
             var serializedPlayerHands = playerHands.Select(kv => new PlayerIdHand(kv.Key.Id, kv.Value.Select(c => new Card(c)).ToList())).ToList();
 

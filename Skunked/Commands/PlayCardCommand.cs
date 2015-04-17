@@ -52,11 +52,11 @@ namespace Skunked.Commands
             //create new round
             var playedCards = setOfPlays.SelectMany(c => c).Select(spc => spc.Card);
             var playsLeft = GameState.GetCurrentRound().Hands.SelectMany(kv => kv.Hand).Except(playedCards, CardValueEquality.Instance);
-            if (playsLeft.All(c => _args.ScoreCalculator.SumValues(currentPlayRound.Select(spc => spc.Card).Append(c)) > GameState.Rules.PlayMaxScore))
+            if (playsLeft.All(c => _args.ScoreCalculator.SumValues(currentPlayRound.Select(spc => spc.Card).Append(c)) > GameState.GameRules.PlayMaxScore))
             {
                 //add Go Value.  not counted if 31 as was included with ScoreCalculation.CountThePlay
                 int playCountNew = _args.ScoreCalculator.SumValues(currentPlayRound.Select(ppi => ppi.Card));
-                if (playCountNew != GameState.Rules.PlayMaxScore)
+                if (playCountNew != GameState.GameRules.PlayMaxScore)
                 {
                     var goValue = _args.ScoreCalculator.GoValue;
                     playScore += goValue;
@@ -75,7 +75,7 @@ namespace Skunked.Commands
             currentTeamScore.Score += playScore;
 
             //5.  Check if done with Play
-            bool isDone = setOfPlays.SelectMany(c => c).Select(spc => spc.Card).Count() == GameState.Players.Count * GameState.Rules.HandSize;
+            bool isDone = setOfPlays.SelectMany(c => c).Select(spc => spc.Card).Count() == GameState.Players.Count * GameState.GameRules.HandSize;
             currentRound.PlayedCardsComplete = isDone;
             EndofCommandCheck();
         }
@@ -113,11 +113,11 @@ namespace Skunked.Commands
             //is the player starting new round with card sum over 31 and they have a playable card for current round?
             var currentPlayCount = _args.ScoreCalculator.SumValues(setOfPlays.Last().Select(scs => scs.Card));
             int playCount = (currentPlayCount + _args.ScoreCalculator.SumValues(new List<Card> { new Card(_args.PlayedCard) }));
-            if (playCount > GameState.Rules.PlayMaxScore)
+            if (playCount > GameState.GameRules.PlayMaxScore)
             {
                 var playedCardsThisRound = setOfPlays.Last().Select(ppi => ppi.Card).ToList();
                 var playersCardsLeftToPlay = allPlayerCards.Except(playedCardsThisRound, CardValueEquality.Instance).Except(new List<Card> { _args.PlayedCard }, CardValueEquality.Instance);
-                if (playersCardsLeftToPlay.Any(c => _args.ScoreCalculator.SumValues(new List<Card>(playedCardsThisRound) { c }) <= GameState.Rules.PlayMaxScore))
+                if (playersCardsLeftToPlay.Any(c => _args.ScoreCalculator.SumValues(new List<Card>(playedCardsThisRound) { c }) <= GameState.GameRules.PlayMaxScore))
                 {
                     throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidCard);
                 }
@@ -133,7 +133,7 @@ namespace Skunked.Commands
             var playerCardPlayedScores = setOfPlays.Last();
 
             //if round is done
-            if (playedCards.Count() == GameState.Players.Count * GameState.Rules.HandSize)
+            if (playedCards.Count() == GameState.Players.Count * GameState.GameRules.HandSize)
             {
                 return null;
             }
@@ -155,7 +155,7 @@ namespace Skunked.Commands
                 var nextPlayerPlaySequence = playerCardPlayedScores.Select(s => s.Card).ToList();
                 nextPlayerPlaySequence.Add(nextPlayerAvailableCardsToPlay.MinBy(c => new AceLowFaceTenCardValueStrategy().ValueOf(c)));
                 var scoreTest = _args.ScoreCalculator.SumValues(nextPlayerPlaySequence);
-                if (scoreTest <= GameState.Rules.PlayMaxScore)
+                if (scoreTest <= GameState.GameRules.PlayMaxScore)
                 {
                     return nextPlayer.Id;
                 }

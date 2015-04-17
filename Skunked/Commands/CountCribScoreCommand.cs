@@ -37,14 +37,7 @@ namespace Skunked.Commands
             else if (_args.PlayerCountedScore > calculatedCribScore)
             {
                 var score = calculatedCribScore - ScorePenalty;
-                if (score < 0)
-                {
-                    applicableScore = 0;
-                }
-                else
-                {
-                    applicableScore = score;
-                }
+                applicableScore = score < 0 ? 0 : score;
             }
             else
             {
@@ -76,8 +69,6 @@ namespace Skunked.Commands
         private void CreateNextRound()
         {
             var currentRound = _args.GameState.Rounds.Single(r => r.Round == _args.Round);
-
-
             currentRound.Complete = true;
 
             var command = new CreateNewRoundCommand(_args.GameState, _args.Round);

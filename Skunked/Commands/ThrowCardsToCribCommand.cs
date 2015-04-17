@@ -31,7 +31,7 @@ namespace Skunked.Commands
             var serializableCards = _args.CardsToThrow.Select(c => new Card(c));
             currentRound.Crib.AddRange(serializableCards);
 
-            var playersDoneThrowing = _args.GameState.GetCurrentRound().Crib.Count == _args.GameState.Rules.HandSize;
+            var playersDoneThrowing = _args.GameState.GetCurrentRound().Crib.Count == _args.GameState.GameRules.HandSize;
             if (playersDoneThrowing)
             {
                 var deck = new Deck();

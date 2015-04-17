@@ -3,9 +3,9 @@ using Skunked.Players;
 
 namespace Skunked.AI
 {
-    public interface IAIPlayerFactory
+    public interface IAiPlayerFactory
     {
         List<Player> CreatePlayers(int numberOfPlayers);
-        Player CreatePlayer(AIDifficulty difficulty, string name);
+        Player CreatePlayer(AiDifficulty difficulty, string name);
     }
 }

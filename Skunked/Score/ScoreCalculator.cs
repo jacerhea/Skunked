@@ -202,7 +202,6 @@ namespace Skunked.Score
         public bool AreContinuous(IEnumerable<int> values)
         {
             var orderedSet = values.OrderBy(c => c).ToList();
-
             return Enumerable.Range(1, orderedSet.Count - 1).All(value => orderedSet[value] - 1 == orderedSet[value - 1]);
         }
 

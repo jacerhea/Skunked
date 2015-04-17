@@ -6,14 +6,14 @@ using Skunked.PlayingCards;
 namespace Skunked
 {
     [Serializable]
-    public class Card : IEquatable<Card>, ISerializable , IEqualityComparer<Card>
+    public class Card : IEquatable<Card>, ISerializable, IEqualityComparer<Card>
     {
         public Rank Rank { get; private set; }
         public Suit Suit { get; private set; }
 
-        public Card(){}
+        public Card() { }
 
-        public Card(Rank rank = Rank.Ace , Suit suit = Suit.Clubs)
+        public Card(Rank rank = Rank.Ace, Suit suit = Suit.Clubs)
         {
             Rank = rank;
             Suit = suit;
@@ -32,7 +32,7 @@ namespace Skunked
 
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            Rank = (Rank) Enum.Parse(typeof(Rank), info.GetString("Rank"));
+            Rank = (Rank)Enum.Parse(typeof(Rank), info.GetString("Rank"));
             Suit = (Suit)Enum.Parse(typeof(Suit), info.GetString("Suit"));
         }
 
@@ -42,7 +42,7 @@ namespace Skunked
             {
                 return false;
             }
-            var card = (Card) obj;
+            var card = (Card)obj;
             return card.Rank == Rank && card.Suit == Suit;
         }
 

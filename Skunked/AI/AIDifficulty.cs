@@ -1,6 +1,6 @@
 ﻿namespace Skunked.AI
 {
-    public enum AIDifficulty
+    public enum AiDifficulty
     {
         Easy,
         Medium,

@@ -15,7 +15,7 @@ namespace Skunked.AI.CardToss
     {
         private readonly IScoreCalculator _scoreCalculator;
         private readonly Deck _deck;
-        
+
 
         public OptimisticDecision(IScoreCalculator scoreCalculator = null)
         {

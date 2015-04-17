@@ -9,7 +9,6 @@ using Skunked.AI.Show;
 using Skunked.Players;
 using Skunked.Rules;
 using Skunked.State;
-using Skunked.Utility;
 
 namespace Skunked.Test.System
 {
@@ -27,7 +26,7 @@ namespace Skunked.Test.System
                 return Task.Run(() =>
                 {
                     var playerCount = _random.Next()%2 == 0 ? 2 : 4;
-                    var game = new CribbageGame(Enumerable.Range(0, playerCount).Select(i => CreateRandomizedPlayer()).ToList(),CreateRandomizedGameRules(playerCount));
+                    var game = new CribbageGameRunner(Enumerable.Range(0, playerCount).Select(i => CreateRandomizedPlayer()).ToList(),CreateRandomizedGameRules(playerCount));
                     var result = game.Run();
                     results.Add(result);
                 });

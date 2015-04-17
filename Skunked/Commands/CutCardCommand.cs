@@ -10,7 +10,8 @@ namespace Skunked.Commands
     {
         private readonly CutCardArgs _args;
 
-        public CutCardCommand(CutCardArgs args) : base(args)
+        public CutCardCommand(CutCardArgs args)
+            : base(args)
         {
             if (args == null) throw new ArgumentNullException("args");
             _args = args;
@@ -19,21 +20,15 @@ namespace Skunked.Commands
         public void Execute()
         {
             ValidateState();
-            if (_args.GameState.OpeningRound.CutCards.All(kv => kv.Key != _args.PlayerId))
-            {
-                _args.GameState.OpeningRound.CutCards.Add(new CustomKeyValuePair<int, Card> { Key = _args.PlayerId, Value = new Card(_args.CutCard) });
-            }
+            _args.GameState.OpeningRound.CutCards.Add(new CustomKeyValuePair<int, Card> { Key = _args.PlayerId, Value = new Card(_args.CutCard) });
 
-            bool isDone = (_args.GameState.Rules.PlayerCount == _args.GameState.OpeningRound.CutCards.Count);
+            bool isDone = (_args.GameState.GameRules.PlayerCount == _args.GameState.OpeningRound.CutCards.Count);
             _args.GameState.OpeningRound.Complete = isDone;
 
             if (isDone && _args.GameState.Rounds.Count == 0)
             {
                 var winningPlayerCut = _args.GameState.OpeningRound.CutCards.MinBy(playerCard => _args.OrderStrategy.Order(playerCard.Value));
                 _args.GameState.OpeningRound.WinningPlayerCut = winningPlayerCut.Key;
-
-                var command = new CreateNewRoundCommand(_args.GameState, 0);
-                command.Execute();
             }
         }
 
@@ -44,9 +39,9 @@ namespace Skunked.Commands
 
         protected override void ValidateState()
         {
-            if(_args.GameState.OpeningRound.CutCards.Any(kv => kv.Key == _args.PlayerId))
+            if (_args.GameState.OpeningRound.CutCards.Any(kv => kv.Key == _args.PlayerId))
             {
-                throw new InvalidCribbageOperationException(InvalidCribbageOperations.CutCardPlayerAlreadyCut);    
+                throw new InvalidCribbageOperationException(InvalidCribbageOperations.CutCardPlayerAlreadyCut);
             }
 
             if (_args.GameState.OpeningRound.CutCards.Any(kv => kv.Value.Equals(_args.CutCard)))

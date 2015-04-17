@@ -10,7 +10,7 @@ namespace Skunked.State
         public List<Player> Players { get; set; }
         public List<PlayerScore> IndividualScores { get; set; }
         public List<TeamScore> TeamScores { get; set; }
-        public GameRules Rules { get; set; }
+        public GameRules GameRules { get; set; }
 
         public OpeningRoundState OpeningRound { get; set; }
         public List<RoundState> Rounds { get; set; }

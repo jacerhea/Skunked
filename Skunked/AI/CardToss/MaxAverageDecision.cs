@@ -10,8 +10,9 @@ namespace Skunked.AI.CardToss
     /// </summary>
     public class MaxAverageDecision : AbstractAverageDecision, IDecisionStrategy
     {
-        public MaxAverageDecision(IScoreCalculator scoreCalculator = null) : base(scoreCalculator)
-        {}
+        public MaxAverageDecision(IScoreCalculator scoreCalculator = null)
+            : base(scoreCalculator)
+        { }
 
         public IEnumerable<Card> DetermineCardsToThrow(IEnumerable<Card> hand)
         {
@@ -20,6 +21,6 @@ namespace Skunked.AI.CardToss
             var highestScoringCombo = comboPossibleScoreses.MaxBy(cps => cps.GetScoreSummation());
             return cards.Where(card => !highestScoringCombo.Combo.Contains(card));
         }
- 
+
     }
 }

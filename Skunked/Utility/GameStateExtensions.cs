@@ -8,7 +8,7 @@ namespace Skunked.Utility
     {
         public static bool IsGameFinished(this GameState game)
         {
-            return game.TeamScores.Any(teamScore => teamScore.Score >= game.Rules.WinningScore);
+            return game.TeamScores.Any(teamScore => teamScore.Score >= game.GameRules.WinningScore);
         }
 
         public static RoundState GetCurrentRound(this GameState game)

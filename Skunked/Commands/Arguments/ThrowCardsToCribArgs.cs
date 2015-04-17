@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Skunked.Score;
 using Skunked.Score.Interface;
 using Skunked.State;
 
@@ -10,13 +11,12 @@ namespace Skunked.Commands.Arguments
         public IEnumerable<Card> CardsToThrow { get; private set; }
         public IScoreCalculator ScoreCalculator { get; private set; }
 
-        public ThrowCardsToCribArgs(GameState gameState, int playerId, int round, IEnumerable<Card> cardsToThrow, IScoreCalculator scoreCalculator)
+        public ThrowCardsToCribArgs(GameState gameState, int playerId, int round, IEnumerable<Card> cardsToThrow, IScoreCalculator scoreCalculator = null)
             : base(gameState, playerId, round)
         {
             if (cardsToThrow == null) throw new ArgumentNullException("cardsToThrow");
-            if (scoreCalculator == null) throw new ArgumentNullException("scoreCalculator");
             CardsToThrow = cardsToThrow;
-            ScoreCalculator = scoreCalculator;
+            ScoreCalculator = scoreCalculator ?? new ScoreCalculator();
         }
     }
 }
