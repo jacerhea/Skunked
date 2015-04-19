@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked", "Skunked\Skunked.csproj", "{456DF28E-8EA0-413D-982F-F67A6EB43FDF}"
 EndProject
@@ -58,8 +58,5 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0CA42EF2-F639-4987-9DDF-106A71FA6E48} = {446CA3CE-C95D-43A0-A22A-8F73A6AA2EBD}
-	EndGlobalSection
-	GlobalSection(Performance) = preSolution
-		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal
