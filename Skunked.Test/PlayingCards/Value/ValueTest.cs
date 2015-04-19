@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Skunked.PlayingCards;
-using Skunked.PlayingCards.Value;
 
 namespace Skunked.Test.PlayingCards.Value
 {

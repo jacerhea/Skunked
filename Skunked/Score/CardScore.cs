@@ -1,4 +1,5 @@
 ﻿using System;
+using Skunked.PlayingCards;
 
 namespace Skunked.Score
 {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Skunked.Score.Interface;
+using Skunked.PlayingCards;
+using Skunked.Score;
 using Skunked.Utility;
 
 namespace Skunked.AI.CardToss

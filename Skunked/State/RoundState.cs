@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using Skunked.Players;
+using Skunked.PlayingCards;
 
 namespace Skunked.State
 {

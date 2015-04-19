@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Skunked.PlayingCards.Value
+namespace Skunked.PlayingCards
 {
     public class AceLowFaceTenCardValueStrategy : ICardValueStrategy
     {

@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using Skunked.AI.CardToss;
 using Skunked.AI.Play;
 using Skunked.AI.Show;
+using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.Utility;
 

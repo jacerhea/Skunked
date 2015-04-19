@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Skunked.PlayingCards;
 
-namespace Skunked
+namespace Skunked.PlayingCards
 {
     [Serializable]
     public class Card : IEquatable<Card>, ISerializable, IEqualityComparer<Card>

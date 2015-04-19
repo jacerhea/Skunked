@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Skunked.PlayingCards;
 using Skunked.Rules;
 
 namespace Skunked.AI.Play

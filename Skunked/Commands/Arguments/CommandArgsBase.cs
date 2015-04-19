@@ -1,7 +1,7 @@
 ﻿using System;
 using Skunked.State;
 
-namespace Skunked.Commands.Arguments
+namespace Skunked.Commands
 {
     public abstract class CommandArgsBase
     {

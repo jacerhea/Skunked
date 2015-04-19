@@ -3,7 +3,6 @@ using System.Linq;
 using Combinatorics.Collections;
 using Skunked.PlayingCards;
 using Skunked.Score;
-using Skunked.Score.Interface;
 using Skunked.Utility;
 
 namespace Skunked.AI.CardToss

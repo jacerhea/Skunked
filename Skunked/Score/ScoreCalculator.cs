@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Combinatorics.Collections;
 using Skunked.PlayingCards;
-using Skunked.PlayingCards.Order;
-using Skunked.PlayingCards.Order.Interface;
-using Skunked.PlayingCards.Value;
-using Skunked.Score.Interface;
 using Skunked.Utility;
 
 namespace Skunked.Score

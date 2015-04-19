@@ -5,7 +5,7 @@ using Skunked.AI.CardToss;
 using Skunked.AI.Play;
 using Skunked.AI.Show;
 using Skunked.Players;
-using Skunked.PlayingCards.Order;
+using Skunked.PlayingCards;
 using Skunked.Score;
 
 namespace Skunked.AI

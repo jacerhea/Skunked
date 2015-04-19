@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using Skunked.PlayingCards;
 
-namespace Skunked.Score.Interface
+namespace Skunked.Score
 {
     public interface IScoreCalculator
     {

@@ -1,9 +1,8 @@
 ﻿using System;
-using Skunked.PlayingCards.Order;
-using Skunked.PlayingCards.Order.Interface;
+using Skunked.PlayingCards;
 using Skunked.State;
 
-namespace Skunked.Commands.Arguments
+namespace Skunked.Commands
 {
     public class CutCardArgs : CommandArgsBase
     {

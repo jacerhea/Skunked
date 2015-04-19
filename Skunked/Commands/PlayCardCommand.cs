@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Skunked.Commands.Arguments;
 using Skunked.Exceptions;
-using Skunked.PlayingCards.Value;
+using Skunked.PlayingCards;
 using Skunked.State;
 using Skunked.Utility;
 

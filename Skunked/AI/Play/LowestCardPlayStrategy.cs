@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Skunked.PlayingCards.Order;
-using Skunked.PlayingCards.Order.Interface;
+using Skunked.PlayingCards;
 using Skunked.Rules;
 
 namespace Skunked.AI.Play

@@ -1,6 +1,5 @@
 ﻿using System;
 using Skunked.Commands;
-using Skunked.Commands.Arguments;
 
 namespace Skunked.State.Events
 {

@@ -1,9 +1,8 @@
 ﻿using System;
 using Skunked.Score;
-using Skunked.Score.Interface;
 using Skunked.State;
 
-namespace Skunked.Commands.Arguments
+namespace Skunked.Commands
 {
     public class CountCribScoreArgs : CommandArgsBase
     {

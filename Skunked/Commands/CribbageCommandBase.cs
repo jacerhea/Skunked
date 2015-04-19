@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using Skunked.Commands.Arguments;
 using Skunked.Exceptions;
 using Skunked.State;
 using Skunked.Utility;

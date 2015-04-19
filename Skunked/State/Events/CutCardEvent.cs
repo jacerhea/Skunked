@@ -1,4 +1,6 @@
-﻿namespace Skunked.State.Events
+﻿using Skunked.PlayingCards;
+
+namespace Skunked.State.Events
 {
     public class CutCardEvent : Event
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Skunked.PlayingCards.Order
+namespace Skunked.PlayingCards
 {
     public static class OrderStrategy
     {

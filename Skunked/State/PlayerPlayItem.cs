@@ -1,4 +1,6 @@
-﻿namespace Skunked.State
+﻿using Skunked.PlayingCards;
+
+namespace Skunked.State
 {
     public class PlayerPlayItem
     {
