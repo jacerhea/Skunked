@@ -3,7 +3,7 @@
 namespace Skunked.Exceptions
 {
     [Serializable]
-    public class InvalidCribbageOperationException : InvalidGamePlayOperation
+    public class InvalidCribbageOperationException : InvalidOperationException
     {
         public InvalidCribbageOperations Operation { get; private set; }
 

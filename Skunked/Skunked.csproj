@@ -85,7 +85,6 @@
     <Compile Include="State\Events\EventDispatcher.cs" />
     <Compile Include="Exceptions\InvalidCribbageOperationException.cs" />
     <Compile Include="Exceptions\InvalidCribbageOperations.cs" />
-    <Compile Include="Exceptions\InvalidGamePlayOperation.cs" />
     <Compile Include="State\Events\GameStateEventListener.cs" />
     <Compile Include="State\Events\IEventListener.cs" />
     <Compile Include="State\Events\PlayCardEvent.cs" />
