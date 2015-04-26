@@ -22,7 +22,7 @@ namespace Skunked.AI.Play
             ArgumentCheck(pile, handLeft);
 
             int currentPileCount = _scoreCalculator.SumValues(pile);
-            var validPlays = handLeft.Where(c => currentPileCount + _valueStrategy.ValueOf(c) <= gameRules.PlayMaxScore).ToList();
+            var validPlays = handLeft.Where(c => currentPileCount + _valueStrategy.ValueOf(c) <= GameRules.PlayMaxScore).ToList();
 
             var randomIndex = validPlays.Count() - 1;
             return validPlays.ElementAt(randomIndex);

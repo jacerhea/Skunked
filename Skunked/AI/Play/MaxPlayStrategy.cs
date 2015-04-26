@@ -29,7 +29,7 @@ namespace Skunked.AI.Play
             }
 
             int currentPileCount = _scoreCalculator.SumValues(pile);
-            var validPlays = handLeft.Where(c => currentPileCount + _valueStrategy.ValueOf(c) <= gameRules.PlayMaxScore).ToList();
+            var validPlays = handLeft.Where(c => currentPileCount + _valueStrategy.ValueOf(c) <= GameRules.PlayMaxScore).ToList();
             var maxScore = validPlays
                 .Select(card => new CardScore(card, _scoreCalculator.CountThePlay(new List<Card>(pile) { card })))
                 .MaxBy(cs => cs.Score);

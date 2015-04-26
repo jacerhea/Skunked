@@ -3,6 +3,7 @@ using System.Linq;
 using Skunked.Exceptions;
 using Skunked.Players;
 using Skunked.PlayingCards;
+using Skunked.Rules;
 using Skunked.Utility;
 
 namespace Skunked.Commands
@@ -30,7 +31,7 @@ namespace Skunked.Commands
             var serializableCards = _args.CardsToThrow.Select(c => new Card(c));
             currentRound.Crib.AddRange(serializableCards);
 
-            var playersDoneThrowing = _args.GameState.GetCurrentRound().Crib.Count == _args.GameState.GameRules.HandSize;
+            var playersDoneThrowing = _args.GameState.GetCurrentRound().Crib.Count == GameRules.HandSize;
             if (playersDoneThrowing)
             {
                 var deck = new Deck();

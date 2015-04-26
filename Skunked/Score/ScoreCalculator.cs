@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Combinatorics.Collections;
 using Skunked.PlayingCards;
+using Skunked.Rules;
 using Skunked.Utility;
 
 namespace Skunked.Score
@@ -11,6 +12,7 @@ namespace Skunked.Score
     {
         private readonly ICardValueStrategy _valueStrategy;
         private readonly IOrderStrategy _order;
+
 
         public ScoreCalculator(ICardValueStrategy valueStrategy = null, IOrderStrategy order = null)
         {
@@ -21,11 +23,7 @@ namespace Skunked.Score
         //Check cut card for dealer
         public int CountCut(Card cut)
         {
-            if (cut.Rank == Rank.Jack)
-            {
-                return 2;
-            }
-            return 0;
+            return cut.Rank == Rank.Jack ? GameRules.NibsScore : 0;
         }
 
         public ScoreCalculatorResult CountShowScore(Card cutCard, IEnumerable<Card> playerHand)
@@ -40,11 +38,11 @@ namespace Skunked.Score
             var runs = CountRuns(allCombinations);
             var hisNobs = Nobs(playerHandList, cutCard);
 
-            int fifteenScore = fifteens.Count * 2;
+            int fifteenScore = fifteens.Count * GameRules.FifteenScore;
             int flushScore = flush.Count;
-            int pairScore = pairs.Count * 2;
+            int pairScore = pairs.Count * GameRules.PairScore;
             int runScore = runs.Sum(c => c.Count);
-            int hisNobsScore = hisNobs.Count == 0 ? 0 : 1;
+            int hisNobsScore = hisNobs.Count == 0 ? 0 : GameRules.NobsScore;
 
             int totalScore = fifteenScore + flushScore + pairScore + runScore + hisNobsScore;
 
@@ -63,20 +61,20 @@ namespace Skunked.Score
             int scored = 0;
 
             //count 15s
-            scored += IsFifteen(pile) ? 2 : 0;
+            scored += IsFifteen(pile) ? GameRules.FifteenScore : 0;
 
             //count pairs
             if (pile.Count > 3 && pile.TakeLast(4).GroupBy(c => c.Rank).Count() == 1)
             {
-                scored += 12;
+                scored += GameRules.DoublePairRoyalScore;
             }
             else if (pile.Count > 2 && pile.TakeLast(3).GroupBy(c => c.Rank).Count() == 1)
             {
-                scored += 6;
+                scored += GameRules.PairRoyalScore;
             }
             else
             {
-                scored += AreSameKind(pile.TakeLast(2)) ? 2 : 0;
+                scored += AreSameKind(pile.TakeLast(2)) ? GameRules.PairScore : 0;
             }
 
             //count runs
@@ -92,7 +90,7 @@ namespace Skunked.Score
             }
 
             //31 count
-            if (SumValues(pile) == 31)
+            if (SumValues(pile) == GameRules.PlayMaxScore)
             {
                 scored += 2;
             }
@@ -174,7 +172,7 @@ namespace Skunked.Score
 
         public int GoValue
         {
-            get { return 1; }
+            get { return GameRules.GoSore; }
         }
 
         public bool IsFifteen(IList<Card> cards)
