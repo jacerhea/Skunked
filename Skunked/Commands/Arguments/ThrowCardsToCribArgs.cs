@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Skunked.PlayingCards;
 using Skunked.Score;
 using Skunked.State;
+using Skunked.State.Events;
 
 namespace Skunked.Commands
 {
@@ -11,8 +12,8 @@ namespace Skunked.Commands
         public IEnumerable<Card> CardsToThrow { get; private set; }
         public IScoreCalculator ScoreCalculator { get; private set; }
 
-        public ThrowCardsToCribArgs(GameState gameState, int playerId, int round, IEnumerable<Card> cardsToThrow, IScoreCalculator scoreCalculator = null)
-            : base(gameState, playerId, round)
+        public ThrowCardsToCribArgs(GameEventStream eventStream, GameState gameState, int playerId, int round, IEnumerable<Card> cardsToThrow, IScoreCalculator scoreCalculator = null)
+            : base(eventStream, gameState, playerId, round)
         {
             if (cardsToThrow == null) throw new ArgumentNullException("cardsToThrow");
             CardsToThrow = cardsToThrow;

@@ -5,6 +5,7 @@ using Skunked.Players;
 using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.State;
+using Skunked.State.Events;
 using Skunked.Utility;
 
 namespace Skunked.Commands
@@ -15,7 +16,7 @@ namespace Skunked.Commands
         private readonly GameRules _gameRules;
         private readonly GameState _gameState;
 
-        public CreateNewCribbageGameCommand(IEnumerable<Player> players, GameState gameState, GameRules gameRules)
+        public CreateNewCribbageGameCommand(GameEventStream eventStream, GameState gameState, IEnumerable<Player> players, GameRules gameRules)
         {
             if (players == null) throw new ArgumentNullException("players");
             if (gameState == null) throw new ArgumentNullException("gameState");

@@ -59,6 +59,8 @@
     <Compile Include="AI\Play\MinPlayStrategy.cs" />
     <Compile Include="AI\Play\MaxPlayStrategy.cs" />
     <Compile Include="AI\Play\RandomPlayStrategy.cs" />
+    <Compile Include="Commands\Arguments\ShuffleDeckCommandArgs.cs" />
+    <Compile Include="Commands\ShuffleDeckCommand.cs" />
     <Compile Include="PlayingCards\Card.cs" />
     <Compile Include="Commands\Arguments\CommandArgsBase.cs" />
     <Compile Include="Commands\Arguments\CountCribScoreArgs.cs" />
@@ -82,10 +84,10 @@
     <Compile Include="State\Events\CutCardEvent.cs" />
     <Compile Include="Dealer\IPlayerHandFactory.cs" />
     <Compile Include="Dealer\StandardHandDealer.cs" />
+    <Compile Include="State\Events\DeckShuffled.cs" />
     <Compile Include="State\Events\EventDispatcher.cs" />
     <Compile Include="Exceptions\InvalidCribbageOperationException.cs" />
     <Compile Include="Exceptions\InvalidCribbageOperations.cs" />
-    <Compile Include="State\Events\GameStateEventListener.cs" />
     <Compile Include="State\Events\IEventListener.cs" />
     <Compile Include="State\Events\PlayCardEvent.cs" />
     <Compile Include="Players\PlayerIdHand.cs" />

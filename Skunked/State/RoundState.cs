@@ -19,5 +19,12 @@ namespace Skunked.State
         public int PlayerCrib { get; set; }
         public List<Card> Crib { get; set; }
         public List<PlayerScoreShow> ShowScores { get; set; }
+        public PreRound PreRound { get; set; }
+    }
+
+    public class PreRound
+    {
+        public List<Card> Deck { get; set; }
+        public Card CutCard { get; set; }
     }
 }

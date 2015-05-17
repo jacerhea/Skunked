@@ -1,31 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Skunked.AI.CardToss;
 using Skunked.AI.Play;
 using Skunked.Players;
 using Skunked.Utility;
+using Xunit;
 
 namespace Skunked.Test.System
 {
-    [TestClass]
-    public class FullGameTestFixture
+    public class FullGameTestFixture : IDisposable
     {
 
-        [TestInitialize]
-        public void Setup()
+        public FullGameTestFixture()
         {
             RandomProvider.RandomInstance = new ThreadLocal<Random>(() => new IncrementalRandom());
         }
 
-        [ClassCleanup]
-        public static void Cleanup()
-        {
-            RandomProvider.ResetInstance();
-        }
-
-        [TestMethod]
+        [Fact]
         public void FullGameTest()
         {
             var game =
@@ -36,6 +28,11 @@ namespace Skunked.Test.System
                 });
 
             var result = game.Run();
+        }
+
+        public void Dispose()
+        {
+            RandomProvider.ResetInstance();
         }
     }
 }

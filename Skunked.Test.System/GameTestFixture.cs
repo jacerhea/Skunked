@@ -2,22 +2,21 @@
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Skunked.AI.CardToss;
 using Skunked.AI.Play;
 using Skunked.AI.Show;
 using Skunked.Players;
 using Skunked.Rules;
 using Skunked.State;
+using Xunit;
 
 namespace Skunked.Test.System
 {
-    [TestClass]
     public class GameTestFixture
     {
         private readonly Random _random = new Random(Environment.TickCount);
 
-        [TestMethod]
+        [Fact]
         public void SmokeTest()
         {
             var results = new ConcurrentBag<GameState>();

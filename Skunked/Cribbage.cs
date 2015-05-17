@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Skunked.Commands;
 using Skunked.Players;
 using Skunked.PlayingCards;
 using Skunked.Rules;
@@ -11,58 +12,55 @@ namespace Skunked
 {
     public class Cribbage
     {
-        private readonly GameEventStream _stream;
-        private readonly EventDispatcher _dispatcher;
+        private readonly GameEventStream _eventStream = new GameEventStream();
 
         public Cribbage()
         {
-            _stream = new GameEventStream();
             State = new GameState();
-            _dispatcher = new EventDispatcher(new GameStateEventListener(State));
         }
 
         public GameState State { get; private set; }
 
         public void Start(IEnumerable<Player> players, GameRules rules)
         {
-            var @event = new NewGameStartedEvent { Players = players.ToList(), Rules = rules };
-            _stream.Add(@event);
-            _dispatcher.RaiseEvent(@event);
+            var command = new CreateNewCribbageGameCommand(_eventStream, State, players, rules);
+            command.Execute();
         }
 
         public void CutCard(int playerId, Card card)
         {
-            var @event = new CutCardEvent { PlayerId = playerId, CutCard = card };
-            _stream.Add(@event);
-            _dispatcher.RaiseEvent(@event);
+            var command = new CutCardCommand(new CutCardArgs(_eventStream, State, playerId, State.Rounds.Count, card));
+            command.Execute();
+
+            if (State.OpeningRound.Complete)
+            {
+                var newRoundCommand = new CreateNewRoundCommand(State, 0);
+                newRoundCommand.Execute();
+            }
         }
 
         public void ThrowCards(int playerId, IEnumerable<Card> cribCards)
         {
-            var @event = new ThrowCardsEvent { PlayerId = playerId, Thrown = cribCards.ToList() };
-            _stream.Add(@event);
-            _dispatcher.RaiseEvent(@event);
+            var command = new ThrowCardsToCribCommand(new ThrowCardsToCribArgs(_eventStream, State, playerId, State.Rounds.Count, cribCards));
+            command.Execute();
         }
 
         public void PlayCard(int playerId, Card card)
         {
-            var @event = new PlayCardEvent { PlayerId = playerId, Occurred = DateTimeOffset.Now, PlayedCard = card };
-            _stream.Add(@event);
-            _dispatcher.RaiseEvent(@event);
+            var command = new PlayCardCommand(new PlayCardArgs(_eventStream, State, playerId, State.Rounds.Count, card));
+            command.Execute();
         }
 
         public void CountHand(int playerId, int score)
         {
-            var @event = new CountHandEvent { PlayerId = playerId, Occurred = DateTimeOffset.Now, CountedScore = score };
-            _stream.Add(@event);
-            _dispatcher.RaiseEvent(@event);
+            var command = new CountHandScoreCommand(new CountHandScoreArgs(_eventStream, State, playerId, State.Rounds.Count, score));
+            command.Execute();
         }
 
         public void CountCrib(int playerId, int score)
         {
-            var @event = new CountCribEvent{PlayerId = playerId, CountedScore = score};
-            _stream.Add(@event);
-            _dispatcher.RaiseEvent(@event);
+            var command = new CountCribScoreCommand(new CountCribScoreArgs(_eventStream, State, playerId, State.Rounds.Count, score));
+            command.Execute();
         }
     }
 }

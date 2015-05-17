@@ -7,6 +7,7 @@ using Skunked.Players;
 using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.State;
+using Skunked.State.Events;
 
 namespace Skunked.Test.Commands
 {
@@ -84,7 +85,7 @@ namespace Skunked.Test.Commands
         [ExpectedException(typeof(InvalidCribbageOperationException))]
         public void Test_Command_Base_Validation_Player_Score_Exception()
         {
-            var command = new CribbageCommandBaseTestClass(new CommandArgsBaseMock(_gameState, 1, 0));
+            var command = new CribbageCommandBaseTestClass(new CommandArgsBaseMock(new GameEventStream(),  _gameState, 1, 0));
             command.Execute();
             Assert.Fail();
         }
@@ -115,8 +116,8 @@ namespace Skunked.Test.Commands
 
     public class CommandArgsBaseMock : CommandArgsBase
     {
-        public CommandArgsBaseMock(GameState gameState, int playerId, int round)
-            : base(gameState, playerId, round)
+        public CommandArgsBaseMock(GameEventStream eventStream, GameState gameState, int playerId, int round)
+            : base(eventStream, gameState, playerId, round)
         {
         }
     }

@@ -9,6 +9,7 @@ using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.Score;
 using Skunked.State;
+using Skunked.State.Events;
 using Skunked.Utility;
 
 namespace Skunked.Test.Commands
@@ -87,7 +88,7 @@ namespace Skunked.Test.Commands
         public void Test_Current_Round_Is_Done_Throws_Exception()
         {
             _gameState.GetCurrentRound().Complete = true;
-            var command = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, 10, _scoreCalculator));
+            var command = new CountHandScoreCommand(new CountHandScoreArgs(new GameEventStream(), _gameState, 1, 1, 10, _scoreCalculator));
 
             try
             {
@@ -104,7 +105,7 @@ namespace Skunked.Test.Commands
         public void Test_Current_Round_Throw_Cards_Is_Not_Done_Throws_Exception()
         {
             _gameState.GetCurrentRound().ThrowCardsComplete = false;
-            var command = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, 10, _scoreCalculator));
+            var command = new CountHandScoreCommand(new CountHandScoreArgs(new GameEventStream(),  _gameState, 1, 1, 10, _scoreCalculator));
 
             try
             {
@@ -121,7 +122,7 @@ namespace Skunked.Test.Commands
         public void Test_Current_Round_Play_Cards_Is_Not_Done_Throws_Exception()
         {
             _gameState.GetCurrentRound().PlayedCardsComplete = false;
-            var command = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, 10, _scoreCalculator));
+            var command = new CountHandScoreCommand(new CountHandScoreArgs(new GameEventStream(),  _gameState, 1, 1, 10, _scoreCalculator));
 
             try
             {
@@ -138,7 +139,7 @@ namespace Skunked.Test.Commands
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Test_Invalid_Player_Counted_Score()
         {
-            new CountHandScoreCommand(new CountHandScoreArgs(_gameState, -1, 1, 24, _scoreCalculator));
+            new CountHandScoreCommand(new CountHandScoreArgs(new GameEventStream(),  _gameState, -1, 1, 24, _scoreCalculator));
         }
 
         [TestMethod]
@@ -147,7 +148,7 @@ namespace Skunked.Test.Commands
             const int playerId = 1;
             _gameState.GetCurrentRound().PlayerCrib = 2;
 
-            var command = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, 1, _scoreCalculator));
+            var command = new CountHandScoreCommand(new CountHandScoreArgs(new GameEventStream(),  _gameState, 1, 1, 1, _scoreCalculator));
             command.Execute();
 
             Assert.AreEqual(1, _gameState.IndividualScores.Single(ps => ps.Player == playerId).Score);
@@ -158,7 +159,7 @@ namespace Skunked.Test.Commands
         {
             try
             {
-                new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, 24, _scoreCalculator)).Execute();
+                new CountHandScoreCommand(new CountHandScoreArgs(new GameEventStream(),  _gameState, 1, 1, 24, _scoreCalculator)).Execute();
                 Assert.Fail();
             }
             catch (InvalidCribbageOperationException exception)
@@ -173,10 +174,10 @@ namespace Skunked.Test.Commands
             const int playerId = 2;
             _gameState.GetCurrentRound().PlayerCrib = 2;
 
-            var command1 = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, 24, _scoreCalculator));
+            var command1 = new CountHandScoreCommand(new CountHandScoreArgs(new GameEventStream(), _gameState, 1, 1, 24, _scoreCalculator));
             command1.Execute();
 
-            var command2 = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, playerId, 1, 1, _scoreCalculator));
+            var command2 = new CountHandScoreCommand(new CountHandScoreArgs(new GameEventStream(), _gameState, playerId, 1, 1, _scoreCalculator));
             command2.Execute();
 
             Assert.AreEqual(1, _gameState.IndividualScores.Single(ps => ps.Player == playerId).Score);

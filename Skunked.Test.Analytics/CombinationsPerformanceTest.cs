@@ -1,18 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Combinatorics.Collections;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Skunked.PlayingCards;
+using Xunit;
 
 namespace Skunked.Test.Analytics
 {
-    [TestClass]
     public class CombinationsPerformanceTest
     {
         private List<Card> _hand;
 
-        [TestInitialize]
-        public void Setup()
+        public CombinationsPerformanceTest()
         {
             _hand = new List<Card>
             {
@@ -22,10 +21,10 @@ namespace Skunked.Test.Analytics
                 new Card(Rank.Queen, Suit.Spades),
                 new Card(Rank.Eight, Suit.Clubs),
                 new Card(Rank.Ace, Suit.Diamonds),
-            };
+            };            
         }
 
-        [TestMethod]
+        [Fact]
         public void Combinations()
         {
             foreach (var i in Enumerable.Range(0, 1000))
@@ -35,7 +34,7 @@ namespace Skunked.Test.Analytics
                     var comboGen = new Combinations<Card>(_hand, value);
                     foreach (var set in comboGen)
                     {
-                        Assert.IsTrue(set.Count > 0);
+                        Assert.True(set.Count > 0);
                     }
                 }
             }

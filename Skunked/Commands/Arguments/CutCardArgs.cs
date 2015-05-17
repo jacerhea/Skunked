@@ -1,6 +1,7 @@
 ﻿using System;
 using Skunked.PlayingCards;
 using Skunked.State;
+using Skunked.State.Events;
 
 namespace Skunked.Commands
 {
@@ -9,7 +10,8 @@ namespace Skunked.Commands
         public Card CutCard { get; private set; }
         public IOrderStrategy OrderStrategy { get; private set; }
 
-        public CutCardArgs(GameState gameState, int playerId, int round, Card cutCard, IOrderStrategy orderStrategy = null) : base(gameState, playerId, round)
+        public CutCardArgs(GameEventStream eventStream, GameState gameState, int playerId, int round, Card cutCard, IOrderStrategy orderStrategy = null)
+            : base(eventStream, gameState, playerId, round)
         {
             if (cutCard == null) throw new ArgumentNullException("cutCard");
             CutCard = cutCard;

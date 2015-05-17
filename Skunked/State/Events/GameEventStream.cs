@@ -9,7 +9,7 @@ namespace Skunked.State.Events
 
         public GameEventStream()
         {
-            _events = new List<Event>(50);
+            _events = new List<Event>(100);
         }
 
         public void Add(Event @event)
