@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>Skunked</id>
-    <version>0.9.6</version>
+    <version>0.9.7</version>
     <title>Skunked</title>
     <authors>Jace Rhea</authors>
     <owners>Jace Rhea</owners>
@@ -10,7 +10,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A library of classes to model the game of Cribbage.</description>
     <summary>A library of classes to model the game of Cribbage.</summary>
-    <copyright>2014</copyright>
+    <copyright>2015</copyright>
     <tags>cribbage ai a.i. game games card</tags>
 	<dependencies>
 		<dependency id="Combinatorics" version="1.0.3.2" />

@@ -12,8 +12,8 @@ namespace Skunked.Commands
         public IEnumerable<Card> CardsToThrow { get; private set; }
         public IScoreCalculator ScoreCalculator { get; private set; }
 
-        public ThrowCardsToCribArgs(GameEventStream eventStream, GameState gameState, int playerId, int round, IEnumerable<Card> cardsToThrow, IScoreCalculator scoreCalculator = null)
-            : base(eventStream, gameState, playerId, round)
+        public ThrowCardsToCribArgs(GameState gameState, int playerId, int round, IEnumerable<Card> cardsToThrow, IScoreCalculator scoreCalculator = null)
+            : base(gameState, playerId, round)
         {
             if (cardsToThrow == null) throw new ArgumentNullException("cardsToThrow");
             CardsToThrow = cardsToThrow;

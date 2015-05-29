@@ -17,26 +17,22 @@ namespace Skunked.AI.CardToss
 
         protected IEnumerable<ComboPossibleScores> BaseAverageDecision(IEnumerable<Card> hand)
         {
-            var handIter = hand.ToList();
-            var combinations = new Combinations<Card>(handIter, 4);
+            var handIter = new HashSet<Card>(hand);
+            var combinations = new Combinations<Card>(handIter.ToList(), 4);
             var deck = new Deck();
             var possibleCardsCut = deck.Where(card => !handIter.Contains(card)).ToList();
 
-            var comboPossibleScoreses = new List<ComboPossibleScores>();
+            var comboPossibleScoreses = GetPossibleCombos(combinations, possibleCardsCut).ToList();
+            return comboPossibleScoreses;
+        }
 
+        private IEnumerable<ComboPossibleScores> GetPossibleCombos(Combinations<Card> combinations, List<Card> possibleCardsCut)
+        {
             foreach (var combo in combinations)
             {
-                var comboPossibleScores = new ComboPossibleScores(combo);
-                comboPossibleScoreses.Add(comboPossibleScores);
-
-                foreach (var cutCard in possibleCardsCut)
-                {
-                    var comboScore = _scoreCalculator.CountShowScore(cutCard, combo).Score;
-                    comboPossibleScores.AddScore(comboScore);
-                }
+                var possibleScores = possibleCardsCut.AsParallel().Select(cutCard => _scoreCalculator.CountShowScore(cutCard, combo).Score).ToList();
+                yield return new ComboPossibleScores(combo) { PossibleScores = possibleScores };
             }
-
-            return comboPossibleScoreses;
         }
     }
 }

@@ -44,6 +44,7 @@
     <Compile Include="AI\AIDifficulty.cs" />
     <Compile Include="AI\AIPlayerFactory.cs" />
     <Compile Include="AI\CardToss\AbstractAverageDecision.cs" />
+    <Compile Include="AI\CardToss\DistributionService.cs" />
     <Compile Include="AI\CardToss\IDecisionStrategy.cs" />
     <Compile Include="AI\CardToss\MaxAverageDecision.cs" />
     <Compile Include="AI\CardToss\MinAverageDecision.cs" />
@@ -84,10 +85,10 @@
     <Compile Include="State\Events\CutCardEvent.cs" />
     <Compile Include="Dealer\IPlayerHandFactory.cs" />
     <Compile Include="Dealer\StandardHandDealer.cs" />
-    <Compile Include="State\Events\DeckShuffled.cs" />
     <Compile Include="State\Events\EventDispatcher.cs" />
     <Compile Include="Exceptions\InvalidCribbageOperationException.cs" />
     <Compile Include="Exceptions\InvalidCribbageOperations.cs" />
+    <Compile Include="State\Events\GameStateEventListener.cs" />
     <Compile Include="State\Events\IEventListener.cs" />
     <Compile Include="State\Events\PlayCardEvent.cs" />
     <Compile Include="Players\PlayerIdHand.cs" />

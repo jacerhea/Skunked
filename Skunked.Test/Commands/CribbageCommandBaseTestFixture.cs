@@ -117,7 +117,7 @@ namespace Skunked.Test.Commands
     public class CommandArgsBaseMock : CommandArgsBase
     {
         public CommandArgsBaseMock(GameEventStream eventStream, GameState gameState, int playerId, int round)
-            : base(eventStream, gameState, playerId, round)
+            : base(gameState, playerId, round)
         {
         }
     }

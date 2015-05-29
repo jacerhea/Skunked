@@ -77,6 +77,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="AI\CardToss\DistributionServiceTestFixture.cs" />
     <Compile Include="AI\CardToss\MinAverageDecisionTestFixture.cs" />
     <Compile Include="AI\CardToss\MaxAverageDecisionTestFixture.cs" />
     <Compile Include="AI\CardToss\OptimisticDecisionTestFixture.cs" />

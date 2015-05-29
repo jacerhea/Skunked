@@ -2,7 +2,7 @@
 {
     public enum Rank
     {
-        Ace,
+        Ace = 1,
         Two,
         Three,
         Four,

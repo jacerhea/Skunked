@@ -52,7 +52,7 @@ namespace Skunked.Test.Commands
         public void TestGoIsCounted()
         {
             var gameState = CreateGameState();
-            var command = new PlayCardCommand(new PlayCardArgs(new GameEventStream(),  gameState, 2, 1, new Card(Rank.Ace, Suit.Hearts), new ScoreCalculator()));
+            var command = new PlayCardCommand(new PlayCardArgs(gameState, 2, 1, new Card(Rank.Ace, Suit.Hearts), new ScoreCalculator()));
             var playerScorePrior = gameState.IndividualScores.Single(ps => ps.Player == 2).Score;
             command.Execute();
             var currentRound = gameState.GetCurrentRound();

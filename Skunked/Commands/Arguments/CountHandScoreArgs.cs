@@ -10,8 +10,8 @@ namespace Skunked.Commands
         public IScoreCalculator ScoreCalculator { get; private set; }
         public int PlayerCountedScore { get; private set; }
 
-        public CountHandScoreArgs(GameEventStream eventStream, GameState gameState, int playerId, int round, int playerCountedScore, IScoreCalculator scoreCalculator = null)
-            : base(eventStream, gameState, playerId, round)
+        public CountHandScoreArgs(GameState gameState, int playerId, int round, int playerCountedScore, IScoreCalculator scoreCalculator = null)
+            : base(gameState, playerId, round)
         {
             if (playerCountedScore < 0) throw new ArgumentOutOfRangeException("playerCountedScore");
             ScoreCalculator = scoreCalculator ?? new ScoreCalculator();

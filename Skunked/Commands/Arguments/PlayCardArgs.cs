@@ -11,8 +11,8 @@ namespace Skunked.Commands
         public Card PlayedCard { get; private set; }
         public IScoreCalculator ScoreCalculator { get; private set; }
 
-        public PlayCardArgs(GameEventStream eventStream, GameState gameState, int playerId, int round, Card playedCard, IScoreCalculator scoreCalculator = null)
-            : base(eventStream, gameState, playerId, round)
+        public PlayCardArgs(GameState gameState, int playerId, int round, Card playedCard, IScoreCalculator scoreCalculator = null)
+            : base(gameState, playerId, round)
         {
             if (playedCard == null) throw new ArgumentNullException("playedCard");
             PlayedCard = playedCard;

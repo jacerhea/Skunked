@@ -11,7 +11,7 @@ namespace Skunked.Commands
         public IOrderStrategy OrderStrategy { get; private set; }
 
         public CutCardArgs(GameEventStream eventStream, GameState gameState, int playerId, int round, Card cutCard, IOrderStrategy orderStrategy = null)
-            : base(eventStream, gameState, playerId, round)
+            : base(gameState, playerId, round)
         {
             if (cutCard == null) throw new ArgumentNullException("cutCard");
             CutCard = cutCard;

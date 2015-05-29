@@ -11,19 +11,14 @@ namespace Skunked.Score
     /// </summary>
     public class ComboPossibleScores
     {
-        public IList<Card> Combo { get; private set; }
-        private IList<int> PossibleScores { get; set; }
+        public HashSet<Card> Combo { get; private set; }
+        public List<int> PossibleScores { get; set; }
 
         public ComboPossibleScores(IList<Card> combo)
         {
             if (combo == null) throw new ArgumentNullException("combo");
-            Combo = combo;
+            Combo = new HashSet<Card>(combo);
             PossibleScores = new List<int>(52);
-        }
-
-        public void AddScore(int score)
-        {
-            PossibleScores.Add(score);
         }
 
         public int GetScoreSummation()

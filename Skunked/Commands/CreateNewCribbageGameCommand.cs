@@ -16,7 +16,7 @@ namespace Skunked.Commands
         private readonly GameRules _gameRules;
         private readonly GameState _gameState;
 
-        public CreateNewCribbageGameCommand(GameEventStream eventStream, GameState gameState, IEnumerable<Player> players, GameRules gameRules)
+        public CreateNewCribbageGameCommand(GameState gameState, IEnumerable<Player> players, GameRules gameRules)
         {
             if (players == null) throw new ArgumentNullException("players");
             if (gameState == null) throw new ArgumentNullException("gameState");
@@ -29,7 +29,6 @@ namespace Skunked.Commands
         public void Execute()
         {
             var deck = new Deck().ToList();
-            deck.Shuffle();
             DateTimeOffset now = DateTimeOffset.Now;
             _gameState.GameRules = _gameRules;
             _gameState.OpeningRound = new OpeningRoundState

@@ -35,10 +35,8 @@ namespace Skunked
 
         public GameState Run()
         {
-            var cribbage = new Cribbage();
+            var cribbage = new Cribbage(_players, _gameRules);
             var gameState = cribbage.State;
-
-            cribbage.Start(_players, _gameRules);
 
             var cardsForCut = _deck.ToList();
 
