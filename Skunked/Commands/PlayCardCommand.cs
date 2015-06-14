@@ -75,7 +75,7 @@ namespace Skunked.Commands
             currentTeamScore.Score += playScore;
 
             //5.  Check if done with Play
-            bool isDone = setOfPlays.SelectMany(c => c).Select(spc => spc.Card).Count() == GameState.Players.Count * GameRules.HandSize;
+            bool isDone = setOfPlays.SelectMany(c => c).Select(spc => spc.Card).Count() == GameState.PlayerIds.Count * GameRules.HandSize;
             currentRound.PlayedCardsComplete = isDone;
             EndofCommandCheck();
         }
@@ -99,7 +99,7 @@ namespace Skunked.Commands
 
             if (setOfPlays.Count == 1 && !setOfPlays.Last().Any())
             {
-                if (GameState.GetNextPlayerFrom(currentRound.PlayerCrib).Id != _args.PlayerId)
+                if (GameState.GetNextPlayerFrom(currentRound.PlayerCrib) != _args.PlayerId)
                 {
                     throw new InvalidCribbageOperationException(InvalidCribbageOperations.NotPlayersTurn);
                 }
@@ -133,22 +133,22 @@ namespace Skunked.Commands
             var playerCardPlayedScores = setOfPlays.Last();
 
             //if round is done
-            if (playedCards.Count() == GameState.Players.Count * GameRules.HandSize)
+            if (playedCards.Count() == GameState.PlayerIds.Count * GameRules.HandSize)
             {
                 return null;
             }
 
             //move to current player
-            var currentPlayer = GameState.Players.Single(sp => sp.Id == _args.PlayerId);
-            var nextPlayer = GameState.Players.NextOf(currentPlayer);
+            var currentPlayer = GameState.PlayerIds.Single(sp => sp == _args.PlayerId);
+            var nextPlayer = GameState.PlayerIds.NextOf(currentPlayer);
 
             //move to next player with valid move
             while (true)
             {
-                var nextPlayerAvailableCardsToPlay = roundState.Hands.Single(ph => ph.Id == nextPlayer.Id).Hand.Except(playedCards, CardValueEquality.Instance).ToList();
+                var nextPlayerAvailableCardsToPlay = roundState.Hands.Single(ph => ph.Id == nextPlayer).Hand.Except(playedCards, CardValueEquality.Instance).ToList();
                 if (!nextPlayerAvailableCardsToPlay.Any())
                 {
-                    nextPlayer = GameState.Players.NextOf(nextPlayer);
+                    nextPlayer = GameState.PlayerIds.NextOf(nextPlayer);
                     continue;
                 }
 
@@ -157,10 +157,10 @@ namespace Skunked.Commands
                 var scoreTest = _args.ScoreCalculator.SumValues(nextPlayerPlaySequence);
                 if (scoreTest <= GameRules.PlayMaxScore)
                 {
-                    return nextPlayer.Id;
+                    return nextPlayer;
                 }
 
-                nextPlayer = GameState.Players.NextOf(nextPlayer);
+                nextPlayer = GameState.PlayerIds.NextOf(nextPlayer);
             }
         }
 

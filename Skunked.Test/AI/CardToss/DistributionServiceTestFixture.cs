@@ -13,7 +13,7 @@ namespace Skunked.Test.AI.CardToss
     public class DistributionServiceTestFixture
     {
         [TestMethod]
-        public void sdafdsa()
+        public void CalculateDistribution()
         {
             var hand = new List<Card>
             {
@@ -28,6 +28,22 @@ namespace Skunked.Test.AI.CardToss
             var distributionService = new DistributionService();
             var distribution = distributionService.CalculateDistribution(hand);
             Assert.AreEqual(15, distribution.Sets.Count);
+        }
+
+        [TestMethod]
+        public void CalculateDistribution_4Cards()
+        {
+            var hand = new List<Card>
+            {
+                new Card(Rank.Five, Suit.Clubs),
+                new Card(Rank.Six, Suit.Clubs),
+                new Card(Rank.Seven, Suit.Clubs),
+                new Card(Rank.Five, Suit.Diamonds),
+            };
+
+            var distributionService = new DistributionService();
+            var distribution = distributionService.CalculateDistribution(hand);
+            Assert.AreEqual(6, distribution.Sets.Count);
         }
     }
 }

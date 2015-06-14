@@ -8,7 +8,7 @@ namespace Skunked.State
     public class GameState
     {
         public Guid Id { get; set; }
-        public List<Player> Players { get; set; }
+        public List<int> PlayerIds { get; set; }
         public List<PlayerScore> IndividualScores { get; set; }
         public List<TeamScore> TeamScores { get; set; }
         public GameRules GameRules { get; set; }

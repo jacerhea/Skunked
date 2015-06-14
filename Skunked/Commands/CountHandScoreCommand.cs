@@ -74,15 +74,15 @@ namespace Skunked.Commands
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.PlayerHasAlreadyCounted);
             }
 
-            var currentPlayer = _args.GameState.Players.NextOf(_args.GameState.Players.Single(sp => sp.Id == currentRound.PlayerCrib));
-            foreach (var enumeration in Enumerable.Range(1, _args.GameState.Players.Count))
+            var currentPlayer = _args.GameState.PlayerIds.NextOf(_args.GameState.PlayerIds.Single(id => id == currentRound.PlayerCrib));
+            foreach (var enumeration in Enumerable.Range(1, _args.GameState.PlayerIds.Count))
             {
-                var playerScoreShow = currentRound.ShowScores.Single(pss => pss.Player == currentPlayer.Id);
+                var playerScoreShow = currentRound.ShowScores.Single(pss => pss.Player == currentPlayer);
 
                 if (playerScoreShow.Player == _args.PlayerId) { break; }
                 if(!playerScoreShow.HasShowed) { throw new InvalidCribbageOperationException(InvalidCribbageOperations.NotPlayersTurn);}
 
-                currentPlayer = _args.GameState.Players.NextOf(currentPlayer);
+                currentPlayer = _args.GameState.PlayerIds.NextOf(currentPlayer);
             }
         }
     }

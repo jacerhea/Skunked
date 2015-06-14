@@ -16,10 +16,10 @@ namespace Skunked.Utility
             return game.Rounds.MaxBy(round => round.Round);
         }
 
-        public static Player GetNextPlayerFrom(this GameState gameState, int playerId)
+        public static int GetNextPlayerFrom(this GameState gameState, int playerId)
         {
-            var currentPlayer = gameState.Players.Single(p => p.Id == playerId);
-            return gameState.Players.NextOf(currentPlayer);
+            var currentPlayer = gameState.PlayerIds.Single(id => id == playerId);
+            return gameState.PlayerIds.NextOf(currentPlayer);
         }
     }
 }

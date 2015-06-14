@@ -6,7 +6,7 @@ namespace Skunked.State.Events
 {
     public class NewGameStartedEvent : Event
     {
-        public List<Player> Players { get; set; }
+        public List<int> Players { get; set; }
         public GameRules Rules { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace Skunked.Dealer
     public class StandardHandDealer : IPlayerHandFactory
     {
         //make the startingWith into the dealer.  this saves a step for the caller to figure out who needs to be dealt to first.
-        public Dictionary<Player, List<Card>> CreatePlayerHands(Deck deck, IList<Player> players, Player startingWith, int handSize)
+        public Dictionary<int, List<Card>> CreatePlayerHands(Deck deck, IList<int> players, int startingWith, int handSize)
         {
             deck.Shuffle();
             var startingIndex = players.IndexOf(startingWith);

@@ -7,7 +7,6 @@ using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.Score;
 using Skunked.State;
-using Skunked.State.Events;
 using Skunked.Utility;
 
 namespace Skunked.Test.Commands
@@ -40,9 +39,9 @@ namespace Skunked.Test.Commands
                     }
                 },
                 GameRules = new GameRules(),
-                Players = new List<Player> { new Player(id: 1), new Player(id: 2) },
+                PlayerIds = new List<int> { 1, 2 },
                 IndividualScores = new List<PlayerScore> { new PlayerScore { Player = 1 }, new PlayerScore { Player = 2 } },
-                TeamScores = new List<TeamScore> { new TeamScore{Players = new List<int>{1}}, new TeamScore { Players = new List<int>{2}} }
+                TeamScores = new List<TeamScore> { new TeamScore { Players = new List<int> { 1 } }, new TeamScore { Players = new List<int> { 2 } } }
             };
         }
 

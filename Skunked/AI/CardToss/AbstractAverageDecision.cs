@@ -30,7 +30,7 @@ namespace Skunked.AI.CardToss
         {
             foreach (var combo in combinations)
             {
-                var possibleScores = possibleCardsCut.AsParallel().Select(cutCard => _scoreCalculator.CountShowScore(cutCard, combo).Score).ToList();
+                var possibleScores = possibleCardsCut.AsParallel().Select(cutCard => new ScoreWithCut{Cut = cutCard, Score = _scoreCalculator.CountShowScore(cutCard, combo).Score}).ToList();
                 yield return new ComboPossibleScores(combo) { PossibleScores = possibleScores };
             }
         }

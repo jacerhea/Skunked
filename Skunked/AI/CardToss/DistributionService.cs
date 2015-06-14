@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
 using Combinatorics.Collections;
@@ -30,17 +31,31 @@ namespace Skunked.AI.CardToss
             {
                 var comboPossibleScores = new ComboPossibleScores(combo);
                 comboPossibleScoreses.Add(comboPossibleScores);
-                var possibleScores = possibleCardsCut.AsParallel().Select(cutCard => _scoreCalculator.CountShowScore(cutCard, combo).Score);
+                var possibleScores = possibleCardsCut.AsParallel().Select(cutCard => new ScoreWithCut{Cut = cutCard, Score = _scoreCalculator.CountShowScore(cutCard, combo).Score}).ToList();
                 comboPossibleScores.PossibleScores.AddRange(possibleScores);
             }
 
             var distributionSets = comboPossibleScoreses.SelectMany(cps => cps.PossibleScores)
-                .GroupBy(cps => cps)
+                .GroupBy(cps => cps.Score)
                 .Select(g => new DistributionSet { Count = g.Count(), Score = g.Key })
                 .OrderBy(ds => ds.Score)
                 .ToList();
 
-            return new Distribution { Sets = distributionSets, Mean = (decimal)distributionSets.Sum(ds => ds.Score * ds.Count) / distributionSets.Sum(ds => ds.Count), Mode = distributionSets.MaxBy(ds => ds.Count).Score};
+            var median = distributionSets.Select(ds => ds.Score).Distinct().OrderBy(s => s).ToList();
+            var resultCount = distributionSets.Sum(ds => ds.Count);
+            var mean = (decimal)distributionSets.Sum(ds => ds.Score * ds.Count) / resultCount;
+
+            var aaaa = distributionSets.Sum(ds => Math.Pow(Math.Abs((double)mean - ds.Score), 2) * ds.Count);
+            return new Distribution
+            {
+                Sets = distributionSets,
+                Mean = mean,
+                Median = median[(int)Math.Floor(median.Count / 2M)],
+                Mode = distributionSets.MaxBy(ds => ds.Count).Score,
+                Range = new Range<int> { Upper = distributionSets.MaxBy(ds => ds.Score).Score, Lower = distributionSets.MinBy(ds => ds.Score).Score },
+                StandardDeviation = Math.Sqrt(aaaa / resultCount),
+                BestCut = comboPossibleScoreses.SelectMany(spc => spc.PossibleScores).MaxBy(ps => ps.Score).Cut
+            };
         }
     }
 
@@ -50,11 +65,20 @@ namespace Skunked.AI.CardToss
         public decimal Mean { get; set; }
         public int Median { get; set; }
         public int Mode { get; set; }
+        public Range<int> Range { get; set; }
+        public double StandardDeviation { get; set; }
+        public Card BestCut { get; set; }
     }
 
     public class DistributionSet
     {
         public int Score { get; set; }
         public int Count { get; set; }
+    }
+
+    public class Range<T>
+    {
+        public T Upper { get; set; }
+        public T Lower { get; set; }
     }
 }

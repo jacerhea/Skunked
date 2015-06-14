@@ -15,13 +15,19 @@ namespace Skunked
         private readonly GameEventStream _eventStream = new GameEventStream();
         private readonly IEventListener _gameStateEventListener;
 
-        public Cribbage(IEnumerable<Player> players, GameRules rules)
+        public Cribbage(IEnumerable<int> players, GameRules rules)
         {
             State = new GameState();
             _gameStateEventListener = new GameStateEventListener(State);
 
             _gameStateEventListener.Notify(new NewGameStartedEvent{Players = players.ToList(), Rules = rules});
             _gameStateEventListener.Notify(new DeckShuffledEvent());
+        }
+
+        public Cribbage(GameState state)
+        {
+            State = state;
+            _gameStateEventListener = new GameStateEventListener(State);
         }
 
         public GameState State { get; private set; }

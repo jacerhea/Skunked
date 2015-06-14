@@ -35,7 +35,7 @@ namespace Skunked
 
         public GameState Run()
         {
-            var cribbage = new Cribbage(_players, _gameRules);
+            var cribbage = new Cribbage(_players.Select(p => p.Id), _gameRules);
             var gameState = cribbage.State;
 
             var cardsForCut = _deck.ToList();
@@ -70,7 +70,7 @@ namespace Skunked
                         cribbage.PlayCard(player.Id, show);
                     }
 
-                    var startingPlayer = gameState.GetNextPlayerFrom(currentRound.PlayerCrib);
+                    var startingPlayer = _players.Single(p => p.Id == gameState.GetNextPlayerFrom(currentRound.PlayerCrib));
                     foreach (var player in _players.Infinite().Skip(_players.IndexOf(startingPlayer)).Take(_players.Count).ToList())
                     {
                         var playerCount = player.CountHand(currentRound.Starter, currentRound.Hands.Single(kv => kv.Id == player.Id).Hand);
