@@ -9,7 +9,7 @@ namespace Skunked.AI.Play
     {
         protected Card PlayFirstCard(IEnumerable<Card> hand)
         {
-            if (hand == null) throw new ArgumentNullException("hand");
+            if (hand == null) throw new ArgumentNullException(nameof(hand));
             hand = hand.ToList();
             if (hand.Any(c => c.Rank == Rank.Four))
                 return hand.First(c => c.Rank == Rank.Four);

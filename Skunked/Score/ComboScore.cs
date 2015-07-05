@@ -12,14 +12,14 @@ namespace Skunked.Score
 
         public ComboScore(List<Card> combo, int score)
         {
-            if (combo == null) throw new ArgumentNullException("combo");
+            if (combo == null) throw new ArgumentNullException(nameof(combo));
             Combo = combo;
             Score = score;
         }
 
         public override string ToString()
         {
-            return string.Format("{0} : {{{1}}}", Score, string.Join(", ", (Combo.Select(c => c.ToString()).ToArray())));
+            return $"{Score} : {{{string.Join(", ", (Combo.Select(c => c.ToString()).ToArray()))}}}";
         }
     }
 }

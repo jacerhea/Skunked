@@ -27,8 +27,8 @@ namespace Skunked
             _gameRules = gameRules ?? new GameRules();
 
             _players = players ?? new List<Player> { new Player("Player 1"), new Player("Player 2") };
-            if (_players.Count > 4 || _players.Count < 2) throw new ArgumentOutOfRangeException("players");
-            if (_players.Count != _gameRules.PlayerCount) throw new ArgumentOutOfRangeException("players");
+            if (_players.Count > 4 || _players.Count < 2) throw new ArgumentOutOfRangeException(nameof(players));
+            if (_players.Count != _gameRules.PlayerCount) throw new ArgumentOutOfRangeException(nameof(players));
 
             _deck = deck ?? new Deck();
         }

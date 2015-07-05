@@ -15,7 +15,7 @@ namespace Skunked.Commands
 
         protected CribbageCommandBase(CommandArgsBase args)
         {
-            if (args == null) throw new ArgumentNullException("args");
+            if (args == null) throw new ArgumentNullException(nameof(args));
             _args = args;
         }
 

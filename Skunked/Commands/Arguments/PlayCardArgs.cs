@@ -2,7 +2,6 @@
 using Skunked.PlayingCards;
 using Skunked.Score;
 using Skunked.State;
-using Skunked.State.Events;
 
 namespace Skunked.Commands
 {
@@ -14,7 +13,7 @@ namespace Skunked.Commands
         public PlayCardArgs(GameState gameState, int playerId, int round, Card playedCard, IScoreCalculator scoreCalculator = null)
             : base(gameState, playerId, round)
         {
-            if (playedCard == null) throw new ArgumentNullException("playedCard");
+            if (playedCard == null) throw new ArgumentNullException(nameof(playedCard));
             PlayedCard = playedCard;
             ScoreCalculator = scoreCalculator ?? new ScoreCalculator();
         }

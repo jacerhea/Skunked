@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Skunked.Players;
 using Skunked.PlayingCards;
 
 namespace Skunked.Dealer

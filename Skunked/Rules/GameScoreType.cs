@@ -2,7 +2,7 @@
 {
     public enum GameScoreType
     {
-        Short61,
-        Standard121
+        Short61 = 61,
+        Standard121 = 121
     }
 }

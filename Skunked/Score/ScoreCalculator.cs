@@ -109,8 +109,8 @@ namespace Skunked.Score
 
         public List<Card> CountFlush(List<Card> playersHand, Card cutCard)
         {
-            if (playersHand == null) throw new ArgumentNullException("playersHand");
-            if (cutCard == null) throw new ArgumentNullException("cutCard");
+            if (playersHand == null) throw new ArgumentNullException(nameof(playersHand));
+            if (cutCard == null) throw new ArgumentNullException(nameof(cutCard));
             if (playersHand.Count() < 4) { return new List<Card>(); }
 
             var fourCardFlush = playersHand.GroupBy(c => c.Suit).Where(g => g.Count() > 3).ToList();
@@ -140,7 +140,7 @@ namespace Skunked.Score
         //only looking for runs of 3,4, and 5
         public List<IList<Card>> CountRuns(Dictionary<int, List<IList<Card>>> combinationsToCount)
         {
-            if (combinationsToCount == null) throw new ArgumentNullException("combinationsToCount");
+            if (combinationsToCount == null) throw new ArgumentNullException(nameof(combinationsToCount));
             var returnList = combinationsToCount[5].Where(IsRun).ToList();
 
             if (returnList.Count > 0)
@@ -187,7 +187,7 @@ namespace Skunked.Score
 
         public bool IsRun(IList<Card> combo)
         {
-            if (combo == null) throw new ArgumentNullException("combo");
+            if (combo == null) throw new ArgumentNullException(nameof(combo));
             if (combo.Count < 3) return false;
             var cardinalSet = combo.Select(c => _order.Order(c)).OrderBy(cardinal => cardinal);
             return AreContinuous(cardinalSet);

@@ -17,7 +17,7 @@ namespace Skunked.Commands
 
         public CreateNewRoundCommand(GameState gameState, int currentRound)
         {
-            if (gameState == null) throw new ArgumentNullException("gameState");
+            if (gameState == null) throw new ArgumentNullException(nameof(gameState));
             _gameState = gameState;
             _currentRound = currentRound;
         }

@@ -25,6 +25,5 @@ namespace Skunked.State
     public class PreRound
     {
         public List<Card> Deck { get; set; }
-        public Card CutCard { get; set; }
     }
 }

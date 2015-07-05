@@ -1,5 +1,4 @@
-﻿using System;
-using Skunked.Commands;
+﻿using Skunked.Commands;
 
 namespace Skunked.State.Events
 {
@@ -15,16 +14,15 @@ namespace Skunked.State.Events
         public void Notify(Event @event)
         {
             var type = @event.GetType();
-            if (type == typeof(NewGameStartedEvent))
+            if (type == typeof(GameStartedEvent))
             {
-                var newGame = ((NewGameStartedEvent)@event);
-                var command = new CreateNewCribbageGameCommand(_gameState, newGame.Players, newGame.Rules);
-                command.Execute();
+                var newGame = ((GameStartedEvent)@event);
+
             }
             //if (type == typeof (DeckShuffledEvent))
             //{
             //    var shuffled = ((DeckShuffledEvent)@event);
-            //    var command = new ShuffleDeckCommand(new ShuffleDeckCommandArgs(_gameState, _gameState.Rounds.Count, shuffled.PostShuffleDeck));
+            //    var command = new ShuffleDeckCommand(new ShuffleDeckCommandArgs(_gameState, _gameState.Rounds.Count, shuffled.DeckState));
             //}
         }
     }

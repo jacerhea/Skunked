@@ -11,5 +11,6 @@ namespace Skunked.State.Events
         }
 
         public DateTimeOffset Occurred { get; set; }
+        public Guid GameId { get; set; }
     }
 }

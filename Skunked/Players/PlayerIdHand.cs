@@ -1,25 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Runtime.Serialization;
 using Skunked.PlayingCards;
 
 namespace Skunked.Players
 {
-    public class PlayerIdHand
+    public class PlayerIdHand : ISerializable
     {
-        public int Id { get; private set; }
-        public List<Card> Hand { get; private set; }
+        public int Id { get; set; }
+        public List<Card> Hand { get; set; }
+
+        /// <summary>
+        /// Just used for serialization
+        /// </summary>
+        public PlayerIdHand()
+        {
+            
+        }
 
         public PlayerIdHand(int id, List<Card> hand)
         {
-            if (hand == null) throw new ArgumentNullException("hand");
+            if (hand == null) throw new ArgumentNullException(nameof(hand));
             Id = id;
             Hand = hand;
         }
 
-        public override string ToString()
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            return string.Format("{0}: {{{1}}}", Id, string.Join(", ", (Hand.Select(c => c.ToString()).ToArray())));
+            info.AddValue("Id", Id);
+            info.AddValue("Hand", Hand);
         }
     }
 }

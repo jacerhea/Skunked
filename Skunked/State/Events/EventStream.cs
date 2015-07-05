@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Skunked.State.Events
 {
-    public class GameEventStream : IEnumerable<Event>
+    public class EventStream : IEnumerable<Event>
     {
         private readonly List<Event> _events;
 
-        public GameEventStream()
+        public EventStream()
         {
             _events = new List<Event>(100);
         }

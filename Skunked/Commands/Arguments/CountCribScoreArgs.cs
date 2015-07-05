@@ -1,7 +1,6 @@
 ﻿using System;
 using Skunked.Score;
 using Skunked.State;
-using Skunked.State.Events;
 
 namespace Skunked.Commands
 {
@@ -13,7 +12,7 @@ namespace Skunked.Commands
         public CountCribScoreArgs(GameState gameState, int playerId, int round, int playerCountedCribScore, IScoreCalculator scoreCalculator = null)
             : base(gameState, playerId, round)
         {
-            if (playerCountedCribScore < 0) throw new ArgumentOutOfRangeException("playerCountedCribScore");
+            if (playerCountedCribScore < 0) throw new ArgumentOutOfRangeException(nameof(playerCountedCribScore));
             ScoreCalculator = scoreCalculator ?? new ScoreCalculator();
             PlayerCountedScore = playerCountedCribScore;
         }

@@ -12,15 +12,15 @@ namespace Skunked.Players
 
         public PlayerHand(Player player, List<Card> hand)
         {
-            if (player == null) throw new ArgumentNullException("player");
-            if (hand == null) throw new ArgumentNullException("hand");
+            if (player == null) throw new ArgumentNullException(nameof(player));
+            if (hand == null) throw new ArgumentNullException(nameof(hand));
             Player = player;
             Hand = hand;
         }
 
         public override string ToString()
         {
-            return string.Format("{0}: {{{1}}}", Player, string.Join(", ", (Hand.Select(c => c.ToString()).ToArray())));
+            return $"{Player}: {{{string.Join(", ", (Hand.Select(c => c.ToString()).ToArray()))}}}";
         }
     }
 }

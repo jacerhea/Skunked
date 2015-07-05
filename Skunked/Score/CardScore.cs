@@ -15,14 +15,14 @@ namespace Skunked.Score
         /// <param name="score"></param>
         public CardScore(Card card, int score)
         {
-            if (card == null) throw new ArgumentNullException("card");
+            if (card == null) throw new ArgumentNullException(nameof(card));
             Card = card;
             Score = score;
         }
 
         public override string ToString()
         {
-            return string.Format("{0} : {1}", Card, Score);
+            return $"{Card} : {Score}";
         }
     }
 }

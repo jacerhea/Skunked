@@ -9,7 +9,6 @@ using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.Score;
 using Skunked.State;
-using Skunked.State.Events;
 using Skunked.Utility;
 
 namespace Skunked.Test.Commands

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Skunked.PlayingCards;
+﻿using Skunked.PlayingCards;
 using Skunked.State;
 
 namespace Skunked.Commands

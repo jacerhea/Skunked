@@ -1,13 +1,11 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace Skunked.Rules
 {
-    public class GameRules
+    public class GameRules : ISerializable
     {
         public GameScoreType ScoreType { get; set; }
-        /// <summary>
-        /// 31
-        /// </summary>
         public int HandSizeToDeal { get { return PlayerCount == 2 ? 6 : 5; } }
         public int PlayerCount { get; set; }
         public int WinningScore { get { return ScoreType == GameScoreType.Standard121 ? 121 : 61; } }
@@ -25,11 +23,21 @@ namespace Skunked.Rules
         public static int FourCardFlush { get { return 4; } }
         public static int FiveCardFlush { get { return 5; } }
 
-        public GameRules(GameScoreType scoreType = GameScoreType.Standard121, int numberOfPlayers = 2)
+        public GameRules() : this(GameScoreType.Standard121, 2)
+        {
+        }
+
+        public GameRules(GameScoreType scoreType, int numberOfPlayers)
         {
             if (numberOfPlayers != 2 && numberOfPlayers != 4) { throw new ArgumentOutOfRangeException(); }
             PlayerCount = numberOfPlayers;
             ScoreType = scoreType;
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("ScoreType", ScoreType);
+            info.AddValue("PlayerCount", PlayerCount);
         }
     }
 }

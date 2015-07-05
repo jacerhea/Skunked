@@ -13,7 +13,7 @@ namespace Skunked.Commands
 
         public CountHandScoreCommand(CountHandScoreArgs args) : base(args)
         {
-            if (args == null) throw new ArgumentNullException("args");
+            if (args == null) throw new ArgumentNullException(nameof(args));
             _args = args;
         }
 

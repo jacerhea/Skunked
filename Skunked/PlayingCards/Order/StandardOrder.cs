@@ -23,7 +23,7 @@ namespace Skunked.PlayingCards
         };
         public int Order(Card card)
         {
-            if (card == null) throw new ArgumentNullException("card");
+            if (card == null) throw new ArgumentNullException(nameof(card));
             return ValueLookup[card.Rank];
         }
     }

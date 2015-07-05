@@ -17,18 +17,18 @@ namespace Skunked.AI
 
         public AiPlayerFactory(IPlayStrategy playStrategy, IDecisionStrategy decisionStrategy)
         {
-            if (playStrategy == null) throw new ArgumentNullException("playStrategy");
-            if (decisionStrategy == null) throw new ArgumentNullException("decisionStrategy");
+            if (playStrategy == null) throw new ArgumentNullException(nameof(playStrategy));
+            if (decisionStrategy == null) throw new ArgumentNullException(nameof(decisionStrategy));
             _playStrategy = playStrategy;
             _decisionStrategy = decisionStrategy;
         }
 
         public List<Player> CreatePlayers(int numberOfPlayers)
         {
-            if (numberOfPlayers < 0) throw new ArgumentOutOfRangeException("numberOfPlayers");
+            if (numberOfPlayers < 0) throw new ArgumentOutOfRangeException(nameof(numberOfPlayers));
 
             return Enumerable.Range(1, numberOfPlayers)
-                    .Select(iteration => new {iteration, playerName = string.Format("Player {0}", iteration)})
+                    .Select(iteration => new {iteration, playerName = $"Player {iteration}"})
                     .Select(t => new Player(t.playerName, t.iteration, _playStrategy, _decisionStrategy,new PercentageScoreCountStrategy()))
                     .ToList();
         }

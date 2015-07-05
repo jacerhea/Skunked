@@ -1,7 +1,6 @@
 ﻿using System;
 using Skunked.Score;
 using Skunked.State;
-using Skunked.State.Events;
 
 namespace Skunked.Commands
 {
@@ -13,7 +12,7 @@ namespace Skunked.Commands
         public CountHandScoreArgs(GameState gameState, int playerId, int round, int playerCountedScore, IScoreCalculator scoreCalculator = null)
             : base(gameState, playerId, round)
         {
-            if (playerCountedScore < 0) throw new ArgumentOutOfRangeException("playerCountedScore");
+            if (playerCountedScore < 0) throw new ArgumentOutOfRangeException(nameof(playerCountedScore));
             ScoreCalculator = scoreCalculator ?? new ScoreCalculator();
             PlayerCountedScore = playerCountedScore;
         }

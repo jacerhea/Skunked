@@ -5,6 +5,6 @@ namespace Skunked.State.Events
 {
     public class DeckShuffledEvent : Event
     {
-        public List<Card> PostShuffleDeck { get; set; }
+        public List<Card> DeckState { get; set; }
     }
 }

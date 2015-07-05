@@ -9,14 +9,14 @@ namespace Skunked.AI.Play
     {
         protected void ArgumentCheck(IList<Card> pile, IEnumerable<Card> handLeft)
         {
-            if (pile == null) throw new ArgumentNullException("pile");
-            if (handLeft == null) throw new ArgumentNullException("handLeft");
-            if (!handLeft.Any()) throw new ArgumentOutOfRangeException("handLeft");
+            if (pile == null) throw new ArgumentNullException(nameof(pile));
+            if (handLeft == null) throw new ArgumentNullException(nameof(handLeft));
+            if (!handLeft.Any()) throw new ArgumentOutOfRangeException(nameof(handLeft));
         }
 
         protected Card StandardFirstCardPlay(IEnumerable<Card> hand)
         {
-            if (hand == null) throw new ArgumentNullException("hand");
+            if (hand == null) throw new ArgumentNullException(nameof(hand));
             hand = hand.ToList();
             if (hand.Any(c => c.Rank == Rank.Four))
                 return hand.First(c => c.Rank == Rank.Four);

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Skunked.Players;
 using Skunked.Rules;
 
 namespace Skunked.State

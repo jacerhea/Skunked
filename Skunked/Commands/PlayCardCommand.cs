@@ -16,7 +16,7 @@ namespace Skunked.Commands
         public PlayCardCommand(PlayCardArgs args)
             : base(args)
         {
-            if (args == null) throw new ArgumentNullException("args");
+            if (args == null) throw new ArgumentNullException(nameof(args));
             _args = args;
         }
 

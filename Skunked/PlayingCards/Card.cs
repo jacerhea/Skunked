@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 namespace Skunked.PlayingCards
 {
-    [Serializable]
-    public class Card : IEquatable<Card>, ISerializable, IEqualityComparer<Card>
+    public class Card : IEquatable<Card>, IEqualityComparer<Card>
     {
-        public Rank Rank { get; private set; }
-        public Suit Suit { get; private set; }
+        public Rank Rank { get; set; }
+        public Suit Suit { get; set; }
 
-        public Card() { }
+        public Card(): this(Rank.Ace, Suit.Clubs) { }
 
         public Card(Rank rank = Rank.Ace, Suit suit = Suit.Clubs)
         {
@@ -26,13 +24,7 @@ namespace Skunked.PlayingCards
 
         public override string ToString()
         {
-            return string.Format("{0} of {1}", Rank, Suit);
-        }
-
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            Rank = (Rank)Enum.Parse(typeof(Rank), info.GetString("Rank"));
-            Suit = (Suit)Enum.Parse(typeof(Suit), info.GetString("Suit"));
+            return $"{Rank} of {Suit}";
         }
 
         public override bool Equals(object obj)

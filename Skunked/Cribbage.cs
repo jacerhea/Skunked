@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Skunked.Commands;
-using Skunked.Players;
 using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.State;
@@ -12,16 +10,19 @@ namespace Skunked
 {
     public class Cribbage
     {
-        private readonly GameEventStream _eventStream = new GameEventStream();
+        private readonly EventStream _eventStream = new EventStream();
         private readonly IEventListener _gameStateEventListener;
 
         public Cribbage(IEnumerable<int> players, GameRules rules)
         {
-            State = new GameState();
+            State = new GameState{Id = Guid.NewGuid()};
             _gameStateEventListener = new GameStateEventListener(State);
 
-            _gameStateEventListener.Notify(new NewGameStartedEvent{Players = players.ToList(), Rules = rules});
-            _gameStateEventListener.Notify(new DeckShuffledEvent());
+            var command = new CreateNewCribbageGameCommand(State, players, rules);
+            command.Execute();
+
+            //_gameStateEventListener.Notify(new NewGameStartedEvent{Players = players.ToList(), Rules = rules});
+            //_gameStateEventListener.Notify(new DeckShuffledEvent());
         }
 
         public Cribbage(GameState state)

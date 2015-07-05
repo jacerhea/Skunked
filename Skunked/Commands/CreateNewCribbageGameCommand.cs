@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Skunked.Players;
 using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.State;
-using Skunked.Utility;
 
 namespace Skunked.Commands
 {
@@ -16,9 +16,9 @@ namespace Skunked.Commands
 
         public CreateNewCribbageGameCommand(GameState gameState, IEnumerable<int> players, GameRules gameRules)
         {
-            if (players == null) throw new ArgumentNullException("players");
-            if (gameState == null) throw new ArgumentNullException("gameState");
-            if (gameRules == null) throw new ArgumentNullException("gameRules");
+            if (players == null) throw new ArgumentNullException(nameof(players));
+            if (gameState == null) throw new ArgumentNullException(nameof(gameState));
+            if (gameRules == null) throw new ArgumentNullException(nameof(gameRules));
             _players = players.ToList();
             _gameState = gameState;
             _gameRules = gameRules;
@@ -33,7 +33,7 @@ namespace Skunked.Commands
                                                              {
                                                                  Deck = deck,
                                                                  Complete = false,
-                                                                 CutCards = new List<CustomKeyValuePair<int, Card>>(),
+                                                                 CutCards = new List<PlayerIdCard>(),
                                                                  WinningPlayerCut = null
                                                              };
             _gameState.Rounds = new List<RoundState>();

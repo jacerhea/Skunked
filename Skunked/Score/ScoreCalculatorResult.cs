@@ -21,18 +21,18 @@ namespace Skunked.Score
         public ScoreCalculatorResult(IList<IList<Card>> fifteens, IList<IList<Card>> pairs, IList<IList<Card>> runs, IList<Card> flush, IList<Card> nobs,
             int score = 0, int fifteenScore = 0, int pairScore = 0, int runScore = 0, int flushScore = 0, int nobScore = 0)
         {
-            if (fifteens == null) throw new ArgumentNullException("fifteens");
-            if (pairs == null) throw new ArgumentNullException("pairs");
-            if (runs == null) throw new ArgumentNullException("runs");
-            if (flush == null) throw new ArgumentNullException("flush");
-            if (nobs == null) throw new ArgumentNullException("nobs");
+            if (fifteens == null) throw new ArgumentNullException(nameof(fifteens));
+            if (pairs == null) throw new ArgumentNullException(nameof(pairs));
+            if (runs == null) throw new ArgumentNullException(nameof(runs));
+            if (flush == null) throw new ArgumentNullException(nameof(flush));
+            if (nobs == null) throw new ArgumentNullException(nameof(nobs));
 
-            if (score < 0) throw new ArgumentOutOfRangeException("score");
-            if (fifteenScore < 0) throw new ArgumentOutOfRangeException("fifteenScore");
-            if (pairScore < 0) throw new ArgumentOutOfRangeException("pairScore");
-            if (runScore < 0) throw new ArgumentOutOfRangeException("runScore");
-            if (flushScore < 0) throw new ArgumentOutOfRangeException("flushScore");
-            if (nobScore < 0) throw new ArgumentOutOfRangeException("nobScore");
+            if (score < 0) throw new ArgumentOutOfRangeException(nameof(score));
+            if (fifteenScore < 0) throw new ArgumentOutOfRangeException(nameof(fifteenScore));
+            if (pairScore < 0) throw new ArgumentOutOfRangeException(nameof(pairScore));
+            if (runScore < 0) throw new ArgumentOutOfRangeException(nameof(runScore));
+            if (flushScore < 0) throw new ArgumentOutOfRangeException(nameof(flushScore));
+            if (nobScore < 0) throw new ArgumentOutOfRangeException(nameof(nobScore));
 
             Score = score;
             FifteenScore = fifteenScore;

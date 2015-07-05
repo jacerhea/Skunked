@@ -59,9 +59,9 @@ namespace Skunked.Players
 
         public Card PlayShow(GameRules gameRules, List<Card> pile, List<Card> handLeft)
         {
-            if (gameRules == null) throw new ArgumentNullException("gameRules");
-            if (pile == null) throw new ArgumentNullException("pile");
-            if (handLeft == null) throw new ArgumentNullException("handLeft");
+            if (gameRules == null) throw new ArgumentNullException(nameof(gameRules));
+            if (pile == null) throw new ArgumentNullException(nameof(pile));
+            if (handLeft == null) throw new ArgumentNullException(nameof(handLeft));
             if(handLeft.Count == 0) throw new ArgumentException("handLeft");
 
             return _playStrategy.DetermineCardToThrow(gameRules, pile, handLeft);
@@ -69,7 +69,7 @@ namespace Skunked.Players
 
         public Card ChooseCard(List<Card> cardsToChoose)
         {
-            if (cardsToChoose == null) throw new ArgumentNullException("cardsToChoose");
+            if (cardsToChoose == null) throw new ArgumentNullException(nameof(cardsToChoose));
             var randomIndex = RandomProvider.GetThreadRandom().Next(0 ,cardsToChoose.Count - 1);
             return cardsToChoose[randomIndex];
         }

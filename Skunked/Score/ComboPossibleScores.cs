@@ -16,7 +16,7 @@ namespace Skunked.Score
 
         public ComboPossibleScores(IList<Card> combo)
         {
-            if (combo == null) throw new ArgumentNullException("combo");
+            if (combo == null) throw new ArgumentNullException(nameof(combo));
             Combo = new HashSet<Card>(combo);
             PossibleScores = new List<ScoreWithCut>(52);
         }
@@ -31,7 +31,7 @@ namespace Skunked.Score
             var psString = string.Join(", ", (PossibleScores.Select(s => s.Score.ToString(CultureInfo.InvariantCulture))).ToArray());
             var cString = string.Join(", ", (Combo.Select(c => c.ToString()).ToArray()));
 
-            return string.Format("{0} : {{{1}}}", psString, cString);
+            return $"{psString} : {{{cString}}}";
         }
     }
 

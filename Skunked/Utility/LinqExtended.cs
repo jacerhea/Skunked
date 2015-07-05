@@ -9,9 +9,9 @@ namespace Skunked.Utility
         public static IEnumerable<TResult> Cartesian<TFirst, TSecond, TResult>(this IEnumerable<TFirst> first,
             IEnumerable<TSecond> second, Func<TFirst, TSecond, TResult> resultSelector)
         {
-            if (first == null) throw new ArgumentNullException("first");
-            if (second == null) throw new ArgumentNullException("second");
-            if (resultSelector == null) throw new ArgumentNullException("resultSelector");
+            if (first == null) throw new ArgumentNullException(nameof(first));
+            if (second == null) throw new ArgumentNullException(nameof(second));
+            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
 
             var bufferedSecond = second.ToList();
 
@@ -36,7 +36,7 @@ namespace Skunked.Utility
 
         public static T NextOf<T>(this IList<T> list, T item)
         {
-            if (list.Count == 0) throw new ArgumentOutOfRangeException("list");
+            if (list.Count == 0) throw new ArgumentOutOfRangeException(nameof(list));
             return list[(list.IndexOf(item) + 1) % list.Count];
         }
 
@@ -49,9 +49,9 @@ namespace Skunked.Utility
         public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source,
             Func<TSource, TKey> selector, IComparer<TKey> comparer)
         {
-            if (source == null) throw new ArgumentNullException("source");
-            if (selector == null) throw new ArgumentNullException("selector");
-            if (comparer == null) throw new ArgumentNullException("comparer");
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (comparer == null) throw new ArgumentNullException(nameof(comparer));
             using (var sourceIterator = source.GetEnumerator())
             {
                 if (!sourceIterator.MoveNext())
@@ -84,9 +84,9 @@ namespace Skunked.Utility
         public static TSource MaxBy<TSource, TKey>(this IEnumerable<TSource> source,
             Func<TSource, TKey> selector, IComparer<TKey> comparer)
         {
-            if (source == null) throw new ArgumentNullException("source");
-            if (selector == null) throw new ArgumentNullException("selector");
-            if (comparer == null) throw new ArgumentNullException("comparer");
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (comparer == null) throw new ArgumentNullException(nameof(comparer));
             using (var sourceIterator = source.GetEnumerator())
             {
                 if (!sourceIterator.MoveNext())
@@ -111,7 +111,7 @@ namespace Skunked.Utility
 
         public static IEnumerable<T> TakeEvery<T>(this IEnumerable<T> source, int nStep)
         {
-            if (source == null) throw new ArgumentNullException("source");
+            if (source == null) throw new ArgumentNullException(nameof(source));
             return source.Where((x, i) => i % nStep == 0);
 
         }
@@ -133,7 +133,7 @@ namespace Skunked.Utility
 
         public static IEnumerable<TSource> Infinite<TSource>(this IEnumerable<TSource> source)
         {
-            if (source == null) throw new ArgumentNullException("source");
+            if (source == null) throw new ArgumentNullException(nameof(source));
             while (true)
             {
                 foreach (var item in source)
@@ -152,8 +152,8 @@ namespace Skunked.Utility
         public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer)
         {
-            if (source == null) throw new ArgumentNullException("source");
-            if (keySelector == null) throw new ArgumentNullException("keySelector");
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
             return DistinctByImpl(source, keySelector, comparer);
         }
 
