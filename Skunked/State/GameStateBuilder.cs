@@ -28,12 +28,11 @@ namespace Skunked.State
             return state;
         }
 
-        private void Handle(GameStartedEvent startedEvent, GameState gameState)
+        public void Handle(GameStartedEvent startedEvent, GameState gameState)
         {
             var deck = new Deck().ToList();
 
             gameState.GameRules = startedEvent.Rules;
-            gameState.IndividualScores = new List<PlayerScore>(startedEvent.Players.Select(player => new PlayerScore { Player = player, Score = 0 }));
             gameState.StartedAt = startedEvent.Occurred;
             gameState.LastUpdated = startedEvent.Occurred;
             gameState.OpeningRound = new OpeningRoundState
@@ -43,6 +42,8 @@ namespace Skunked.State
                 CutCards = new List<PlayerIdCard>(),
                 WinningPlayerCut = null
             };
+            gameState.IndividualScores = new List<PlayerScore>(startedEvent.Players.Select(player => new PlayerScore { Player = player, Score = 0 }));
+            gameState.PlayerIds = startedEvent.Players.ToList();
             gameState.TeamScores = startedEvent.Players.Count == 2
                 ? startedEvent.Players.Select(p => new TeamScore { Players = new List<int> { p } }).ToList()
                 : new List<TeamScore>
@@ -53,17 +54,17 @@ namespace Skunked.State
             gameState.Rounds = new List<RoundState>();
         }
 
-        private void Handle(DeckShuffledEvent deckShuffledEvent, GameState gameState)
+        public void Handle(DeckShuffledEvent deckShuffledEvent, GameState gameState)
         {
             if (!gameState.OpeningRound.Complete)
             {
-                gameState.OpeningRound.Deck = deckShuffledEvent.DeckState;
+                gameState.OpeningRound.Deck = deckShuffledEvent.Deck;
             }
             else
             {
                 var currentRound = gameState.GetCurrentRound();
                 currentRound.PreRound = currentRound.PreRound ?? new PreRound();
-                currentRound.PreRound.Deck = deckShuffledEvent.DeckState;
+                currentRound.PreRound.Deck = deckShuffledEvent.Deck;
             }
         }
     }

@@ -81,7 +81,7 @@ namespace Skunked.Test.Commands
         [ExpectedException(typeof(InvalidCribbageOperationException))]
         public void Test_Command_Base_Validation_Player_Score_Exception()
         {
-            var command = new CribbageCommandBaseTestClass(new CommandArgsBaseMock(new EventStream(),  _gameState, 1, 0));
+            var command = new CribbageCommandBaseTestClass(new CommandArgsBaseMock(new EventStream(new List<IEventListener>()),  _gameState, 1, 0));
             command.Execute();
             Assert.Fail();
         }

@@ -20,8 +20,6 @@ namespace Skunked.Commands
 
         public void Execute()
         {
-            var round = _args.GameState.GetCurrentRound();
-            //round.Hands   
 
 
         }

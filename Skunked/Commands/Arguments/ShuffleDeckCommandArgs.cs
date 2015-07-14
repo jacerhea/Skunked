@@ -1,4 +1,5 @@
-﻿using Skunked.PlayingCards;
+﻿using System.Collections.Generic;
+using Skunked.PlayingCards;
 using Skunked.State;
 
 namespace Skunked.Commands
@@ -7,9 +8,9 @@ namespace Skunked.Commands
     {
         public GameState GameState { get; private set; }
         public int Round { get; private set; }
-        public Deck Deck { get; private set; }
+        public List<Card> Deck { get; private set; }
 
-        public ShuffleDeckCommandArgs(GameState gameState, int round, Deck deck) : base(gameState, round, round)
+        public ShuffleDeckCommandArgs(GameState gameState, int round, List<Card> deck) : base(gameState, round, round)
         {
             GameState = gameState;
             Round = round;

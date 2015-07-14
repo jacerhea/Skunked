@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Skunked.Commands;
 using Skunked.PlayingCards;
 using Skunked.Rules;
@@ -10,28 +11,34 @@ namespace Skunked
 {
     public class Cribbage
     {
-        private readonly EventStream _eventStream = new EventStream();
-        private readonly IEventListener _gameStateEventListener;
+        private readonly EventStream _eventStream;
 
         public Cribbage(IEnumerable<int> players, GameRules rules)
         {
-            State = new GameState{Id = Guid.NewGuid()};
-            _gameStateEventListener = new GameStateEventListener(State);
-
-            var command = new CreateNewCribbageGameCommand(State, players, rules);
-            command.Execute();
-
-            //_gameStateEventListener.Notify(new NewGameStartedEvent{Players = players.ToList(), Rules = rules});
-            //_gameStateEventListener.Notify(new DeckShuffledEvent());
+            State = new GameState { Id = Guid.NewGuid() };
+            var deck = new Deck();
+            deck.Shuffle();
+            _eventStream = new EventStream(new List<IEventListener> { new GameStateEventListener(State, new GameStateBuilder()) })
+            {
+                new GameStartedEvent
+                {
+                    GameId = Guid.NewGuid(),
+                    Occurred = DateTimeOffset.Now,
+                    Rules = rules,
+                    Players = players.ToList()
+                },
+                new DeckShuffledEvent {Deck = deck.ToList()}
+            };
         }
 
         public Cribbage(GameState state)
         {
             State = state;
-            _gameStateEventListener = new GameStateEventListener(State);
+            var gameStateEventListener = new GameStateEventListener(State, new GameStateBuilder());
+            _eventStream = new EventStream(new List<IEventListener> { gameStateEventListener });
         }
 
-        public GameState State { get; private set; }
+        public GameState State { get; }
 
         public void CutCard(int playerId, Card card)
         {

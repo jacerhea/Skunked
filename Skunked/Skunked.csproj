@@ -71,7 +71,6 @@
     <Compile Include="Commands\Arguments\ThrowCardsToCribArgs.cs" />
     <Compile Include="Commands\CountCribScoreCommand.cs" />
     <Compile Include="Commands\CountHandScoreCommand.cs" />
-    <Compile Include="Commands\CreateNewCribbageGameCommand.cs" />
     <Compile Include="Commands\CreateNewRoundCommand.cs" />
     <Compile Include="Commands\CribbageCommandBase.cs" />
     <Compile Include="Commands\CutCardCommand.cs" />
@@ -79,6 +78,7 @@
     <Compile Include="Commands\PlayCardCommand.cs" />
     <Compile Include="Commands\ThrowCardsToCribCommand.cs" />
     <Compile Include="State\Events\CribCountedEvent.cs" />
+    <Compile Include="State\Events\DeckShuffledEvent.cs" />
     <Compile Include="State\Events\HandCountedEvent.cs" />
     <Compile Include="Cribbage.cs" />
     <Compile Include="Game\CribbageGameRunner.cs" />
@@ -115,7 +115,6 @@
     <Compile Include="Score\ScoreCalculator.cs" />
     <Compile Include="Score\Interface\IScoreCalculator.cs" />
     <Compile Include="Score\ScoreCalculatorResult.cs" />
-    <Compile Include="State\Events\DeckShuffledEvent.cs" />
     <Compile Include="State\Events\Event.cs" />
     <Compile Include="State\Events\EventStream.cs" />
     <Compile Include="State\Events\GameStartedEvent.cs" />

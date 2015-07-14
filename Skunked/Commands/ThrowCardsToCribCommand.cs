@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Skunked.Exceptions;
 using Skunked.Players;
@@ -60,8 +61,12 @@ namespace Skunked.Commands
         protected override void ValidateState()
         {
             var currentRound = _args.GameState.GetCurrentRound();
-            var playerDealtHand = currentRound.DealtCards.First(playerHand => playerHand.Id == _args.PlayerId);
-            var dealtCards = playerDealtHand.Hand;
+            if (currentRound.ThrowCardsComplete)
+            {
+                throw new InvalidCribbageOperationException(InvalidCribbageOperations.CardsHaveBeenThrown);
+            }
+
+            var dealtCards = currentRound.DealtCards.Single(playerHand => playerHand.Id == _args.PlayerId).Hand;
 
             if (dealtCards.Intersect(_args.CardsToThrow).Count() != _args.CardsToThrow.Count())
             {
@@ -69,7 +74,15 @@ namespace Skunked.Commands
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidCard);
             }
 
-            if (currentRound.Crib.Intersect(_args.CardsToThrow).Any())
+            var cardsAlreadyThrownToCrib = dealtCards.Intersect(currentRound.Crib).Count();
+            var twoPlayer = new List<int> { 2 };
+            var threeOrFourPlayer = new List<int> { 3, 4 };
+            if (cardsAlreadyThrownToCrib == 1 && threeOrFourPlayer.Contains(_args.GameState.GameRules.PlayerCount))
+            {
+                throw new InvalidCribbageOperationException(InvalidCribbageOperations.CardsHaveBeenThrown);
+            }
+
+            if (cardsAlreadyThrownToCrib == 2 && twoPlayer.Contains(_args.GameState.GameRules.PlayerCount))
             {
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.CardsHaveBeenThrown);
             }

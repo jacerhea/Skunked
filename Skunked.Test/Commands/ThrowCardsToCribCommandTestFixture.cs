@@ -1,6 +1,13 @@
-﻿namespace Skunked.Test.Commands
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace Skunked.Test.Commands
 {
-    class ThrowCardsToCribCommandTestFixture
+    public class ThrowCardsToCribCommandTestFixture
     {
+
+        public void TwoPlayerThrowOneCardWithNoneAlreadyInCrib()
+        {
+            
+        }
     }
 }
