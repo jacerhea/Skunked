@@ -3,7 +3,7 @@ using Skunked.PlayingCards;
 
 namespace Skunked.State.Events
 {
-    public class DeckShuffledEvent : Event
+    public class DeckShuffledEvent : StreamEvent
     {
         public List<Card> Deck { get; set; }
     }

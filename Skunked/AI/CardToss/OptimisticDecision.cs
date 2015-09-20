@@ -12,11 +12,11 @@ namespace Skunked.AI.CardToss
     /// </summary>
     public class OptimisticDecision : IDecisionStrategy
     {
-        private readonly IScoreCalculator _scoreCalculator;
+        private readonly ScoreCalculator _scoreCalculator;
         private readonly Deck _deck;
 
 
-        public OptimisticDecision(IScoreCalculator scoreCalculator = null)
+        public OptimisticDecision(ScoreCalculator scoreCalculator = null)
         {
             _scoreCalculator = scoreCalculator ?? new ScoreCalculator();
             _deck = new Deck();
@@ -29,18 +29,13 @@ namespace Skunked.AI.CardToss
 
             var possibleCardsCut = _deck.Where(card => !handList.Contains(card)).ToList();
 
-            var totalPossibleCombinations = new List<ComboScore>();
-
-            foreach (var combo in combinations)
-            {
-                foreach (var cutCard in possibleCardsCut)
+            var totalPossibleCombinations = combinations
+                .SelectMany(combo => possibleCardsCut.Select(cutCard =>
                 {
-                    var possibleCombo = new List<Card>(combo) { cutCard };
+                    var possibleCombo = new List<Card>(combo) {cutCard};
                     var comboScore = _scoreCalculator.CountShowScore(cutCard, combo);
-
-                    totalPossibleCombinations.Add(new ComboScore(possibleCombo, comboScore.Score));
-                }
-            }
+                    return new ComboScore(possibleCombo, comboScore.Score);
+                }));
 
             var highestScoringCombo = totalPossibleCombinations.MaxBy(cs => cs.Score);
             return handList.Where(card => !highestScoringCombo.Combo.Contains(card));

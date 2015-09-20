@@ -3,14 +3,16 @@
 namespace Skunked.State.Events
 {
     //should add an Guid?
-    public class Event
+    public abstract class StreamEvent
     {
-        public Event()
+        protected StreamEvent()
         {
             Occurred = DateTimeOffset.Now;
         }
 
-        public DateTimeOffset Occurred { get; set; }
         public Guid GameId { get; set; }
+        public int Sequence { get; set; }
+        public DateTimeOffset Occurred { get; set; }
+
     }
 }

@@ -10,9 +10,9 @@ namespace Skunked.AI.CardToss
 {
     public class DistributionService
     {
-        private readonly IScoreCalculator _scoreCalculator;
+        private readonly ScoreCalculator _scoreCalculator;
 
-        public DistributionService(IScoreCalculator scoreCalculator = null)
+        public DistributionService(ScoreCalculator scoreCalculator = null)
         {
             _scoreCalculator = scoreCalculator ?? new ScoreCalculator();
         }
@@ -24,14 +24,14 @@ namespace Skunked.AI.CardToss
             var deck = new Deck();
             var possibleCardsCut = deck.Where(card => !handIter.Contains(card)).ToList();
 
-            var comboPossibleScoreses = new List<ComboPossibleScores>();
+
+            var comboPossibleScoreses = new List<ComboPossibleScores>((int)combinations.Count);
 
             foreach (var combo in combinations)
             {
-                var comboPossibleScores = new ComboPossibleScores(combo);
+                var possibleScores = possibleCardsCut.AsParallel().Select(cutCard => new ScoreWithCut { Cut = cutCard, Score = _scoreCalculator.CountShowScore(cutCard, combo).Score }).ToList();
+                var comboPossibleScores = new ComboPossibleScores(combo, possibleScores);
                 comboPossibleScoreses.Add(comboPossibleScores);
-                var possibleScores = possibleCardsCut.AsParallel().Select(cutCard => new ScoreWithCut{Cut = cutCard, Score = _scoreCalculator.CountShowScore(cutCard, combo).Score}).ToList();
-                comboPossibleScores.PossibleScores.AddRange(possibleScores);
             }
 
             var distributionSets = comboPossibleScoreses.SelectMany(cps => cps.PossibleScores)

@@ -11,7 +11,7 @@ namespace Skunked.AI.CardToss
     /// </summary>
     public class MaxAverageDecision : AbstractAverageDecision, IDecisionStrategy
     {
-        public MaxAverageDecision(IScoreCalculator scoreCalculator = null)
+        public MaxAverageDecision(ScoreCalculator scoreCalculator = null)
             : base(scoreCalculator)
         { }
 

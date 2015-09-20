@@ -60,23 +60,7 @@
     <Compile Include="AI\Play\MinPlayStrategy.cs" />
     <Compile Include="AI\Play\MaxPlayStrategy.cs" />
     <Compile Include="AI\Play\RandomPlayStrategy.cs" />
-    <Compile Include="Commands\Arguments\ShuffleDeckCommandArgs.cs" />
-    <Compile Include="Commands\ShuffleDeckCommand.cs" />
     <Compile Include="PlayingCards\Card.cs" />
-    <Compile Include="Commands\Arguments\CommandArgsBase.cs" />
-    <Compile Include="Commands\Arguments\CountCribScoreArgs.cs" />
-    <Compile Include="Commands\Arguments\CountHandScoreArgs.cs" />
-    <Compile Include="Commands\Arguments\CutCardArgs.cs" />
-    <Compile Include="Commands\Arguments\PlayCardArgs.cs" />
-    <Compile Include="Commands\Arguments\ThrowCardsToCribArgs.cs" />
-    <Compile Include="Commands\CountCribScoreCommand.cs" />
-    <Compile Include="Commands\CountHandScoreCommand.cs" />
-    <Compile Include="Commands\CreateNewRoundCommand.cs" />
-    <Compile Include="Commands\CribbageCommandBase.cs" />
-    <Compile Include="Commands\CutCardCommand.cs" />
-    <Compile Include="Commands\ICommand.cs" />
-    <Compile Include="Commands\PlayCardCommand.cs" />
-    <Compile Include="Commands\ThrowCardsToCribCommand.cs" />
     <Compile Include="State\Events\CribCountedEvent.cs" />
     <Compile Include="State\Events\DeckShuffledEvent.cs" />
     <Compile Include="State\Events\HandCountedEvent.cs" />
@@ -85,11 +69,11 @@
     <Compile Include="State\Events\CardCutEvent.cs" />
     <Compile Include="Dealer\IPlayerHandFactory.cs" />
     <Compile Include="Dealer\StandardHandDealer.cs" />
-    <Compile Include="State\Events\EventDispatcher.cs" />
     <Compile Include="Exceptions\InvalidCribbageOperationException.cs" />
     <Compile Include="Exceptions\InvalidCribbageOperations.cs" />
     <Compile Include="State\Events\GameCompletedEvent.cs" />
-    <Compile Include="State\Events\GameStateEventListener.cs" />
+    <Compile Include="State\GameStateEventListener.cs" />
+    <Compile Include="State\Events\HandsDealtEvent.cs" />
     <Compile Include="State\Events\IEventListener.cs" />
     <Compile Include="State\Events\CardPlayedEvent.cs" />
     <Compile Include="Players\PlayerIdHand.cs" />
@@ -113,13 +97,13 @@
     <Compile Include="Score\ComboPossibleScores.cs" />
     <Compile Include="Score\ComboScore.cs" />
     <Compile Include="Score\ScoreCalculator.cs" />
-    <Compile Include="Score\Interface\IScoreCalculator.cs" />
     <Compile Include="Score\ScoreCalculatorResult.cs" />
-    <Compile Include="State\Events\Event.cs" />
-    <Compile Include="State\Events\EventStream.cs" />
+    <Compile Include="State\Events\StreamEvent.cs" />
+    <Compile Include="State\EventStream.cs" />
     <Compile Include="State\Events\GameStartedEvent.cs" />
     <Compile Include="State\Events\PlayFinishedEvent.cs" />
     <Compile Include="State\Events\PlayStartedEvent.cs" />
+    <Compile Include="State\Events\RoundStartedEvent.cs" />
     <Compile Include="State\GameState.cs" />
     <Compile Include="State\GameStateBuilder.cs" />
     <Compile Include="State\OpeningRoundState.cs" />
@@ -130,6 +114,13 @@
     <Compile Include="PlayingCards\Suit.cs" />
     <Compile Include="State\TeamScore.cs" />
     <Compile Include="State\Events\CardsThrownEvent.cs" />
+    <Compile Include="State\Validations\CardCutEventValidation.cs" />
+    <Compile Include="State\Validations\CardPlayedEventValidation.cs" />
+    <Compile Include="State\Validations\CardsThrownEventValidation.cs" />
+    <Compile Include="State\Validations\CribCountedEventValidation.cs" />
+    <Compile Include="State\Validations\HandCountedEventValidation.cs" />
+    <Compile Include="State\Validations\IValidation.cs" />
+    <Compile Include="State\Validations\ValidationBase.cs" />
     <Compile Include="Utility\GameStateExtensions.cs" />
     <Compile Include="Utility\RandomProvider.cs" />
     <Compile Include="Utility\CustomKeyValuePair.cs" />
@@ -140,6 +131,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

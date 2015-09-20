@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using Skunked.PlayingCards;
@@ -12,13 +13,13 @@ namespace Skunked.Score
     public class ComboPossibleScores
     {
         public HashSet<Card> Combo { get; private set; }
-        public List<ScoreWithCut> PossibleScores { get; set; }
+        public ReadOnlyCollection<ScoreWithCut> PossibleScores { get; set; }
 
-        public ComboPossibleScores(IList<Card> combo)
+        public ComboPossibleScores(IList<Card> combo, List<ScoreWithCut> possibleScores)
         {
             if (combo == null) throw new ArgumentNullException(nameof(combo));
             Combo = new HashSet<Card>(combo);
-            PossibleScores = new List<ScoreWithCut>(52);
+            PossibleScores = possibleScores.AsReadOnly();
         }
 
         public int GetScoreSummation()

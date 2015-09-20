@@ -8,7 +8,7 @@ using Skunked.Utility;
 
 namespace Skunked.Score
 {
-    public class ScoreCalculator : IScoreCalculator
+    public class ScoreCalculator
     {
         private readonly ICardValueStrategy _valueStrategy;
         private readonly IOrderStrategy _order;
@@ -133,8 +133,8 @@ namespace Skunked.Score
         public List<IList<Card>> CountPairs(Dictionary<int, List<IList<Card>>> combinationsToCheck)
         {
             var combinationsOfTwoCards = combinationsToCheck[2];
-
-            return combinationsOfTwoCards.Where(AreSameKind).ToList();
+            //not using "AreSameKind" method to improve performance.
+            return combinationsOfTwoCards.Where(c => c[0].Rank == c[1].Rank).ToList();
         }
 
         //only looking for runs of 3,4, and 5
@@ -170,10 +170,7 @@ namespace Skunked.Score
             return cards.Sum(c => _valueStrategy.ValueOf(c));
         }
 
-        public int GoValue
-        {
-            get { return GameRules.GoSore; }
-        }
+        public int GoValue => GameRules.GoSore;
 
         public bool IsFifteen(IList<Card> cards)
         {
@@ -189,7 +186,7 @@ namespace Skunked.Score
         {
             if (combo == null) throw new ArgumentNullException(nameof(combo));
             if (combo.Count < 3) return false;
-            var cardinalSet = combo.Select(c => _order.Order(c)).OrderBy(cardinal => cardinal);
+            var cardinalSet = combo.Select(c => _order.Order(c));
             return AreContinuous(cardinalSet);
         }
 

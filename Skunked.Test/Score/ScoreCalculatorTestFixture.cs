@@ -351,7 +351,7 @@ namespace Skunked.Test.Score
         [TestMethod]
         public void ScoreCalculatoAreContinousTestThree()
         {
-            var play = new List<int> { 109, 110, 111 };
+            var play = new List<int> { 110, 111, 109 };
 
             bool areContinuous = _scoreCalculator.AreContinuous(play);
             Assert.IsTrue(areContinuous);
@@ -364,6 +364,33 @@ namespace Skunked.Test.Score
 
             bool areContinuous = _scoreCalculator.AreContinuous(play);
             Assert.IsTrue(areContinuous);
+        }
+
+        [TestMethod]
+        public void ScoreCalculatorAreNotContinousTestTwo()
+        {
+            var play = new List<int> { 108, 110 };
+
+            bool areContinuous = _scoreCalculator.AreContinuous(play);
+            Assert.IsFalse(areContinuous);
+        }
+
+        [TestMethod]
+        public void ScoreCalculatoAreNotContinousTestThree()
+        {
+            var play = new List<int> { 110, 107, 108 };
+
+            bool areContinuous = _scoreCalculator.AreContinuous(play);
+            Assert.IsFalse(areContinuous);
+        }
+
+        [TestMethod]
+        public void ScoreCalculatoAreNotContinousTest()
+        {
+            var play = new List<int> { 0, -2 };
+
+            bool areContinuous = _scoreCalculator.AreContinuous(play);
+            Assert.IsFalse(areContinuous);
         }
 
         [TestMethod]

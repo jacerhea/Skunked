@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Skunked.AI.CardToss;
 using Skunked.AI.Play;
+using Skunked.Game;
 using Skunked.Players;
 using Skunked.Utility;
 using Xunit;

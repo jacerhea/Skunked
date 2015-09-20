@@ -8,10 +8,10 @@ namespace Skunked.AI.Play
 {
     public class RandomPlayStrategy : BasePlay, IPlayStrategy
     {
-        private readonly IScoreCalculator _scoreCalculator;
+        private readonly ScoreCalculator _scoreCalculator;
         private readonly ICardValueStrategy _valueStrategy;
 
-        public RandomPlayStrategy(IScoreCalculator scoreCalculator = null, ICardValueStrategy valueStrategy = null)
+        public RandomPlayStrategy(ScoreCalculator scoreCalculator = null, ICardValueStrategy valueStrategy = null)
         {
             _scoreCalculator = scoreCalculator ?? new ScoreCalculator();
             _valueStrategy = valueStrategy ?? new AceLowFaceTenCardValueStrategy();

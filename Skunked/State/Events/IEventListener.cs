@@ -2,6 +2,6 @@
 {
     public interface IEventListener
     {
-        void Notify(Event @event);
+        void Notify(StreamEvent @event);
     }
 }

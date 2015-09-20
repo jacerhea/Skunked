@@ -34,9 +34,9 @@ namespace Skunked.Test.Dealer
             }.GetEnumerator());
             var handFactory = new StandardHandDealer();
             var players = new List<int> {1,2};
-            var hands = handFactory.CreatePlayerHands(deck.Object, players, players[0], 6);
+            var hands = handFactory.CreatePlayerHands(deck.Object, players, players[0], 6).ToDictionary(p => p.Id, p => p.Hand);
 
-            var player1Actual = hands[players[0]].ToList();
+            var player1Actual = hands[players[0]];
             Assert.IsTrue((new Card(Rank.King, Suit.Clubs)).Equals(player1Actual[0]));
             Assert.IsTrue((new Card(Rank.Eight, Suit.Hearts)).Equals(player1Actual[1]));
             Assert.IsTrue((new Card(Rank.Four, Suit.Diamonds)).Equals(player1Actual[2]));
@@ -45,7 +45,7 @@ namespace Skunked.Test.Dealer
             Assert.IsTrue((new Card(Rank.Ten, Suit.Clubs)).Equals(player1Actual[5]));
             Assert.AreEqual(6, player1Actual.Count);
 
-            var player2Actual = hands[players[1]].ToList();
+            var player2Actual = hands[players[1]];
             Assert.IsTrue((new Card(Rank.Ace, Suit.Diamonds)).Equals(player2Actual[0]));
             Assert.IsTrue((new Card(Rank.Five, Suit.Spades)).Equals(player2Actual[1]));
             Assert.IsTrue((new Card(Rank.Jack, Suit.Hearts)).Equals(player2Actual[2]));
@@ -77,9 +77,9 @@ namespace Skunked.Test.Dealer
             }.GetEnumerator());
             var handFactory = new StandardHandDealer();
             var players = new List<int> { 1,2};
-            var hands = handFactory.CreatePlayerHands(deck.Object, players, players[1], 6);
+            var hands = handFactory.CreatePlayerHands(deck.Object, players, players[1], 6).ToDictionary(p => p.Id, p => p.Hand);
 
-            var player2Actual = hands[players[1]].ToList();
+            var player2Actual = hands[players[1]];
             Assert.IsTrue((new Card(Rank.King, Suit.Clubs)).Equals(player2Actual[0]));
             Assert.IsTrue((new Card(Rank.Eight, Suit.Hearts)).Equals(player2Actual[1]));
             Assert.IsTrue((new Card(Rank.Four, Suit.Diamonds)).Equals(player2Actual[2]));
@@ -88,7 +88,7 @@ namespace Skunked.Test.Dealer
             Assert.IsTrue((new Card(Rank.Ten, Suit.Clubs)).Equals(player2Actual[5]));
             Assert.AreEqual(6, player2Actual.Count);
 
-            var player1Actual = hands[players[0]].ToList();
+            var player1Actual = hands[players[0]];
             Assert.IsTrue((new Card(Rank.Ace, Suit.Diamonds)).Equals(player1Actual[0]));
             Assert.IsTrue((new Card(Rank.Five, Suit.Spades)).Equals(player1Actual[1]));
             Assert.IsTrue((new Card(Rank.Jack, Suit.Hearts)).Equals(player1Actual[2]));
@@ -105,7 +105,7 @@ namespace Skunked.Test.Dealer
             deck.Setup(d => d.GetEnumerator()).Returns(() => new List<Card>().GetEnumerator());
             var handFactory = new StandardHandDealer();
             var players = new List<int> { 1,2 };
-            var hands = handFactory.CreatePlayerHands(deck.Object, players, players[0], 0);
+            var hands = handFactory.CreatePlayerHands(deck.Object, players, players[0], 0).ToDictionary(p => p.Id, p => p.Hand);
             Assert.AreEqual(0, hands[players[0]].Count);
             Assert.AreEqual(0, hands[players[1]].Count);
         }
@@ -140,7 +140,7 @@ namespace Skunked.Test.Dealer
             var handFactory = new StandardHandDealer();
             var players = new List<int> { 1,2,3,4};
             const int handSize = 5;
-            var hands = handFactory.CreatePlayerHands(deck.Object, players, players[2], handSize);
+            var hands = handFactory.CreatePlayerHands(deck.Object, players, players[2], handSize).ToDictionary(p => p.Id, p => p.Hand);
 
             var player1Actual = hands[players[0]].ToList();
             Assert.IsTrue((new Card(Rank.Eight, Suit.Hearts)).Equals(player1Actual[0]));

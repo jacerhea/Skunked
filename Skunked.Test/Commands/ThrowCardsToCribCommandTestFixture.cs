@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace Skunked.Test.Commands
+﻿namespace Skunked.Test.Commands
 {
     public class ThrowCardsToCribCommandTestFixture
     {

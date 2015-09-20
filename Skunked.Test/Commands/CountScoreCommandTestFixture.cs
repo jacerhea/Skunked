@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Skunked.Commands;
 using Skunked.Exceptions;
 using Skunked.Players;
 using Skunked.PlayingCards;
@@ -78,103 +77,103 @@ namespace Skunked.Test.Commands
             };
         }
 
-        [TestMethod]
-        public void Test_Current_Round_Is_Done_Throws_Exception()
-        {
-            _gameState.GetCurrentRound().Complete = true;
-            var command = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, 10, _scoreCalculator));
+        //[TestMethod]
+        //public void Test_Current_Round_Is_Done_Throws_Exception()
+        //{
+        //    _gameState.GetCurrentRound().Complete = true;
+        //    var command = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, 10, _scoreCalculator));
 
-            try
-            {
-                command.Execute();
-                Assert.Fail();
-            }
-            catch (InvalidCribbageOperationException exception)
-            {
-                Assert.IsTrue(exception.Operation == InvalidCribbageOperations.InvalidStateForCount);
-            }
-        }
+        //    try
+        //    {
+        //        command.Execute();
+        //        Assert.Fail();
+        //    }
+        //    catch (InvalidCribbageOperationException exception)
+        //    {
+        //        Assert.IsTrue(exception.Operation == InvalidCribbageOperations.InvalidStateForCount);
+        //    }
+        //}
 
-        [TestMethod]
-        public void Test_Current_Round_Throw_Cards_Is_Not_Done_Throws_Exception()
-        {
-            _gameState.GetCurrentRound().ThrowCardsComplete = false;
-            var command = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, 10, _scoreCalculator));
+        //[TestMethod]
+        //public void Test_Current_Round_Throw_Cards_Is_Not_Done_Throws_Exception()
+        //{
+        //    _gameState.GetCurrentRound().ThrowCardsComplete = false;
+        //    var command = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, 10, _scoreCalculator));
 
-            try
-            {
-                command.Execute();
-                Assert.Fail();
-            }
-            catch (InvalidCribbageOperationException exception)
-            {
-                Assert.IsTrue(exception.Operation == InvalidCribbageOperations.InvalidStateForCount);
-            }
-        }
+        //    try
+        //    {
+        //        command.Execute();
+        //        Assert.Fail();
+        //    }
+        //    catch (InvalidCribbageOperationException exception)
+        //    {
+        //        Assert.IsTrue(exception.Operation == InvalidCribbageOperations.InvalidStateForCount);
+        //    }
+        //}
 
-        [TestMethod]
-        public void Test_Current_Round_Play_Cards_Is_Not_Done_Throws_Exception()
-        {
-            _gameState.GetCurrentRound().PlayedCardsComplete = false;
-            var command = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, 10, _scoreCalculator));
+        //[TestMethod]
+        //public void Test_Current_Round_Play_Cards_Is_Not_Done_Throws_Exception()
+        //{
+        //    _gameState.GetCurrentRound().PlayedCardsComplete = false;
+        //    var command = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, 10, _scoreCalculator));
 
-            try
-            {
-                command.Execute();
-                Assert.Fail();
-            }
-            catch (InvalidCribbageOperationException exception)
-            {
-                Assert.IsTrue(exception.Operation == InvalidCribbageOperations.InvalidStateForCount);
-            }
-        }
+        //    try
+        //    {
+        //        command.Execute();
+        //        Assert.Fail();
+        //    }
+        //    catch (InvalidCribbageOperationException exception)
+        //    {
+        //        Assert.IsTrue(exception.Operation == InvalidCribbageOperations.InvalidStateForCount);
+        //    }
+        //}
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void Test_Invalid_Player_Counted_Score()
-        {
-            new CountHandScoreCommand(new CountHandScoreArgs(_gameState, -1, 1, 24, _scoreCalculator));
-        }
+        //[TestMethod]
+        //[ExpectedException(typeof(ArgumentOutOfRangeException))]
+        //public void Test_Invalid_Player_Counted_Score()
+        //{
+        //    new CountHandScoreCommand(new CountHandScoreArgs(_gameState, -1, 1, 24, _scoreCalculator));
+        //}
 
-        [TestMethod]
-        public void Test_Count_Player1_Score()
-        {
-            const int playerId = 1;
-            _gameState.GetCurrentRound().PlayerCrib = 2;
+        //[TestMethod]
+        //public void Test_Count_Player1_Score()
+        //{
+        //    const int playerId = 1;
+        //    _gameState.GetCurrentRound().PlayerCrib = 2;
 
-            var command = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, 1, _scoreCalculator));
-            command.Execute();
+        //    var command = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, 1, _scoreCalculator));
+        //    command.Execute();
 
-            Assert.AreEqual(1, _gameState.IndividualScores.Single(ps => ps.Player == playerId).Score);
-        }
+        //    Assert.AreEqual(1, _gameState.IndividualScores.Single(ps => ps.Player == playerId).Score);
+        //}
 
-        [TestMethod]
-        public void Test_Count_Not_Players_Turn_To_Count_Exception()
-        {
-            try
-            {
-                new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, 24, _scoreCalculator)).Execute();
-                Assert.Fail();
-            }
-            catch (InvalidCribbageOperationException exception)
-            {
-                Assert.IsTrue(exception.Operation == InvalidCribbageOperations.NotPlayersTurn);
-            }
-        }
+        //[TestMethod]
+        //public void Test_Count_Not_Players_Turn_To_Count_Exception()
+        //{
+        //    try
+        //    {
+        //        new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, 24, _scoreCalculator)).Execute();
+        //        Assert.Fail();
+        //    }
+        //    catch (InvalidCribbageOperationException exception)
+        //    {
+        //        Assert.IsTrue(exception.Operation == InvalidCribbageOperations.NotPlayersTurn);
+        //    }
+        //}
 
-        [TestMethod]
-        public void Test_Count_Player2_Score()
-        {
-            const int playerId = 2;
-            _gameState.GetCurrentRound().PlayerCrib = 2;
+        //[TestMethod]
+        //public void Test_Count_Player2_Score()
+        //{
+        //    const int playerId = 2;
+        //    _gameState.GetCurrentRound().PlayerCrib = 2;
 
-            var command1 = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, 24, _scoreCalculator));
-            command1.Execute();
+        //    var command1 = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, 24, _scoreCalculator));
+        //    command1.Execute();
 
-            var command2 = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, playerId, 1, 1, _scoreCalculator));
-            command2.Execute();
+        //    var command2 = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, playerId, 1, 1, _scoreCalculator));
+        //    command2.Execute();
 
-            Assert.AreEqual(1, _gameState.IndividualScores.Single(ps => ps.Player == playerId).Score);
-        }
+        //    Assert.AreEqual(1, _gameState.IndividualScores.Single(ps => ps.Player == playerId).Score);
+        //}
     }
 }

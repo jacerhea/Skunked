@@ -9,10 +9,10 @@ namespace Skunked.AI.Play
 {
     public class MaxPlayStrategy : BasePlay, IPlayStrategy
     {
-        private readonly IScoreCalculator _scoreCalculator;
+        private readonly ScoreCalculator _scoreCalculator;
         private readonly ICardValueStrategy _valueStrategy;
 
-        public MaxPlayStrategy(IScoreCalculator scoreCalculator = null, ICardValueStrategy valueStrategy = null)
+        public MaxPlayStrategy(ScoreCalculator scoreCalculator = null, ICardValueStrategy valueStrategy = null)
         {
             _scoreCalculator = scoreCalculator ?? new ScoreCalculator();
             _valueStrategy = valueStrategy ?? new AceLowFaceTenCardValueStrategy();

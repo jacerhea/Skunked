@@ -22,6 +22,14 @@ namespace Skunked.PlayingCards
             _deck.Shuffle();
         }
 
+        public void Shuffle(int count)
+        {
+            foreach (var i in Enumerable.Range(1, count))
+            {
+                _deck.Shuffle();
+            }
+        }
+
         public virtual IEnumerator<Card> GetEnumerator()
         {
             return _deck.GetEnumerator();

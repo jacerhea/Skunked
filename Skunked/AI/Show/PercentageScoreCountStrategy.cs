@@ -8,9 +8,9 @@ namespace Skunked.AI.Show
     public class PercentageScoreCountStrategy : IScoreCountStrategy
     {
         private readonly int _percentageCorrect;
-        private readonly IScoreCalculator _scoreCalculator;
+        private readonly ScoreCalculator _scoreCalculator;
 
-        public PercentageScoreCountStrategy(int percentageCorrect = 100, IScoreCalculator scoreCalculator = null)
+        public PercentageScoreCountStrategy(int percentageCorrect = 100, ScoreCalculator scoreCalculator = null)
         {
             _percentageCorrect = percentageCorrect;
             _scoreCalculator = scoreCalculator ?? new ScoreCalculator();

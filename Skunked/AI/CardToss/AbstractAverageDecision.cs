@@ -8,9 +8,9 @@ namespace Skunked.AI.CardToss
 {
     public abstract class AbstractAverageDecision
     {
-        private readonly IScoreCalculator _scoreCalculator;
+        private readonly ScoreCalculator _scoreCalculator;
 
-        protected AbstractAverageDecision(IScoreCalculator scoreCalculator = null)
+        protected AbstractAverageDecision(ScoreCalculator scoreCalculator = null)
         {
             _scoreCalculator = scoreCalculator ?? new ScoreCalculator();
         }
@@ -26,13 +26,15 @@ namespace Skunked.AI.CardToss
             return comboPossibleScoreses;
         }
 
-        private IEnumerable<ComboPossibleScores> GetPossibleCombos(Combinations<Card> combinations, List<Card> possibleCardsCut)
+        private IEnumerable<ComboPossibleScores> GetPossibleCombos(Combinations<Card> handCombinations, List<Card> possibleStarterCards)
         {
-            foreach (var combo in combinations)
+            return handCombinations.AsParallel().Select(combo =>
             {
-                var possibleScores = possibleCardsCut.AsParallel().Select(cutCard => new ScoreWithCut{Cut = cutCard, Score = _scoreCalculator.CountShowScore(cutCard, combo).Score}).ToList();
-                yield return new ComboPossibleScores(combo) { PossibleScores = possibleScores };
-            }
+                var possibleScores = possibleStarterCards
+                    .Select(cutCard => new ScoreWithCut { Cut = cutCard, Score = _scoreCalculator.CountShowScore(cutCard, combo).Score })
+                    .ToList();
+                return new ComboPossibleScores(combo, possibleScores);
+            });
         }
     }
 }

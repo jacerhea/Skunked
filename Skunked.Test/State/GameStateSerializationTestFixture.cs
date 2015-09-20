@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Skunked.Players;
 using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.State;
-using Skunked.Utility;
 using Xunit;
 
 namespace Skunked.Test.State
@@ -50,18 +47,7 @@ namespace Skunked.Test.State
                 TeamScores = new List<TeamScore> { new TeamScore { Players = new List<int> { 1 }, Score = 5 } },
             };
 
-
-
-
-
-
-
-
-
             var stream = new MemoryStream();
-
-
-
 
             var xmlSerializer = new XmlSerializer(typeof(GameState));
             xmlSerializer.Serialize(stream, gameState);

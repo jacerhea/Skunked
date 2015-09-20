@@ -2,9 +2,9 @@
 
 namespace Skunked.State.Events
 {
-    public class CardPlayedEvent : Event
+    public class CardPlayedEvent : StreamEvent
     {
         public int PlayerId { get; set; }
-        public Card PlayedCard { get; set; }
+        public Card Played { get; set; }
     }
 }

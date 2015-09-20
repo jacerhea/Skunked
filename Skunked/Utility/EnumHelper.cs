@@ -6,13 +6,9 @@ namespace Skunked.Utility
 {
     public class EnumHelper
     {
-        public static List<T> GetValues<T>()
+        public static List<T> GetValues<T>() where T : struct
         {
             var type = typeof (T);
-            if (!type.IsEnum)
-            {
-                throw new ArgumentException("Type '" + type.Name + "' is not an enum");
-            }
             return Enum.GetValues(type).Cast<T>().ToList();
         }
     }

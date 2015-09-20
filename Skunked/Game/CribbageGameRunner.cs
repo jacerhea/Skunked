@@ -8,7 +8,7 @@ using Skunked.Rules;
 using Skunked.State;
 using Skunked.Utility;
 
-namespace Skunked
+namespace Skunked.Game
 {
     public class CribbageGameRunner
     {
@@ -89,6 +89,7 @@ namespace Skunked
                     throw;
                 }
             }
+
 
             return gameState;
         }

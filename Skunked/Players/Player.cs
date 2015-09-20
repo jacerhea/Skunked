@@ -81,11 +81,7 @@ namespace Skunked.Players
 
         public bool Equals(Player other)
         {
-            if (other == null)
-            {
-                return false;
-            }
-            return other.Id == Id;
+            return other?.Id == Id;
         }
     }
 }
