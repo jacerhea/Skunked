@@ -13,7 +13,7 @@ namespace Skunked.AI.CardToss
 
             while (handCopy.Count > 4)
             {
-                var indexToDrop = RandomProvider.GetThreadRandom().Next(0, handCopy.Count() - 1);
+                var indexToDrop = RandomProvider.GetThreadRandom().Next(0, handCopy.Count - 1);
                 var cardToDrop = handCopy[indexToDrop];
                 handCopy.RemoveAt(indexToDrop);
                 yield return cardToDrop;

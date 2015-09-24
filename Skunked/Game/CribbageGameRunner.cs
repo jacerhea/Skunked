@@ -5,7 +5,6 @@ using Skunked.Exceptions;
 using Skunked.Players;
 using Skunked.PlayingCards;
 using Skunked.Rules;
-using Skunked.State;
 using Skunked.Utility;
 
 namespace Skunked.Game
@@ -33,7 +32,7 @@ namespace Skunked.Game
             _deck = deck ?? new Deck();
         }
 
-        public GameState Run()
+        public Cribbage Run()
         {
             var cribbage = new Cribbage(_players.Select(p => p.Id), _gameRules);
             var gameState = cribbage.State;
@@ -91,7 +90,7 @@ namespace Skunked.Game
             }
 
 
-            return gameState;
+            return cribbage;
         }
     }
 }

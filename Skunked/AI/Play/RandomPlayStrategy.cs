@@ -24,7 +24,7 @@ namespace Skunked.AI.Play
             int currentPileCount = _scoreCalculator.SumValues(pile);
             var validPlays = handLeft.Where(c => currentPileCount + _valueStrategy.ValueOf(c) <= GameRules.PlayMaxScore).ToList();
 
-            var randomIndex = validPlays.Count() - 1;
+            var randomIndex = validPlays.Count - 1;
             return validPlays.ElementAt(randomIndex);
         }
     }

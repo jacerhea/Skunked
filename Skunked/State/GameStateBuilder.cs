@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Skunked.Players;
 using Skunked.PlayingCards;
@@ -24,13 +25,45 @@ namespace Skunked.State
 
             foreach (var @event in eventStream)
             {
-                if (@event.GetType() == typeof (GameStartedEvent))
+                if (@event.GetType() == typeof(GameStartedEvent))
                 {
                     Handle((GameStartedEvent)@event, state);
                 }
-                else if (@event.GetType() == typeof (DeckShuffledEvent))
+                else if (@event.GetType() == typeof(DeckShuffledEvent))
                 {
                     Handle((DeckShuffledEvent)@event, state);
+                }
+                else if (@event.GetType() == typeof(CardCutEvent))
+                {
+                    Handle((CardCutEvent)@event, state);
+                }
+                else if (@event.GetType() == typeof(RoundStartedEvent))
+                {
+                    Handle((RoundStartedEvent)@event, state);
+                }
+                else if (@event.GetType() == typeof(HandsDealtEvent))
+                {
+                    Handle((HandsDealtEvent)@event, state);
+                }
+                else if (@event.GetType() == typeof(StarterCardSelectedEvent))
+                {
+                    Handle((StarterCardSelectedEvent)@event, state);
+                }
+                else if (@event.GetType() == typeof(CardsThrownEvent))
+                {
+                    Handle((CardsThrownEvent)@event, state);
+                }
+                else if (@event.GetType() == typeof(CardPlayedEvent))
+                {
+                    Handle((CardPlayedEvent)@event, state);
+                }
+                else if (@event.GetType() == typeof(HandCountedEvent))
+                {
+                    Handle((HandCountedEvent)@event, state);
+                }
+                else if (@event.GetType() == typeof(CribCountedEvent))
+                {
+                    Handle((CribCountedEvent)@event, state);
                 }
             }
 
@@ -40,7 +73,7 @@ namespace Skunked.State
         public void Handle(GameStartedEvent startedEvent, GameState gameState)
         {
             var deck = new Deck().ToList();
-
+            gameState.Id = startedEvent.GameId;
             gameState.GameRules = startedEvent.Rules;
             gameState.StartedAt = startedEvent.Occurred;
             gameState.LastUpdated = startedEvent.Occurred;
@@ -54,7 +87,7 @@ namespace Skunked.State
             gameState.IndividualScores = new List<PlayerScore>(startedEvent.Players.Select(player => new PlayerScore { Player = player, Score = 0 }));
             gameState.PlayerIds = startedEvent.Players.ToList();
             gameState.TeamScores = startedEvent.Players.Count == 2
-                ? startedEvent.Players.Select(p => new TeamScore { Players = new List<int> { p } }).ToList()
+                ? startedEvent.Players.Select(p => new TeamScore {Players = new List<int> {p}}).ToList()
                 : new List<TeamScore>
                 {
                     new TeamScore {Players = new List<int> {startedEvent.Players[0], startedEvent.Players[2]}},
@@ -102,7 +135,7 @@ namespace Skunked.State
             int cribPlayerId;
             if (gameState.OpeningRound.Complete && gameState.Rounds.Count != 0)
             {
-                cribPlayerId = gameState.PlayerIds.NextOf(gameState.PlayerIds.Single(sp => gameState.Rounds.Single(r => r.Round == currentRound ).PlayerCrib == sp));
+                cribPlayerId = gameState.PlayerIds.NextOf(gameState.PlayerIds.Single(sp => gameState.Rounds.Single(r => r.Round == currentRound).PlayerCrib == sp));
             }
             else
             {
@@ -137,29 +170,25 @@ namespace Skunked.State
 
             //remove thrown cards from hand
             var playerId = cardsThrownEvent.PlayerId;
-            var playerHand = currentRound.DealtCards.First(ph => ph.Id == playerId).Hand.Except(cardsThrownEvent.Thrown, CardValueEquality.Instance);
+            var playerHand = currentRound.DealtCards.Single(ph => ph.Id == playerId).Hand.Except(cardsThrownEvent.Thrown, CardValueEquality.Instance);
             currentRound.Hands.Add(new PlayerIdHand(playerId, playerHand.ToList()));
 
             currentRound.Crib.AddRange(cardsThrownEvent.Thrown);
 
             var playersDoneThrowing = gameState.GetCurrentRound().Crib.Count == GameRules.HandSize;
-            if (playersDoneThrowing)
-            {
-                var deck = new Deck();
-                var cardsNotDealt = deck.Except(currentRound.Crib).Except(currentRound.Hands.SelectMany(s => s.Hand), CardValueEquality.Instance).ToList();
-
-                var randomIndex = RandomProvider.GetThreadRandom().Next(0, cardsNotDealt.Count - 1);
-                var startingCard = cardsNotDealt[randomIndex];
-
-                var playerScore = gameState.IndividualScores.First(ps => ps.Player == playerId);
-                var team = gameState.TeamScores.Single(t => t.Players.Contains(playerId));
-                var cutScore = _scoreCalculator.CountCut(startingCard);
-                playerScore.Score += cutScore;
-                team.Score += cutScore;
-                currentRound.Starter = startingCard;
-            }
-
             currentRound.ThrowCardsComplete = playersDoneThrowing;
+        }
+
+        public void Handle(StarterCardSelectedEvent starterCardSelected, GameState gameState)
+        {
+            var currentRound = gameState.GetCurrentRound();
+            var dealerId = currentRound.PlayerCrib;
+            var playerScore = gameState.IndividualScores.Single(ps => ps.Player == dealerId);
+            var team = gameState.TeamScores.Single(t => t.Players.Contains(dealerId));
+            var cutScore = _scoreCalculator.CountCut(starterCardSelected.Starter);
+            playerScore.Score += cutScore;
+            team.Score += cutScore;
+            currentRound.Starter = starterCardSelected.Starter;
         }
 
         public void Handle(CardPlayedEvent cardPlayedEvent, GameState gameState)
@@ -293,6 +322,16 @@ namespace Skunked.State
             currentRound.Complete = true;
         }
 
+        private bool CheckEndOfGame(GameState gameState)
+        {
+            if (gameState.TeamScores.Any(ts => ts.Score >= gameState.GameRules.WinningScore))
+            {
+                gameState.CompletedAt = DateTimeOffset.Now;
+                return true;
+            }
+            return false;
+        }
+
         private int? FindNextPlayer(GameState state, int playerId)
         {
             var roundState = state.GetCurrentRound();
@@ -302,7 +341,7 @@ namespace Skunked.State
             var playerCardPlayedScores = setOfPlays.Last();
 
             //if round is done
-            if (playedCards.Count() == state.PlayerIds.Count * GameRules.HandSize)
+            if (playedCards.Count == state.PlayerIds.Count * GameRules.HandSize)
             {
                 return null;
             }

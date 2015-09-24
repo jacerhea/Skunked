@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using Skunked.AI.CardToss;
 using Skunked.AI.Play;
 using Skunked.AI.Show;
@@ -20,8 +22,8 @@ namespace Skunked.Test.System
         [Fact]
         public void SmokeTest()
         {
-            var results = new ConcurrentBag<GameState>();
-            Task.WaitAll(Enumerable.Range(0, 100).Select(it =>
+            var results = new ConcurrentBag<Cribbage>();
+            Task.WaitAll(Enumerable.Range(0, 1).Select(it =>
             {
                 return Task.Run(() =>
                 {
@@ -32,9 +34,27 @@ namespace Skunked.Test.System
                 });
             }).ToArray());
 
-            foreach (var gameState in results)
+            foreach (var game in results)
             {
-                TestEndGame.Test(gameState);
+                TestEndGame.Test(game.State);
+                var gameStateBuilder = new GameStateBuilder();
+                var gameState = gameStateBuilder.Build(game.Stream);
+
+                XmlSerializer ser = new XmlSerializer(typeof(GameState));
+
+                MemoryStream ms = new MemoryStream();
+                ser.Serialize(ms, gameState);
+                ms.Position = 0;
+
+                StreamReader r = new StreamReader(ms);
+                string builtGameState = r.ReadToEnd();
+
+                MemoryStream ms2 = new MemoryStream();
+                ser.Serialize(ms2, game.State);
+                ms2.Position = 0;
+
+                StreamReader r2 = new StreamReader(ms2);
+                string builtGameState2 = r2.ReadToEnd();
             }
         }
 

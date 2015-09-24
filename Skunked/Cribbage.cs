@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Skunked.Dealer;
+using Skunked.Exceptions;
 using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.State;
@@ -13,15 +14,13 @@ namespace Skunked
 {
     public class Cribbage
     {
-        private readonly EventStream _eventStream;
         private readonly IPlayerHandFactory _dealer = new StandardHandDealer();
         private readonly Deck _deck = new Deck();
 
         public Cribbage(IEnumerable<int> players, GameRules rules)
         {
-            State = new GameState { Id = Guid.NewGuid() };
-            _deck.Shuffle(3);
-            _eventStream = new EventStream(new List<IEventListener> { new GameStateEventListener(State, new GameStateBuilder()) })
+            State = new GameState();
+            Stream = new EventStream(new List<IEventListener> { new GameStateEventListener(State, new GameStateBuilder()) })
             {
                 new GameStartedEvent
                 {
@@ -34,14 +33,29 @@ namespace Skunked
             };
         }
 
-        public Cribbage(GameState state)
-        {
-            State = state;
-            var gameStateEventListener = new GameStateEventListener(State, new GameStateBuilder());
-            _eventStream = new EventStream(new List<IEventListener> { gameStateEventListener });
-        }
+        //public Cribbage(EventStream eventStream, List<IEventListener> eventListeners)
+        //{
+        //    var gameStateEventListener = new GameStateEventListener(State, new GameStateBuilder());
+        //    Stream = new EventStream(new List<IEventListener> { gameStateEventListener });
+        //}
 
         public GameState State { get; }
+        public EventStream Stream { get; }
+
+        private void AddToStream(StreamEvent @event)
+        {
+            try
+            {
+                Stream.Add(@event);
+            }
+            catch (InvalidCribbageOperationException e)
+            {
+                if (e.Operation == InvalidCribbageOperations.GameFinished)
+                {
+                    
+                }
+            }
+        }
 
         public void CutCard(int playerId, Card card)
         {
@@ -49,15 +63,15 @@ namespace Skunked
             var cardCutEvent = new CardCutEvent { CutCard = card, PlayerId = playerId };
             validation.Validate(State, cardCutEvent);
 
-            _eventStream.Add(cardCutEvent);
+            Stream.Add(cardCutEvent);
 
             if (State.OpeningRound.Complete)
             {
-                _eventStream.Add(new RoundStartedEvent { GameId = State.Id });
+                Stream.Add(new RoundStartedEvent { GameId = State.Id });
                 _deck.Shuffle();
-                _eventStream.Add(new DeckShuffledEvent { Deck = _deck.ToList(), GameId = State.Id });
+                Stream.Add(new DeckShuffledEvent { Deck = _deck.ToList(), GameId = State.Id });
                 var playerHands = _dealer.CreatePlayerHands(_deck, State.PlayerIds, State.PlayerIds.NextOf(playerId), State.GameRules.HandSizeToDeal); // get next player from who won cut.
-                _eventStream.Add(new HandsDealtEvent { GameId = State.Id, Hands = playerHands });
+                Stream.Add(new HandsDealtEvent { GameId = State.Id, Hands = playerHands });
             }
         }
 
@@ -67,10 +81,15 @@ namespace Skunked
             var @event = new CardsThrownEvent { GameId = State.Id, Thrown = cribCards.ToList(), PlayerId = playerId, };
             validation.Validate(State, @event);
 
-            _eventStream.Add(@event);
-            if (State.GetCurrentRound().ThrowCardsComplete)
+            Stream.Add(@event);
+            var currentRound = State.GetCurrentRound();
+            if (currentRound.ThrowCardsComplete)
             {
-                _eventStream.Add(new PlayStartedEvent { GameId = State.Id, Round = State.GetCurrentRound().Round });
+                var cardsNotDealt = _deck.Except(currentRound.Crib, CardValueEquality.Instance).Except(currentRound.Hands.SelectMany(s => s.Hand), CardValueEquality.Instance).ToList();
+                var randomIndex = RandomProvider.GetThreadRandom().Next(0, cardsNotDealt.Count - 1);
+                var startingCard = cardsNotDealt[randomIndex];
+                Stream.Add(new StarterCardSelectedEvent { GameId = State.Id, Starter = startingCard });
+                Stream.Add(new PlayStartedEvent { GameId = State.Id, Round = currentRound.Round });
             }
         }
 
@@ -79,11 +98,11 @@ namespace Skunked
             var validation = new CardPlayedEventValidation();
             var @event = new CardPlayedEvent { GameId = State.Id, Played = card, PlayerId = playerId, };
             validation.Validate(State, @event);
-            _eventStream.Add(@event);
+            Stream.Add(@event);
 
             if (State.GetCurrentRound().PlayedCardsComplete)
             {
-                _eventStream.Add(new PlayFinishedEvent { GameId = State.Id, Round = State.GetCurrentRound().Round });
+                Stream.Add(new PlayFinishedEvent { GameId = State.Id, Round = State.GetCurrentRound().Round });
             }
         }
 
@@ -92,7 +111,7 @@ namespace Skunked
             var validation = new HandCountedEventValidation();
             var @event = new HandCountedEvent { GameId = State.Id, PlayerId = playerId, CountedScore = score };
             validation.Validate(State, @event);
-            _eventStream.Add(@event);
+            Stream.Add(@event);
         }
 
         public void CountCrib(int playerId, int score)
@@ -100,13 +119,13 @@ namespace Skunked
             var validation = new CribCountedEventValidation();
             var @event = new CribCountedEvent { GameId = State.Id, PlayerId = playerId, CountedScore = score };
             validation.Validate(State, @event);
-            _eventStream.Add(@event);
+            Stream.Add(@event);
 
-            _eventStream.Add(new RoundStartedEvent { GameId = State.Id });
+            Stream.Add(new RoundStartedEvent { GameId = State.Id });
             _deck.Shuffle(3);
-            _eventStream.Add(new DeckShuffledEvent { Deck = _deck.ToList(), GameId = State.Id });
+            Stream.Add(new DeckShuffledEvent { Deck = _deck.ToList(), GameId = State.Id });
             var playerHands = _dealer.CreatePlayerHands(_deck, State.PlayerIds, State.PlayerIds.NextOf(State.PlayerIds.NextOf(playerId)), State.GameRules.HandSizeToDeal);
-            _eventStream.Add(new HandsDealtEvent { GameId = State.Id, Hands = playerHands });
+            Stream.Add(new HandsDealtEvent { GameId = State.Id, Hands = playerHands });
         }
     }
 }

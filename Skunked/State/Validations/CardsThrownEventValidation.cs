@@ -19,7 +19,7 @@ namespace Skunked.State.Validations
 
             var dealtCards = currentRound.DealtCards.Single(playerHand => playerHand.Id == cutEvent.PlayerId).Hand;
 
-            if (dealtCards.Intersect(cutEvent.Thrown).Count() != cutEvent.Thrown.Count())
+            if (dealtCards.Intersect(cutEvent.Thrown).Count() != cutEvent.Thrown.Count)
             {
                 //invalid request, player was not dealt these cards
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidCard);

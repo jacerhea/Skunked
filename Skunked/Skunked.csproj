@@ -72,6 +72,7 @@
     <Compile Include="Exceptions\InvalidCribbageOperationException.cs" />
     <Compile Include="Exceptions\InvalidCribbageOperations.cs" />
     <Compile Include="State\Events\GameCompletedEvent.cs" />
+    <Compile Include="State\Events\StarterCardSelectedEvent.cs" />
     <Compile Include="State\GameStateEventListener.cs" />
     <Compile Include="State\Events\HandsDealtEvent.cs" />
     <Compile Include="State\Events\IEventListener.cs" />

@@ -111,11 +111,11 @@ namespace Skunked.Score
         {
             if (playersHand == null) throw new ArgumentNullException(nameof(playersHand));
             if (cutCard == null) throw new ArgumentNullException(nameof(cutCard));
-            if (playersHand.Count() < 4) { return new List<Card>(); }
+            if (playersHand.Count < 4) { return new List<Card>(0); }
 
             var fourCardFlush = playersHand.GroupBy(c => c.Suit).Where(g => g.Count() > 3).ToList();
 
-            if (fourCardFlush.Count() == 1)
+            if (fourCardFlush.Count == 1)
             {
                 //check for 5 card flush
                 if (fourCardFlush.First().Key == cutCard.Suit)

@@ -49,6 +49,11 @@ namespace Skunked.State
                 var handsDealtEvent = ((HandsDealtEvent)@event);
                 _gameStateBuilder.Handle(handsDealtEvent, _gameState);
             }
+            if (type == typeof(StarterCardSelectedEvent))
+            {
+                var starterCardSelected = ((StarterCardSelectedEvent)@event);
+                _gameStateBuilder.Handle(starterCardSelected, _gameState);
+            }
             if (type == typeof(CardPlayedEvent))
             {
                 var cardPlayedEvent = ((CardPlayedEvent)@event);
@@ -64,7 +69,6 @@ namespace Skunked.State
                 var cardPlayedEvent = ((CribCountedEvent)@event);
                 _gameStateBuilder.Handle(cardPlayedEvent, _gameState);
             }
-
         }
     }
 }
