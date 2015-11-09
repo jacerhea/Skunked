@@ -21,7 +21,14 @@ namespace Skunked.Test.System
             Assert.True(gameState.Rounds.All(r => r.DealtCards.Select(p => p.Hand).All(cards => cards.Distinct().Count() == gameState.GameRules.HandSizeToDeal)));
             Assert.True(gameState.Rounds.All(r => r.Hands.Select(p => p.Hand).All(cards => cards.Distinct().Count() == GameRules.HandSize)));
 
-            //Assert.IsTrue(gameState.TeamScores.All(ts => gameState.Rounds.Sum(r => r.ShowScores.Where(ss => ts.PlayerIds.Contains(ss.Player)).Sum(pss => pss.ShowScore + pss.CribScore??0)) == ts.Score));
+            Assert.True(
+                gameState.TeamScores
+                .All(ts =>
+                {
+                    var showScore = gameState.Rounds.Sum(r => r.ShowScores.Where(ss => ts.Players.Contains(ss.Player)).Sum(pss => pss.ShowScore + pss.CribScore ?? 0));
+                    var playScores = gameState.Rounds.Sum(r => r.ThePlay.SelectMany(ppi => ppi).Where(ppi => ts.Players.Contains(ppi.Player)).Sum(ppi => ppi.Score));
+                    return ts.Score == showScore + playScores;
+                }));
         }
     }
 }

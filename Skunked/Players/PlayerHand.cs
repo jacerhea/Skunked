@@ -20,7 +20,7 @@ namespace Skunked.Players
 
         public override string ToString()
         {
-            return $"{Player}: {{{string.Join(", ", (Hand.Select(c => c.ToString()).ToArray()))}}}";
+            return $"{Player}: {{{string.Join(", ", Hand.Select(c => c.ToString()).ToArray())}}}";
         }
     }
 }

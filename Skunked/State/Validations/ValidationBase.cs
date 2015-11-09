@@ -7,7 +7,7 @@ namespace Skunked.State.Validations
 {
     public abstract class ValidationBase
     {
-        public void ValidateCore(GameState gameState, int playerId, int round)
+        protected void ValidateCore(GameState gameState, int playerId, int round)
         {
             CheckEndOfGame(gameState);
             if (gameState.PlayerIds.All(id => id == playerId)) { throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidPlayer); }

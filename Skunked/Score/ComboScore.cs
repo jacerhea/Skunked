@@ -19,7 +19,7 @@ namespace Skunked.Score
 
         public override string ToString()
         {
-            return $"{Score} : {{{string.Join(", ", (Combo.Select(c => c.ToString()).ToArray()))}}}";
+            return $"{Score} : {{{string.Join(", ", Combo.Select(c => c.ToString()).ToArray())}}}";
         }
     }
 }

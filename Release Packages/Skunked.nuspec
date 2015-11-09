@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/jacerhea/Skunked</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A library of classes to model the game of Cribbage.</description>
-    <summary>A library of classes to model the game of Cribbage.</summary>
+    <summary>A library that models the game of Cribbage.</summary>
     <copyright>2015</copyright>
     <tags>cribbage ai a.i. game games card</tags>
 	<dependencies>

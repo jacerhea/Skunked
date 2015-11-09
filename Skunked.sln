@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked", "Skunked\Skunked.csproj", "{456DF28E-8EA0-413D-982F-F67A6EB43FDF}"
 EndProject
@@ -30,7 +30,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked.Test.System", "Skun
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{8FE34C12-58B9-4E0A-8D50-9CDE0FA1ACD8}"
 	ProjectSection(SolutionItems) = preProject
-		Release Packages\Skunked.0.9.nupkg = Release Packages\Skunked.0.9.nupkg
+		Release Packages\Skunked.nuspec = Release Packages\Skunked.nuspec
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked.Test.Analytics", "Skunked.Test.Analytics\Skunked.Test.Analytics.csproj", "{0F182C6C-2769-4491-AA63-5FDC4C15B64B}"

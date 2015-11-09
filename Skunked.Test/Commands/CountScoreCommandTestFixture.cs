@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Skunked.Exceptions;
 using Skunked.Players;
 using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.Score;
 using Skunked.State;
-using Skunked.Utility;
 
 namespace Skunked.Test.Commands
 {

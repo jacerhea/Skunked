@@ -29,8 +29,8 @@ namespace Skunked.Score
 
         public override string ToString()
         {
-            var psString = string.Join(", ", (PossibleScores.Select(s => s.Score.ToString(CultureInfo.InvariantCulture))).ToArray());
-            var cString = string.Join(", ", (Combo.Select(c => c.ToString()).ToArray()));
+            var psString = string.Join(", ", PossibleScores.Select(s => s.Score.ToString(CultureInfo.InvariantCulture)).ToArray());
+            var cString = string.Join(", ", Combo.Select(c => c.ToString()).ToArray());
 
             return $"{psString} : {{{cString}}}";
         }

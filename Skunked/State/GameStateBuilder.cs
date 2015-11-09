@@ -114,7 +114,7 @@ namespace Skunked.State
         {
             gameState.OpeningRound.CutCards.Add(new PlayerIdCard { Player = cardCutEvent.PlayerId, Card = new Card(cardCutEvent.CutCard) });
 
-            bool isDone = (gameState.GameRules.PlayerCount == gameState.OpeningRound.CutCards.Count);
+            bool isDone = gameState.GameRules.PlayerCount == gameState.OpeningRound.CutCards.Count;
             gameState.OpeningRound.Complete = isDone;
 
             if (isDone && gameState.Rounds.Count == 0)

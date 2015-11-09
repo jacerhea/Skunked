@@ -17,10 +17,11 @@ namespace Skunked
         private readonly IPlayerHandFactory _dealer = new StandardHandDealer();
         private readonly Deck _deck = new Deck();
 
-        public Cribbage(IEnumerable<int> players, GameRules rules)
+        public Cribbage(IEnumerable<int> players, GameRules rules, IEnumerable<IEventListener> eventListeners = null)
         {
             State = new GameState();
-            Stream = new EventStream(new List<IEventListener> { new GameStateEventListener(State, new GameStateBuilder()) })
+            var listeners = new List<IEventListener>(eventListeners ?? new List<IEventListener>()) { new GameStateEventListener(State, new GameStateBuilder()) };
+            Stream = new EventStream(listeners)
             {
                 new GameStartedEvent
                 {
@@ -33,11 +34,14 @@ namespace Skunked
             };
         }
 
-        //public Cribbage(EventStream eventStream, List<IEventListener> eventListeners)
-        //{
-        //    var gameStateEventListener = new GameStateEventListener(State, new GameStateBuilder());
-        //    Stream = new EventStream(new List<IEventListener> { gameStateEventListener });
-        //}
+        public Cribbage(EventStream eventStream, List<IEventListener> eventListeners = null)
+        {
+            var builder = new GameStateBuilder();
+            var state = builder.Build(eventStream);
+            var gameStateEventListener = new GameStateEventListener(state, builder);
+            Stream = new EventStream(new List<IEventListener>(eventListeners ?? new List<IEventListener>()) { gameStateEventListener });
+            State = state;
+        }
 
         public GameState State { get; }
         public EventStream Stream { get; }

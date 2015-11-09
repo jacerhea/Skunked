@@ -35,7 +35,7 @@ namespace Skunked.AI.CardToss
             }
 
             var distributionSets = comboPossibleScoreses.SelectMany(cps => cps.PossibleScores)
-                .GroupBy(cps => cps.Score)
+                .GroupBy(cps =>  cps.Score)
                 .Select(g => new DistributionSet { Count = g.Count(), Score = g.Key })
                 .OrderBy(ds => ds.Score)
                 .ToList();

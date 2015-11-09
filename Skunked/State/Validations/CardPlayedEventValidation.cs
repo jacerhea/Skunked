@@ -52,7 +52,7 @@ namespace Skunked.State.Validations
 
             //is the player starting new round with card sum over 31 and they have a playable card for current round?
             var currentPlayCount = _scoreCalculator.SumValues(setOfPlays.Last().Select(scs => scs.Card));
-            int playCount = (currentPlayCount + _scoreCalculator.SumValues(new List<Card> { new Card(cardPlayedEvent.Played) }));
+            int playCount = currentPlayCount + _scoreCalculator.SumValues(new List<Card> { new Card(cardPlayedEvent.Played) });
             if (playCount > GameRules.PlayMaxScore)
             {
                 var playedCardsThisRound = setOfPlays.Last().Select(ppi => ppi.Card).ToList();
