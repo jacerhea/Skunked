@@ -23,7 +23,7 @@ namespace Skunked.Test.Commands
                 GameRules = new GameRules(GameScoreType.Standard121, 2),
                 PlayerIds =
                     new List<int> {1, 2},
-                OpeningRound = new OpeningRoundState {},
+                OpeningRound = new OpeningRound {},
                 IndividualScores = new List<PlayerScore>
                 {
                     new PlayerScore {Player = 1, Score = 120},

@@ -107,7 +107,7 @@
     <Compile Include="State\Events\RoundStartedEvent.cs" />
     <Compile Include="State\GameState.cs" />
     <Compile Include="State\GameStateBuilder.cs" />
-    <Compile Include="State\OpeningRoundState.cs" />
+    <Compile Include="State\OpeningRound.cs" />
     <Compile Include="State\RoundState.cs" />
     <Compile Include="State\PlayerPlayItem.cs" />
     <Compile Include="State\PlayerScoreShow.cs" />

@@ -30,7 +30,7 @@ namespace Skunked.Test.State
                     },
                 LastUpdated = DateTimeOffset.Now,
                 OpeningRound =
-                    new OpeningRoundState
+                    new OpeningRound
                     {
                         Complete = true,
                         CutCards =

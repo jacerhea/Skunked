@@ -6,7 +6,7 @@ using Skunked.PlayingCards;
 namespace Skunked.State
 {
     [DebuggerDisplay("Complete = {Complete}")]
-    public class OpeningRoundState
+    public class OpeningRound
     {
         public List<Card> Deck { get; set; }
         public List<PlayerIdCard> CutCards { get; set; }

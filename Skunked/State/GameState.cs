@@ -12,7 +12,7 @@ namespace Skunked.State
         public List<TeamScore> TeamScores { get; set; }
         public GameRules GameRules { get; set; }
 
-        public OpeningRoundState OpeningRound { get; set; }
+        public OpeningRound OpeningRound { get; set; }
         public List<RoundState> Rounds { get; set; }
 
         public DateTimeOffset StartedAt { get; set; }

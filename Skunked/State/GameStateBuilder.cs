@@ -77,7 +77,7 @@ namespace Skunked.State
             gameState.GameRules = startedEvent.Rules;
             gameState.StartedAt = startedEvent.Occurred;
             gameState.LastUpdated = startedEvent.Occurred;
-            gameState.OpeningRound = new OpeningRoundState
+            gameState.OpeningRound = new OpeningRound
             {
                 Deck = deck,
                 Complete = false,

@@ -25,7 +25,7 @@ namespace Skunked.Test.System
                 gameState.TeamScores
                 .All(ts =>
                 {
-                    var showScore = gameState.Rounds.Sum(r => r.ShowScores.Where(ss => ts.Players.Contains(ss.Player)).Sum(pss => pss.ShowScore + pss.CribScore ?? 0));
+                    var showScore = gameState.Rounds.Sum(r => r.ShowScores.Where(ss => ts.Players.Contains(ss.Player)).Sum(pss => pss.ShowScore + (pss.CribScore ?? 0)));
                     var playScores = gameState.Rounds.Sum(r => r.ThePlay.SelectMany(ppi => ppi).Where(ppi => ts.Players.Contains(ppi.Player)).Sum(ppi => ppi.Score));
                     return ts.Score == showScore + playScores;
                 }));
