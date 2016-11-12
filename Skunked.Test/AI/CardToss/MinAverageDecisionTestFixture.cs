@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
 using Skunked.AI.CardToss;
 using Skunked.PlayingCards;
 using Skunked.Score;
+using Xunit;
 
 namespace Skunked.Test.AI.CardToss
 {
-    [TestClass]
     public class MinAverageDecisionTestFixture
     {
-        [TestMethod]
-        public void MinAverageDecisionTest_Six_Cards()
+        [Fact]
+        public void MinAverageDecision_Throws_Two_Most_Useful_Cards()
         {
             var hand = new List<Card>
                            {
@@ -27,13 +27,14 @@ namespace Skunked.Test.AI.CardToss
 
             var cardsToThrow = decisionStrategy.DetermineCardsToThrow(hand).ToList();
 
-            Assert.AreEqual(2, cardsToThrow.Count);
-            Assert.IsTrue(cardsToThrow.Contains(new Card(Rank.Jack, Suit.Clubs)));
-            Assert.IsTrue(cardsToThrow.Contains(new Card(Rank.Five, Suit.Clubs)));
+            //assertions
+            cardsToThrow.Should().HaveCount(2);
+            cardsToThrow.Should().Contain(new Card(Rank.Jack, Suit.Clubs));
+            cardsToThrow.Should().Contain(new Card(Rank.Five, Suit.Clubs));
         }
 
-        [TestMethod]
-        public void MinAverageDecisionTest_FiveCards()
+        [Fact]
+        public void MinAverageDecision_Throws_Most_Valuable_Card()
         {
             var hand = new List<Card>
                            {
@@ -48,8 +49,8 @@ namespace Skunked.Test.AI.CardToss
 
             var cardsToThrow = decisionStrategy.DetermineCardsToThrow(hand).ToList();
 
-            Assert.AreEqual(1, cardsToThrow.Count());
-            Assert.IsTrue(cardsToThrow.Contains(new Card(Rank.Five, Suit.Clubs)));
+            cardsToThrow.Should().HaveCount(1);
+            cardsToThrow.Should().Contain(new Card(Rank.Five, Suit.Clubs));
         }
     }
 }

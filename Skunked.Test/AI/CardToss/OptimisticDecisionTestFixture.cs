@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
 using Skunked.AI.CardToss;
 using Skunked.PlayingCards;
+using Xunit;
 
 namespace Skunked.Test.AI.CardToss
 {
-    [TestClass]
     public class AITest
     {
-        [TestMethod]
+        [Fact]
         public void OptimisticDecisionTest()
         {
             var hand = new List<Card>
@@ -25,12 +25,12 @@ namespace Skunked.Test.AI.CardToss
 
             var cardsToThrow = decisionStrategy.DetermineCardsToThrow(hand).ToList();
 
-            Assert.AreEqual(2, cardsToThrow.Count());
-            Assert.IsTrue(cardsToThrow.Contains(new Card(Rank.Two, Suit.Spades)));
-            Assert.IsTrue(cardsToThrow.Contains(new Card(Rank.Nine, Suit.Hearts)));
+            cardsToThrow.Count.Should().Be(2);
+            cardsToThrow.Should().Contain(new Card(Rank.Two, Suit.Spades))
+                .And.Contain(new Card(Rank.Nine, Suit.Hearts));
         }
 
-        [TestMethod]
+        [Fact]
         public void OptimisticDecisionTest_FiveCards()
         {
             var hand = new List<Card>
@@ -45,8 +45,8 @@ namespace Skunked.Test.AI.CardToss
 
             var cardsToThrow = decisionStrategy.DetermineCardsToThrow(hand).ToList();
 
-            Assert.AreEqual(1, cardsToThrow.Count());
-            Assert.IsTrue(cardsToThrow.Contains(new Card(Rank.Nine, Suit.Hearts)));
+            cardsToThrow.Count.Should().Be(2);
+            cardsToThrow.Should().Contain(new Card(Rank.Nine, Suit.Hearts));
         }
     }
 }

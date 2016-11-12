@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
 using Skunked.AI.Play;
 using Skunked.PlayingCards;
 using Skunked.Rules;
+using Xunit;
 
 namespace Skunked.Test.AI.Play
 {
-    [TestClass]
     public class LowestCardPlayStrategyTestFixture
     {
         private readonly LowestCardPlayStrategy _lowestCardPlayStrategy = new LowestCardPlayStrategy();
 
-        [TestMethod]
+        [Fact]
         public void Test_LowerCardIsPlayed()
         {
             var gameRules = new GameRules();
@@ -25,10 +25,10 @@ namespace Skunked.Test.AI.Play
             };
 
             var thrown = _lowestCardPlayStrategy.DetermineCardToThrow(gameRules, pile, handLeft);
-            Assert.AreEqual(new Card(Rank.Ace, Suit.Clubs), thrown);
+            thrown.Should().Be(new Card(Rank.Ace, Suit.Clubs));
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_LowerCardIsPlayed_EqualValue()
         {
             var gameRules = new GameRules();
@@ -42,7 +42,7 @@ namespace Skunked.Test.AI.Play
             };
 
             var thrown = _lowestCardPlayStrategy.DetermineCardToThrow(gameRules, pile, handLeft);
-            Assert.AreEqual(new Card(Rank.Two, Suit.Clubs), thrown);
+            thrown.Should().Be(new Card(Rank.Two, Suit.Clubs));
         }
     }
 }

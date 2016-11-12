@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using Skunked.AI.CardToss;
 using Skunked.AI.Play;
 using Skunked.AI.Show;
@@ -23,7 +24,7 @@ namespace Skunked.Test.System
         public void SmokeTest()
         {
             var results = new ConcurrentBag<Cribbage>();
-            Task.WaitAll(Enumerable.Range(0, 1).Select(it =>
+            Task.WaitAll(Enumerable.Range(0, 10).Select(it =>
             {
                 return Task.Run(() =>
                 {
@@ -41,9 +42,11 @@ namespace Skunked.Test.System
                 var gameState = gameStateBuilder.Build(game.Stream);
 
                 XmlSerializer ser = new XmlSerializer(typeof(GameState));
+                XmlSerializer eventStreamSerializer = new XmlSerializer(typeof(EventStream));
+                var serializedGame = JsonConvert.SerializeObject(game.Stream.ToList());
 
                 MemoryStream ms = new MemoryStream();
-                ser.Serialize(ms, gameState);
+                eventStreamSerializer.Serialize(ms, game.Stream);
                 ms.Position = 0;
 
                 StreamReader r = new StreamReader(ms);
@@ -60,7 +63,7 @@ namespace Skunked.Test.System
 
         private GameRules CreateRandomizedGameRules(int players)
         {
-            return new GameRules(_random.Next() % 2 == 0 ? GameScoreType.Short61 : GameScoreType.Standard121, players);
+            return new GameRules( GameScoreType.Short61, players);
         }
 
 

@@ -142,7 +142,6 @@ namespace Skunked.State
                 cribPlayerId = gameState.OpeningRound.WinningPlayerCut.Value;
             }
 
-
             var roundState = new RoundState
             {
                 Crib = new List<Card>(),

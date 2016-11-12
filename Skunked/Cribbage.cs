@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Skunked.Dealer;
-using Skunked.Exceptions;
 using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.State;
@@ -12,6 +11,9 @@ using Skunked.Utility;
 
 namespace Skunked
 {
+    /// <summary>
+    /// The class for creating and modeling a game of Cribbage. "Plays" are validated and stored as a stream of events. Event listeners allow denormalized state to be created from the stream.
+    /// </summary>
     public class Cribbage
     {
         private readonly IPlayerHandFactory _dealer = new StandardHandDealer();
@@ -34,37 +36,13 @@ namespace Skunked
             };
         }
 
-        public Cribbage(EventStream eventStream, List<IEventListener> eventListeners = null)
-        {
-            var builder = new GameStateBuilder();
-            var state = builder.Build(eventStream);
-            var gameStateEventListener = new GameStateEventListener(state, builder);
-            Stream = new EventStream(new List<IEventListener>(eventListeners ?? new List<IEventListener>()) { gameStateEventListener });
-            State = state;
-        }
-
         public GameState State { get; }
         public EventStream Stream { get; }
-
-        private void AddToStream(StreamEvent @event)
-        {
-            try
-            {
-                Stream.Add(@event);
-            }
-            catch (InvalidCribbageOperationException e)
-            {
-                if (e.Operation == InvalidCribbageOperations.GameFinished)
-                {
-                    
-                }
-            }
-        }
 
         public void CutCard(int playerId, Card card)
         {
             var validation = new CardCutEventValidation();
-            var cardCutEvent = new CardCutEvent { CutCard = card, PlayerId = playerId };
+            var cardCutEvent = new CardCutEvent { GameId = State.Id, CutCard = card, PlayerId = playerId };
             validation.Validate(State, cardCutEvent);
 
             Stream.Add(cardCutEvent);

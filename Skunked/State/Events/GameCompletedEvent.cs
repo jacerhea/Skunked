@@ -1,6 +1,6 @@
 ﻿namespace Skunked.State.Events
 {
-    public class GameCompletedEvent
+    public class GameCompletedEvent : StreamEvent
     {
     }
 }

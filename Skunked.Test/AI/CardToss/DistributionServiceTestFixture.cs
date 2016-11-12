@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
 using Skunked.AI.CardToss;
 using Skunked.PlayingCards;
+using Xunit;
 
 namespace Skunked.Test.AI.CardToss
 {
-    [TestClass]
     public class DistributionServiceTestFixture
     {
-        [TestMethod]
+        [Fact]
         public void CalculateDistribution()
         {
             var hand = new List<Card>
@@ -23,10 +23,10 @@ namespace Skunked.Test.AI.CardToss
 
             var distributionService = new DistributionService();
             var distribution = distributionService.CalculateDistribution(hand);
-            Assert.AreEqual(15, distribution.Sets.Count);
+            distribution.Sets.Count.Should().Be(15);
         }
 
-        [TestMethod]
+        [Fact]
         public void CalculateDistribution_4Cards()
         {
             var hand = new List<Card>
@@ -39,7 +39,7 @@ namespace Skunked.Test.AI.CardToss
 
             var distributionService = new DistributionService();
             var distribution = distributionService.CalculateDistribution(hand);
-            Assert.AreEqual(6, distribution.Sets.Count);
+            distribution.Sets.Count.Should().Be(6);
         }
     }
 }

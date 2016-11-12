@@ -8,7 +8,7 @@ namespace Skunked.Test.Analytics
 {
     public class CombinationsPerformanceTest
     {
-        private List<Card> _hand;
+        private readonly List<Card> _hand;
 
         public CombinationsPerformanceTest()
         {

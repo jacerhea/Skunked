@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Skunked.Utility
 {
-    public class EnumHelper
+    public static class EnumHelper
     {
         public static List<T> GetValues<T>() where T : struct
         {
