@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked", "Skunked\Skunked.csproj", "{456DF28E-8EA0-413D-982F-F67A6EB43FDF}"
 EndProject
@@ -35,6 +35,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{8F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked.Test.Analytics", "Skunked.Test.Analytics\Skunked.Test.Analytics.csproj", "{0F182C6C-2769-4491-AA63-5FDC4C15B64B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked.Standard", "src\Skunked.Standard\Skunked.Standard.csproj", "{86109756-49ED-4635-BCAA-BA5CF9CBEB8B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,11 +59,18 @@ Global
 		{0F182C6C-2769-4491-AA63-5FDC4C15B64B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F182C6C-2769-4491-AA63-5FDC4C15B64B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F182C6C-2769-4491-AA63-5FDC4C15B64B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86109756-49ED-4635-BCAA-BA5CF9CBEB8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86109756-49ED-4635-BCAA-BA5CF9CBEB8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86109756-49ED-4635-BCAA-BA5CF9CBEB8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86109756-49ED-4635-BCAA-BA5CF9CBEB8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0CA42EF2-F639-4987-9DDF-106A71FA6E48} = {446CA3CE-C95D-43A0-A22A-8F73A6AA2EBD}
+	EndGlobalSection
+	GlobalSection(CodealikeProperties) = postSolution
+		SolutionGuid = 561fe1f7-ece5-4e11-821f-0a2943c8cb01
 	EndGlobalSection
 EndGlobal

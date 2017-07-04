@@ -16,7 +16,7 @@ namespace Skunked.Test.State
     {
 
         [Fact]
-        public void GameStateIsSerializable()
+        public void GameState_Can_Be_Xml_Serialized()
         {
             var gameState = new GameState
             {

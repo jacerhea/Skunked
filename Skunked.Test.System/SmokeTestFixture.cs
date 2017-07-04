@@ -10,10 +10,10 @@ using Xunit;
 
 namespace Skunked.Test.System
 {
-    public class FullGameTestFixture : IDisposable
+    public class SmokeTestFixture : IDisposable
     {
 
-        public FullGameTestFixture()
+        public SmokeTestFixture()
         {
             RandomProvider.RandomInstance = new ThreadLocal<Random>(() => new IncrementalRandom());
         }

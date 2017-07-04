@@ -20,9 +20,8 @@ namespace Skunked.Players
 
         public PlayerIdHand(int id, List<Card> hand)
         {
-            if (hand == null) throw new ArgumentNullException(nameof(hand));
             Id = id;
-            Hand = hand;
+            Hand = hand ?? throw new ArgumentNullException(nameof(hand));
         }
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
