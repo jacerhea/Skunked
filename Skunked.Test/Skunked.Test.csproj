@@ -52,10 +52,6 @@
     <Reference Include="FluentAssertions.Core, Version=4.18.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentAssertions.4.18.0\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.VisualStudio.QualityTools.UnitTestFramework.11.0.50727.1\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
-    </Reference>
     <Reference Include="Moq, Version=4.5.30.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.5.30\lib\net45\Moq.dll</HintPath>
     </Reference>
@@ -113,10 +109,6 @@
     <Folder Include="Utility\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Skunked\Skunked.csproj">
-      <Project>{456df28e-8ea0-413d-982f-f67a6eb43fdf}</Project>
-      <Name>Skunked</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Skunked.Test.Analytics\Skunked.Test.Analytics.csproj">
       <Project>{0f182c6c-2769-4491-aa63-5fdc4c15b64b}</Project>
       <Name>Skunked.Test.Analytics</Name>
@@ -124,6 +116,10 @@
     <ProjectReference Include="..\Skunked.Test.System\Skunked.Test.System.csproj">
       <Project>{d4f47431-7874-4a77-9963-588da2a31d0a}</Project>
       <Name>Skunked.Test.System</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\Skunked.Standard\Skunked.Standard.csproj">
+      <Project>{86109756-49ed-4635-bcaa-ba5cf9cbeb8b}</Project>
+      <Name>Skunked.Standard</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

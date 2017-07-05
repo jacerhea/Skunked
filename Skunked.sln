@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked", "Skunked\Skunked.csproj", "{456DF28E-8EA0-413D-982F-F67A6EB43FDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked.Test", "Skunked.Test\Skunked.Test.csproj", "{C64EBFFC-53F9-422F-881A-987033025912}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{446CA3CE-C95D-43A0-A22A-8F73A6AA2EBD}"
 	ProjectSection(SolutionItems) = preProject
 		Performance1.psess = Performance1.psess
@@ -26,16 +24,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build Packages", "Build Pac
 		Skunked Packages\Skunked.0.6.0.nupkg = Skunked Packages\Skunked.0.6.0.nupkg
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked.Test.System", "Skunked.Test.System\Skunked.Test.System.csproj", "{D4F47431-7874-4A77-9963-588DA2A31D0A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{8FE34C12-58B9-4E0A-8D50-9CDE0FA1ACD8}"
 	ProjectSection(SolutionItems) = preProject
 		Release Packages\Skunked.nuspec = Release Packages\Skunked.nuspec
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked.Test.Analytics", "Skunked.Test.Analytics\Skunked.Test.Analytics.csproj", "{0F182C6C-2769-4491-AA63-5FDC4C15B64B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skunked.Standard", "src\Skunked.Standard\Skunked.Standard.csproj", "{86109756-49ED-4635-BCAA-BA5CF9CBEB8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked.Standard", "src\Skunked.Standard\Skunked.Standard.csproj", "{86109756-49ED-4635-BCAA-BA5CF9CBEB8B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked.Standard.UnitTest", "test\Skunked.Standard.UnitTest\Skunked.Standard.UnitTest.csproj", "{369B0355-CECC-46FD-85E7-E9C000CF5020}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked.Standard.Analytics", "test\Skunked.Standard.Analytics\Skunked.Standard.Analytics.csproj", "{49065AE8-5ABC-4D54-80AC-8D80F7EFE88D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked.Standard.Test.System", "test\Skunked.Standard.Test.System\Skunked.Standard.Test.System.csproj", "{9F2641CE-D020-4CFE-9E82-BE4C27504804}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,22 +47,22 @@ Global
 		{456DF28E-8EA0-413D-982F-F67A6EB43FDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{456DF28E-8EA0-413D-982F-F67A6EB43FDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{456DF28E-8EA0-413D-982F-F67A6EB43FDF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C64EBFFC-53F9-422F-881A-987033025912}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C64EBFFC-53F9-422F-881A-987033025912}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C64EBFFC-53F9-422F-881A-987033025912}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C64EBFFC-53F9-422F-881A-987033025912}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D4F47431-7874-4A77-9963-588DA2A31D0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D4F47431-7874-4A77-9963-588DA2A31D0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D4F47431-7874-4A77-9963-588DA2A31D0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D4F47431-7874-4A77-9963-588DA2A31D0A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0F182C6C-2769-4491-AA63-5FDC4C15B64B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F182C6C-2769-4491-AA63-5FDC4C15B64B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0F182C6C-2769-4491-AA63-5FDC4C15B64B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0F182C6C-2769-4491-AA63-5FDC4C15B64B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{86109756-49ED-4635-BCAA-BA5CF9CBEB8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{86109756-49ED-4635-BCAA-BA5CF9CBEB8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86109756-49ED-4635-BCAA-BA5CF9CBEB8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86109756-49ED-4635-BCAA-BA5CF9CBEB8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{369B0355-CECC-46FD-85E7-E9C000CF5020}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{369B0355-CECC-46FD-85E7-E9C000CF5020}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{369B0355-CECC-46FD-85E7-E9C000CF5020}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{369B0355-CECC-46FD-85E7-E9C000CF5020}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49065AE8-5ABC-4D54-80AC-8D80F7EFE88D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49065AE8-5ABC-4D54-80AC-8D80F7EFE88D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49065AE8-5ABC-4D54-80AC-8D80F7EFE88D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49065AE8-5ABC-4D54-80AC-8D80F7EFE88D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F2641CE-D020-4CFE-9E82-BE4C27504804}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F2641CE-D020-4CFE-9E82-BE4C27504804}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F2641CE-D020-4CFE-9E82-BE4C27504804}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F2641CE-D020-4CFE-9E82-BE4C27504804}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

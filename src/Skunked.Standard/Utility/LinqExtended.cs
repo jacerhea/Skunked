@@ -122,15 +122,6 @@ namespace Skunked.Utility
             return enumerable.Reverse().Take(count);
         }
 
-        public static IEnumerable<T> Append<T>(this IEnumerable<T> enumerable, T item)
-        {
-            foreach (var item2 in enumerable)
-            {
-                yield return item2;
-            }
-            yield return item;
-        }
-
         public static IEnumerable<TSource> Infinite<TSource>(this IEnumerable<TSource> source)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
