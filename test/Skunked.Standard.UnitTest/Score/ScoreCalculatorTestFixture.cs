@@ -214,12 +214,11 @@ namespace Skunked.Test.Score
                            };
 
             var score = _scoreCalculator.CountShowScore(new Card(Rank.Five, Suit.Spades), hand);
-            Assert.Equal(29, score.Score);
-            Assert.Equal(12, score.PairScore);
-            Assert.Equal(1, score.NobScore);
-            Assert.Equal(16, score.FifteenScore);
-            Assert.Equal(0, score.FlushScore);
-            Assert.Equal(0, score.RunScore);
+            score.Score.Should().Be(29);
+            score.PairScore.Should().Be(12);
+            score.NobScore.Should().Be(1);
+            score.FifteenScore.Should().Be(16);
+            score.FlushScore.Should().Be(0);
         }
 
 
@@ -242,12 +241,12 @@ namespace Skunked.Test.Score
                            };
 
             var scoreResult = _scoreCalculator.CountShowScore(new Card(Rank.Seven, Suit.Diamonds), hand);
-            Assert.Equal(24, scoreResult.Score);
-            Assert.Equal(4, scoreResult.PairScore);
-            Assert.Equal(0, scoreResult.NobScore);
-            Assert.Equal(8, scoreResult.FifteenScore);
-            Assert.Equal(0, scoreResult.FlushScore);
-            Assert.Equal(12, scoreResult.RunScore);
+            scoreResult.Score.Should().Be(24);
+            scoreResult.PairScore.Should().Be(4);
+            scoreResult.NobScore.Should().Be(0);
+            scoreResult.FifteenScore.Should().Be(8);
+            scoreResult.FlushScore.Should().Be(0);
+            scoreResult.RunScore.Should().Be(12);
         }
 
         [Fact]
@@ -265,7 +264,7 @@ namespace Skunked.Test.Score
                            };
 
             var totalScore = _scoreCalculator.CountThePlay(play);
-            Assert.Equal(14, totalScore);
+            totalScore.Should().Be(14);
         }
 
         [Fact]
@@ -280,7 +279,7 @@ namespace Skunked.Test.Score
                            };
 
             var isFifteen = _scoreCalculator.IsFifteen(play);
-            Assert.False(isFifteen);
+            isFifteen.Should().BeFalse();
         }
 
         [Fact]
@@ -296,7 +295,7 @@ namespace Skunked.Test.Score
                            };
 
             var isFifteen = _scoreCalculator.IsFifteen(play);
-            Assert.True(isFifteen);
+            isFifteen.Should().BeTrue();
         }
 
         [Fact]
@@ -311,7 +310,7 @@ namespace Skunked.Test.Score
                            };
 
             var nobs = _scoreCalculator.Nobs(play, new Card(Rank.Three, Suit.Clubs));
-            Assert.True(nobs.Count == 1);
+            nobs.Count.Should().Be(1);
         }
 
         [Fact]
@@ -326,7 +325,7 @@ namespace Skunked.Test.Score
                            };
 
             var hasNobs = _scoreCalculator.Nobs(play, new Card(Rank.Three, Suit.Diamonds));
-            Assert.True(hasNobs.Count == 0);
+            hasNobs.Count.Should().Be(0);
         }
 
         [Fact]
@@ -335,7 +334,7 @@ namespace Skunked.Test.Score
             var play = new List<int> { 109 };
 
             bool areContinuous = _scoreCalculator.AreContinuous(play);
-            Assert.True(areContinuous);
+            areContinuous.Should().BeTrue();
         }
 
         [Fact]
@@ -344,7 +343,7 @@ namespace Skunked.Test.Score
             var play = new List<int> { 109, 110 };
 
             bool areContinuous = _scoreCalculator.AreContinuous(play);
-            Assert.True(areContinuous);
+            areContinuous.Should().BeTrue();
         }
 
         [Fact]
@@ -353,7 +352,7 @@ namespace Skunked.Test.Score
             var play = new List<int> { 110, 111, 109 };
 
             bool areContinuous = _scoreCalculator.AreContinuous(play);
-            Assert.True(areContinuous);
+            areContinuous.Should().BeTrue();
         }
 
         [Fact]
@@ -362,7 +361,7 @@ namespace Skunked.Test.Score
             var play = new List<int> { 0, -1 };
 
             bool areContinuous = _scoreCalculator.AreContinuous(play);
-            Assert.True(areContinuous);
+            areContinuous.Should().BeTrue();
         }
 
         [Fact]
@@ -371,7 +370,7 @@ namespace Skunked.Test.Score
             var play = new List<int> { 108, 110 };
 
             bool areContinuous = _scoreCalculator.AreContinuous(play);
-            Assert.False(areContinuous);
+            areContinuous.Should().BeFalse();
         }
 
         [Fact]
@@ -380,20 +379,19 @@ namespace Skunked.Test.Score
             var play = new List<int> { 110, 107, 108 };
 
             bool areContinuous = _scoreCalculator.AreContinuous(play);
-            Assert.False(areContinuous);
+            areContinuous.Should().BeFalse();
         }
 
         [Fact]
-        public void ScoreCalculatoAreNotContinousTest()
+        public void Zero_NegativeTwo_Are_Not_Continous()
         {
             var play = new List<int> { 0, -2 };
-
-            bool areContinuous = _scoreCalculator.AreContinuous(play);
-            Assert.False(areContinuous);
+            var areContinuous = _scoreCalculator.AreContinuous(play);
+            areContinuous.Should().BeFalse();
         }
 
         [Fact]
-        public void ScoreCalculatorIsRun()
+        public void FiveSixSeven_Is_A_Run()
         {
             var hand = new List<Card>
                            {
@@ -403,11 +401,11 @@ namespace Skunked.Test.Score
                            };
 
             var isRun = _scoreCalculator.IsRun(hand);
-            Assert.True(isRun);
+            isRun.Should().BeTrue();
         }
 
         [Fact]
-        public void ScoreCalculatorIsRunAll()
+        public void AceThroughKing_Is_A_Run()
         {
             var hand = new List<Card>
                            {
@@ -427,11 +425,11 @@ namespace Skunked.Test.Score
                            };
 
             var isRun = _scoreCalculator.IsRun(hand);
-            Assert.True(isRun);
+            isRun.Should().BeTrue();
         }
 
         [Fact]
-        public void ScoreCalculatorIsNotRunMissingSix()
+        public void AceThroughKing_Except_Six_Is_Not_A_Run()
         {
             var hand = new List<Card>
                            {
@@ -450,11 +448,11 @@ namespace Skunked.Test.Score
                            };
 
             var isRun = _scoreCalculator.IsRun(hand);
-            Assert.False(isRun);
+            isRun.Should().BeFalse();
         }
 
         [Fact]
-        public void ScoreCalculatorIsRunFaceCards()
+        public void JackQueenKing_Is_A_Run()
         {
             var hand = new List<Card>
                            {
@@ -464,11 +462,11 @@ namespace Skunked.Test.Score
                            };
 
             var isRun = _scoreCalculator.IsRun(hand);
-            Assert.True(isRun);
+            isRun.Should().BeTrue();
         }
 
         [Fact]
-        public void ScoreCalculatorIsNotRun()
+        public void ThreeFiveSixSeven_Is_Not_A_Run()
         {
             var hand = new List<Card>
                            {
@@ -479,7 +477,7 @@ namespace Skunked.Test.Score
                            };
 
             var isRun = _scoreCalculator.IsRun(hand);
-            Assert.False(isRun);
+            isRun.Should().BeFalse();
         }
     }
 }
