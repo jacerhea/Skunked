@@ -149,7 +149,7 @@ namespace Skunked.State
                 Complete = false,
                 PlayerCrib = cribPlayerId,
                 Hands = new List<PlayerIdHand>(),
-                ThePlay = new List<List<PlayerPlayItem>> { new List<PlayerPlayItem>() },
+                ThePlay = new List<List<PlayItem>> { new List<PlayItem>() },
                 Round = currentRound + 1,
                 ShowScores = playerShowScores
             };
@@ -207,7 +207,7 @@ namespace Skunked.State
             //}
 
             //4.  Card is played
-            var playerCardPlayedScore = new PlayerPlayItem
+            var playerCardPlayedScore = new PlayItem
             {
                 Card = new Card(cardPlayedEvent.Played),
                 Player = cardPlayedEvent.PlayerId
@@ -223,6 +223,7 @@ namespace Skunked.State
             {
                 //add Go Value.  not counted if 31 as was included with ScoreCalculation.CountThePlay
                 int playCountNew = _scoreCalculator.SumValues(currentPlayRound.Select(ppi => ppi.Card));
+                playerCardPlayedScore.NewCount = playCountNew;
                 if (playCountNew != GameRules.PlayMaxScore)
                 {
                     var goValue = _scoreCalculator.GoValue;
@@ -231,7 +232,7 @@ namespace Skunked.State
 
 
                 //not done playing, so add new play round
-                setOfPlays.Add(new List<PlayerPlayItem>());
+                setOfPlays.Add(new List<PlayItem>());
             }
 
             var currentPlayerScore = gameState.IndividualScores.Single(ps => ps.Player == cardPlayedEvent.PlayerId);

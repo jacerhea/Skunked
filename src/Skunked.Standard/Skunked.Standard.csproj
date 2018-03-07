@@ -1,8 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFramework>netstandard1.3</TargetFramework>
     <RootNamespace>Skunked</RootNamespace>
+    <Authors>Jace Rhea</Authors>
+    <PackageId>Skunked</PackageId>
+    <Company />
+    <Product>Skunked</Product>
+    <Copyright>2017</Copyright>
+    <PackageProjectUrl>https://github.com/jacerhea/Skunked</PackageProjectUrl>
+    <PackageTags>cribbage ai a.i. game games card</PackageTags>
+    <Description>A library of classes to model the game of Cribbage.</Description>
   </PropertyGroup>
 
   <ItemGroup>

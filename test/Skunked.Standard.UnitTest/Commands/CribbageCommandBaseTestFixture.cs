@@ -50,9 +50,9 @@ namespace Skunked.Test.Commands
                                     }
                                     )
                             },
-                        ThePlay = new List<List<PlayerPlayItem>>
+                        ThePlay = new List<List<PlayItem>>
                         {
-                            new List<PlayerPlayItem>()
+                            new List<PlayItem>()
                         },
                         ThrowCardsComplete = true,
                         PlayedCardsComplete = true,

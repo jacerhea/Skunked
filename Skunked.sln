@@ -1,10 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked", "Skunked\Skunked.csproj", "{456DF28E-8EA0-413D-982F-F67A6EB43FDF}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{446CA3CE-C95D-43A0-A22A-8F73A6AA2EBD}"
 	ProjectSection(SolutionItems) = preProject
 		Performance1.psess = Performance1.psess
@@ -31,11 +29,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{8F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skunked.Standard", "src\Skunked.Standard\Skunked.Standard.csproj", "{86109756-49ED-4635-BCAA-BA5CF9CBEB8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked.Standard.UnitTest", "test\Skunked.Standard.UnitTest\Skunked.Standard.UnitTest.csproj", "{369B0355-CECC-46FD-85E7-E9C000CF5020}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skunked.Standard.UnitTest", "test\Skunked.Standard.UnitTest\Skunked.Standard.UnitTest.csproj", "{369B0355-CECC-46FD-85E7-E9C000CF5020}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked.Standard.Analytics", "test\Skunked.Standard.Analytics\Skunked.Standard.Analytics.csproj", "{49065AE8-5ABC-4D54-80AC-8D80F7EFE88D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skunked.Standard.Analytics", "test\Skunked.Standard.Analytics\Skunked.Standard.Analytics.csproj", "{49065AE8-5ABC-4D54-80AC-8D80F7EFE88D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked.Standard.Test.System", "test\Skunked.Standard.Test.System\Skunked.Standard.Test.System.csproj", "{9F2641CE-D020-4CFE-9E82-BE4C27504804}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skunked.Standard.Test.System", "test\Skunked.Standard.Test.System\Skunked.Standard.Test.System.csproj", "{9F2641CE-D020-4CFE-9E82-BE4C27504804}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Skunked.MachineLearning", "Skunked.MachineLearning\Skunked.MachineLearning.fsproj", "{745E8134-EDDC-42BA-9744-C03B98BF243A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +43,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{456DF28E-8EA0-413D-982F-F67A6EB43FDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{456DF28E-8EA0-413D-982F-F67A6EB43FDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{456DF28E-8EA0-413D-982F-F67A6EB43FDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{456DF28E-8EA0-413D-982F-F67A6EB43FDF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{86109756-49ED-4635-BCAA-BA5CF9CBEB8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{86109756-49ED-4635-BCAA-BA5CF9CBEB8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86109756-49ED-4635-BCAA-BA5CF9CBEB8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,12 +59,19 @@ Global
 		{9F2641CE-D020-4CFE-9E82-BE4C27504804}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F2641CE-D020-4CFE-9E82-BE4C27504804}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F2641CE-D020-4CFE-9E82-BE4C27504804}.Release|Any CPU.Build.0 = Release|Any CPU
+		{745E8134-EDDC-42BA-9744-C03B98BF243A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{745E8134-EDDC-42BA-9744-C03B98BF243A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{745E8134-EDDC-42BA-9744-C03B98BF243A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{745E8134-EDDC-42BA-9744-C03B98BF243A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0CA42EF2-F639-4987-9DDF-106A71FA6E48} = {446CA3CE-C95D-43A0-A22A-8F73A6AA2EBD}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C403DEB5-D801-4CC6-853A-DE84AC86532E}
 	EndGlobalSection
 	GlobalSection(CodealikeProperties) = postSolution
 		SolutionGuid = 561fe1f7-ece5-4e11-821f-0a2943c8cb01

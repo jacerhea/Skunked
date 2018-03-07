@@ -46,7 +46,7 @@ namespace Skunked.Test.System
             game.PlayCard(4, new Card(Rank.Nine, Suit.Clubs));
             game.PlayCard(1, new Card(Rank.King, Suit.Spades));
             game.PlayCard(2, new Card(Rank.Eight, Suit.Spades));
-            game.PlayCard(3, new Card(Rank.Nine, Suit.Diamonds));
+            game.PlayCard(3, new Card(Rank.Nine, Suit.Hearts));
             game.PlayCard(4, new Card(Rank.Nine, Suit.Diamonds));
             game.PlayCard(1, new Card(Rank.Nine, Suit.Diamonds));
             game.PlayCard(2, new Card(Rank.Nine, Suit.Diamonds));

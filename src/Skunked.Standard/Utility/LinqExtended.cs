@@ -6,6 +6,15 @@ namespace Skunked.Utility
 {
     public static class LinqExtended
     {
+        public static IEnumerable<T> Append<T>(this IEnumerable<T> list, T item)
+        {
+            foreach (var selectListItem in list)
+            {
+                yield return selectListItem;
+            }
+            yield return item;
+        }
+
         public static IEnumerable<TResult> Cartesian<TFirst, TSecond, TResult>(this IEnumerable<TFirst> first,
             IEnumerable<TSecond> second, Func<TFirst, TSecond, TResult> resultSelector)
         {

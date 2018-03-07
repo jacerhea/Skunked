@@ -17,11 +17,11 @@ namespace Skunked.Test.Commands
                 {
                     new RoundState
                     {
-                        ThePlay = new List<List<PlayerPlayItem>>
+                        ThePlay = new List<List<PlayItem>>
                         {
-                            new List<PlayerPlayItem>{new PlayerPlayItem{Card = new Card(Rank.Jack, Suit.Diamonds), Player = 1, NextPlayer = 2, Score = 0},
-                                new PlayerPlayItem{Card = new Card(Rank.Queen, Suit.Clubs), Player = 2, NextPlayer = 1, Score = 0},
-                                new PlayerPlayItem{Card = new Card(Rank.Nine, Suit.Spades), Player = 1, NextPlayer = 2, Score = 0}}
+                            new List<PlayItem>{new PlayItem{Card = new Card(Rank.Jack, Suit.Diamonds), Player = 1, NextPlayer = 2, Score = 0},
+                                new PlayItem{Card = new Card(Rank.Queen, Suit.Clubs), Player = 2, NextPlayer = 1, Score = 0},
+                                new PlayItem{Card = new Card(Rank.Nine, Suit.Spades), Player = 1, NextPlayer = 2, Score = 0}}
                         },
                         Round = 1,
                         ThrowCardsComplete = true,

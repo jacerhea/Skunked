@@ -45,7 +45,7 @@ namespace Skunked.Test.AI.CardToss
 
             var cardsToThrow = decisionStrategy.DetermineCardsToThrow(hand).ToList();
 
-            cardsToThrow.Count.Should().Be(2);
+            cardsToThrow.Count.Should().Be(1);
             cardsToThrow.Should().Contain(new Card(Rank.Nine, Suit.Hearts));
         }
     }

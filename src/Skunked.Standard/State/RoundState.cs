@@ -10,7 +10,7 @@ namespace Skunked.State
         public int Round { get; set; }
         public List<PlayerIdHand> DealtCards { get; set; }
         public List<PlayerIdHand> Hands { get; set; }
-        public List<List<PlayerPlayItem>> ThePlay { get; set; }
+        public List<List<PlayItem>> ThePlay { get; set; }
         public bool ThrowCardsComplete { get; set; }
         public bool PlayedCardsComplete { get; set; }
         public bool Complete { get; set; }

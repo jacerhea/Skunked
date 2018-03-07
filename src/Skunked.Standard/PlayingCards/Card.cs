@@ -5,8 +5,8 @@ namespace Skunked.PlayingCards
 {
     public class Card : IEquatable<Card>, IEqualityComparer<Card>
     {
-        public Rank Rank { get; set; }
-        public Suit Suit { get; set; }
+        public Rank Rank { get; }
+        public Suit Suit { get; }
 
         public Card(): this(Rank.Ace, Suit.Clubs) { }
 
