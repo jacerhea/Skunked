@@ -10,13 +10,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Skunked.Standard\Skunked.Standard.csproj" />
+    <PackageReference Include="Combinatorics" Version="1.1.0.19" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Skunked.Standard">
-      <HintPath>..\..\Skunked.Console\lib\Skunked.Standard.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\src\Skunked.Standard\Skunked.Standard.csproj" />
   </ItemGroup>
 
 </Project>

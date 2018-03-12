@@ -66,15 +66,7 @@ namespace Skunked.Standard.UnitTest.AI.Play
                 return false;
             }
 
-            foreach (var item1 in source1.Select((item, index) => new { item, index }))
-            {
-                if (!item1.item.Equals(source2[item1.index]))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return source1.Select((item, index) => new {item, index}).All(item1 => item1.item.Equals(source2[item1.index]));
         }
     }
 }
