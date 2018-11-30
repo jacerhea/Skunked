@@ -145,10 +145,10 @@ namespace Skunked.State
             var roundState = new RoundState
             {
                 Crib = new List<Card>(),
-                DealtCards = new List<PlayerIdHand>(),
+                DealtCards = new List<PlayerHand>(),
                 Complete = false,
                 PlayerCrib = cribPlayerId,
-                Hands = new List<PlayerIdHand>(),
+                Hands = new List<PlayerHand>(),
                 ThePlay = new List<List<PlayItem>> { new List<PlayItem>() },
                 Round = currentRound + 1,
                 ShowScores = playerShowScores
@@ -169,8 +169,8 @@ namespace Skunked.State
 
             //remove thrown cards from hand
             var playerId = cardsThrownEvent.PlayerId;
-            var playerHand = currentRound.DealtCards.Single(ph => ph.Id == playerId).Hand.Except(cardsThrownEvent.Thrown, CardValueEquality.Instance);
-            currentRound.Hands.Add(new PlayerIdHand(playerId, playerHand.ToList()));
+            var playerHand = currentRound.DealtCards.Single(ph => ph.PlayerId == playerId).Hand.Except(cardsThrownEvent.Thrown, CardValueEquality.Instance);
+            currentRound.Hands.Add(new PlayerHand(playerId, playerHand.ToList()));
 
             currentRound.Crib.AddRange(cardsThrownEvent.Thrown);
 
@@ -251,7 +251,7 @@ namespace Skunked.State
         {
             var roundState = gameState.GetCurrentRound();
             var cutCard = roundState.Starter;
-            var playerHand = roundState.Hands.First(ph => ph.Id == cardPlayedEvent.PlayerId);
+            var playerHand = roundState.Hands.First(ph => ph.PlayerId == cardPlayedEvent.PlayerId);
 
             var calculatedShowScore = _scoreCalculator.CountShowScore(cutCard, playerHand.Hand);
 
@@ -353,7 +353,7 @@ namespace Skunked.State
             //move to next player with valid move
             while (true)
             {
-                var nextPlayerAvailableCardsToPlay = roundState.Hands.Single(ph => ph.Id == nextPlayer).Hand.Except(playedCards, CardValueEquality.Instance).ToList();
+                var nextPlayerAvailableCardsToPlay = roundState.Hands.Single(ph => ph.PlayerId == nextPlayer).Hand.Except(playedCards, CardValueEquality.Instance).ToList();
                 if (!nextPlayerAvailableCardsToPlay.Any())
                 {
                     nextPlayer = state.PlayerIds.NextOf(nextPlayer);

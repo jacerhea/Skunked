@@ -33,7 +33,7 @@ namespace Skunked.Test.Dealer
             }.GetEnumerator());
             var handFactory = new StandardHandDealer();
             var players = new List<int> {1,2};
-            var hands = handFactory.CreatePlayerHands(deck.Object, players, players[0], 6).ToDictionary(p => p.Id, p => p.Hand);
+            var hands = handFactory.CreatePlayerHands(deck.Object, players, players[0], 6).ToDictionary(p => p.PlayerId, p => p.Hand);
 
             var player1Actual = hands[players[0]];
             Assert.True(new Card(Rank.King, Suit.Clubs).Equals(player1Actual[0]));
@@ -76,7 +76,7 @@ namespace Skunked.Test.Dealer
             }.GetEnumerator());
             var handFactory = new StandardHandDealer();
             var players = new List<int> { 1,2};
-            var hands = handFactory.CreatePlayerHands(deck.Object, players, players[1], 6).ToDictionary(p => p.Id, p => p.Hand);
+            var hands = handFactory.CreatePlayerHands(deck.Object, players, players[1], 6).ToDictionary(p => p.PlayerId, p => p.Hand);
 
             var player2Actual = hands[players[1]];
             Assert.True(new Card(Rank.King, Suit.Clubs).Equals(player2Actual[0]));
@@ -104,7 +104,7 @@ namespace Skunked.Test.Dealer
             deck.Setup(d => d.GetEnumerator()).Returns(() => new List<Card>().GetEnumerator());
             var handFactory = new StandardHandDealer();
             var players = new List<int> { 1,2 };
-            var hands = handFactory.CreatePlayerHands(deck.Object, players, players[0], 0).ToDictionary(p => p.Id, p => p.Hand);
+            var hands = handFactory.CreatePlayerHands(deck.Object, players, players[0], 0).ToDictionary(p => p.PlayerId, p => p.Hand);
             Assert.Equal(0, hands[players[0]].Count);
             Assert.Equal(0, hands[players[1]].Count);
         }
@@ -139,7 +139,7 @@ namespace Skunked.Test.Dealer
             var handFactory = new StandardHandDealer();
             var players = new List<int> { 1,2,3,4};
             const int handSize = 5;
-            var hands = handFactory.CreatePlayerHands(deck.Object, players, players[2], handSize).ToDictionary(p => p.Id, p => p.Hand);
+            var hands = handFactory.CreatePlayerHands(deck.Object, players, players[2], handSize).ToDictionary(p => p.PlayerId, p => p.Hand);
 
             var player1Actual = hands[players[0]].ToList();
             Assert.True(new Card(Rank.Eight, Suit.Hearts).Equals(player1Actual[0]));

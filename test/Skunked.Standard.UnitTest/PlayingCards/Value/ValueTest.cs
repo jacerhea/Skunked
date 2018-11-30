@@ -42,7 +42,7 @@ namespace Skunked.Test.PlayingCards.Value
         {
             var strategy = new AceLowFaceTenCardValueStrategy();
             Action valueOf = () => strategy.ValueOf(null);
-            valueOf.ShouldThrow<ArgumentNullException>();
+            valueOf.Should().Throw<ArgumentNullException>();
         }
     }
 }

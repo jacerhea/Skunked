@@ -226,7 +226,7 @@ namespace Skunked.Test.Score
         public void ExceptionsForRunTest()
         {
             Action countRuns = () => _scoreCalculator.CountRuns(null);
-            countRuns.ShouldThrow<ArgumentNullException>();
+            countRuns.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]

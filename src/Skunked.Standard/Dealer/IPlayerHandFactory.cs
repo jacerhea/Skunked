@@ -6,6 +6,6 @@ namespace Skunked.Dealer
 {
     public interface IPlayerHandFactory
     {
-        List<PlayerIdHand> CreatePlayerHands(Deck deck, IList<int> players, int startingWith, int handSize);
+        List<PlayerHand> CreatePlayerHands(Deck deck, IList<int> players, int startingWith, int handSize);
     }
 }

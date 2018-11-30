@@ -8,8 +8,8 @@ namespace Skunked.State
     {
         public Card Starter { get; set; }
         public int Round { get; set; }
-        public List<PlayerIdHand> DealtCards { get; set; }
-        public List<PlayerIdHand> Hands { get; set; }
+        public List<PlayerHand> DealtCards { get; set; }
+        public List<PlayerHand> Hands { get; set; }
         public List<List<PlayItem>> ThePlay { get; set; }
         public bool ThrowCardsComplete { get; set; }
         public bool PlayedCardsComplete { get; set; }

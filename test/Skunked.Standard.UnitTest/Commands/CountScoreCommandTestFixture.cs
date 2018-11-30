@@ -32,9 +32,9 @@ namespace Skunked.Test.Commands
                                                       {
                                                           PlayerCrib = 1,
                                                           Hands =
-                                                              new List<PlayerIdHand>
+                                                              new List<PlayerHand>
                                                                   {
-                                                                      new PlayerIdHand(1,new List<Card>
+                                                                      new PlayerHand(1,new List<Card>
                                                                                           {
                                                                                               new Card(Rank.Six, Suit.Clubs),
                                                                                               new Card(Rank.Seven,Suit.Diamonds),
@@ -42,7 +42,7 @@ namespace Skunked.Test.Commands
                                                                                               new Card(Rank.Eight, Suit.Spades)
                                                                                           }
                                                                           ),
-                                                                      new PlayerIdHand( 2,new List<Card>
+                                                                      new PlayerHand( 2,new List<Card>
                                                                                           {
                                                                                               new Card(Rank.Four, Suit.Spades),
                                                                                               new Card(Rank.Jack, Suit.Hearts),

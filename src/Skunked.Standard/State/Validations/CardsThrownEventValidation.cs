@@ -17,7 +17,7 @@ namespace Skunked.State.Validations
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.CardsHaveBeenThrown);
             }
 
-            var dealtCards = currentRound.DealtCards.Single(playerHand => playerHand.Id == cutEvent.PlayerId).Hand;
+            var dealtCards = currentRound.DealtCards.Single(playerHand => playerHand.PlayerId == cutEvent.PlayerId).Hand;
 
             if (dealtCards.Intersect(cutEvent.Thrown).Count() != cutEvent.Thrown.Count)
             {

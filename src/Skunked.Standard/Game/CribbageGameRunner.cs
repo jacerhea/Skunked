@@ -53,7 +53,7 @@ namespace Skunked.Game
                     var currentRound = gameState.GetCurrentRound();
                     foreach (var playerDiscard in _players)
                     {
-                        var tossed = playerDiscard.DealHand(currentRound.DealtCards.Single(p => p.Id == playerDiscard.Id).Hand);
+                        var tossed = playerDiscard.DealHand(currentRound.DealtCards.Single(p => p.PlayerId == playerDiscard.Id).Hand);
                         cribbage.ThrowCards(playerDiscard.Id, tossed);
                     }
 
@@ -63,7 +63,7 @@ namespace Skunked.Game
                         var lastPlayerPlayItem = currentRound.ThePlay.SelectMany(ppi => ppi).LastOrDefault();
                         Player player = currentRound.ThePlay.Count == 1 && lastPlayerPlayItem == null ? _players.NextOf(_players.Single(p => p.Id == currentRound.PlayerCrib)) : _players.Single(p => p.Id == lastPlayerPlayItem.NextPlayer);
                         var playedCards = currentRound.ThePlay.SelectMany(ppi => ppi).Select(ppi => ppi.Card).ToList();
-                        var handLeft = currentRound.Hands.Single(playerHand => playerHand.Id == player.Id).Hand.Except(playedCards, CardValueEquality.Instance).ToList();
+                        var handLeft = currentRound.Hands.Single(playerHand => playerHand.PlayerId == player.Id).Hand.Except(playedCards, CardValueEquality.Instance).ToList();
                         var show = player.PlayShow(_gameRules, currentPlayerPlayItems.Select(y => y.Card).ToList(), handLeft);
 
                         cribbage.PlayCard(player.Id, show);
@@ -72,7 +72,7 @@ namespace Skunked.Game
                     var startingPlayer = _players.Single(p => p.Id == gameState.GetNextPlayerFrom(currentRound.PlayerCrib));
                     foreach (var player in _players.Infinite().Skip(_players.IndexOf(startingPlayer)).Take(_players.Count).ToList())
                     {
-                        var playerCount = player.CountHand(currentRound.Starter, currentRound.Hands.Single(kv => kv.Id == player.Id).Hand);
+                        var playerCount = player.CountHand(currentRound.Starter, currentRound.Hands.Single(kv => kv.PlayerId == player.Id).Hand);
                         cribbage.CountHand(player.Id, playerCount);
                     }
 

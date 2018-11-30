@@ -4,14 +4,14 @@ using Skunked.PlayingCards;
 
 namespace Skunked.Players
 {
-    public class PlayerIdHand
+    public class PlayerHand
     {
-        public int Id { get; }
+        public int PlayerId { get; }
         public List<Card> Hand { get; }
 
-        public PlayerIdHand(int id, List<Card> hand)
+        public PlayerHand(int playerId, List<Card> hand)
         {
-            Id = id;
+            PlayerId = playerId;
             Hand = hand ?? throw new ArgumentNullException(nameof(hand));
         }
     }

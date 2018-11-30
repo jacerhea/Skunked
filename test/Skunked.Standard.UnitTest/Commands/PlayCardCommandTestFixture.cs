@@ -26,10 +26,10 @@ namespace Skunked.Test.Commands
                         Round = 1,
                         ThrowCardsComplete = true,
                         PlayedCardsComplete = false,
-                        Hands = new List<PlayerIdHand>
+                        Hands = new List<PlayerHand>
                         {
-                            new PlayerIdHand(1, new List<Card>{new Card(Rank.Jack, Suit.Diamonds), new Card(Rank.Nine, Suit.Spades), new Card(Rank.Seven), new Card(Rank.Four)}), 
-                            new PlayerIdHand(2, new List<Card>{new Card(Rank.Queen, Suit.Clubs), new Card(Rank.Ace, Suit.Hearts), new Card(Rank.Nine), new Card(Rank.Eight)})
+                            new PlayerHand(1, new List<Card>{new Card(Rank.Jack, Suit.Diamonds), new Card(Rank.Nine, Suit.Spades), new Card(Rank.Seven), new Card(Rank.Four)}), 
+                            new PlayerHand(2, new List<Card>{new Card(Rank.Queen, Suit.Clubs), new Card(Rank.Ace, Suit.Hearts), new Card(Rank.Nine), new Card(Rank.Eight)})
                         },
                     }
                 },

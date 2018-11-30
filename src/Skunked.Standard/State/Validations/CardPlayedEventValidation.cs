@@ -27,7 +27,7 @@ namespace Skunked.State.Validations
 
             if (!currentRound.ThrowCardsComplete || currentRound.PlayedCardsComplete) { throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidStateForPlay); }
 
-            var allPlayerCards = currentRound.Hands.Single(ph => ph.Id == cardPlayedEvent.PlayerId).Hand.ToList();
+            var allPlayerCards = currentRound.Hands.Single(ph => ph.PlayerId == cardPlayedEvent.PlayerId).Hand.ToList();
             if (allPlayerCards.Count(card => card.Equals(cardPlayedEvent.Played)) != 1)
             {
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidCard);

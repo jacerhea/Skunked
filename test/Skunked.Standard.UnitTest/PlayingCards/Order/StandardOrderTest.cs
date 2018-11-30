@@ -36,7 +36,7 @@ namespace Skunked.Test.PlayingCards.Order
         {
             var orderStrategy = new StandardOrder();
             Action order = () => orderStrategy.Order(null);
-            order.ShouldThrow<ArgumentNullException>();
+            order.Should().Throw<ArgumentNullException>();
         }
     }
 }
