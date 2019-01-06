@@ -5,7 +5,6 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{446CA3CE-C95D-43A0-A22A-8F73A6AA2EBD}"
 	ProjectSection(SolutionItems) = preProject
-		Performance1.psess = Performance1.psess
 		README.md = README.md
 	EndProjectSection
 EndProject

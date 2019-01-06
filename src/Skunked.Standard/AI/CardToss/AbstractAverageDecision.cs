@@ -16,18 +16,30 @@ namespace Skunked.AI.CardToss
             _scoreCalculator = scoreCalculator ?? new ScoreCalculator();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hand">Dealt hand. 5 or 6 cards.</param>
+        /// <returns></returns>
         protected IEnumerable<ComboPossibleScores> BaseAverageDecision(IEnumerable<Card> hand)
         {
             if (hand == null) throw new ArgumentNullException(nameof(hand));
-            var handIter = new HashSet<Card>(hand);
-            var combinations = new Combinations<Card>(handIter.ToList(), 4);
+            var handSet = new HashSet<Card>(hand);
+            var combinations = new Combinations<Card>(handSet.ToList(), 4);
             var deck = new Deck();
-            var possibleCardsCut = deck.Where(card => !handIter.Contains(card)).ToList();
+            // the deck minus the given hand.
+            var possibleCardsCut = deck.Except(handSet).ToList();
 
             var comboPossibleScoreses = GetPossibleCombos(combinations, possibleCardsCut).ToList();
             return comboPossibleScoreses;
         }
 
+        /// <summary>
+        /// Set of each possible combination of the given hand, cross producted with the possible starter cards.
+        /// </summary>
+        /// <param name="handCombinations"></param>
+        /// <param name="possibleStarterCards"></param>
+        /// <returns></returns>
         private IEnumerable<ComboPossibleScores> GetPossibleCombos(Combinations<Card> handCombinations, IReadOnlyCollection<Card> possibleStarterCards)
         {
             return handCombinations.Select(combo =>

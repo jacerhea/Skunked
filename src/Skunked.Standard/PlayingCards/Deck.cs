@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using Skunked.Utility;
 
@@ -7,14 +8,19 @@ namespace Skunked.PlayingCards
 {
     public class Deck : IEnumerable<Card>
     {
-        // Make a list.
+        private static readonly ImmutableList<Card> InitialDeck;
         private readonly List<Card> _deck;
 
-        public Deck()
+        static Deck()
         {
             var ranks = EnumHelper.GetValues<Rank>();
             var suits = EnumHelper.GetValues<Suit>();
-            _deck = ranks.Cartesian(suits, (rank, suit) => new Card(rank, suit)).ToList();
+            InitialDeck = ranks.Cartesian(suits, (rank, suit) => new Card(rank, suit)).ToImmutableList();
+        }
+
+        public Deck()
+        {
+            _deck = InitialDeck.ToList();
         }
 
         public void Shuffle()

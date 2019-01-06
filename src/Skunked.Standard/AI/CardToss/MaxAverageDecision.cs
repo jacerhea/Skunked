@@ -20,7 +20,8 @@ namespace Skunked.AI.CardToss
             var cards = hand as IList<Card> ?? hand.ToList();
             var comboPossibleScoreses = BaseAverageDecision(cards);
             var highestScoringCombo = comboPossibleScoreses.MaxBy(cps => cps.GetScoreSummation());
-            return cards.Where(card => !highestScoringCombo.Combo.Contains(card));
+            //throw the cards that are not part of the highest scoring combo.
+            return cards.Except(highestScoringCombo.Combo);
         }
     }
 }

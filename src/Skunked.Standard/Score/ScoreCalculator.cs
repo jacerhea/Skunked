@@ -98,6 +98,7 @@ namespace Skunked.Score
             return scored;
         }
 
+
         public List<IList<Card>> CountFifteens(Dictionary<int, List<IList<Card>>> combinationsToCount)
         {
             return combinationsToCount
@@ -107,6 +108,13 @@ namespace Skunked.Score
                 .ToList();
         }
 
+        /// <summary>
+        /// Returns the set of either all four cards in the hand if they are all of the same suit,
+        /// or all five cards if the starter card matches the other four cards suit.
+        /// </summary>
+        /// <param name="playersHand"></param>
+        /// <param name="cutCard"></param>
+        /// <returns></returns>
         public List<Card> CountFlush(List<Card> playersHand, Card cutCard)
         {
             if (playersHand == null) throw new ArgumentNullException(nameof(playersHand));
@@ -130,6 +138,11 @@ namespace Skunked.Score
             return new List<Card>(0);
         }
 
+        /// <summary>
+        /// A pair of cards of a kind
+        /// </summary>
+        /// <param name="combinationsToCheck"></param>
+        /// <returns>Returns all pairs found.</returns>
         public List<IList<Card>> CountPairs(Dictionary<int, List<IList<Card>>> combinationsToCheck)
         {
             var combinationsOfTwoCards = combinationsToCheck[2];
@@ -137,6 +150,11 @@ namespace Skunked.Score
             return combinationsOfTwoCards.Where(c => c[0].Rank == c[1].Rank).ToList();
         }
 
+        /// <summary>
+        /// Three consecutive cards (regardless of suit)
+        /// </summary>
+        /// <param name="combinationsToCount"></param>
+        /// <returns></returns>
         //only looking for runs of 3,4, and 5
         public List<IList<Card>> CountRuns(Dictionary<int, List<IList<Card>>> combinationsToCount)
         {
@@ -160,6 +178,12 @@ namespace Skunked.Score
             return returnList;
         }
 
+        /// <summary>
+        /// When the Jack of the same suit matches the starter card.
+        /// </summary>
+        /// <param name="cards"></param>
+        /// <param name="starterCard"></param>
+        /// <returns></returns>
         public IList<Card> Nobs(IEnumerable<Card> cards, Card starterCard)
         {
             return cards.Where(c => c.Rank == Rank.Jack && c.Suit == starterCard.Suit).ToList();
@@ -172,6 +196,11 @@ namespace Skunked.Score
 
         public int GoValue => GameRules.GoSore;
 
+        /// <summary>
+        ///  Separate combination of two or more cards totaling exactly fifteen
+        /// </summary>
+        /// <param name="cards"></param>
+        /// <returns></returns>
         public bool IsFifteen(IList<Card> cards)
         {
             return SumValues(cards) == 15;
@@ -182,6 +211,11 @@ namespace Skunked.Score
             return cards.DistinctBy(c => c.Rank).Count() == 1;
         }
 
+        /// <summary>
+        /// Three or more consecutive cards (regardless of suit)
+        /// </summary>
+        /// <param name="combo"></param>
+        /// <returns></returns>
         public bool IsRun(IList<Card> combo)
         {
             if (combo == null) throw new ArgumentNullException(nameof(combo));
