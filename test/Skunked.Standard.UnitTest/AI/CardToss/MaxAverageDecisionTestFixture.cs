@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using FluentAssertions;
 using Skunked.AI.CardToss;
 using Skunked.PlayingCards;
 using Xunit;
@@ -24,9 +25,9 @@ namespace Skunked.Test.AI.CardToss
 
             var cardsToThrow = decisionStrategy.DetermineCardsToThrow(hand).ToList();
 
-            Assert.Equal(2, cardsToThrow.Count);
-            Assert.True(cardsToThrow.Contains(new Card(Rank.Two, Suit.Spades)));
-            Assert.True(cardsToThrow.Contains(new Card(Rank.Nine, Suit.Hearts)));
+            cardsToThrow.Count.Should().Be(2);
+            cardsToThrow.Should().Contain(new Card(Rank.Two, Suit.Spades));
+            cardsToThrow.Should().Contain(new Card(Rank.Nine, Suit.Hearts));
         }
 
         [Fact]

@@ -1,18 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using Skunked.State.Events;
 
 namespace Skunked.State
 {
     public class EventStream : IEnumerable<StreamEvent>
     {
-        private readonly List<IEventListener> _eventListeners;
+        private readonly ImmutableList<IEventListener> _eventListeners;
         private readonly List<StreamEvent> _events;
         private static readonly object Locker = new object();
 
-        public EventStream(List<IEventListener> eventListeners)
+        public EventStream(IEnumerable<IEventListener> eventListeners)
         {
-            _eventListeners = eventListeners;
+            _eventListeners = eventListeners.ToImmutableList();
             _events = new List<StreamEvent>(100);
         }
 
@@ -24,7 +25,6 @@ namespace Skunked.State
                 _events.Add(@event);
                 foreach (var eventListener in _eventListeners)
                 {
-                    dynamic castEvent = eventListener;
                     eventListener.Notify(@event);
                 }
             }
