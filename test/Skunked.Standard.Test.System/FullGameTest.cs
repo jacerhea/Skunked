@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using Skunked.AI.CardToss;
-using Skunked.AI.Play;
-using Skunked.Game;
-using Skunked.Players;
 using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.Utility;

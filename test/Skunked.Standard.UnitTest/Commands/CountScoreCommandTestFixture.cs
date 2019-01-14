@@ -137,7 +137,7 @@ namespace Skunked.Test.Commands
         //    var command = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, 1, 1, 1, _scoreCalculator));
         //    command.Execute();
 
-        //    Assert.Equal(1, _gameState.IndividualScores.Single(ps => ps.Player == playerId).Score);
+        //    Assert.Equal(1, _gameState.IndividualScores.Single(ps => ps.TestPlayer == playerId).Score);
         //}
 
         //[Fact]
@@ -166,7 +166,7 @@ namespace Skunked.Test.Commands
         //    var command2 = new CountHandScoreCommand(new CountHandScoreArgs(_gameState, playerId, 1, 1, _scoreCalculator));
         //    command2.Execute();
 
-        //    Assert.Equal(1, _gameState.IndividualScores.Single(ps => ps.Player == playerId).Score);
+        //    Assert.Equal(1, _gameState.IndividualScores.Single(ps => ps.TestPlayer == playerId).Score);
         //}
     }
 }

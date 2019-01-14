@@ -1,29 +1,21 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Skunked.AI.CardToss;
-using Skunked.AI.Play;
-using Skunked.AI.Show;
 using Skunked.PlayingCards;
 using Skunked.Rules;
+using Skunked.Score;
 using Skunked.Utility;
 
 namespace Skunked.Players
 {
-    public class Player : IEquatable<Player>
+    public class TestPlayer : IEquatable<TestPlayer>, IGameRunnerPlayer
     {
-        private readonly IPlayStrategy _playStrategy;
-        private readonly IDecisionStrategy _decisionStrategy;
-        private readonly IScoreCountStrategy _scoreCountStrategy;
+        private readonly ScoreCalculator _calculator = new ScoreCalculator();
 
-        public Player(string name = null, int id = -1, IPlayStrategy playStrategy = null, IDecisionStrategy decisionStrategy = null, IScoreCountStrategy scoreCountStrategy = null)
+        public TestPlayer(string name, int id)
         {
-            var guid = Guid.NewGuid();
-            Name = name ?? guid.ToString();
-            Id = id == -1 ? RandomProvider.GetThreadRandom().Next() : id;
-            _playStrategy = playStrategy ?? new MaxPlayStrategy();
-            _decisionStrategy = decisionStrategy ?? new MaxAverageDecision();
-            _scoreCountStrategy = scoreCountStrategy ?? new PercentageScoreCountStrategy();
+            Name = name;
+            Id = id;
         }
 
         public string Name { get; private set; }
@@ -39,6 +31,8 @@ namespace Skunked.Players
             return Id.GetHashCode();
         }
 
+
+
         /// <summary>
         /// Deal Hand and return cards that will go back in crib
         /// </summary>
@@ -46,7 +40,9 @@ namespace Skunked.Players
         /// <returns>Set of Cards to throw in crib.</returns>
         public List<Card> DealHand(IList<Card> hand)
         {
-            return _decisionStrategy.DetermineCardsToThrow(hand).ToList();
+            var handCopy = hand.ToList();
+            handCopy.Shuffle();
+            return handCopy.Take(2).ToList();
         }
 
         public Card PlayShow(GameRules gameRules, List<Card> pile, List<Card> handLeft)
@@ -54,24 +50,24 @@ namespace Skunked.Players
             if (gameRules == null) throw new ArgumentNullException(nameof(gameRules));
             if (pile == null) throw new ArgumentNullException(nameof(pile));
             if (handLeft == null) throw new ArgumentNullException(nameof(handLeft));
-            if(handLeft.Count == 0) throw new ArgumentException("handLeft");
+            if (handLeft.Count == 0) throw new ArgumentException("handLeft");
 
-            return _playStrategy.DetermineCardToThrow(gameRules, pile, handLeft);
+            return handLeft.Single();
         }
 
         public Card ChooseCard(List<Card> cardsToChoose)
         {
             if (cardsToChoose == null) throw new ArgumentNullException(nameof(cardsToChoose));
-            var randomIndex = RandomProvider.GetThreadRandom().Next(0 ,cardsToChoose.Count - 1);
+            var randomIndex = RandomProvider.GetThreadRandom().Next(0, cardsToChoose.Count - 1);
             return cardsToChoose[randomIndex];
         }
 
         public int CountHand(Card card, IEnumerable<Card> hand)
         {
-            return _scoreCountStrategy.GetCount(card, hand);
+            return _calculator.CountShowScore(card, hand).Score;
         }
 
-        public bool Equals(Player other)
+        public bool Equals(TestPlayer other)
         {
             return other?.Id == Id;
         }

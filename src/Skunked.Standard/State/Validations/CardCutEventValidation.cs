@@ -9,17 +9,19 @@ namespace Skunked.State.Validations
         public void Validate(GameState gameState, CardCutEvent cutEvent)
         {
             CheckEndOfGame(gameState);
-            if (gameState.PlayerIds.All(id => id == cutEvent.PlayerId)) { throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidPlayer); }
+            if (gameState.OpeningRound.WinningPlayerCut.HasValue)
+            {
+                throw new InvalidCribbageOperationException(InvalidCribbageOperations.CutCardCardAlreadyCut);
+            }
 
-
-            if (gameState.OpeningRound.CutCards.Any(kv => kv.Player == cutEvent.PlayerId))
+            if (gameState.OpeningRound.CutCards.Any(playerCard => playerCard.Player == cutEvent.PlayerId))
             {
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.CutCardPlayerAlreadyCut);
             }
 
-            if (gameState.OpeningRound.CutCards.Any(kv => kv.Card.Equals(cutEvent.CutCard)))
+            if (gameState.OpeningRound.CutCards.Any(playerCard => playerCard.Card.Equals(cutEvent.CutCard)))
             {
-                throw new InvalidCribbageOperationException(InvalidCribbageOperations.CutCardPlayerAlreadyCut);
+                throw new InvalidCribbageOperationException(InvalidCribbageOperations.CutCardCardAlreadyCut);
             }
         }
     }

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using Skunked.AI.CardToss;
-using Skunked.AI.Play;
 using Skunked.Game;
 using Skunked.Players;
+using Skunked.PlayingCards;
+using Skunked.Rules;
 using Skunked.Utility;
 using Xunit;
 
@@ -22,13 +22,13 @@ namespace Skunked.Test.System
         public void FullGameTest()
         {
             var game =
-                new CribbageGameRunner(new List<Player>
-                {
-                    new Player("Player 1", 1, new MaxPlayStrategy(), new MaxAverageDecision()),
-                    new Player("Player 2", 2, new MaxPlayStrategy(), new MaxAverageDecision())
-                });
+                new CribbageGameRunner(new Deck());
 
-            var result = game.Run();
+            var result = game.Run(new List<IGameRunnerPlayer>
+            {
+                new TestPlayer("TestPlayer 1", 1),
+                new TestPlayer("TestPlayer 2", 2)
+            }, new GameRules());
         }
 
         public void Dispose()
