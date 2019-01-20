@@ -11,7 +11,7 @@ namespace Skunked.Test.PlayingCards.Value
         [Fact]
         public void AceLowFaceTenCardValueStrategyValue()
         {
-            var testCases = new List<Tuple<Card, int>>
+            var expectedValues = new List<Tuple<Card, int>>
             {
                 Tuple.Create(new Card(Rank.Ace), 1),
                 Tuple.Create(new Card(Rank.Two), 2),
@@ -30,10 +30,10 @@ namespace Skunked.Test.PlayingCards.Value
 
             var strategy = new AceLowFaceTenCardValueStrategy();
 
-            foreach (var testCase in testCases)
+            foreach (var testCase in expectedValues)
             {
                 int calculatedValue = strategy.ValueOf(testCase.Item1);
-                Assert.Equal(testCase.Item2, calculatedValue);
+                calculatedValue.Should().Be(testCase.Item2);
             }
         }
 

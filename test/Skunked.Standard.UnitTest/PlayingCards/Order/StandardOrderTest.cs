@@ -5,7 +5,7 @@ using FluentAssertions;
 using Skunked.PlayingCards;
 using Xunit;
 
-namespace Skunked.Test.PlayingCards.Order
+namespace Skunked.Standard.UnitTest.PlayingCards.Order
 {
     public class OrderTest
     {
@@ -27,7 +27,7 @@ namespace Skunked.Test.PlayingCards.Order
             foreach (var testcase in testCases)
             {
                 var sortedByOrderStrategy = testCases.OrderBy(c => orderStrategy.Order(c.Item1)).ToList();
-                Assert.Equal(testcase.Item2, sortedByOrderStrategy.IndexOf(testcase));
+                sortedByOrderStrategy.IndexOf(testcase).Should().Be(testcase.Item2);
             }
         }
 
