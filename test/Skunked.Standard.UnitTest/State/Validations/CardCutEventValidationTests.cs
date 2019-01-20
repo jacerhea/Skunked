@@ -74,7 +74,7 @@ namespace Skunked.Standard.UnitTest.State.Validations
             var @event = new CardCutEvent { CutCard = new Card(Rank.Eight, Suit.Diamonds), PlayerId = 1 };
             var validation = new CardCutEventValidation();
             Action validate = () => validation.Validate(state, @event);
-            validate.Should().Throw<InvalidCribbageOperationException>("player 1 already cut the eight of diamonds");
+            validate.Should().Throw<InvalidCribbageOperationException>("player 1 already cut their card.");
         }
     }
 }

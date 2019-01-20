@@ -27,8 +27,8 @@ namespace Skunked.State.Validations
 
             if (!currentRound.ThrowCardsComplete || currentRound.PlayedCardsComplete) { throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidStateForPlay); }
 
-            var allPlayerCards = currentRound.Hands.Single(ph => ph.PlayerId == cardPlayedEvent.PlayerId).Hand.ToList();
-            if (allPlayerCards.Count(card => card.Equals(cardPlayedEvent.Played)) != 1)
+            var playersCards = currentRound.Hands.Single(ph => ph.PlayerId == cardPlayedEvent.PlayerId).Hand.ToList();
+            if (playersCards.SingleOrDefault(card => card.Equals(cardPlayedEvent.Played)) == null)
             {
                 throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidCard);
             }
@@ -56,7 +56,7 @@ namespace Skunked.State.Validations
             if (playCount > GameRules.PlayMaxScore)
             {
                 var playedCardsThisRound = setOfPlays.Last().Select(ppi => ppi.Card).ToList();
-                var playersCardsLeftToPlay = allPlayerCards.Except(playedCardsThisRound, CardValueEquality.Instance).Except(new List<Card> { cardPlayedEvent.Played }, CardValueEquality.Instance);
+                var playersCardsLeftToPlay = playersCards.Except(playedCardsThisRound, CardValueEquality.Instance).Except(new List<Card> { cardPlayedEvent.Played }, CardValueEquality.Instance);
                 if (playersCardsLeftToPlay.Any(c => _scoreCalculator.SumValues(new List<Card>(playedCardsThisRound) { c }) <= GameRules.PlayMaxScore))
                 {
                     throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidCard);
