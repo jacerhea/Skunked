@@ -28,7 +28,7 @@ namespace Skunked.Utility
         /// </summary>
         public static ThreadLocal<Random> RandomInstance 
         {
-            set { _randomWrapper = value; }
+            set => _randomWrapper = value;
         }
 
         public static Random GetThreadRandom()

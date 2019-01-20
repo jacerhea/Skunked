@@ -255,7 +255,7 @@ namespace Skunked.State
 
             var calculatedShowScore = _scoreCalculator.CountShowScore(cutCard, playerHand.Hand);
 
-            //penalty for overcounting
+            //penalty for over counting
             var applicableScore = 0;
             if (cardPlayedEvent.CountedScore == calculatedShowScore.Score)
             {
@@ -292,7 +292,7 @@ namespace Skunked.State
             var calculatedCribShowScore = _scoreCalculator.CountShowScore(cutCard, crib);
 
             var calculatedCribScore = calculatedCribShowScore.Score;
-            //penalty for overcounting
+            //penalty for over counting
             var applicableScore = 0;
             if (cribCountedEvent.CountedScore == calculatedCribScore)
             {
