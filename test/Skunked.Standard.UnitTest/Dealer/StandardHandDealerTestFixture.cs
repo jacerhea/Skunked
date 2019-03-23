@@ -11,7 +11,7 @@ namespace Skunked.Standard.UnitTest.Dealer
     public class StandardHandDealerTestFixture
     {
         [Fact]
-        public void Test_Deal()
+        public void Two_Player_Deal_Starting_With_Player1_Will_Be_Correct()
         {
             var deck = new Mock<Deck>();
             deck.Setup(d => d.GetEnumerator()).Returns(() => new List<Card>
@@ -56,7 +56,7 @@ namespace Skunked.Standard.UnitTest.Dealer
         }
 
         [Fact]
-        public void Test_Deal_StartingWithPlayer2()
+        public void Two_Player_Deal_Starting_With_Player2_Will_Be_Correct()
         {
             var deck = new Mock<Deck>();
             deck.Setup(d => d.GetEnumerator()).Returns(() => new List<Card>
@@ -100,7 +100,7 @@ namespace Skunked.Standard.UnitTest.Dealer
         }
 
         [Fact]
-        public void Test_Deal0Cards()
+        public void Two_Player_Deal_Of_Zero_Cards_Will_Result_In_Empty_Hands()
         {
             var deck = new Mock<Deck>();
             deck.Setup(d => d.GetEnumerator()).Returns(() => new List<Card>().GetEnumerator());
@@ -112,7 +112,7 @@ namespace Skunked.Standard.UnitTest.Dealer
         }
 
         [Fact]
-        public void Test_Deal_StartingWithPlayer3()
+        public void Four_Player_Deal_Of_5_Cards_Starting_With_Third_Player_Will_Be_Correct()
         {
             var deck = new Mock<Deck>();
             deck.Setup(d => d.GetEnumerator()).Returns(() => new List<Card>

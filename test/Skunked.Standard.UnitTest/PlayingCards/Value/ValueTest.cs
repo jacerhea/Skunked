@@ -9,7 +9,7 @@ namespace Skunked.Test.PlayingCards.Value
     public class ValueTest
     {
         [Fact]
-        public void AceLowFaceTenCardValueStrategyValue()
+        public void Value_Of_Every_Card_Will_Match_Expected_Values()
         {
             var expectedValues = new List<Tuple<Card, int>>
             {
@@ -38,7 +38,7 @@ namespace Skunked.Test.PlayingCards.Value
         }
 
         [Fact]
-        public void ArgumentNull()
+        public void Null_Argument_Will_Throw_ArgumentNullException()
         {
             var strategy = new AceLowFaceTenCardValueStrategy();
             Action valueOf = () => strategy.ValueOf(null);

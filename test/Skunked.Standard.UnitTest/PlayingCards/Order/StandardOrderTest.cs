@@ -11,7 +11,7 @@ namespace Skunked.Standard.UnitTest.PlayingCards.Order
     {
 
         [Fact]
-        public void Cards()
+        public void Five_Cards_Will_Be_Sorted_Correctly()
         {
             var testCases = new List<Tuple<Card, int>>
             {
@@ -32,7 +32,7 @@ namespace Skunked.Standard.UnitTest.PlayingCards.Order
         }
 
         [Fact]
-        public void ArgumentNull()
+        public void Null_Argument_Will_Throw_ArgumentNullException()
         {
             var orderStrategy = new StandardOrder();
             Action order = () => orderStrategy.Order(null);
