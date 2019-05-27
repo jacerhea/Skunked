@@ -1,6 +1,6 @@
-﻿using Skunked.PlayingCards;
+﻿using FluentAssertions;
+using Skunked.PlayingCards;
 using Xunit;
-using FluentAssertions;
 
 namespace Skunked.Standard.UnitTest.PlayingCards
 {

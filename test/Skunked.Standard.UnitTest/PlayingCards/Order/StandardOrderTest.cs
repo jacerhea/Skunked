@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using Skunked.PlayingCards;
+using Skunked.PlayingCards.Order;
 using Xunit;
 
 namespace Skunked.Standard.UnitTest.PlayingCards.Order
@@ -19,15 +20,15 @@ namespace Skunked.Standard.UnitTest.PlayingCards.Order
                 Tuple.Create(new Card(Rank.Five), 1),
                 Tuple.Create(new Card(Rank.Ace), 0),
                 Tuple.Create(new Card(Rank.Nine), 2),
-                Tuple.Create(new Card(Rank.Jack), 3),
+                Tuple.Create(new Card(Rank.Jack), 3)
             };
 
             var orderStrategy = new StandardOrder();
 
-            foreach (var testcase in testCases)
+            foreach (var testCase in testCases)
             {
                 var sortedByOrderStrategy = testCases.OrderBy(c => orderStrategy.Order(c.Item1)).ToList();
-                sortedByOrderStrategy.IndexOf(testcase).Should().Be(testcase.Item2);
+                sortedByOrderStrategy.IndexOf(testCase).Should().Be(testCase.Item2);
             }
         }
 

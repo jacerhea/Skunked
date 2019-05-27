@@ -19,22 +19,22 @@ namespace Skunked.AI.CardToss
 
         public Distribution CalculateDistribution(List<Card> hand)
         {
-            var handIter = hand.ToList();
-            var combinations = new Combinations<Card>(handIter, 4);
+            var handCopy = hand.ToList();
+            var combinations = new Combinations<Card>(handCopy, 4);
             var deck = new Deck();
-            var possibleCardsCut = deck.Where(card => !handIter.Contains(card)).ToList();
+            var possibleCardsCut = deck.Where(card => !handCopy.Contains(card)).ToList();
 
 
-            var comboPossibleScoreses = new List<ComboPossibleScores>((int)combinations.Count);
+            var comboPossibleScorings = new List<ComboPossibleScores>((int)combinations.Count);
 
             foreach (var combo in combinations)
             {
                 var possibleScores = possibleCardsCut.Select(cutCard => new ScoreWithCut { Cut = cutCard, Score = _scoreCalculator.CountShowScore(cutCard, combo).Score }).ToList();
                 var comboPossibleScores = new ComboPossibleScores(combo, possibleScores);
-                comboPossibleScoreses.Add(comboPossibleScores);
+                comboPossibleScorings.Add(comboPossibleScores);
             }
 
-            var distributionSets = comboPossibleScoreses.SelectMany(cps => cps.PossibleScores)
+            var distributionSets = comboPossibleScorings.SelectMany(cps => cps.PossibleScores)
                 .GroupBy(cps =>  cps.Score)
                 .Select(g => new DistributionSet { Count = g.Count(), Score = g.Key })
                 .OrderBy(ds => ds.Score)
@@ -44,7 +44,7 @@ namespace Skunked.AI.CardToss
             var resultCount = distributionSets.Sum(ds => ds.Count);
             var mean = (decimal)distributionSets.Sum(ds => ds.Score * ds.Count) / resultCount;
 
-            var aaaa = distributionSets.Sum(ds => Math.Pow(Math.Abs((double)mean - ds.Score), 2) * ds.Count);
+            var squaredDifferences = distributionSets.Sum(ds => Math.Pow(Math.Abs((double)mean - ds.Score), 2) * ds.Count);
             return new Distribution
             {
                 Sets = distributionSets,
@@ -52,8 +52,8 @@ namespace Skunked.AI.CardToss
                 Median = median[(int)Math.Floor(median.Count / 2M)],
                 Mode = distributionSets.MaxBy(ds => ds.Count).Score,
                 Range = new Range<int> { Upper = distributionSets.MaxBy(ds => ds.Score).Score, Lower = distributionSets.MinBy(ds => ds.Score).Score },
-                StandardDeviation = Math.Sqrt(aaaa / resultCount),
-                BestCut = comboPossibleScoreses.SelectMany(spc => spc.PossibleScores).MaxBy(ps => ps.Score).Cut
+                StandardDeviation = Math.Sqrt(squaredDifferences / resultCount),
+                BestCut = comboPossibleScorings.SelectMany(spc => spc.PossibleScores).MaxBy(ps => ps.Score).Cut
             };
         }
     }

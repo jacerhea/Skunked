@@ -8,12 +8,12 @@ using Skunked.Rules;
 using Skunked.Utility;
 using Xunit;
 
-namespace Skunked.Test.System
+namespace Skunked.Standard.Test.System
 {
-    public class SmokeTestFixture : IDisposable
+    public class SmokeTests : IDisposable
     {
 
-        public SmokeTestFixture()
+        public SmokeTests()
         {
             RandomProvider.RandomInstance = new ThreadLocal<Random>(() => new IncrementalRandom());
         }

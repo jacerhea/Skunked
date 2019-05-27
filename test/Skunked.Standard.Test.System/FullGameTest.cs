@@ -6,7 +6,7 @@ using Skunked.Rules;
 using Skunked.Utility;
 using Xunit;
 
-namespace Skunked.Test.System
+namespace Skunked.Standard.Test.System
 {
     public class FullGameTest
     {

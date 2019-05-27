@@ -4,7 +4,7 @@ namespace Skunked.Exceptions
 {
     public class InvalidCribbageOperationException : InvalidOperationException
     {
-        public InvalidCribbageOperations Operation { get; private set; }
+        public InvalidCribbageOperations Operation { get; }
 
         public InvalidCribbageOperationException(InvalidCribbageOperations operation)
             : base(operation.ToString())

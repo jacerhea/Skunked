@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using FluentAssertions;
 using Skunked.Exceptions;
 using Skunked.Players;
@@ -24,10 +23,10 @@ namespace Skunked.Standard.UnitTest.State.Validations
                 PlayerIds = new List<int> { 1, 2 },
                 GameRules = new GameRules(),
                 TeamScores = new List<TeamScore>
-                    {new TeamScore {Players = new List<int> {1}}, new TeamScore {Players = new List<int> {2}},},
+                    {new TeamScore {Players = new List<int> {1}}, new TeamScore {Players = new List<int> {2}}},
                 OpeningRound = new OpeningRound
                 {
-                    CutCards = new List<PlayerIdCard> { },
+                    CutCards = new List<PlayerIdCard>()
                 },
                 Rounds = new List<RoundState>
                 {
@@ -46,7 +45,7 @@ namespace Skunked.Standard.UnitTest.State.Validations
         }
 
         [Fact]
-        public void Card_Played_With_PlayedCardsComplete_Should_Throw_Validation_Exceptiondd()
+        public void Card_Played_With_PlayedCardsComplete_Should_Throw_Validation_Exception()
         {
             var state = new GameState
             {
@@ -54,10 +53,10 @@ namespace Skunked.Standard.UnitTest.State.Validations
                 PlayerIds = new List<int> { 1, 2 },
                 GameRules = new GameRules(),
                 TeamScores = new List<TeamScore>
-                    {new TeamScore {Players = new List<int> {1}}, new TeamScore {Players = new List<int> {2}},},
+                    {new TeamScore {Players = new List<int> {1}}, new TeamScore {Players = new List<int> {2}}},
                 OpeningRound = new OpeningRound
                 {
-                    CutCards = new List<PlayerIdCard> { },
+                    CutCards = new List<PlayerIdCard>()
                 },
                 Rounds = new List<RoundState>
                 {
@@ -67,7 +66,7 @@ namespace Skunked.Standard.UnitTest.State.Validations
                         PlayedCardsComplete = true,
                         Hands = new List<PlayerHand>
                         {
-                            new PlayerHand(1, new List<Card>{})
+                            new PlayerHand(1, new List<Card>())
                         }
                     }
                 }
@@ -89,10 +88,10 @@ namespace Skunked.Standard.UnitTest.State.Validations
                 PlayerIds = new List<int> { 1, 2 },
                 GameRules = new GameRules(),
                 TeamScores = new List<TeamScore>
-                    {new TeamScore {Players = new List<int> {1}}, new TeamScore {Players = new List<int> {2}},},
+                    {new TeamScore {Players = new List<int> {1}}, new TeamScore {Players = new List<int> {2}}},
                 OpeningRound = new OpeningRound
                 {
-                    CutCards = new List<PlayerIdCard> { },
+                    CutCards = new List<PlayerIdCard>()
                 },
                 Rounds = new List<RoundState>
                 {

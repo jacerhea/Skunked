@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using Skunked.PlayingCards;
+using Skunked.PlayingCards.Value;
 using Xunit;
 
-namespace Skunked.Test.PlayingCards.Value
+namespace Skunked.Standard.UnitTest.PlayingCards.Value
 {
     public class ValueTest
     {
@@ -25,7 +26,7 @@ namespace Skunked.Test.PlayingCards.Value
                 Tuple.Create(new Card(Rank.Ten), 10),
                 Tuple.Create(new Card(Rank.Jack), 10),
                 Tuple.Create(new Card(Rank.Queen), 10),
-                Tuple.Create(new Card(Rank.King), 10),
+                Tuple.Create(new Card(Rank.King), 10)
             };
 
             var strategy = new AceLowFaceTenCardValueStrategy();

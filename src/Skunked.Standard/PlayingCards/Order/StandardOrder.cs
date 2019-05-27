@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Skunked.PlayingCards.Order.Interface;
 
-namespace Skunked.PlayingCards
+namespace Skunked.PlayingCards.Order
 {
     public class StandardOrder : IOrderStrategy
     {

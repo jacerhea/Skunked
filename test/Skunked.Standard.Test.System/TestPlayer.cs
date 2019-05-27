@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Skunked.Players;
 using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.Score;
 using Skunked.Utility;
 
-namespace Skunked.Players
+namespace Skunked.Standard.Test.System
 {
     public class TestPlayer : IEquatable<TestPlayer>, IGameRunnerPlayer
     {
@@ -18,8 +19,8 @@ namespace Skunked.Players
             Id = id;
         }
 
-        public string Name { get; private set; }
-        public int Id { get; private set; }
+        public string Name { get; }
+        public int Id { get; }
 
         public override string ToString()
         {

@@ -60,7 +60,7 @@ namespace Skunked
         public void ThrowCards(int playerId, IEnumerable<Card> cribCards)
         {
             var validation = new CardsThrownEventValidation();
-            var @event = new CardsThrownEvent { GameId = State.Id, Thrown = cribCards.ToList(), PlayerId = playerId, };
+            var @event = new CardsThrownEvent { GameId = State.Id, Thrown = cribCards.ToList(), PlayerId = playerId };
             validation.Validate(State, @event);
 
             Stream.Add(@event);
@@ -78,7 +78,7 @@ namespace Skunked
         public void PlayCard(int playerId, Card card)
         {
             var validation = new CardPlayedEventValidation();
-            var @event = new CardPlayedEvent { GameId = State.Id, Played = card, PlayerId = playerId, };
+            var @event = new CardPlayedEvent { GameId = State.Id, Played = card, PlayerId = playerId };
             validation.Validate(State, @event);
             Stream.Add(@event);
 

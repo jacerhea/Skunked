@@ -8,7 +8,8 @@ using Xunit;
 
 namespace Skunked.Standard.UnitTest.Dealer
 {
-    public class StandardHandDealerTestFixture
+    public class StandardHandDealerTests
+
     {
         [Fact]
         public void Two_Player_Deal_Starting_With_Player1_Will_Be_Correct()
@@ -30,7 +31,7 @@ namespace Skunked.Standard.UnitTest.Dealer
                 new Card(Rank.Three, Suit.Spades),
                 new Card(Rank.Three, Suit.Spades),
                 new Card(Rank.Three, Suit.Spades),
-                new Card(Rank.Three, Suit.Spades),
+                new Card(Rank.Three, Suit.Spades)
             }.GetEnumerator());
             var handFactory = new StandardHandDealer();
             var players = new List<int> {1,2};
@@ -73,7 +74,7 @@ namespace Skunked.Standard.UnitTest.Dealer
                 new Card(Rank.Six, Suit.Hearts),
                 new Card(Rank.Ten, Suit.Clubs),
                 new Card(Rank.Three, Suit.Spades),
-                new Card(Rank.Three, Suit.Spades),
+                new Card(Rank.Three, Suit.Spades)
             }.GetEnumerator());
             var handFactory = new StandardHandDealer();
             var players = new List<int> { 1,2};
@@ -136,7 +137,7 @@ namespace Skunked.Standard.UnitTest.Dealer
                 new Card(Rank.Five, Suit.Hearts),
                 new Card(Rank.Ace, Suit.Spades),
                 new Card(Rank.Four, Suit.Clubs),
-                new Card(Rank.Two, Suit.Diamonds),
+                new Card(Rank.Two, Suit.Diamonds)
             }.GetEnumerator());
             var handFactory = new StandardHandDealer();
             var players = new List<int> { 1,2,3,4};

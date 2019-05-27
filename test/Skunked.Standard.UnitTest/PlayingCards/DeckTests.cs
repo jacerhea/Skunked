@@ -1,10 +1,7 @@
-﻿using Skunked.PlayingCards;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-using Xunit;
+﻿using System.Linq;
 using FluentAssertions;
+using Skunked.PlayingCards;
+using Xunit;
 
 namespace Skunked.Standard.UnitTest.PlayingCards
 {

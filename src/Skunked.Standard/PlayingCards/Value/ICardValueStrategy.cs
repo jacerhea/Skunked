@@ -1,4 +1,4 @@
-﻿namespace Skunked.PlayingCards
+﻿namespace Skunked.PlayingCards.Value
 {
     public interface ICardValueStrategy
     {

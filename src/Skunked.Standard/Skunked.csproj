@@ -11,6 +11,9 @@
     <PackageProjectUrl>https://github.com/jacerhea/Skunked</PackageProjectUrl>
     <PackageTags>cribbage ai a.i. game games card</PackageTags>
     <Description>A library of classes to model the game of Cribbage.</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.1</Version>
+    <AssemblyName>Skunked</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

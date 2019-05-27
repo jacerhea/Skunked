@@ -69,7 +69,7 @@ namespace Skunked.PlayingCards
             Instance = new CardValueEquality();
         }
 
-        public static CardValueEquality Instance { get; private set; }
+        public static CardValueEquality Instance { get; }
 
         public bool Equals(Card x, Card y)
         {

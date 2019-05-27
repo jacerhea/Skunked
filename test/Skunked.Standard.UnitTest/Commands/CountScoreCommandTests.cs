@@ -5,14 +5,14 @@ using Skunked.Rules;
 using Skunked.Score;
 using Skunked.State;
 
-namespace Skunked.Test.Commands
+namespace Skunked.Standard.UnitTest.Commands
 {
-    public class CountScoreCommandTestFixture
+    public class CountScoreCommandTests
     {
         private GameState _gameState;
         private ScoreCalculator _scoreCalculator;
 
-        public CountScoreCommandTestFixture()
+        public CountScoreCommandTests()
         {
             _scoreCalculator = new ScoreCalculator();
 

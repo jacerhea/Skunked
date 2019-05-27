@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Combinatorics.Collections;
 using Skunked.PlayingCards;
+using Skunked.PlayingCards.Order;
+using Skunked.PlayingCards.Order.Interface;
+using Skunked.PlayingCards.Value;
 using Skunked.Rules;
 using Skunked.Utility;
 
@@ -231,7 +234,7 @@ namespace Skunked.Score
         }
 
         /// <summary>
-        /// Dictionary of the combinations.  The key is "k" in k-combination combinatorial mathmatics. Zero is not calculated.
+        /// Dictionary of the combinations.  The key is "k" in k-combination combinatorial mathematics. Zero is not calculated.
         /// The Value is the set of the combination sets
         /// </summary>
         /// <param name="sourceSet"></param>

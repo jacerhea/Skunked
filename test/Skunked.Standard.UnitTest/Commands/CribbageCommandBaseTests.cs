@@ -4,13 +4,13 @@ using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.State;
 
-namespace Skunked.Test.Commands
+namespace Skunked.Standard.UnitTest.Commands
 {
-    public class CribbageCommandBaseTestFixture
+    public class CribbageCommandBaseTests
     {
         private GameState _gameState;
 
-        public CribbageCommandBaseTestFixture()
+        public CribbageCommandBaseTests()
         {
 
             _gameState = new GameState

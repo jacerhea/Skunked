@@ -14,7 +14,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Skunked.Standard\Skunked.Standard.csproj" />
+    <Folder Include="Game\" />
+    <Folder Include="Utility\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Skunked.Standard\Skunked.csproj" />
+    <ProjectReference Include="..\Skunked.Standard.Analytics\Skunked.Analytics.csproj" />
+    <ProjectReference Include="..\Skunked.Standard.Test.System\Skunked.Test.System.csproj" />
   </ItemGroup>
 
   <ItemGroup>

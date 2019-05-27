@@ -2,11 +2,11 @@
 using System.Threading;
 using Skunked.Utility;
 
-namespace Skunked.Test.System
+namespace Skunked.Standard.Test.System
 {
     public class IncrementalRandom : Random
     {
-        private static int _seed = 0;
+        private static int _seed;
 
         public override int Next(int minValue, int maxValue)
         {
