@@ -24,9 +24,10 @@ namespace Skunked.State
         public GameState Build(EventStream eventStream)
         {
             var state = new GameState();
-
+            // dynamic x = eventStream;
             foreach (var @event in eventStream)
             {
+                //todo: use dynamic instead of switches
                 if (@event.GetType() == typeof(GameStartedEvent))
                 {
                     Handle((GameStartedEvent)@event, state);
@@ -89,7 +90,7 @@ namespace Skunked.State
             gameState.IndividualScores = new List<PlayerScore>(startedEvent.Players.Select(player => new PlayerScore { Player = player, Score = 0 }));
             gameState.PlayerIds = startedEvent.Players.ToList();
             gameState.TeamScores = startedEvent.Players.Count == 2
-                ? startedEvent.Players.Select(p => new TeamScore {Players = new List<int> {p}}).ToList()
+                ? startedEvent.Players.Select(p => new TeamScore { Players = new List<int> { p } }).ToList()
                 : new List<TeamScore>
                 {
                     new TeamScore {Players = new List<int> {startedEvent.Players[0], startedEvent.Players[2]}},
@@ -232,7 +233,6 @@ namespace Skunked.State
                     playScore += goValue;
                 }
 
-
                 //not done playing, so add new play round
                 setOfPlays.Add(new List<PlayItem>());
             }
@@ -252,31 +252,15 @@ namespace Skunked.State
         public void Handle(HandCountedEvent cardPlayedEvent, GameState gameState)
         {
             var roundState = gameState.GetCurrentRound();
-            var cutCard = roundState.Starter;
+            var starterCard = roundState.Starter;
             var playerHand = roundState.Hands.First(ph => ph.PlayerId == cardPlayedEvent.PlayerId);
 
-            var calculatedShowScore = _scoreCalculator.CountShowScore(cutCard, playerHand.Hand);
+            var calculatedShowScore = _scoreCalculator.CountShowScore(starterCard, playerHand.Hand);
 
-            //penalty for over counting
-            var applicableScore = 0;
-            if (cardPlayedEvent.CountedScore == calculatedShowScore.Score)
-            {
-                applicableScore = calculatedShowScore.Score;
-            }
-            else if (cardPlayedEvent.CountedScore > calculatedShowScore.Score)
-            {
-                //todo: 
-                //var score = calculatedShowScore.Score - ScorePenalty;
-                //applicableScore = score < 0 ? 0 : score;
-            }
-            else
-            {
-                applicableScore = cardPlayedEvent.CountedScore;
-            }
             var playerScore = gameState.IndividualScores.Single(ps => ps.Player == cardPlayedEvent.PlayerId);
             var teamScore = gameState.TeamScores.Single(ps => ps.Players.Contains(cardPlayedEvent.PlayerId));
-            playerScore.Score += applicableScore;
-            teamScore.Score += applicableScore;
+            playerScore.Score += cardPlayedEvent.CountedScore;
+            teamScore.Score += cardPlayedEvent.CountedScore;
 
             var playerShowScore = gameState.GetCurrentRound().ShowScores.Single(pss => pss.Player == cardPlayedEvent.PlayerId);
             playerShowScore.ShowScore = calculatedShowScore.Score;
@@ -288,10 +272,10 @@ namespace Skunked.State
         public void Handle(CribCountedEvent cribCountedEvent, GameState gameState)
         {
             var currentRound = gameState.GetCurrentRound();
-            var cutCard = currentRound.Starter;
+            var starterCard = currentRound.Starter;
             var crib = currentRound.Crib;
 
-            var calculatedCribShowScore = _scoreCalculator.CountShowScore(cutCard, crib);
+            var calculatedCribShowScore = _scoreCalculator.CountShowScore(starterCard, crib);
 
             var calculatedCribScore = calculatedCribShowScore.Score;
             //penalty for over counting

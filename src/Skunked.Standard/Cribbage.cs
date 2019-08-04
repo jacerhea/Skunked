@@ -4,6 +4,7 @@ using System.Linq;
 using Skunked.Dealer;
 using Skunked.PlayingCards;
 using Skunked.Rules;
+using Skunked.Score;
 using Skunked.State;
 using Skunked.State.Events;
 using Skunked.State.Validations;
@@ -19,7 +20,7 @@ namespace Skunked
         private readonly IPlayerHandFactory _dealer = new StandardHandDealer();
         private readonly Deck _deck = new Deck();
 
-        public Cribbage(IEnumerable<int> players, GameRules rules, IEnumerable<IEventListener> eventListeners = null)
+        public Cribbage(IEnumerable<int> players, GameRules rules = null, IEnumerable<IEventListener> eventListeners = null)
         {
             State = new GameState();
             var listeners = new List<IEventListener>(eventListeners ?? new List<IEventListener>()) { new GameStateEventListener(State, new GameStateBuilder()) };
@@ -32,7 +33,7 @@ namespace Skunked
                     Rules = rules,
                     Players = players.ToList()
                 },
-                new DeckShuffledEvent {Deck = _deck.ToList(), GameId = State.Id}
+                new DeckShuffledEvent {GameId = State.Id, Deck = _deck.ToList()}
             };
         }
 
@@ -51,7 +52,7 @@ namespace Skunked
             {
                 Stream.Add(new RoundStartedEvent { GameId = State.Id });
                 _deck.Shuffle();
-                Stream.Add(new DeckShuffledEvent { Deck = _deck.ToList(), GameId = State.Id });
+                Stream.Add(new DeckShuffledEvent { GameId = State.Id, Deck = _deck.ToList() });
                 var playerHands = _dealer.CreatePlayerHands(_deck, State.PlayerIds, State.PlayerIds.NextOf(playerId), State.GameRules.HandSizeToDeal); // get next player from who won cut.
                 Stream.Add(new HandsDealtEvent { GameId = State.Id, Hands = playerHands });
             }
@@ -90,7 +91,7 @@ namespace Skunked
 
         public void CountHand(int playerId, int score)
         {
-            var validation = new HandCountedEventValidation();
+            var validation = new HandCountedEventValidation(new ScoreCalculator());
             var @event = new HandCountedEvent { GameId = State.Id, PlayerId = playerId, CountedScore = score };
             validation.Validate(State, @event);
             Stream.Add(@event);
@@ -105,7 +106,7 @@ namespace Skunked
 
             Stream.Add(new RoundStartedEvent { GameId = State.Id });
             _deck.Shuffle(3);
-            Stream.Add(new DeckShuffledEvent { Deck = _deck.ToList(), GameId = State.Id });
+            Stream.Add(new DeckShuffledEvent { GameId = State.Id, Deck = _deck.ToList() });
             var playerHands = _dealer.CreatePlayerHands(_deck, State.PlayerIds, State.PlayerIds.NextOf(State.PlayerIds.NextOf(playerId)), State.GameRules.HandSizeToDeal);
             Stream.Add(new HandsDealtEvent { GameId = State.Id, Hands = playerHands });
         }

@@ -5,7 +5,7 @@ using Skunked.Rules;
 using Skunked.Score;
 using Skunked.State;
 
-namespace Skunked.Standard.UnitTest.Commands
+namespace Skunked.UnitTest.Commands
 {
     public class CountScoreCommandTests
     {

@@ -25,29 +25,29 @@ namespace Skunked.State.Validations
             ValidateCore(gameState, cardPlayedEvent.PlayerId, currentRound.Round);
             var setOfPlays = currentRound.ThePlay;
 
-            if (!currentRound.ThrowCardsComplete || currentRound.PlayedCardsComplete) { throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidStateForPlay); }
+            if (!currentRound.ThrowCardsComplete || currentRound.PlayedCardsComplete) { throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidStateForPlay); }
 
             var playersCards = currentRound.Hands.Single(ph => ph.PlayerId == cardPlayedEvent.PlayerId).Hand.ToList();
             if (playersCards.SingleOrDefault(card => card.Equals(cardPlayedEvent.Played)) == null)
             {
-                throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidCard);
+                throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidCard);
             }
 
             var playedCards = setOfPlays.SelectMany(c => c).Select(spc => spc.Card);
-            if (playedCards.Any(c => c.Equals(cardPlayedEvent.Played))) { throw new InvalidCribbageOperationException(InvalidCribbageOperations.CardHasBeenPlayed); }
-            if (!setOfPlays.Any()) { throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidStateForPlay); }
+            if (playedCards.Any(c => c.Equals(cardPlayedEvent.Played))) { throw new InvalidCribbageOperationException(InvalidCribbageOperation.CardHasBeenPlayed); }
+            if (!setOfPlays.Any()) { throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidStateForPlay); }
 
             if (setOfPlays.Count == 1 && !setOfPlays.Last().Any())
             {
                 if (gameState.GetNextPlayerFrom(currentRound.PlayerCrib) != cardPlayedEvent.PlayerId)
                 {
-                    throw new InvalidCribbageOperationException(InvalidCribbageOperations.NotPlayersTurn);
+                    throw new InvalidCribbageOperationException(InvalidCribbageOperation.NotPlayersTurn);
                 }
             }
 
             if (setOfPlays.Last().Count > 0 && setOfPlays.SelectMany(s => s).Last().NextPlayer != cardPlayedEvent.PlayerId)
             {
-                throw new InvalidCribbageOperationException(InvalidCribbageOperations.NotPlayersTurn);
+                throw new InvalidCribbageOperationException(InvalidCribbageOperation.NotPlayersTurn);
             }
 
             //is the player starting new round with card sum over 31 and they have a playable card for current round?
@@ -59,7 +59,7 @@ namespace Skunked.State.Validations
                 var playersCardsLeftToPlay = playersCards.Except(playedCardsThisRound, CardValueEquality.Instance).Except(new List<Card> { cardPlayedEvent.Played }, CardValueEquality.Instance);
                 if (playersCardsLeftToPlay.Any(c => _scoreCalculator.SumValues(new List<Card>(playedCardsThisRound) { c }) <= GameRules.PlayMaxScore))
                 {
-                    throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidCard);
+                    throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidCard);
                 }
             }
         }

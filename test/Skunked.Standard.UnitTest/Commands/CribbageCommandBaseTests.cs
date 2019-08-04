@@ -4,7 +4,7 @@ using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.State;
 
-namespace Skunked.Standard.UnitTest.Commands
+namespace Skunked.UnitTest.Commands
 {
     public class CribbageCommandBaseTests
     {

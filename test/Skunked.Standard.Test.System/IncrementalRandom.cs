@@ -2,7 +2,7 @@
 using System.Threading;
 using Skunked.Utility;
 
-namespace Skunked.Standard.Test.System
+namespace Skunked.Test.System
 {
     public class IncrementalRandom : Random
     {

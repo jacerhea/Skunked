@@ -4,7 +4,7 @@ using Skunked.AI.CardToss;
 using Skunked.PlayingCards;
 using Xunit;
 
-namespace Skunked.Standard.UnitTest.AI.CardToss
+namespace Skunked.UnitTest.AI.CardToss
 {
     public class DistributionServiceTests
     {

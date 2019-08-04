@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Skunked.Game;
 using Skunked.Players;
@@ -8,7 +9,7 @@ using Skunked.Rules;
 using Skunked.Utility;
 using Xunit;
 
-namespace Skunked.Standard.Test.System
+namespace Skunked.Test.System
 {
     public class SmokeTests : IDisposable
     {
@@ -21,14 +22,18 @@ namespace Skunked.Standard.Test.System
         [Fact]
         public void FullGameTest()
         {
-            var game =
-                new CribbageGameRunner(new Deck());
+            var game = new CribbageGameRunner(new Deck());
 
-            var result = game.Run(new List<IGameRunnerPlayer>
+            foreach (var i in Enumerable.Range(0, 1000))
             {
-                new TestPlayer("TestPlayer 1", 1),
-                new TestPlayer("TestPlayer 2", 2)
-            }, new GameRules());
+                var result = game.Run(new List<IGameRunnerPlayer>
+                {
+                    new TestPlayer($"TestPlayer {i}", 1),
+                    new TestPlayer($"TestPlayer {i}_2", 2)
+                }, new GameRules());
+
+                TestEndGame.Test(result.State);
+            }
         }
 
         public void Dispose()

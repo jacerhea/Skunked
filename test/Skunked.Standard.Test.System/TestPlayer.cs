@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using Skunked.Players;
 using Skunked.PlayingCards;
+using Skunked.PlayingCards.Order;
+using Skunked.PlayingCards.Order.Interface;
 using Skunked.Rules;
 using Skunked.Score;
 using Skunked.Utility;
 
-namespace Skunked.Standard.Test.System
+namespace Skunked.Test.System
 {
     public class TestPlayer : IEquatable<TestPlayer>, IGameRunnerPlayer
     {
         private readonly ScoreCalculator _calculator = new ScoreCalculator();
+        private readonly IOrderStrategy _orderStrategy = new StandardOrder();
 
         public TestPlayer(string name, int id)
         {
@@ -53,7 +56,7 @@ namespace Skunked.Standard.Test.System
             if (handLeft == null) throw new ArgumentNullException(nameof(handLeft));
             if (handLeft.Count == 0) throw new ArgumentException("handLeft");
 
-            return handLeft.Single();
+            return handLeft.OrderBy(card => _orderStrategy.Order(card)).First();
         }
 
         public Card ChooseCard(List<Card> cardsToChoose)

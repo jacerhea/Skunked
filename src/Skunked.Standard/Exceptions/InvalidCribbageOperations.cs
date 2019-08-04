@@ -1,6 +1,6 @@
 ﻿namespace Skunked.Exceptions
 {
-    public enum InvalidCribbageOperations
+    public enum InvalidCribbageOperation
     {
         CutCardPlayerAlreadyCut,
         CutCardCardAlreadyCut,
@@ -12,6 +12,7 @@
         InvalidCard,
         InvalidStateForCount,
         InvalidStateForCribCount,
+        InvalidShowCount,
         PlayerHasAlreadyCounted,
         GameFinished,
         InvalidRequest

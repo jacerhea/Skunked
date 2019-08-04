@@ -8,7 +8,7 @@ using Skunked.Rules;
 using Skunked.State;
 using Xunit;
 
-namespace Skunked.Standard.UnitTest.State
+namespace Skunked.UnitTest.State
 {
 
     public class GameStateSerializationTests
@@ -46,7 +46,7 @@ namespace Skunked.Standard.UnitTest.State
                 TeamScores = new List<TeamScore> { new TeamScore { Players = new List<int> { 1 }, Score = 5 } }
             };
 
-            var stream = new MemoryStream();
+            //var stream = new MemoryStream();
 
             //todo: fix me.
             //var xmlSerializer = new XmlSerializer(typeof(GameState));

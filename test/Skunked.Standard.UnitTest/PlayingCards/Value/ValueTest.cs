@@ -5,7 +5,7 @@ using Skunked.PlayingCards;
 using Skunked.PlayingCards.Value;
 using Xunit;
 
-namespace Skunked.Standard.UnitTest.PlayingCards.Value
+namespace Skunked.UnitTest.PlayingCards.Value
 {
     public class ValueTest
     {

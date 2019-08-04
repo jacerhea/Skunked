@@ -3,7 +3,7 @@ using Skunked.PlayingCards;
 using Skunked.Utility;
 using Xunit;
 
-namespace Skunked.Standard.UnitTest
+namespace Skunked.UnitTest
 {
     public class CardTestFixture
     {

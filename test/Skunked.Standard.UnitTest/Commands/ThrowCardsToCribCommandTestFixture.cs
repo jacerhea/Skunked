@@ -1,4 +1,4 @@
-﻿namespace Skunked.Standard.UnitTest.Commands
+﻿namespace Skunked.UnitTest.Commands
 {
     public class ThrowCardsToCribCommandTestFixture
     {

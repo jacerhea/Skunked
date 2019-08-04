@@ -6,7 +6,7 @@ using Skunked.PlayingCards;
 using Skunked.PlayingCards.Order;
 using Xunit;
 
-namespace Skunked.Standard.UnitTest.PlayingCards.Order
+namespace Skunked.UnitTest.PlayingCards.Order
 {
     public class OrderTest
     {

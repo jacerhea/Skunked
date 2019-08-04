@@ -12,7 +12,7 @@ using Xunit;
 
 namespace Skunked.UnitTest.State.Validations
 {
-    public class CardPlayedEventValidationTests
+    public class CardsThrownEventValidationTests
     {
         [Fact]
         public void Card_Played_With_Throw_Cards_Not_Complete_Should_Throw_Validation_Exception()

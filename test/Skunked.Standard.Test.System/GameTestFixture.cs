@@ -2,7 +2,7 @@
 using Skunked.Rules;
 using Xunit;
 
-namespace Skunked.Standard.Test.System
+namespace Skunked.Test.System
 {
     public class GameTestFixture
     {

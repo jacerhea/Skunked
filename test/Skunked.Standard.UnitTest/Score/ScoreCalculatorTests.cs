@@ -5,7 +5,7 @@ using Skunked.PlayingCards;
 using Skunked.Score;
 using Xunit;
 
-namespace Skunked.Standard.UnitTest.Score
+namespace Skunked.UnitTest.Score
 {
     public class ScoreCalculatorTests
     {
@@ -35,7 +35,8 @@ namespace Skunked.Standard.UnitTest.Score
             Assert.Equal(10, resultSets[2].Count);
             Assert.Equal(10, resultSets[3].Count);
             Assert.Equal(5, resultSets[4].Count);
-            Assert.Equal(1, resultSets[5].Count);
+            resultSets[5].Count.Should().Be(1);
+
         }
 
         [Fact]
@@ -199,7 +200,7 @@ namespace Skunked.Standard.UnitTest.Score
                            };
 
             var pairsCombinations = _scoreCalculator.CountFlush(hand, new Card(Rank.Queen, Suit.Spades));
-            Assert.Equal(0, pairsCombinations.Count);
+            pairsCombinations.Count.Should().Be(0);
         }
 
         [Fact]

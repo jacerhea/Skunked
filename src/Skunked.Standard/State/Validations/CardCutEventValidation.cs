@@ -11,17 +11,17 @@ namespace Skunked.State.Validations
             CheckEndOfGame(gameState);
             if (gameState.OpeningRound.WinningPlayerCut.HasValue)
             {
-                throw new InvalidCribbageOperationException(InvalidCribbageOperations.CutCardCardAlreadyCut);
+                throw new InvalidCribbageOperationException(InvalidCribbageOperation.CutCardCardAlreadyCut);
             }
 
             if (gameState.OpeningRound.CutCards.Any(playerCard => playerCard.Player == cutEvent.PlayerId))
             {
-                throw new InvalidCribbageOperationException(InvalidCribbageOperations.CutCardPlayerAlreadyCut);
+                throw new InvalidCribbageOperationException(InvalidCribbageOperation.CutCardPlayerAlreadyCut);
             }
 
             if (gameState.OpeningRound.CutCards.Any(playerCard => playerCard.Card.Equals(cutEvent.CutCard)))
             {
-                throw new InvalidCribbageOperationException(InvalidCribbageOperations.CutCardCardAlreadyCut);
+                throw new InvalidCribbageOperationException(InvalidCribbageOperation.CutCardCardAlreadyCut);
             }
         }
     }

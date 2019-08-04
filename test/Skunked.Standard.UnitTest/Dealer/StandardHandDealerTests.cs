@@ -6,7 +6,7 @@ using Skunked.Dealer;
 using Skunked.PlayingCards;
 using Xunit;
 
-namespace Skunked.Standard.UnitTest.Dealer
+namespace Skunked.UnitTest.Dealer
 {
     public class StandardHandDealerTests
 

@@ -5,7 +5,7 @@ using Skunked.State;
 using Skunked.Utility;
 using Xunit;
 
-namespace Skunked.Standard.Test.System
+namespace Skunked.Test.System
 {
     public static class TestEndGame
     {

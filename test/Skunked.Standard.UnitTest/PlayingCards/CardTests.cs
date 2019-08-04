@@ -2,7 +2,7 @@
 using Skunked.PlayingCards;
 using Xunit;
 
-namespace Skunked.Standard.UnitTest.PlayingCards
+namespace Skunked.UnitTest.PlayingCards
 {
     public class CardTests
     {

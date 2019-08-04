@@ -5,7 +5,7 @@ using Skunked.Rules;
 using Skunked.State;
 using Xunit;
 
-namespace Skunked.Standard.UnitTest.Commands
+namespace Skunked.UnitTest.Commands
 {
     public class PlayCardCommandTests
     {

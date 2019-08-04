@@ -10,7 +10,7 @@ using Skunked.State.Events;
 using Skunked.State.Validations;
 using Xunit;
 
-namespace Skunked.Standard.UnitTest.State.Validations
+namespace Skunked.UnitTest.State.Validations
 {
     public class CardCutEventValidationTests
     {

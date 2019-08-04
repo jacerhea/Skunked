@@ -29,17 +29,17 @@ namespace Skunked.Score
             return cut.Rank == Rank.Jack ? GameRules.NibsScore : 0;
         }
 
-        public ScoreCalculatorResult CountShowScore(Card cutCard, IEnumerable<Card> playerHand)
+        public ScoreCalculatorResult CountShowScore(Card starterCard, IEnumerable<Card> playerHand)
         {
             var playerHandList = playerHand.ToList();
-            var completeSet = playerHandList.Append(cutCard).ToList();
+            var completeSet = playerHandList.Append(starterCard).ToList();
             var allCombinations = GetCombinations(completeSet);
 
             var fifteens = CountFifteens(allCombinations);
-            var flush = CountFlush(playerHandList, cutCard);
+            var flush = CountFlush(playerHandList, starterCard);
             var pairs = CountPairs(allCombinations);
             var runs = CountRuns(allCombinations);
-            var hisNobs = Nobs(playerHandList, cutCard);
+            var hisNobs = Nobs(playerHandList, starterCard);
 
             int fifteenScore = fifteens.Count * GameRules.FifteenScore;
             int flushScore = flush.Count;
@@ -116,12 +116,12 @@ namespace Skunked.Score
         /// or all five cards if the starter card matches the other four cards suit.
         /// </summary>
         /// <param name="playersHand"></param>
-        /// <param name="cutCard"></param>
+        /// <param name="starterCard"></param>
         /// <returns></returns>
-        public List<Card> CountFlush(List<Card> playersHand, Card cutCard)
+        public List<Card> CountFlush(List<Card> playersHand, Card starterCard)
         {
             if (playersHand == null) throw new ArgumentNullException(nameof(playersHand));
-            if (cutCard == null) throw new ArgumentNullException(nameof(cutCard));
+            if (starterCard == null) throw new ArgumentNullException(nameof(starterCard));
             if (playersHand.Count < 4) { return new List<Card>(0); }
 
             var fourCardFlush = playersHand.GroupBy(c => c.Suit).Where(g => g.Count() > 3).ToList();
@@ -129,10 +129,10 @@ namespace Skunked.Score
             if (fourCardFlush.Count == 1)
             {
                 //check for 5 card flush
-                if (fourCardFlush.First().Key == cutCard.Suit)
+                if (fourCardFlush.First().Key == starterCard.Suit)
                 {
                     var returnHand = playersHand.ToList();
-                    returnHand.Add(cutCard);
+                    returnHand.Add(starterCard);
                     return returnHand;
 
                 }
