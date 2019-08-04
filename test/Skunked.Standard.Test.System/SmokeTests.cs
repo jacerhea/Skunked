@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Skunked.Game;
 using Skunked.Players;
@@ -10,10 +11,10 @@ using Xunit;
 
 namespace Skunked.Test.System
 {
-    public class SmokeTestFixture : IDisposable
+    public class SmokeTests : IDisposable
     {
 
-        public SmokeTestFixture()
+        public SmokeTests()
         {
             RandomProvider.RandomInstance = new ThreadLocal<Random>(() => new IncrementalRandom());
         }
@@ -21,14 +22,18 @@ namespace Skunked.Test.System
         [Fact]
         public void FullGameTest()
         {
-            var game =
-                new CribbageGameRunner(new Deck());
+            var game = new CribbageGameRunner(new Deck());
 
-            var result = game.Run(new List<IGameRunnerPlayer>
+            foreach (var i in Enumerable.Range(0, 1000))
             {
-                new TestPlayer("TestPlayer 1", 1),
-                new TestPlayer("TestPlayer 2", 2)
-            }, new GameRules());
+                var result = game.Run(new List<IGameRunnerPlayer>
+                {
+                    new TestPlayer($"TestPlayer {i}", 1),
+                    new TestPlayer($"TestPlayer {i}_2", 2)
+                }, new GameRules());
+
+                TestEndGame.Test(result.State);
+            }
         }
 
         public void Dispose()

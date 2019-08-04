@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Xml.Serialization;
 using Skunked.Players;
 using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.State;
 using Xunit;
 
-namespace Skunked.Test.State
+namespace Skunked.UnitTest.State
 {
 
-    public class GameStateSerializationTestFixture
+    public class GameStateSerializationTests
     {
 
         [Fact]
@@ -44,10 +43,10 @@ namespace Skunked.Test.State
                 StartedAt = DateTimeOffset.Now,
                 Rounds = new List<RoundState> { new RoundState { Complete = false } },
                 PlayerIds = new List<int> { 1, 2 },
-                TeamScores = new List<TeamScore> { new TeamScore { Players = new List<int> { 1 }, Score = 5 } },
+                TeamScores = new List<TeamScore> { new TeamScore { Players = new List<int> { 1 }, Score = 5 } }
             };
 
-            var stream = new MemoryStream();
+            //var stream = new MemoryStream();
 
             //todo: fix me.
             //var xmlSerializer = new XmlSerializer(typeof(GameState));

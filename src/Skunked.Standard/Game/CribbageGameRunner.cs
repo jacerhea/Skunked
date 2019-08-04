@@ -54,20 +54,21 @@ namespace Skunked.Game
                     {
                         var currentPlayerPlayItems = currentRound.ThePlay.Last();
                         var lastPlayerPlayItem = currentRound.ThePlay.SelectMany(ppi => ppi).LastOrDefault();
-                        var player = currentRound.ThePlay.Count == 1 && lastPlayerPlayItem == null
+                        var isFirstPlay = currentRound.ThePlay.Count == 1 && lastPlayerPlayItem == null;
+                        var player = isFirstPlay
                             ? players.NextOf(players.Single(p => p.Id == currentRound.PlayerCrib))
                             : players.Single(p => p.Id == lastPlayerPlayItem.NextPlayer);
                         var playedCards = currentRound.ThePlay.SelectMany(ppi => ppi).Select(ppi => ppi.Card).ToList();
                         var handLeft = currentRound.Hands.Single(playerHand => playerHand.PlayerId == player.Id).Hand.Except(playedCards, CardValueEquality.Instance).ToList();
-                        var show = player.PlayShow(gameRules, currentPlayerPlayItems.Select(y => y.Card).ToList(), handLeft);
+                        var show = player.PlayShow(gameRules, currentPlayerPlayItems.Select(playItem => playItem.Card).ToList(), handLeft);
 
                         cribbage.PlayCard(player.Id, show);
                     }
 
-                    var startingPlayer = players.Single(p => p.Id == gameState.GetNextPlayerFrom(currentRound.PlayerCrib));
+                    var startingPlayer = players.Single(player => player.Id == gameState.GetNextPlayerFrom(currentRound.PlayerCrib));
                     foreach (var player in players.Infinite().Skip(players.IndexOf(startingPlayer)).Take(players.Count).ToList())
                     {
-                        var playerCount = player.CountHand(currentRound.Starter, currentRound.Hands.Single(kv => kv.PlayerId == player.Id).Hand);
+                        var playerCount = player.CountHand(currentRound.Starter, currentRound.Hands.Single(playerHand => playerHand.PlayerId == player.Id).Hand);
                         cribbage.CountHand(player.Id, playerCount);
                     }
 
@@ -78,7 +79,7 @@ namespace Skunked.Game
             }
             catch (InvalidCribbageOperationException exception)
             {
-                if (exception.Operation != InvalidCribbageOperations.GameFinished)
+                if (exception.Operation != InvalidCribbageOperation.GameFinished)
                 {
                     throw;
                 }

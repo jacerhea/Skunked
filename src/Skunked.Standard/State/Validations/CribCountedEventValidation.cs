@@ -14,12 +14,12 @@ namespace Skunked.State.Validations
             ValidateCore(gameState, cutEvent.PlayerId, currentRound.Round);
             if (currentRound.Complete || !currentRound.ThrowCardsComplete || !currentRound.PlayedCardsComplete)
             {
-                throw new InvalidCribbageOperationException(InvalidCribbageOperations.InvalidStateForCribCount);
+                throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidStateForCribCount);
             }
 
             if (!currentRound.ShowScores.Where(pss => pss.Player != cutEvent.PlayerId).All(pss => pss.HasShowed))
             {
-                throw new InvalidCribbageOperationException(InvalidCribbageOperations.NotPlayersTurn);
+                throw new InvalidCribbageOperationException(InvalidCribbageOperation.NotPlayersTurn);
             }
         }
     }

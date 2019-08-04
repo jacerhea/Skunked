@@ -5,9 +5,9 @@ using Skunked.Rules;
 using Skunked.State;
 using Xunit;
 
-namespace Skunked.Test.Commands
+namespace Skunked.UnitTest.Commands
 {
-    public class PlayCardCommandTestFixture
+    public class PlayCardCommandTests
     {
         private GameState CreateGameState()
         {
@@ -30,7 +30,7 @@ namespace Skunked.Test.Commands
                         {
                             new PlayerHand(1, new List<Card>{new Card(Rank.Jack, Suit.Diamonds), new Card(Rank.Nine, Suit.Spades), new Card(Rank.Seven), new Card(Rank.Four)}), 
                             new PlayerHand(2, new List<Card>{new Card(Rank.Queen, Suit.Clubs), new Card(Rank.Ace, Suit.Hearts), new Card(Rank.Nine), new Card(Rank.Eight)})
-                        },
+                        }
                     }
                 },
                 GameRules = new GameRules(),

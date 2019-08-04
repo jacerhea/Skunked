@@ -10,7 +10,7 @@ using Skunked.State.Events;
 using Skunked.State.Validations;
 using Xunit;
 
-namespace Skunked.Standard.UnitTest.State.Validations
+namespace Skunked.UnitTest.State.Validations
 {
     public class CardCutEventValidationTests
     {
@@ -22,10 +22,10 @@ namespace Skunked.Standard.UnitTest.State.Validations
                 PlayerIds = new List<int> { 1, 2 },
                 GameRules = new GameRules(),
                 TeamScores = new List<TeamScore>
-                    {new TeamScore {Players = new List<int> {1}}, new TeamScore {Players = new List<int> {2}},},
+                    {new TeamScore {Players = new List<int> {1}}, new TeamScore {Players = new List<int> {2}}},
                 OpeningRound = new OpeningRound
                 {
-                    CutCards = new List<PlayerIdCard> { },
+                    CutCards = new List<PlayerIdCard>()
                 }
             };
 
@@ -43,10 +43,10 @@ namespace Skunked.Standard.UnitTest.State.Validations
                 PlayerIds = new List<int> { 1, 2 },
                 GameRules = new GameRules(),
                 TeamScores = new List<TeamScore>
-                    {new TeamScore {Players = new List<int> {1}}, new TeamScore {Players = new List<int> {2}},},
+                    {new TeamScore {Players = new List<int> {1}}, new TeamScore {Players = new List<int> {2}}},
                 OpeningRound = new OpeningRound
                 {
-                    CutCards = new List<PlayerIdCard> { new PlayerIdCard { Card = new Card(Rank.Eight, Suit.Diamonds), Player = 1 } },
+                    CutCards = new List<PlayerIdCard> { new PlayerIdCard { Card = new Card(Rank.Eight, Suit.Diamonds), Player = 1 } }
                 }
             };
 
@@ -64,10 +64,10 @@ namespace Skunked.Standard.UnitTest.State.Validations
                 PlayerIds = new List<int> { 1, 2 },
                 GameRules = new GameRules(),
                 TeamScores = new List<TeamScore>
-                    {new TeamScore {Players = new List<int> {1}}, new TeamScore {Players = new List<int> {2}},},
+                    {new TeamScore {Players = new List<int> {1}}, new TeamScore {Players = new List<int> {2}}},
                 OpeningRound = new OpeningRound
                 {
-                    CutCards = new List<PlayerIdCard> { new PlayerIdCard { Card = new Card(Rank.Nine, Suit.Hearts), Player = 1 } },
+                    CutCards = new List<PlayerIdCard> { new PlayerIdCard { Card = new Card(Rank.Nine, Suit.Hearts), Player = 1 } }
                 }
             };
 

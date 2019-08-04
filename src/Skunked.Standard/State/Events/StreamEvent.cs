@@ -6,7 +6,6 @@ namespace Skunked.State.Events
     public abstract class StreamEvent
     {
         public Guid GameId { get; set; }
-        public int Sequence { get; set; }
         public DateTimeOffset Occurred { get; set; } = DateTimeOffset.Now;
     }
 }

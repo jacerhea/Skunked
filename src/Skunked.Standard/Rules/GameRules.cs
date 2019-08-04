@@ -28,7 +28,7 @@ namespace Skunked.Rules
 
         public GameRules(GameScoreType scoreType, int numberOfPlayers)
         {
-            if (numberOfPlayers != 2 && numberOfPlayers != 4) { throw new ArgumentOutOfRangeException(); }
+            if (numberOfPlayers != 2 && numberOfPlayers != 4) { throw new ArgumentOutOfRangeException(nameof(numberOfPlayers)); }
             PlayerCount = numberOfPlayers;
             ScoreType = scoreType;
         }

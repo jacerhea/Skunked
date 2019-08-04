@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using Skunked.PlayingCards;
+using Skunked.PlayingCards.Value;
 using Xunit;
 
-namespace Skunked.Test.PlayingCards.Value
+namespace Skunked.UnitTest.PlayingCards.Value
 {
     public class ValueTest
     {
         [Fact]
-        public void AceLowFaceTenCardValueStrategyValue()
+        public void Value_Of_Every_Card_Will_Match_Expected_Values()
         {
             var expectedValues = new List<Tuple<Card, int>>
             {
@@ -25,7 +26,7 @@ namespace Skunked.Test.PlayingCards.Value
                 Tuple.Create(new Card(Rank.Ten), 10),
                 Tuple.Create(new Card(Rank.Jack), 10),
                 Tuple.Create(new Card(Rank.Queen), 10),
-                Tuple.Create(new Card(Rank.King), 10),
+                Tuple.Create(new Card(Rank.King), 10)
             };
 
             var strategy = new AceLowFaceTenCardValueStrategy();
@@ -38,7 +39,7 @@ namespace Skunked.Test.PlayingCards.Value
         }
 
         [Fact]
-        public void ArgumentNull()
+        public void Null_Argument_Will_Throw_ArgumentNullException()
         {
             var strategy = new AceLowFaceTenCardValueStrategy();
             Action valueOf = () => strategy.ValueOf(null);

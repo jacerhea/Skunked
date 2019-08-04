@@ -7,8 +7,8 @@ namespace Skunked.Score
 {
     public class ComboScore
     {
-        public List<Card> Combo { get; private set; }
-        public int Score { get; private set; }
+        public List<Card> Combo { get; }
+        public int Score { get; }
 
         public ComboScore(List<Card> combo, int score)
         {

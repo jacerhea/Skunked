@@ -6,12 +6,13 @@ using Skunked.Dealer;
 using Skunked.PlayingCards;
 using Xunit;
 
-namespace Skunked.Standard.UnitTest.Dealer
+namespace Skunked.UnitTest.Dealer
 {
-    public class StandardHandDealerTestFixture
+    public class StandardHandDealerTests
+
     {
         [Fact]
-        public void Test_Deal()
+        public void Two_Player_Deal_Starting_With_Player1_Will_Be_Correct()
         {
             var deck = new Mock<Deck>();
             deck.Setup(d => d.GetEnumerator()).Returns(() => new List<Card>
@@ -30,7 +31,7 @@ namespace Skunked.Standard.UnitTest.Dealer
                 new Card(Rank.Three, Suit.Spades),
                 new Card(Rank.Three, Suit.Spades),
                 new Card(Rank.Three, Suit.Spades),
-                new Card(Rank.Three, Suit.Spades),
+                new Card(Rank.Three, Suit.Spades)
             }.GetEnumerator());
             var handFactory = new StandardHandDealer();
             var players = new List<int> {1,2};
@@ -56,7 +57,7 @@ namespace Skunked.Standard.UnitTest.Dealer
         }
 
         [Fact]
-        public void Test_Deal_StartingWithPlayer2()
+        public void Two_Player_Deal_Starting_With_Player2_Will_Be_Correct()
         {
             var deck = new Mock<Deck>();
             deck.Setup(d => d.GetEnumerator()).Returns(() => new List<Card>
@@ -73,7 +74,7 @@ namespace Skunked.Standard.UnitTest.Dealer
                 new Card(Rank.Six, Suit.Hearts),
                 new Card(Rank.Ten, Suit.Clubs),
                 new Card(Rank.Three, Suit.Spades),
-                new Card(Rank.Three, Suit.Spades),
+                new Card(Rank.Three, Suit.Spades)
             }.GetEnumerator());
             var handFactory = new StandardHandDealer();
             var players = new List<int> { 1,2};
@@ -100,7 +101,7 @@ namespace Skunked.Standard.UnitTest.Dealer
         }
 
         [Fact]
-        public void Test_Deal0Cards()
+        public void Two_Player_Deal_Of_Zero_Cards_Will_Result_In_Empty_Hands()
         {
             var deck = new Mock<Deck>();
             deck.Setup(d => d.GetEnumerator()).Returns(() => new List<Card>().GetEnumerator());
@@ -112,7 +113,7 @@ namespace Skunked.Standard.UnitTest.Dealer
         }
 
         [Fact]
-        public void Test_Deal_StartingWithPlayer3()
+        public void Four_Player_Deal_Of_5_Cards_Starting_With_Third_Player_Will_Be_Correct()
         {
             var deck = new Mock<Deck>();
             deck.Setup(d => d.GetEnumerator()).Returns(() => new List<Card>
@@ -136,7 +137,7 @@ namespace Skunked.Standard.UnitTest.Dealer
                 new Card(Rank.Five, Suit.Hearts),
                 new Card(Rank.Ace, Suit.Spades),
                 new Card(Rank.Four, Suit.Clubs),
-                new Card(Rank.Two, Suit.Diamonds),
+                new Card(Rank.Two, Suit.Diamonds)
             }.GetEnumerator());
             var handFactory = new StandardHandDealer();
             var players = new List<int> { 1,2,3,4};

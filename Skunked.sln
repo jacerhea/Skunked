@@ -26,13 +26,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{8F
 		Release Packages\Skunked.nuspec = Release Packages\Skunked.nuspec
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skunked.Standard", "src\Skunked.Standard\Skunked.Standard.csproj", "{86109756-49ED-4635-BCAA-BA5CF9CBEB8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skunked", "src\Skunked.Standard\Skunked.csproj", "{86109756-49ED-4635-BCAA-BA5CF9CBEB8B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skunked.Standard.UnitTest", "test\Skunked.Standard.UnitTest\Skunked.Standard.UnitTest.csproj", "{369B0355-CECC-46FD-85E7-E9C000CF5020}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skunked.UnitTest", "test\Skunked.Standard.UnitTest\Skunked.UnitTest.csproj", "{369B0355-CECC-46FD-85E7-E9C000CF5020}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skunked.Standard.Analytics", "test\Skunked.Standard.Analytics\Skunked.Standard.Analytics.csproj", "{49065AE8-5ABC-4D54-80AC-8D80F7EFE88D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skunked.Analytics", "test\Skunked.Standard.Analytics\Skunked.Analytics.csproj", "{49065AE8-5ABC-4D54-80AC-8D80F7EFE88D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skunked.Standard.Test.System", "test\Skunked.Standard.Test.System\Skunked.Standard.Test.System.csproj", "{9F2641CE-D020-4CFE-9E82-BE4C27504804}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skunked.Test.System", "test\Skunked.Standard.Test.System\Skunked.Test.System.csproj", "{9F2641CE-D020-4CFE-9E82-BE4C27504804}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

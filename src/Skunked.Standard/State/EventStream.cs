@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 using Skunked.State.Events;
 
 namespace Skunked.State
@@ -21,7 +23,12 @@ namespace Skunked.State
         {
             lock (Locker)
             {
-                @event.Sequence = _events.Count + 1;
+                var lastEvent = _events.LastOrDefault();
+                if (lastEvent != null && @event.Occurred <= lastEvent.Occurred)
+                {
+                    throw new InvalidOperationException($"Concurrency problem detected. Given event occured at {@event.Occurred:F} and before last recorded event at {(lastEvent.Occurred):F} ");
+                }
+
                 _events.Add(@event);
                 foreach (var eventListener in _eventListeners)
                 {

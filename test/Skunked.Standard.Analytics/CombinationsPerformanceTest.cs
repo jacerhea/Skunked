@@ -4,7 +4,7 @@ using Combinatorics.Collections;
 using Skunked.PlayingCards;
 using Xunit;
 
-namespace Skunked.Test.Analytics
+namespace Skunked.Standard.Analytics
 {
     public class CombinationsPerformanceTest
     {
@@ -19,7 +19,7 @@ namespace Skunked.Test.Analytics
                 new Card(Rank.Two, Suit.Hearts),
                 new Card(Rank.Queen, Suit.Spades),
                 new Card(Rank.Eight, Suit.Clubs),
-                new Card(Rank.Ace, Suit.Diamonds),
+                new Card(Rank.Ace, Suit.Diamonds)
             };            
         }
 

@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Skunked.Players;
 using Skunked.PlayingCards;
+using Skunked.PlayingCards.Order;
+using Skunked.PlayingCards.Order.Interface;
 using Skunked.Rules;
 using Skunked.Score;
 using Skunked.Utility;
 
-namespace Skunked.Players
+namespace Skunked.Test.System
 {
     public class TestPlayer : IEquatable<TestPlayer>, IGameRunnerPlayer
     {
         private readonly ScoreCalculator _calculator = new ScoreCalculator();
+        private readonly IOrderStrategy _orderStrategy = new StandardOrder();
 
         public TestPlayer(string name, int id)
         {
@@ -18,8 +22,8 @@ namespace Skunked.Players
             Id = id;
         }
 
-        public string Name { get; private set; }
-        public int Id { get; private set; }
+        public string Name { get; }
+        public int Id { get; }
 
         public override string ToString()
         {
@@ -52,7 +56,7 @@ namespace Skunked.Players
             if (handLeft == null) throw new ArgumentNullException(nameof(handLeft));
             if (handLeft.Count == 0) throw new ArgumentException("handLeft");
 
-            return handLeft.Single();
+            return handLeft.OrderBy(card => _orderStrategy.Order(card)).First();
         }
 
         public Card ChooseCard(List<Card> cardsToChoose)

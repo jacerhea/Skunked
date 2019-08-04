@@ -4,9 +4,9 @@ using Skunked.AI.CardToss;
 using Skunked.PlayingCards;
 using Xunit;
 
-namespace Skunked.Test.AI.CardToss
+namespace Skunked.UnitTest.AI.CardToss
 {
-    public class DistributionServiceTestFixture
+    public class DistributionServiceTests
     {
         [Fact]
         public void CalculateDistribution()
@@ -18,7 +18,7 @@ namespace Skunked.Test.AI.CardToss
                 new Card(Rank.Seven, Suit.Clubs),
                 new Card(Rank.Five, Suit.Diamonds),
                 new Card(Rank.Ace, Suit.Spades),
-                new Card(Rank.Queen, Suit.Clubs),
+                new Card(Rank.Queen, Suit.Clubs)
             };
 
             var distributionService = new DistributionService();
@@ -34,7 +34,7 @@ namespace Skunked.Test.AI.CardToss
                 new Card(Rank.Five, Suit.Clubs),
                 new Card(Rank.Six, Suit.Clubs),
                 new Card(Rank.Seven, Suit.Clubs),
-                new Card(Rank.Five, Suit.Diamonds),
+                new Card(Rank.Five, Suit.Diamonds)
             };
 
             var distributionService = new DistributionService();

@@ -5,13 +5,13 @@ using Skunked.PlayingCards;
 using Skunked.Score;
 using Xunit;
 
-namespace Skunked.Test.Score
+namespace Skunked.UnitTest.Score
 {
-    public class ScoreCalculatorTestFixture
+    public class ScoreCalculatorTests
     {
-        private ScoreCalculator _scoreCalculator;
+        private readonly ScoreCalculator _scoreCalculator;
 
-        public ScoreCalculatorTestFixture()
+        public ScoreCalculatorTests()
         {
             _scoreCalculator = new ScoreCalculator();
         }
@@ -35,7 +35,8 @@ namespace Skunked.Test.Score
             Assert.Equal(10, resultSets[2].Count);
             Assert.Equal(10, resultSets[3].Count);
             Assert.Equal(5, resultSets[4].Count);
-            Assert.Equal(1, resultSets[5].Count);
+            resultSets[5].Count.Should().Be(1);
+
         }
 
         [Fact]
@@ -199,7 +200,7 @@ namespace Skunked.Test.Score
                            };
 
             var pairsCombinations = _scoreCalculator.CountFlush(hand, new Card(Rank.Queen, Suit.Spades));
-            Assert.Equal(0, pairsCombinations.Count);
+            pairsCombinations.Count.Should().Be(0);
         }
 
         [Fact]
@@ -275,7 +276,7 @@ namespace Skunked.Test.Score
                                new Card(Rank.Ace, Suit.Spades),
                                new Card(Rank.Two, Suit.Spades),
                                new Card(Rank.Three, Suit.Hearts),
-                               new Card(Rank.Four, Suit.Clubs),
+                               new Card(Rank.Four, Suit.Clubs)
                            };
 
             var isFifteen = _scoreCalculator.IsFifteen(play);
@@ -291,7 +292,7 @@ namespace Skunked.Test.Score
                                new Card(Rank.Two, Suit.Spades),
                                new Card(Rank.Three, Suit.Hearts),
                                new Card(Rank.Four, Suit.Clubs),
-                               new Card(Rank.Five, Suit.Diamonds),
+                               new Card(Rank.Five, Suit.Diamonds)
                            };
 
             var isFifteen = _scoreCalculator.IsFifteen(play);
@@ -306,7 +307,7 @@ namespace Skunked.Test.Score
                                new Card(Rank.Six, Suit.Spades),
                                new Card(Rank.Seven, Suit.Spades),
                                new Card(Rank.Queen, Suit.Hearts),
-                               new Card(Rank.Jack, Suit.Clubs),
+                               new Card(Rank.Jack, Suit.Clubs)
                            };
 
             var nobs = _scoreCalculator.Nobs(play, new Card(Rank.Three, Suit.Clubs));
@@ -321,7 +322,7 @@ namespace Skunked.Test.Score
                                new Card(Rank.Six, Suit.Spades),
                                new Card(Rank.Seven, Suit.Spades),
                                new Card(Rank.Queen, Suit.Hearts),
-                               new Card(Rank.Jack, Suit.Clubs),
+                               new Card(Rank.Jack, Suit.Clubs)
                            };
 
             var hasNobs = _scoreCalculator.Nobs(play, new Card(Rank.Three, Suit.Diamonds));
@@ -329,7 +330,7 @@ namespace Skunked.Test.Score
         }
 
         [Fact]
-        public void ScoreCalculatoAreContinousTestOne()
+        public void ScoreCalculatorAreContinuousTestOne()
         {
             var play = new List<int> { 109 };
 
@@ -338,7 +339,7 @@ namespace Skunked.Test.Score
         }
 
         [Fact]
-        public void ScoreCalculatorAreContinousTestTwo()
+        public void ScoreCalculatorAreContinuousTestTwo()
         {
             var play = new List<int> { 109, 110 };
 
@@ -347,7 +348,7 @@ namespace Skunked.Test.Score
         }
 
         [Fact]
-        public void ScoreCalculatoAreContinousTestThree()
+        public void ScoreCalculatorAreContinuousTestThree()
         {
             var play = new List<int> { 110, 111, 109 };
 
@@ -356,7 +357,7 @@ namespace Skunked.Test.Score
         }
 
         [Fact]
-        public void ScoreCalculatoAreContinousTest()
+        public void ScoreCalculatorAreContinuousTest()
         {
             var play = new List<int> { 0, -1 };
 
@@ -365,7 +366,7 @@ namespace Skunked.Test.Score
         }
 
         [Fact]
-        public void ScoreCalculatorAreNotContinousTestTwo()
+        public void ScoreCalculatorAreNotContinuousTestTwo()
         {
             var play = new List<int> { 108, 110 };
 
@@ -374,7 +375,7 @@ namespace Skunked.Test.Score
         }
 
         [Fact]
-        public void ScoreCalculatoAreNotContinousTestThree()
+        public void ScoreCalculatorAreNotContinuousTestThree()
         {
             var play = new List<int> { 110, 107, 108 };
 
@@ -383,7 +384,7 @@ namespace Skunked.Test.Score
         }
 
         [Fact]
-        public void Zero_NegativeTwo_Are_Not_Continous()
+        public void Zero_NegativeTwo_Are_Not_Continuous()
         {
             var play = new List<int> { 0, -2 };
             var areContinuous = _scoreCalculator.AreContinuous(play);
@@ -397,7 +398,7 @@ namespace Skunked.Test.Score
                            {
                                new Card(Rank.Six, Suit.Spades),
                                new Card(Rank.Seven, Suit.Clubs),
-                               new Card(Rank.Five, Suit.Hearts),
+                               new Card(Rank.Five, Suit.Hearts)
                            };
 
             var isRun = _scoreCalculator.IsRun(hand);
@@ -458,7 +459,7 @@ namespace Skunked.Test.Score
                            {
                                new Card(Rank.Jack, Suit.Spades),
                                new Card(Rank.King, Suit.Clubs),
-                               new Card(Rank.Queen, Suit.Hearts),
+                               new Card(Rank.Queen, Suit.Hearts)
                            };
 
             var isRun = _scoreCalculator.IsRun(hand);
