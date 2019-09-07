@@ -4,7 +4,7 @@ using Combinatorics.Collections;
 using Skunked.PlayingCards;
 using Xunit;
 
-namespace Skunked.Standard.Analytics
+namespace Skunked.Analytics
 {
     public class CombinationsPerformanceTest
     {

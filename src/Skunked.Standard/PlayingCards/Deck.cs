@@ -8,15 +8,9 @@ namespace Skunked.PlayingCards
 {
     public class Deck : IEnumerable<Card>
     {
-        private static readonly ImmutableList<Card> InitialDeck;
+        private static readonly ImmutableList<Card> InitialDeck = EnumHelper.GetValues<Rank>()
+            .Cartesian(EnumHelper.GetValues<Suit>(), (rank, suit) => new Card(rank, suit)).ToImmutableList();
         private readonly List<Card> _deck;
-
-        static Deck()
-        {
-            var ranks = EnumHelper.GetValues<Rank>();
-            var suits = EnumHelper.GetValues<Suit>();
-            InitialDeck = ranks.Cartesian(suits, (rank, suit) => new Card(rank, suit)).ToImmutableList();
-        }
 
         public Deck()
         {

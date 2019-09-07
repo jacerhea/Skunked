@@ -4,7 +4,6 @@ using System.Linq;
 using Skunked.Players;
 using Skunked.PlayingCards;
 using Skunked.PlayingCards.Order;
-using Skunked.PlayingCards.Order.Interface;
 using Skunked.Rules;
 using Skunked.Score;
 using Skunked.Utility;
@@ -54,7 +53,7 @@ namespace Skunked.Test.System
             if (gameRules == null) throw new ArgumentNullException(nameof(gameRules));
             if (pile == null) throw new ArgumentNullException(nameof(pile));
             if (handLeft == null) throw new ArgumentNullException(nameof(handLeft));
-            if (handLeft.Count == 0) throw new ArgumentException("handLeft");
+            if (handLeft.Count == 0) throw new ArgumentException(nameof(handLeft));
 
             return handLeft.OrderBy(card => _orderStrategy.Order(card)).First();
         }

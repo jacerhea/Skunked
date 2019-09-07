@@ -1,4 +1,4 @@
-﻿namespace Skunked.PlayingCards.Order.Interface
+﻿namespace Skunked.PlayingCards.Order
 {
     public interface IOrderStrategy
     {
