@@ -6,12 +6,12 @@ namespace Skunked.Score
 {
     public class ScoreCalculatorResult
     {
-        public int Score { get; set; }
-        public int FifteenScore { get; set; }
-        public int PairScore { get; set; }
-        public int RunScore { get; set; }
-        public int FlushScore { get; set; }
-        public int NobScore { get; set; }
+        public int Score { get; }
+        public int FifteenScore { get; }
+        public int PairScore { get; }
+        public int RunScore { get; }
+        public int FlushScore { get; }
+        public int NobScore { get; }
         public IList<IList<Card>> Fifteens { get; }
         public IList<IList<Card>> Pairs { get; }
         public IList<IList<Card>> Runs { get; }
