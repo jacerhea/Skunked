@@ -12,7 +12,7 @@ namespace Skunked.Test.System
 {
     public class TestPlayer : IEquatable<TestPlayer>, IGameRunnerPlayer
     {
-        private readonly ScoreCalculator _calculator = new ScoreCalculator();
+        private readonly ScoreCalculator _calculator = new();
 
         public TestPlayer(string name, int id)
         {

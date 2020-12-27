@@ -23,14 +23,14 @@ namespace Skunked.UnitTest.State.Validations
                 PlayerIds = new List<int> { 1, 2 },
                 GameRules = new GameRules(),
                 TeamScores = new List<TeamScore>
-                    {new TeamScore {Players = new List<int> {1}}, new TeamScore {Players = new List<int> {2}}},
+                    {new() {Players = new List<int> {1}}, new() {Players = new List<int> {2}}},
                 OpeningRound = new OpeningRound
                 {
                     CutCards = new List<PlayerIdCard>()
                 },
                 Rounds = new List<RoundState>
                 {
-                    new RoundState
+                    new()
                     {
                         ThrowCardsComplete = false
                     }
@@ -53,20 +53,20 @@ namespace Skunked.UnitTest.State.Validations
                 PlayerIds = new List<int> { 1, 2 },
                 GameRules = new GameRules(),
                 TeamScores = new List<TeamScore>
-                    {new TeamScore {Players = new List<int> {1}}, new TeamScore {Players = new List<int> {2}}},
+                    {new() {Players = new List<int> {1}}, new() {Players = new List<int> {2}}},
                 OpeningRound = new OpeningRound
                 {
                     CutCards = new List<PlayerIdCard>()
                 },
                 Rounds = new List<RoundState>
                 {
-                    new RoundState
+                    new()
                     {
                         ThrowCardsComplete = true,
                         PlayedCardsComplete = true,
                         Hands = new List<PlayerHand>
                         {
-                            new PlayerHand(1, new List<Card>())
+                            new(1, new List<Card>())
                         }
                     }
                 }
@@ -88,21 +88,21 @@ namespace Skunked.UnitTest.State.Validations
                 PlayerIds = new List<int> { 1, 2 },
                 GameRules = new GameRules(),
                 TeamScores = new List<TeamScore>
-                    {new TeamScore {Players = new List<int> {1}}, new TeamScore {Players = new List<int> {2}}},
+                    {new() {Players = new List<int> {1}}, new() {Players = new List<int> {2}}},
                 OpeningRound = new OpeningRound
                 {
                     CutCards = new List<PlayerIdCard>()
                 },
                 Rounds = new List<RoundState>
                 {
-                    new RoundState
+                    new()
                     {
                         ThrowCardsComplete = true,
                         PlayedCardsComplete = false,
                         Hands = new List<PlayerHand>
                         {
-                            new PlayerHand(1, new List<Card>{new Card(Rank.Five, Suit.Clubs), new Card(Rank.Eight, Suit.Clubs)}),
-                            new PlayerHand(2, new List<Card>{new Card(Rank.Seven, Suit.Hearts), new Card(Rank.Nine, Suit.Diamonds)})
+                            new(1, new List<Card>{new(Rank.Five, Suit.Clubs), new(Rank.Eight, Suit.Clubs)}),
+                            new(2, new List<Card>{new(Rank.Seven, Suit.Hearts), new(Rank.Nine, Suit.Diamonds)})
                         }
                     }
                 }

@@ -435,6 +435,21 @@
             <param name="sourceSet"></param>
             <returns></returns>
         </member>
+        <member name="T:Skunked.State.PlayerScore">
+            <summary>
+            Player Id and a score.
+            </summary>
+        </member>
+        <member name="P:Skunked.State.PlayerScore.Player">
+            <summary>
+            Player Id
+            </summary>
+        </member>
+        <member name="P:Skunked.State.PlayerScore.Score">
+            <summary>
+            The player's score.
+            </summary>
+        </member>
         <member name="T:Skunked.Utility.RandomProvider">
             <summary>
             Thread Safe Implementation of a Random class provider by Jon Skeet

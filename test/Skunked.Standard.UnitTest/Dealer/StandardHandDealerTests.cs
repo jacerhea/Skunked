@@ -17,21 +17,21 @@ namespace Skunked.UnitTest.Dealer
             var deck = new Mock<Deck>();
             deck.Setup(d => d.GetEnumerator()).Returns(() => new List<Card>
             {
-                new Card(Rank.King, Suit.Clubs),
-                new Card(Rank.Ace, Suit.Diamonds),
-                new Card(Rank.Eight, Suit.Hearts),
-                new Card(Rank.Five, Suit.Spades),
-                new Card(Rank.Four, Suit.Diamonds),
-                new Card(Rank.Jack, Suit.Hearts),
-                new Card(Rank.Nine, Suit.Diamonds),
-                new Card(Rank.Queen, Suit.Spades),
-                new Card(Rank.Seven, Suit.Clubs),
-                new Card(Rank.Six, Suit.Hearts),
-                new Card(Rank.Ten, Suit.Clubs),
-                new Card(Rank.Three, Suit.Spades),
-                new Card(Rank.Three, Suit.Spades),
-                new Card(Rank.Three, Suit.Spades),
-                new Card(Rank.Three, Suit.Spades)
+                new(Rank.King, Suit.Clubs),
+                new(Rank.Ace, Suit.Diamonds),
+                new(Rank.Eight, Suit.Hearts),
+                new(Rank.Five, Suit.Spades),
+                new(Rank.Four, Suit.Diamonds),
+                new(Rank.Jack, Suit.Hearts),
+                new(Rank.Nine, Suit.Diamonds),
+                new(Rank.Queen, Suit.Spades),
+                new(Rank.Seven, Suit.Clubs),
+                new(Rank.Six, Suit.Hearts),
+                new(Rank.Ten, Suit.Clubs),
+                new(Rank.Three, Suit.Spades),
+                new(Rank.Three, Suit.Spades),
+                new(Rank.Three, Suit.Spades),
+                new(Rank.Three, Suit.Spades)
             }.GetEnumerator());
             var handFactory = new StandardDealer();
             var players = new List<int> {1,2};
@@ -62,19 +62,19 @@ namespace Skunked.UnitTest.Dealer
             var deck = new Mock<Deck>();
             deck.Setup(d => d.GetEnumerator()).Returns(() => new List<Card>
             {
-                new Card(Rank.King, Suit.Clubs),
-                new Card(Rank.Ace, Suit.Diamonds),
-                new Card(Rank.Eight, Suit.Hearts),
-                new Card(Rank.Five, Suit.Spades),
-                new Card(Rank.Four, Suit.Diamonds),
-                new Card(Rank.Jack, Suit.Hearts),
-                new Card(Rank.Nine, Suit.Diamonds),
-                new Card(Rank.Queen, Suit.Spades),
-                new Card(Rank.Seven, Suit.Clubs),
-                new Card(Rank.Six, Suit.Hearts),
-                new Card(Rank.Ten, Suit.Clubs),
-                new Card(Rank.Three, Suit.Spades),
-                new Card(Rank.Three, Suit.Spades)
+                new(Rank.King, Suit.Clubs),
+                new(Rank.Ace, Suit.Diamonds),
+                new(Rank.Eight, Suit.Hearts),
+                new(Rank.Five, Suit.Spades),
+                new(Rank.Four, Suit.Diamonds),
+                new(Rank.Jack, Suit.Hearts),
+                new(Rank.Nine, Suit.Diamonds),
+                new(Rank.Queen, Suit.Spades),
+                new(Rank.Seven, Suit.Clubs),
+                new(Rank.Six, Suit.Hearts),
+                new(Rank.Ten, Suit.Clubs),
+                new(Rank.Three, Suit.Spades),
+                new(Rank.Three, Suit.Spades)
             }.GetEnumerator());
             var handFactory = new StandardDealer();
             var players = new List<int> { 1,2};
@@ -118,26 +118,26 @@ namespace Skunked.UnitTest.Dealer
             var deck = new Mock<Deck>();
             deck.Setup(d => d.GetEnumerator()).Returns(() => new List<Card>
             {
-                new Card(Rank.King, Suit.Clubs),
-                new Card(Rank.Ace, Suit.Diamonds),
-                new Card(Rank.Eight, Suit.Hearts),
-                new Card(Rank.Five, Suit.Spades),
-                new Card(Rank.Four, Suit.Diamonds),
-                new Card(Rank.Jack, Suit.Hearts),
-                new Card(Rank.Nine, Suit.Diamonds),
-                new Card(Rank.Queen, Suit.Spades),
-                new Card(Rank.Seven, Suit.Clubs),
-                new Card(Rank.Six, Suit.Hearts),
-                new Card(Rank.Ten, Suit.Clubs),
-                new Card(Rank.Eight, Suit.Diamonds),
-                new Card(Rank.Three, Suit.Hearts),
-                new Card(Rank.Three, Suit.Spades),
-                new Card(Rank.Five, Suit.Clubs),
-                new Card(Rank.Three, Suit.Diamonds),
-                new Card(Rank.Five, Suit.Hearts),
-                new Card(Rank.Ace, Suit.Spades),
-                new Card(Rank.Four, Suit.Clubs),
-                new Card(Rank.Two, Suit.Diamonds)
+                new(Rank.King, Suit.Clubs),
+                new(Rank.Ace, Suit.Diamonds),
+                new(Rank.Eight, Suit.Hearts),
+                new(Rank.Five, Suit.Spades),
+                new(Rank.Four, Suit.Diamonds),
+                new(Rank.Jack, Suit.Hearts),
+                new(Rank.Nine, Suit.Diamonds),
+                new(Rank.Queen, Suit.Spades),
+                new(Rank.Seven, Suit.Clubs),
+                new(Rank.Six, Suit.Hearts),
+                new(Rank.Ten, Suit.Clubs),
+                new(Rank.Eight, Suit.Diamonds),
+                new(Rank.Three, Suit.Hearts),
+                new(Rank.Three, Suit.Spades),
+                new(Rank.Five, Suit.Clubs),
+                new(Rank.Three, Suit.Diamonds),
+                new(Rank.Five, Suit.Hearts),
+                new(Rank.Ace, Suit.Spades),
+                new(Rank.Four, Suit.Clubs),
+                new(Rank.Two, Suit.Diamonds)
             }.GetEnumerator());
             var handFactory = new StandardDealer();
             var players = new List<int> { 1,2,3,4};

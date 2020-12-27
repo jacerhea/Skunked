@@ -29,10 +29,10 @@ namespace Skunked.Test.System
             game.CutCard(4, new Card(Rank.Ace, Suit.Hearts));
 
             //player 4 won, deals first.
-            game.ThrowCards(1, new List<Card> { new Card(Rank.Nine, Suit.Diamonds) });
-            game.ThrowCards(2, new List<Card> { new Card(Rank.Ten, Suit.Hearts) });
-            game.ThrowCards(3, new List<Card> { new Card(Rank.King, Suit.Clubs) });
-            game.ThrowCards(4, new List<Card> { new Card(Rank.Jack, Suit.Clubs) });
+            game.ThrowCards(1, new List<Card> { new(Rank.Nine, Suit.Diamonds) });
+            game.ThrowCards(2, new List<Card> { new(Rank.Ten, Suit.Hearts) });
+            game.ThrowCards(3, new List<Card> { new(Rank.King, Suit.Clubs) });
+            game.ThrowCards(4, new List<Card> { new(Rank.Jack, Suit.Clubs) });
 
             //player 1, play 1
             game.PlayCard(1, new Card(Rank.King, Suit.Hearts));

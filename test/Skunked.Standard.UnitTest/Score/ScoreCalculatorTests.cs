@@ -21,11 +21,11 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Two, Suit.Spades),
-                               new Card(Rank.Three, Suit.Spades),
-                               new Card(Rank.Two, Suit.Clubs),
-                               new Card(Rank.Seven, Suit.Hearts),
-                               new Card(Rank.Six, Suit.Diamonds)
+                               new(Rank.Two, Suit.Spades),
+                               new(Rank.Three, Suit.Spades),
+                               new(Rank.Two, Suit.Clubs),
+                               new(Rank.Seven, Suit.Hearts),
+                               new(Rank.Six, Suit.Diamonds)
                            };
 
             var resultSets = _scoreCalculator.GetCombinations(hand);
@@ -44,10 +44,10 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Three, Suit.Spades),
-                               new Card(Rank.Two, Suit.Clubs),
-                               new Card(Rank.Seven, Suit.Hearts),
-                               new Card(Rank.Six, Suit.Diamonds)
+                               new(Rank.Three, Suit.Spades),
+                               new(Rank.Two, Suit.Clubs),
+                               new(Rank.Seven, Suit.Hearts),
+                               new(Rank.Six, Suit.Diamonds)
                            };
 
             var result = _scoreCalculator.CountShowScore(new Card(Rank.Two, Suit.Spades), hand);
@@ -59,11 +59,11 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Two, Suit.Spades),
-                               new Card(Rank.Three, Suit.Spades),
-                               new Card(Rank.Two, Suit.Clubs),
-                               new Card(Rank.Four, Suit.Hearts),
-                               new Card(Rank.Six, Suit.Diamonds)
+                               new(Rank.Two, Suit.Spades),
+                               new(Rank.Three, Suit.Spades),
+                               new(Rank.Two, Suit.Clubs),
+                               new(Rank.Four, Suit.Hearts),
+                               new(Rank.Six, Suit.Diamonds)
                            };
 
             var combos = _scoreCalculator.GetCombinations(hand);
@@ -77,11 +77,11 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Ace, Suit.Spades),
-                               new Card(Rank.Three, Suit.Spades),
-                               new Card(Rank.Two, Suit.Clubs),
-                               new Card(Rank.Four, Suit.Hearts),
-                               new Card(Rank.Ace, Suit.Diamonds)
+                               new(Rank.Ace, Suit.Spades),
+                               new(Rank.Three, Suit.Spades),
+                               new(Rank.Two, Suit.Clubs),
+                               new(Rank.Four, Suit.Hearts),
+                               new(Rank.Ace, Suit.Diamonds)
                            };
 
             var combos = _scoreCalculator.GetCombinations(hand);
@@ -95,11 +95,11 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Ace, Suit.Spades),
-                               new Card(Rank.Three, Suit.Spades),
-                               new Card(Rank.Four, Suit.Clubs),
-                               new Card(Rank.Four, Suit.Hearts),
-                               new Card(Rank.Ace, Suit.Diamonds)
+                               new(Rank.Ace, Suit.Spades),
+                               new(Rank.Three, Suit.Spades),
+                               new(Rank.Four, Suit.Clubs),
+                               new(Rank.Four, Suit.Hearts),
+                               new(Rank.Ace, Suit.Diamonds)
                            };
 
             var combos = _scoreCalculator.GetCombinations(hand);
@@ -113,10 +113,10 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Nine, Suit.Clubs),
-                               new Card(Rank.Nine, Suit.Diamonds),
-                               new Card(Rank.Nine, Suit.Hearts),
-                               new Card(Rank.Nine, Suit.Spades)
+                               new(Rank.Nine, Suit.Clubs),
+                               new(Rank.Nine, Suit.Diamonds),
+                               new(Rank.Nine, Suit.Hearts),
+                               new(Rank.Nine, Suit.Spades)
                            };
 
             var areSameKind = _scoreCalculator.AreSameKind(hand);
@@ -129,10 +129,10 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Nine, Suit.Clubs),
-                               new Card(Rank.Nine, Suit.Diamonds),
-                               new Card(Rank.Nine, Suit.Hearts),
-                               new Card(Rank.Ten, Suit.Spades)
+                               new(Rank.Nine, Suit.Clubs),
+                               new(Rank.Nine, Suit.Diamonds),
+                               new(Rank.Nine, Suit.Hearts),
+                               new(Rank.Ten, Suit.Spades)
                            };
 
             var areNotSameKind = _scoreCalculator.AreSameKind(hand);
@@ -145,11 +145,11 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Ace, Suit.Spades),
-                               new Card(Rank.Three, Suit.Spades),
-                               new Card(Rank.Ace, Suit.Clubs),
-                               new Card(Rank.Four, Suit.Hearts),
-                               new Card(Rank.Ace, Suit.Diamonds)
+                               new(Rank.Ace, Suit.Spades),
+                               new(Rank.Three, Suit.Spades),
+                               new(Rank.Ace, Suit.Clubs),
+                               new(Rank.Four, Suit.Hearts),
+                               new(Rank.Ace, Suit.Diamonds)
                            };
 
             var combos = _scoreCalculator.GetCombinations(hand);
@@ -163,10 +163,10 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Ace, Suit.Spades),
-                               new Card(Rank.Three, Suit.Spades),
-                               new Card(Rank.Eight, Suit.Spades),
-                               new Card(Rank.Four, Suit.Spades)
+                               new(Rank.Ace, Suit.Spades),
+                               new(Rank.Three, Suit.Spades),
+                               new(Rank.Eight, Suit.Spades),
+                               new(Rank.Four, Suit.Spades)
                            };
 
             var pairsCombinations = _scoreCalculator.CountFlush(hand, new Card(Rank.Queen, Suit.Clubs));
@@ -178,10 +178,10 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Ace, Suit.Spades),
-                               new Card(Rank.Three, Suit.Spades),
-                               new Card(Rank.Eight, Suit.Spades),
-                               new Card(Rank.Four, Suit.Spades)
+                               new(Rank.Ace, Suit.Spades),
+                               new(Rank.Three, Suit.Spades),
+                               new(Rank.Eight, Suit.Spades),
+                               new(Rank.Four, Suit.Spades)
                            };
 
             var pairsCombinations = _scoreCalculator.CountFlush(hand, new Card(Rank.Queen, Suit.Spades));
@@ -193,10 +193,10 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Ace, Suit.Spades),
-                               new Card(Rank.Three, Suit.Spades),
-                               new Card(Rank.Eight, Suit.Spades),
-                               new Card(Rank.Four, Suit.Diamonds)
+                               new(Rank.Ace, Suit.Spades),
+                               new(Rank.Three, Suit.Spades),
+                               new(Rank.Eight, Suit.Spades),
+                               new(Rank.Four, Suit.Diamonds)
                            };
 
             var pairsCombinations = _scoreCalculator.CountFlush(hand, new Card(Rank.Queen, Suit.Spades));
@@ -208,10 +208,10 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Five, Suit.Clubs),
-                               new Card(Rank.Five, Suit.Diamonds),
-                               new Card(Rank.Five, Suit.Hearts),
-                               new Card(Rank.Jack, Suit.Spades)
+                               new(Rank.Five, Suit.Clubs),
+                               new(Rank.Five, Suit.Diamonds),
+                               new(Rank.Five, Suit.Hearts),
+                               new(Rank.Jack, Suit.Spades)
                            };
 
             var score = _scoreCalculator.CountShowScore(new Card(Rank.Five, Suit.Spades), hand);
@@ -235,10 +235,10 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Six, Suit.Spades),
-                               new Card(Rank.Seven, Suit.Spades),
-                               new Card(Rank.Eight, Suit.Clubs),
-                               new Card(Rank.Eight, Suit.Hearts)
+                               new(Rank.Six, Suit.Spades),
+                               new(Rank.Seven, Suit.Spades),
+                               new(Rank.Eight, Suit.Clubs),
+                               new(Rank.Eight, Suit.Hearts)
                            };
 
             var scoreResult = _scoreCalculator.CountShowScore(new Card(Rank.Seven, Suit.Diamonds), hand);
@@ -255,13 +255,13 @@ namespace Skunked.UnitTest.Score
         {
             var play = new List<Card>
                            {
-                               new Card(Rank.Six, Suit.Spades),
-                               new Card(Rank.Seven, Suit.Spades),
-                               new Card(Rank.Queen, Suit.Hearts),
-                               new Card(Rank.Two, Suit.Clubs),
-                               new Card(Rank.Two, Suit.Diamonds),
-                               new Card(Rank.Two, Suit.Hearts),
-                               new Card(Rank.Two, Suit.Spades)
+                               new(Rank.Six, Suit.Spades),
+                               new(Rank.Seven, Suit.Spades),
+                               new(Rank.Queen, Suit.Hearts),
+                               new(Rank.Two, Suit.Clubs),
+                               new(Rank.Two, Suit.Diamonds),
+                               new(Rank.Two, Suit.Hearts),
+                               new(Rank.Two, Suit.Spades)
                            };
 
             var totalScore = _scoreCalculator.CountThePlay(play);
@@ -273,10 +273,10 @@ namespace Skunked.UnitTest.Score
         {
             var play = new List<Card>
                            {
-                               new Card(Rank.Ace, Suit.Spades),
-                               new Card(Rank.Two, Suit.Spades),
-                               new Card(Rank.Three, Suit.Hearts),
-                               new Card(Rank.Four, Suit.Clubs)
+                               new(Rank.Ace, Suit.Spades),
+                               new(Rank.Two, Suit.Spades),
+                               new(Rank.Three, Suit.Hearts),
+                               new(Rank.Four, Suit.Clubs)
                            };
 
             var isFifteen = _scoreCalculator.IsFifteen(play);
@@ -288,11 +288,11 @@ namespace Skunked.UnitTest.Score
         {
             var play = new List<Card>
                            {
-                               new Card(Rank.Ace, Suit.Spades),
-                               new Card(Rank.Two, Suit.Spades),
-                               new Card(Rank.Three, Suit.Hearts),
-                               new Card(Rank.Four, Suit.Clubs),
-                               new Card(Rank.Five, Suit.Diamonds)
+                               new(Rank.Ace, Suit.Spades),
+                               new(Rank.Two, Suit.Spades),
+                               new(Rank.Three, Suit.Hearts),
+                               new(Rank.Four, Suit.Clubs),
+                               new(Rank.Five, Suit.Diamonds)
                            };
 
             var isFifteen = _scoreCalculator.IsFifteen(play);
@@ -304,10 +304,10 @@ namespace Skunked.UnitTest.Score
         {
             var play = new List<Card>
                            {
-                               new Card(Rank.Six, Suit.Spades),
-                               new Card(Rank.Seven, Suit.Spades),
-                               new Card(Rank.Queen, Suit.Hearts),
-                               new Card(Rank.Jack, Suit.Clubs)
+                               new(Rank.Six, Suit.Spades),
+                               new(Rank.Seven, Suit.Spades),
+                               new(Rank.Queen, Suit.Hearts),
+                               new(Rank.Jack, Suit.Clubs)
                            };
 
             var nobs = _scoreCalculator.Nobs(play, new Card(Rank.Three, Suit.Clubs));
@@ -319,10 +319,10 @@ namespace Skunked.UnitTest.Score
         {
             var play = new List<Card>
                            {
-                               new Card(Rank.Six, Suit.Spades),
-                               new Card(Rank.Seven, Suit.Spades),
-                               new Card(Rank.Queen, Suit.Hearts),
-                               new Card(Rank.Jack, Suit.Clubs)
+                               new(Rank.Six, Suit.Spades),
+                               new(Rank.Seven, Suit.Spades),
+                               new(Rank.Queen, Suit.Hearts),
+                               new(Rank.Jack, Suit.Clubs)
                            };
 
             var hasNobs = _scoreCalculator.Nobs(play, new Card(Rank.Three, Suit.Diamonds));
@@ -396,9 +396,9 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Six, Suit.Spades),
-                               new Card(Rank.Seven, Suit.Clubs),
-                               new Card(Rank.Five, Suit.Hearts)
+                               new(Rank.Six, Suit.Spades),
+                               new(Rank.Seven, Suit.Clubs),
+                               new(Rank.Five, Suit.Hearts)
                            };
 
             var isRun = _scoreCalculator.IsRun(hand);
@@ -410,19 +410,19 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Ace, Suit.Spades),
-                               new Card(Rank.Two, Suit.Clubs),
-                               new Card(Rank.Three, Suit.Hearts),
-                               new Card(Rank.Four, Suit.Hearts),
-                               new Card(Rank.Five, Suit.Hearts),
-                               new Card(Rank.Six, Suit.Hearts),
-                               new Card(Rank.Seven, Suit.Hearts),
-                               new Card(Rank.Eight, Suit.Hearts),
-                               new Card(Rank.Nine, Suit.Hearts),
-                               new Card(Rank.Ten, Suit.Hearts),
-                               new Card(Rank.Jack, Suit.Hearts),
-                               new Card(Rank.Queen, Suit.Hearts),
-                               new Card(Rank.King, Suit.Hearts)
+                               new(Rank.Ace, Suit.Spades),
+                               new(Rank.Two, Suit.Clubs),
+                               new(Rank.Three, Suit.Hearts),
+                               new(Rank.Four, Suit.Hearts),
+                               new(Rank.Five, Suit.Hearts),
+                               new(Rank.Six, Suit.Hearts),
+                               new(Rank.Seven, Suit.Hearts),
+                               new(Rank.Eight, Suit.Hearts),
+                               new(Rank.Nine, Suit.Hearts),
+                               new(Rank.Ten, Suit.Hearts),
+                               new(Rank.Jack, Suit.Hearts),
+                               new(Rank.Queen, Suit.Hearts),
+                               new(Rank.King, Suit.Hearts)
                            };
 
             var isRun = _scoreCalculator.IsRun(hand);
@@ -434,18 +434,18 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Ace, Suit.Spades),
-                               new Card(Rank.Two, Suit.Clubs),
-                               new Card(Rank.Three, Suit.Hearts),
-                               new Card(Rank.Four, Suit.Hearts),
-                               new Card(Rank.Five, Suit.Hearts),
-                               new Card(Rank.Seven, Suit.Hearts),
-                               new Card(Rank.Eight, Suit.Hearts),
-                               new Card(Rank.Nine, Suit.Hearts),
-                               new Card(Rank.Ten, Suit.Hearts),
-                               new Card(Rank.Jack, Suit.Hearts),
-                               new Card(Rank.Queen, Suit.Hearts),
-                               new Card(Rank.King, Suit.Hearts)
+                               new(Rank.Ace, Suit.Spades),
+                               new(Rank.Two, Suit.Clubs),
+                               new(Rank.Three, Suit.Hearts),
+                               new(Rank.Four, Suit.Hearts),
+                               new(Rank.Five, Suit.Hearts),
+                               new(Rank.Seven, Suit.Hearts),
+                               new(Rank.Eight, Suit.Hearts),
+                               new(Rank.Nine, Suit.Hearts),
+                               new(Rank.Ten, Suit.Hearts),
+                               new(Rank.Jack, Suit.Hearts),
+                               new(Rank.Queen, Suit.Hearts),
+                               new(Rank.King, Suit.Hearts)
                            };
 
             var isRun = _scoreCalculator.IsRun(hand);
@@ -457,9 +457,9 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Jack, Suit.Spades),
-                               new Card(Rank.King, Suit.Clubs),
-                               new Card(Rank.Queen, Suit.Hearts)
+                               new(Rank.Jack, Suit.Spades),
+                               new(Rank.King, Suit.Clubs),
+                               new(Rank.Queen, Suit.Hearts)
                            };
 
             var isRun = _scoreCalculator.IsRun(hand);
@@ -471,10 +471,10 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Six, Suit.Spades),
-                               new Card(Rank.Seven, Suit.Clubs),
-                               new Card(Rank.Five, Suit.Hearts),
-                               new Card(Rank.Three, Suit.Diamonds)
+                               new(Rank.Six, Suit.Spades),
+                               new(Rank.Seven, Suit.Clubs),
+                               new(Rank.Five, Suit.Hearts),
+                               new(Rank.Three, Suit.Diamonds)
                            };
 
             var isRun = _scoreCalculator.IsRun(hand);

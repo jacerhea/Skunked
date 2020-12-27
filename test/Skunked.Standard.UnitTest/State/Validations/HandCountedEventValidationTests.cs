@@ -25,20 +25,20 @@ namespace Skunked.UnitTest.State.Validations
                 PlayerIds = new List<int> { 1, 2 },
                 GameRules = new GameRules(),
                 TeamScores = new List<TeamScore>
-                    {new TeamScore {Players = new List<int> {1}}, new TeamScore {Players = new List<int> {2}}},
+                    {new() {Players = new List<int> {1}}, new() {Players = new List<int> {2}}},
                 OpeningRound = new OpeningRound
                 {
                     CutCards = new List<PlayerIdCard>()
                 },
                 Rounds = new List<RoundState>
                 {
-                    new RoundState
+                    new()
                     {
                         ThrowCardsComplete = true,
                         PlayedCardsComplete = true,
-                        ShowScores = new List<PlayerScoreShow>{new PlayerScoreShow { Player = 1} },
+                        ShowScores = new List<PlayerScoreShow>{new() { Player = 1} },
                         Starter = new Card(Rank.Ten, Suit.Diamonds),
-                        Hands = new List<PlayerHand>{new PlayerHand(1, new List<Card>{new Card(Rank.Ace, Suit.Clubs), new Card(Rank.Ace, Suit.Diamonds), new Card(Rank.Ace, Suit.Hearts), new Card(Rank.Ace, Suit.Spades)}) }
+                        Hands = new List<PlayerHand>{new(1, new List<Card>{new(Rank.Ace, Suit.Clubs), new(Rank.Ace, Suit.Diamonds), new(Rank.Ace, Suit.Hearts), new(Rank.Ace, Suit.Spades)}) }
                     }
                 }
             };
