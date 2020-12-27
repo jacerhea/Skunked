@@ -52,26 +52,24 @@ namespace Skunked.Utility
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (selector == null) throw new ArgumentNullException(nameof(selector));
             if (comparer == null) throw new ArgumentNullException(nameof(comparer));
-            using (var sourceIterator = source.GetEnumerator())
+            using var sourceIterator = source.GetEnumerator();
+            if (!sourceIterator.MoveNext())
             {
-                if (!sourceIterator.MoveNext())
-                {
-                    throw new InvalidOperationException("Sequence contains no elements");
-                }
-                var min = sourceIterator.Current;
-                var minKey = selector(min);
-                while (sourceIterator.MoveNext())
-                {
-                    var candidate = sourceIterator.Current;
-                    var candidateProjected = selector(candidate);
-                    if (comparer.Compare(candidateProjected, minKey) < 0)
-                    {
-                        min = candidate;
-                        minKey = candidateProjected;
-                    }
-                }
-                return min;
+                throw new InvalidOperationException("Sequence contains no elements");
             }
+            var min = sourceIterator.Current;
+            var minKey = selector(min);
+            while (sourceIterator.MoveNext())
+            {
+                var candidate = sourceIterator.Current;
+                var candidateProjected = selector(candidate);
+                if (comparer.Compare(candidateProjected, minKey) < 0)
+                {
+                    min = candidate;
+                    minKey = candidateProjected;
+                }
+            }
+            return min;
         }
 
         public static TSource MaxBy<TSource, TKey>(this IEnumerable<TSource> source,
@@ -87,32 +85,30 @@ namespace Skunked.Utility
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (selector == null) throw new ArgumentNullException(nameof(selector));
             if (comparer == null) throw new ArgumentNullException(nameof(comparer));
-            using (var sourceIterator = source.GetEnumerator())
+            using var sourceIterator = source.GetEnumerator();
+            if (!sourceIterator.MoveNext())
             {
-                if (!sourceIterator.MoveNext())
-                {
-                    throw new InvalidOperationException("Sequence contains no elements");
-                }
-                var max = sourceIterator.Current;
-                var maxKey = selector(max);
-                while (sourceIterator.MoveNext())
-                {
-                    var candidate = sourceIterator.Current;
-                    var candidateProjected = selector(candidate);
-                    if (comparer.Compare(candidateProjected, maxKey) > 0)
-                    {
-                        max = candidate;
-                        maxKey = candidateProjected;
-                    }
-                }
-                return max;
+                throw new InvalidOperationException("Sequence contains no elements");
             }
+            var max = sourceIterator.Current;
+            var maxKey = selector(max);
+            while (sourceIterator.MoveNext())
+            {
+                var candidate = sourceIterator.Current;
+                var candidateProjected = selector(candidate);
+                if (comparer.Compare(candidateProjected, maxKey) > 0)
+                {
+                    max = candidate;
+                    maxKey = candidateProjected;
+                }
+            }
+            return max;
         }
 
         public static IEnumerable<T> TakeEvery<T>(this IEnumerable<T> source, int nStep)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
-            return source.Where((x, i) => i % nStep == 0);
+            return source.Where((_, i) => i % nStep == 0);
 
         }
 

@@ -8,20 +8,20 @@ namespace Skunked.State
     {
         public Card Starter { get; set; }
         public int Round { get; set; }
-        public List<PlayerHand> DealtCards { get; set; } = new List<PlayerHand>();
-        public List<PlayerHand> Hands { get; set; } = new List<PlayerHand>();
-        public List<List<PlayItem>> ThePlay { get; set; } = new List<List<PlayItem>>();
+        public List<PlayerHand> DealtCards { get; set; } = new();
+        public List<PlayerHand> Hands { get; set; } = new();
+        public List<List<PlayItem>> ThePlay { get; set; } = new();
         public bool ThrowCardsComplete { get; set; }
         public bool PlayedCardsComplete { get; set; }
         public bool Complete { get; set; }
         public int PlayerCrib { get; set; }
-        public List<Card> Crib { get; set; } = new List<Card>();
-        public List<PlayerScoreShow> ShowScores { get; set; } = new List<PlayerScoreShow>();
+        public List<Card> Crib { get; set; } = new();
+        public List<PlayerScoreShow> ShowScores { get; set; } = new();
         public PreRound PreRound { get; set; }
     }
 
     public class PreRound
     {
-        public List<Card> Deck { get; set; } = new List<Card>();
+        public List<Card> Deck { get; set; } = new();
     }
 }

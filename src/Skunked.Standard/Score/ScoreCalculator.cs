@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Combinatorics.Collections;
 using Skunked.Cards;
-using Skunked.Cards.Order;
 using Skunked.Cards.Value;
 using Skunked.Rules;
 using Skunked.Utility;

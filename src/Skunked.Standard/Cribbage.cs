@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Skunked.Cards;
@@ -18,7 +18,7 @@ namespace Skunked
     public class Cribbage
     {
         private readonly IDealer _dealer = new StandardDealer();
-        private readonly Deck _deck = new Deck();
+        private readonly Deck _deck = new();
 
         /// <summary>
         /// Constructs a new game of Cribbage.

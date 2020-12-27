@@ -6,7 +6,7 @@ using Skunked.Utility;
 
 namespace Skunked.Cards
 {
-    public class Deck : IEnumerable<Card>
+    public sealed class Deck : IEnumerable<Card>
     {
         private static readonly ImmutableList<Card> InitialDeck = EnumHelper.GetValues<Rank>()
             .Cartesian(EnumHelper.GetValues<Suit>(), (rank, suit) => new Card(rank, suit)).ToImmutableList();
@@ -24,13 +24,13 @@ namespace Skunked.Cards
 
         public void Shuffle(int count)
         {
-            foreach (var i in Enumerable.Range(1, count))
+            foreach (var _ in Enumerable.Range(1, count))
             {
                 _deck.Shuffle();
             }
         }
 
-        public virtual IEnumerator<Card> GetEnumerator()
+        public IEnumerator<Card> GetEnumerator()
         {
             return _deck.GetEnumerator();
         }

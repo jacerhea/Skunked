@@ -38,7 +38,7 @@ namespace Skunked.State.Validations
             }
 
             var currentPlayer = gameState.PlayerIds.NextOf(gameState.PlayerIds.Single(id => id == currentRound.PlayerCrib));
-            foreach (var enumeration in Enumerable.Range(1, gameState.PlayerIds.Count))
+            foreach (var _ in Enumerable.Range(1, gameState.PlayerIds.Count))
             {
                 var playerScoreShow = currentRound.ShowScores.Single(pss => pss.Player == currentPlayer);
 

@@ -11,7 +11,7 @@ namespace Skunked.State
     {
         private readonly ImmutableList<IEventListener> _eventListeners;
         private readonly List<StreamEvent> _events;
-        private static readonly object Locker = new object();
+        private static readonly object Locker = new();
 
         public EventStream(IEnumerable<IEventListener> eventListeners)
         {

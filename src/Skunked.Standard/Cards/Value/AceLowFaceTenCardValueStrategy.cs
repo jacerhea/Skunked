@@ -8,7 +8,7 @@ namespace Skunked.Cards.Value
     /// </summary>
     public class AceLowFaceTenCardValueStrategy : ICardValueStrategy
     {
-        private static readonly Dictionary<Rank, int> ValueLookup = new Dictionary<Rank, int>
+        private static readonly Dictionary<Rank, int> ValueLookup = new()
         {
             {Rank.Ace, 1},
             {Rank.Two, 2},
