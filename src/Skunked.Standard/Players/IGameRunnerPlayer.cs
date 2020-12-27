@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using Skunked.PlayingCards;
+using Skunked.Cards;
 using Skunked.Rules;
 
 namespace Skunked.Players
 {
     public interface IGameRunnerPlayer
     {
-        string Name { get;  }
         int Id { get; }
 
         /// <summary>

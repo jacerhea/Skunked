@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Skunked.Cards;
 using Skunked.Exceptions;
 using Skunked.Players;
-using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.Utility;
 
 namespace Skunked.Game
 {
-    public class CribbageGameRunner
+    public class GameRunner
     {
         private readonly Deck _deck;
 
@@ -17,7 +17,7 @@ namespace Skunked.Game
         /// Synchronous Game of Cribbage
         /// </summary>
         /// <param name="deck"></param>
-        public CribbageGameRunner(Deck deck)
+        public GameRunner(Deck deck)
         {
             _deck = deck;
         }

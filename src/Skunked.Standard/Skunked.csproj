@@ -1,36 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.3</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>Skunked</RootNamespace>
     <Authors>Jace Rhea</Authors>
     <PackageId>Skunked</PackageId>
-    <Company />
     <Product>Skunked</Product>
-    <Copyright>2017</Copyright>
+    <Copyright>2020</Copyright>
     <PackageProjectUrl>https://github.com/jacerhea/Skunked</PackageProjectUrl>
     <PackageTags>cribbage ai a.i. game games card</PackageTags>
     <Description>A library of classes to model the game of Cribbage.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>1.0.1</Version>
     <AssemblyName>Skunked</AssemblyName>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <CodeAnalysisRuleSet>..\Skunked.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <CodeAnalysisRuleSet>..\Skunked.ruleset</CodeAnalysisRuleSet>
+    <NoWarn>1701;1702;CS8625;</NoWarn>
+    <DocumentationFile>C:\Users\jrhea\Documents\GitHub\Skunked\src\Skunked.Standard\Skunked.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Combinatorics" Version="1.1.0.19" />
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.4">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
+    <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Skunked.Cards;
 using Skunked.Exceptions;
-using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.Score;
 using Skunked.State.Events;
@@ -53,11 +53,11 @@ namespace Skunked.State.Validations
             //is the player starting new round with card sum over 31 and they have a playable card for current round?
             var currentPlayCount = _scoreCalculator.SumValues(setOfPlays.Last().Select(scs => scs.Card));
             int playCount = currentPlayCount + _scoreCalculator.SumValues(new List<Card> { new Card(cardPlayedEvent.Played) });
-            if (playCount > GameRules.PlayMaxScore)
+            if (playCount > GameRules.Scores.PlayMaxScore)
             {
                 var playedCardsThisRound = setOfPlays.Last().Select(ppi => ppi.Card).ToList();
                 var playersCardsLeftToPlay = playersCards.Except(playedCardsThisRound, CardValueEquality.Instance).Except(new List<Card> { cardPlayedEvent.Played }, CardValueEquality.Instance);
-                if (playersCardsLeftToPlay.Any(c => _scoreCalculator.SumValues(new List<Card>(playedCardsThisRound) { c }) <= GameRules.PlayMaxScore))
+                if (playersCardsLeftToPlay.Any(c => _scoreCalculator.SumValues(new List<Card>(playedCardsThisRound) { c }) <= GameRules.Scores.PlayMaxScore))
                 {
                     throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidCard);
                 }

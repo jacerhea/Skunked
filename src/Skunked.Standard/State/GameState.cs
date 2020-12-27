@@ -8,12 +8,12 @@ namespace Skunked.State
     {
         public Guid Id { get; set; }
         public List<int> PlayerIds { get; set; }
-        public List<PlayerScore> IndividualScores { get; set; }
-        public List<TeamScore> TeamScores { get; set; }
+        public List<PlayerScore> IndividualScores { get; set; } = new List<PlayerScore>();
+        public List<TeamScore> TeamScores { get; set; } = new List<TeamScore>();
         public GameRules GameRules { get; set; }
 
         public OpeningRound OpeningRound { get; set; }
-        public List<RoundState> Rounds { get; set; }
+        public List<RoundState> Rounds { get; set; } = new List<RoundState>();
 
         public DateTimeOffset StartedAt { get; set; }
         public DateTimeOffset LastUpdated { get; set; }

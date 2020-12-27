@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using Skunked.Utility;
 
-namespace Skunked.PlayingCards
+namespace Skunked.Cards
 {
     public class Deck : IEnumerable<Card>
     {

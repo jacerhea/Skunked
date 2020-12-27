@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Combinatorics.Collections;
-using Skunked.PlayingCards;
-using Skunked.PlayingCards.Order;
-using Skunked.PlayingCards.Value;
+using Skunked.Cards;
+using Skunked.Cards.Order;
+using Skunked.Cards.Value;
 using Skunked.Rules;
 using Skunked.Utility;
 
@@ -13,20 +13,19 @@ namespace Skunked.Score
     public class ScoreCalculator
     {
         private readonly ICardValueStrategy _valueStrategy;
-        private readonly IOrderStrategy _order;
 
 
-        public ScoreCalculator(ICardValueStrategy valueStrategy = null, IOrderStrategy order = null)
+        public ScoreCalculator(ICardValueStrategy valueStrategy = null)
         {
             _valueStrategy = valueStrategy ?? new AceLowFaceTenCardValueStrategy();
-            _order = order ?? new StandardOrder();
         }
 
-        //Check cut card for dealer
-        public int CountCut(Card cut)
-        {
-            return cut.Rank == Rank.Jack ? GameRules.NibsScore : 0;
-        }
+        /// <summary>
+        /// Check cut card for dealer
+        /// </summary>
+        /// <param name="cut"></param>
+        /// <returns></returns>
+        public int CountCut(Card cut) => cut.Rank == Rank.Jack ? GameRules.Scores.NibsScore : 0;
 
         public ScoreCalculatorResult CountShowScore(Card starterCard, IEnumerable<Card> playerHand)
         {
@@ -40,13 +39,13 @@ namespace Skunked.Score
             var runs = CountRuns(allCombinations);
             var hisNobs = Nobs(playerHandList, starterCard);
 
-            int fifteenScore = fifteens.Count * GameRules.FifteenScore;
-            int flushScore = flush.Count;
-            int pairScore = pairs.Count * GameRules.PairScore;
-            int runScore = runs.Sum(c => c.Count);
-            int hisNobsScore = hisNobs.Count == 0 ? 0 : GameRules.NobsScore;
+            var fifteenScore = fifteens.Count * GameRules.Scores.FifteenScore;
+            var flushScore = flush.Count == 4 ? GameRules.Scores.FourCardFlush : flush.Count == 5 ? GameRules.Scores.FiveCardFlush : 0;
+            var pairScore = pairs.Count * GameRules.Scores.PairScore;
+            var runScore = runs.Sum(c => c.Count);
+            var hisNobsScore = hisNobs.Count == 0 ? 0 : GameRules.Scores.NobsScore;
 
-            int totalScore = fifteenScore + flushScore + pairScore + runScore + hisNobsScore;
+            var totalScore = fifteenScore + flushScore + pairScore + runScore + hisNobsScore;
 
             var scoreResult = new ScoreCalculatorResult(fifteens, pairs, runs, flush, hisNobs, totalScore, fifteenScore, pairScore, runScore, flushScore, hisNobsScore);
 
@@ -60,27 +59,27 @@ namespace Skunked.Score
                 return 0;
             }
 
-            int scored = 0;
+            var scored = 0;
 
             //count 15s
-            scored += IsFifteen(pile) ? GameRules.FifteenScore : 0;
+            scored += IsFifteen(pile) ? GameRules.Scores.FifteenScore : 0;
 
             //count pairs
             if (pile.Count > 3 && pile.TakeLast(4).GroupBy(c => c.Rank).Count() == 1)
             {
-                scored += GameRules.DoublePairRoyalScore;
+                scored += GameRules.Scores.DoublePairRoyalScore;
             }
             else if (pile.Count > 2 && pile.TakeLast(3).GroupBy(c => c.Rank).Count() == 1)
             {
-                scored += GameRules.PairRoyalScore;
+                scored += GameRules.Scores.PairRoyalScore;
             }
             else
             {
-                scored += AreSameKind(pile.TakeLast(2)) ? GameRules.PairScore : 0;
+                scored += AreSameKind(pile.TakeLast(2)) ? GameRules.Scores.PairScore : 0;
             }
 
             //count runs
-            int count = pile.Count;
+            var count = pile.Count;
             while (count > 2)
             {
                 if (IsRun(pile.TakeLast(count).ToList()))
@@ -92,7 +91,7 @@ namespace Skunked.Score
             }
 
             //31 count
-            if (SumValues(pile) == GameRules.PlayMaxScore)
+            if (SumValues(pile) == GameRules.Scores.PlayMaxScore)
             {
                 scored += 2;
             }
@@ -193,10 +192,10 @@ namespace Skunked.Score
 
         public int SumValues(IEnumerable<Card> cards)
         {
-            return cards.Sum(c => _valueStrategy.ValueOf(c));
+            return cards.Sum(c => _valueStrategy.GetValue(c));
         }
 
-        public int GoValue => GameRules.GoSore;
+        public int GoValue => GameRules.Scores.Go;
 
         /// <summary>
         ///  Separate combination of two or more cards totaling exactly fifteen
@@ -222,7 +221,7 @@ namespace Skunked.Score
         {
             if (combo == null) throw new ArgumentNullException(nameof(combo));
             if (combo.Count < 3) return false;
-            var cardinalSet = combo.Select(c => _order.Order(c));
+            var cardinalSet = combo.Select(c => (int)c.Rank);
             return AreContinuous(cardinalSet);
         }
 
@@ -242,14 +241,15 @@ namespace Skunked.Score
         {
             var returnLookup = new Dictionary<int, List<IList<Card>>>(sourceSet.Count);
 
-            foreach (int value in Enumerable.Range(1, sourceSet.Count))
+            foreach (var value in Enumerable.Range(1, sourceSet.Count))
             {
-                returnLookup.Add(value, new List<IList<Card>>());
-                var comboGen = new Combinations<Card>(sourceSet, value);
-                foreach (var set in comboGen)
-                {
-                    returnLookup[value].Add(set);
-                }
+                returnLookup.Add(value, new Combinations<Card>(sourceSet, value).ToList());
+                //var comboGen = ;
+                //var  x = comboGen.sel
+                //foreach (var set in comboGen)
+                //{
+                //    returnLookup[value].Add(set);
+                //}
             }
 
             return returnLookup;

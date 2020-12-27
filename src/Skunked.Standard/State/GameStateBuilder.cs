@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Skunked.Cards;
+using Skunked.Cards.Order;
+using Skunked.Cards.Value;
 using Skunked.Players;
-using Skunked.PlayingCards;
-using Skunked.PlayingCards.Order;
-using Skunked.PlayingCards.Value;
 using Skunked.Rules;
 using Skunked.Score;
 using Skunked.State.Events;
@@ -122,9 +122,7 @@ namespace Skunked.State
 
             if (isDone && gameState.Rounds.Count == 0)
             {
-                var order = new StandardOrder();
-
-                var winningPlayerCut = gameState.OpeningRound.CutCards.MinBy(playerCard => order.Order(playerCard.Card));
+                var winningPlayerCut = gameState.OpeningRound.CutCards.MinBy(playerCard => playerCard.Card, RankComparer.Instance);
                 gameState.OpeningRound.WinningPlayerCut = winningPlayerCut.Player;
             }
         }
@@ -222,12 +220,12 @@ namespace Skunked.State
             //create new round
             var playedCards = setOfPlays.SelectMany(c => c).Select(spc => spc.Card);
             var playsLeft = gameState.GetCurrentRound().Hands.SelectMany(kv => kv.Hand).Except(playedCards, CardValueEquality.Instance);
-            if (playsLeft.All(c => _scoreCalculator.SumValues(currentPlayRound.Select(spc => spc.Card).Append(c)) > GameRules.PlayMaxScore))
+            if (playsLeft.All(c => _scoreCalculator.SumValues(currentPlayRound.Select(spc => spc.Card).Append(c)) > GameRules.Scores.PlayMaxScore))
             {
                 //add Go Value.  not counted if 31 as was included with ScoreCalculation.CountThePlay
                 int playCountNew = _scoreCalculator.SumValues(currentPlayRound.Select(ppi => ppi.Card));
                 playerCardPlayedScore.NewCount = playCountNew;
-                if (playCountNew != GameRules.PlayMaxScore)
+                if (playCountNew != GameRules.Scores.PlayMaxScore)
                 {
                     var goValue = _scoreCalculator.GoValue;
                     playScore += goValue;
@@ -347,9 +345,9 @@ namespace Skunked.State
                 }
 
                 var nextPlayerPlaySequence = playerCardPlayedScores.Select(s => s.Card).ToList();
-                nextPlayerPlaySequence.Add(nextPlayerAvailableCardsToPlay.MinBy(c => new AceLowFaceTenCardValueStrategy().ValueOf(c)));
+                nextPlayerPlaySequence.Add(nextPlayerAvailableCardsToPlay.MinBy(c => new AceLowFaceTenCardValueStrategy().GetValue(c)));
                 var scoreTest = _scoreCalculator.SumValues(nextPlayerPlaySequence);
-                if (scoreTest <= GameRules.PlayMaxScore)
+                if (scoreTest <= GameRules.Scores.PlayMaxScore)
                 {
                     return nextPlayer;
                 }

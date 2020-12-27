@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Skunked.Cards;
 using Skunked.Players;
-using Skunked.PlayingCards;
 using Skunked.Utility;
 
 namespace Skunked.Dealer
@@ -10,10 +10,19 @@ namespace Skunked.Dealer
     /// <summary>
     /// Standard dealer.  One card per pass.
     /// </summary>
-    public class StandardHandDealer : IPlayerHandFactory
+    public class StandardDealer : IDealer
     {
-        //make the startingWith into the dealer.  this saves a step for the caller to figure out who needs to be dealt to first.
-        public List<PlayerHand> CreatePlayerHands(Deck deck, IList<int> players, int startingWith, int handSize)
+        //todo: make the startingWith into the dealer.  this saves a step for the caller to figure out who needs to be dealt to first.
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="deck"></param>
+        /// <param name="players"></param>
+        /// <param name="startingWith"></param>
+        /// <param name="handSize"></param>
+        /// <returns></returns>
+        public List<PlayerHand> Deal(Deck deck, IList<int> players, int startingWith, int handSize)
         {
             if (players == null) throw new ArgumentNullException(nameof(players));
             var startingIndex = players.IndexOf(startingWith);

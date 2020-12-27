@@ -1,4 +1,4 @@
-﻿using Skunked.PlayingCards;
+﻿using Skunked.Cards;
 
 namespace Skunked.Players
 {

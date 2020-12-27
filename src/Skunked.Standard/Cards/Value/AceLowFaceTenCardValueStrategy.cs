@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Skunked.PlayingCards.Value
+namespace Skunked.Cards.Value
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class AceLowFaceTenCardValueStrategy : ICardValueStrategy
     {
         private static readonly Dictionary<Rank, int> ValueLookup = new Dictionary<Rank, int>
@@ -22,7 +25,12 @@ namespace Skunked.PlayingCards.Value
             {Rank.King, 10}
         };
 
-        public int ValueOf(Card card)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="card"></param>
+        /// <returns></returns>
+        public int GetValue(Card card)
         {
             if (card == null) throw new ArgumentNullException(nameof(card));
             return ValueLookup[card.Rank];

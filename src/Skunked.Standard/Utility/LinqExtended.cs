@@ -6,15 +6,6 @@ namespace Skunked.Utility
 {
     public static class LinqExtended
     {
-        public static IEnumerable<T> Append<T>(this IEnumerable<T> list, T item)
-        {
-            foreach (var selectListItem in list)
-            {
-                yield return selectListItem;
-            }
-            yield return item;
-        }
-
         public static IEnumerable<TResult> Cartesian<TFirst, TSecond, TResult>(this IEnumerable<TFirst> first,
             IEnumerable<TSecond> second, Func<TFirst, TSecond, TResult> resultSelector)
         {
@@ -123,12 +114,6 @@ namespace Skunked.Utility
             if (source == null) throw new ArgumentNullException(nameof(source));
             return source.Where((x, i) => i % nStep == 0);
 
-        }
-
-
-        public static IEnumerable<T> TakeLast<T>(this IEnumerable<T> enumerable, int count)
-        {
-            return enumerable.Reverse().Take(count);
         }
 
         public static IEnumerable<TSource> Infinite<TSource>(this IEnumerable<TSource> source)

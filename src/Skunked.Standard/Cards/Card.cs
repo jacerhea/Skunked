@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Skunked.PlayingCards
+namespace Skunked.Cards
 {
     public class Card : IEquatable<Card>, IEqualityComparer<Card>
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Skunked.Cards;
 using Skunked.Dealer;
-using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.Score;
 using Skunked.State;
@@ -17,9 +17,15 @@ namespace Skunked
     /// </summary>
     public class Cribbage
     {
-        private readonly IPlayerHandFactory _dealer = new StandardHandDealer();
+        private readonly IDealer _dealer = new StandardDealer();
         private readonly Deck _deck = new Deck();
 
+        /// <summary>
+        /// Constructs a new game of Cribbage.
+        /// </summary>
+        /// <param name="players"></param>
+        /// <param name="rules"></param>
+        /// <param name="eventListeners"></param>
         public Cribbage(IEnumerable<int> players, GameRules rules = null, IEnumerable<IEventListener> eventListeners = null)
         {
             State = new GameState();
@@ -53,7 +59,7 @@ namespace Skunked
                 Stream.Add(new RoundStartedEvent { GameId = State.Id });
                 _deck.Shuffle();
                 Stream.Add(new DeckShuffledEvent { GameId = State.Id, Deck = _deck.ToList() });
-                var playerHands = _dealer.CreatePlayerHands(_deck, State.PlayerIds, State.PlayerIds.NextOf(playerId), State.GameRules.HandSizeToDeal); // get next player from who won cut.
+                var playerHands = _dealer.Deal(_deck, State.PlayerIds, State.PlayerIds.NextOf(playerId), State.GameRules.HandSizeToDeal); // get next player from who won cut.
                 Stream.Add(new HandsDealtEvent { GameId = State.Id, Hands = playerHands });
             }
         }
@@ -107,7 +113,7 @@ namespace Skunked
             Stream.Add(new RoundStartedEvent { GameId = State.Id });
             _deck.Shuffle(3);
             Stream.Add(new DeckShuffledEvent { GameId = State.Id, Deck = _deck.ToList() });
-            var playerHands = _dealer.CreatePlayerHands(_deck, State.PlayerIds, State.PlayerIds.NextOf(State.PlayerIds.NextOf(playerId)), State.GameRules.HandSizeToDeal);
+            var playerHands = _dealer.Deal(_deck, State.PlayerIds, State.PlayerIds.NextOf(State.PlayerIds.NextOf(playerId)), State.GameRules.HandSizeToDeal);
             Stream.Add(new HandsDealtEvent { GameId = State.Id, Hands = playerHands });
         }
     }

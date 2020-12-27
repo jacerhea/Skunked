@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Skunked.PlayingCards;
+using Skunked.Cards;
 
 namespace Skunked.Score
 {
