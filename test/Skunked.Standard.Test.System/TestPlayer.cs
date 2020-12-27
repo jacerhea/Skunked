@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Skunked.Cards;
+using Skunked.Cards.Order;
 using Skunked.Players;
-using Skunked.PlayingCards;
-using Skunked.PlayingCards.Order;
 using Skunked.Rules;
 using Skunked.Score;
 using Skunked.Utility;
@@ -13,7 +13,6 @@ namespace Skunked.Test.System
     public class TestPlayer : IEquatable<TestPlayer>, IGameRunnerPlayer
     {
         private readonly ScoreCalculator _calculator = new ScoreCalculator();
-        private readonly IOrderStrategy _orderStrategy = new StandardOrder();
 
         public TestPlayer(string name, int id)
         {
@@ -55,7 +54,7 @@ namespace Skunked.Test.System
             if (handLeft == null) throw new ArgumentNullException(nameof(handLeft));
             if (handLeft.Count == 0) throw new ArgumentException(nameof(handLeft));
 
-            return handLeft.OrderBy(card => _orderStrategy.Order(card)).First();
+            return handLeft.OrderBy(card => card, RankComparer.Instance).First();
         }
 
         public Card ChooseCard(List<Card> cardsToChoose)

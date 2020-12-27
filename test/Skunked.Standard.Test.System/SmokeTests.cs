@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Skunked.Cards;
 using Skunked.Game;
 using Skunked.Players;
-using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.Utility;
 using Xunit;
@@ -22,7 +22,7 @@ namespace Skunked.Test.System
         [Fact]
         public void FullGameTest()
         {
-            var game = new CribbageGameRunner(new Deck());
+            var game = new GameRunner(new Deck());
 
             foreach (var i in Enumerable.Range(0, 1000))
             {

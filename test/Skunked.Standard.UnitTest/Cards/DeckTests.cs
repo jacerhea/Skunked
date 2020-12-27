@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using FluentAssertions;
-using Skunked.PlayingCards;
+using Skunked.Cards;
 using Xunit;
 
-namespace Skunked.UnitTest.PlayingCards
+namespace Skunked.UnitTest.Cards
 {
     public class DeckTests
     {

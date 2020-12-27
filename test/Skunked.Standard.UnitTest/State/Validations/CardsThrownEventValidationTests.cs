@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentAssertions;
+using Skunked.Cards;
 using Skunked.Exceptions;
 using Skunked.Players;
-using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.State;
 using Skunked.State.Events;

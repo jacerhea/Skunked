@@ -2,8 +2,8 @@
 using System.Linq;
 using FluentAssertions;
 using Moq;
+using Skunked.Cards;
 using Skunked.Dealer;
-using Skunked.PlayingCards;
 using Xunit;
 
 namespace Skunked.UnitTest.Dealer
@@ -33,9 +33,9 @@ namespace Skunked.UnitTest.Dealer
                 new Card(Rank.Three, Suit.Spades),
                 new Card(Rank.Three, Suit.Spades)
             }.GetEnumerator());
-            var handFactory = new StandardHandDealer();
+            var handFactory = new StandardDealer();
             var players = new List<int> {1,2};
-            var hands = handFactory.CreatePlayerHands(deck.Object, players, players[0], 6).ToDictionary(p => p.PlayerId, p => p.Hand);
+            var hands = handFactory.Deal(deck.Object, players, players[0], 6).ToDictionary(p => p.PlayerId, p => p.Hand);
 
             var player1Actual = hands[players[0]];
             player1Actual[0].Should().Be(new Card(Rank.King, Suit.Clubs));
@@ -76,9 +76,9 @@ namespace Skunked.UnitTest.Dealer
                 new Card(Rank.Three, Suit.Spades),
                 new Card(Rank.Three, Suit.Spades)
             }.GetEnumerator());
-            var handFactory = new StandardHandDealer();
+            var handFactory = new StandardDealer();
             var players = new List<int> { 1,2};
-            var hands = handFactory.CreatePlayerHands(deck.Object, players, players[1], 6).ToDictionary(p => p.PlayerId, p => p.Hand);
+            var hands = handFactory.Deal(deck.Object, players, players[1], 6).ToDictionary(p => p.PlayerId, p => p.Hand);
 
 
             var player2Actual = hands[players[1]];
@@ -105,9 +105,9 @@ namespace Skunked.UnitTest.Dealer
         {
             var deck = new Mock<Deck>();
             deck.Setup(d => d.GetEnumerator()).Returns(() => new List<Card>().GetEnumerator());
-            var handFactory = new StandardHandDealer();
+            var handFactory = new StandardDealer();
             var players = new List<int> { 1,2 };
-            var hands = handFactory.CreatePlayerHands(deck.Object, players, players[0], 0).ToDictionary(p => p.PlayerId, p => p.Hand);
+            var hands = handFactory.Deal(deck.Object, players, players[0], 0).ToDictionary(p => p.PlayerId, p => p.Hand);
             hands[players[0]].Count.Should().Be(0);
             hands[players[1]].Count.Should().Be(0);
         }
@@ -139,10 +139,10 @@ namespace Skunked.UnitTest.Dealer
                 new Card(Rank.Four, Suit.Clubs),
                 new Card(Rank.Two, Suit.Diamonds)
             }.GetEnumerator());
-            var handFactory = new StandardHandDealer();
+            var handFactory = new StandardDealer();
             var players = new List<int> { 1,2,3,4};
             const int handSize = 5;
-            var hands = handFactory.CreatePlayerHands(deck.Object, players, players[2], handSize).ToDictionary(p => p.PlayerId, p => p.Hand);
+            var hands = handFactory.Deal(deck.Object, players, players[2], handSize).ToDictionary(p => p.PlayerId, p => p.Hand);
 
             var player2Actual = hands[players[1]];
             player2Actual[0].Should().Be(new Card(Rank.Five, Suit.Spades));

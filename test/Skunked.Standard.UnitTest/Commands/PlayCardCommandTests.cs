@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using Skunked.Cards;
 using Skunked.Players;
-using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.State;
 using Xunit;

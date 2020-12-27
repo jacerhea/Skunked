@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using Skunked.PlayingCards;
+using Skunked.Cards;
 using Skunked.Rules;
 using Skunked.Utility;
 using Xunit;
@@ -20,7 +20,7 @@ namespace Skunked.Test.System
         {
             var players = new List<int> { 1, 2, 3, 4 };
 
-            var game = new Cribbage(players, new GameRules(GameScoreType.Short61, 4));
+            var game = new Cribbage(players, new GameRules(WinningScoreType.Short61, 4));
 
             //cut cards for first deal.
             game.CutCard(1, new Card(Rank.Eight, Suit.Diamonds));

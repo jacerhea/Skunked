@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
-using Skunked.PlayingCards;
-using Skunked.PlayingCards.Order;
+using Skunked.Cards;
+using Skunked.Cards.Order;
 using Xunit;
 
-namespace Skunked.UnitTest.PlayingCards.Order
+namespace Skunked.UnitTest.Cards.Order
 {
     public class OrderTest
     {
@@ -23,20 +23,28 @@ namespace Skunked.UnitTest.PlayingCards.Order
                 Tuple.Create(new Card(Rank.Jack), 3)
             };
 
-            var orderStrategy = new StandardOrder();
+            var orderStrategy = new RankComparer();
 
             foreach (var testCase in testCases)
             {
-                var sortedByOrderStrategy = testCases.OrderBy(c => orderStrategy.Order(c.Item1)).ToList();
+                var sortedByOrderStrategy = testCases.OrderBy(c => c.Item1, RankComparer.Instance).ToList();
                 sortedByOrderStrategy.IndexOf(testCase).Should().Be(testCase.Item2);
             }
         }
 
         [Fact]
-        public void Null_Argument_Will_Throw_ArgumentNullException()
+        public void Null_Argument1_Will_Throw_ArgumentNullException()
         {
-            var orderStrategy = new StandardOrder();
-            Action order = () => orderStrategy.Order(null);
+            var orderStrategy = new RankComparer();
+            Action order = () => orderStrategy.Compare(null, new Card());
+            order.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void Null_Argument2_Will_Throw_ArgumentNullException()
+        {
+            var orderStrategy = new RankComparer();
+            Action order = () => orderStrategy.Compare(new Card(), null);
             order.Should().Throw<ArgumentNullException>();
         }
     }

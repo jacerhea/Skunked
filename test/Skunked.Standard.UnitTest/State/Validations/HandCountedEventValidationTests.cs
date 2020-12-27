@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using FluentAssertions;
+using Skunked.Cards;
 using Skunked.Exceptions;
 using Skunked.Players;
-using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.Score;
 using Skunked.State;

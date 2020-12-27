@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using Skunked.Cards;
 using Skunked.Players;
-using Skunked.PlayingCards;
 using Skunked.Rules;
 using Skunked.State;
 
@@ -15,7 +15,7 @@ namespace Skunked.UnitTest.Commands
 
             _gameState = new GameState
             {
-                GameRules = new GameRules(GameScoreType.Standard121, 2),
+                GameRules = new GameRules(WinningScoreType.Standard121, 2),
                 PlayerIds =
                     new List<int> {1, 2},
                 OpeningRound = new OpeningRound(),

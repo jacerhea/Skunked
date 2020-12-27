@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentAssertions;
-using Skunked.PlayingCards;
-using Skunked.PlayingCards.Value;
+using Skunked.Cards;
+using Skunked.Cards.Value;
 using Xunit;
 
-namespace Skunked.UnitTest.PlayingCards.Value
+namespace Skunked.UnitTest.Cards.Value
 {
     public class ValueTest
     {
@@ -33,7 +33,7 @@ namespace Skunked.UnitTest.PlayingCards.Value
 
             foreach (var testCase in expectedValues)
             {
-                int calculatedValue = strategy.ValueOf(testCase.Item1);
+                int calculatedValue = strategy.GetValue(testCase.Item1);
                 calculatedValue.Should().Be(testCase.Item2);
             }
         }
@@ -42,7 +42,7 @@ namespace Skunked.UnitTest.PlayingCards.Value
         public void Null_Argument_Will_Throw_ArgumentNullException()
         {
             var strategy = new AceLowFaceTenCardValueStrategy();
-            Action valueOf = () => strategy.ValueOf(null);
+            Action valueOf = () => strategy.GetValue(null);
             valueOf.Should().Throw<ArgumentNullException>();
         }
     }

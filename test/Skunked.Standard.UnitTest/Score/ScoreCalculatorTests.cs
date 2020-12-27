@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentAssertions;
-using Skunked.PlayingCards;
+using Skunked.Cards;
 using Skunked.Score;
 using Xunit;
 
