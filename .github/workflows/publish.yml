@@ -10,6 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Pack
-        run: dotnet pack src/Skunked/Skunked.csproj
+        run: dotnet pack src/Skunked/Skunked.csproj  --configuration Release --include-symbols --include-source
       - name: Push
-        run: dotnet nuget push src/Skunked/bin/Debug/Skunked.1.0.3.nupkg --api-key oy2odyaeyf3f2umjddcqbebvxzbhdvgebdk234cfak7btu --source https://api.nuget.org/v3/index.json --configuration Release --include-symbols --include-source
+        run: dotnet nuget push src/Skunked/bin/Debug/Skunked.1.0.3.nupkg --api-key oy2odyaeyf3f2umjddcqbebvxzbhdvgebdk234cfak7btu --source https://api.nuget.org/v3/index.json
