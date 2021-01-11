@@ -12,4 +12,4 @@ jobs:
       - name: Pack
         run: dotnet pack src/Skunked/Skunked.csproj
       - name: Push
-        run: dotnet nuget push src/Skunked/bin/Debug/Skunked.1.0.2.nupkg --api-key ooy2i4e5pw6brs2l674gq325rkash4m4upct6hfzd3rkije
+        run: dotnet nuget push src/Skunked/bin/Debug/Skunked.1.0.2.nupkg --api-key ooy2i4e5pw6brs2l674gq325rkash4m4upct6hfzd3rkije --source https://api.nuget.org/v3/index.json
