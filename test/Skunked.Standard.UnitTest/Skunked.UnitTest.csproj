@@ -14,6 +14,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Skunked.Standard\Skunked.csproj" />
+    <ProjectReference Include="..\..\src\Skunked\Skunked.csproj" />
   </ItemGroup>
 </Project>

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using Skunked.Cards;
+using Skunked.Domain.Events;
+using Skunked.Domain.State;
+using Skunked.Domain.Validations;
 using Skunked.Exceptions;
 using Skunked.Players;
 using Skunked.Rules;
-using Skunked.State;
-using Skunked.State.Events;
-using Skunked.State.Validations;
 using Xunit;
 
 namespace Skunked.UnitTest.State.Validations

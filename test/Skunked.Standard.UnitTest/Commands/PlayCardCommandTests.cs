@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Skunked.Cards;
+using Skunked.Domain.State;
 using Skunked.Players;
 using Skunked.Rules;
-using Skunked.State;
 using Xunit;
 
 namespace Skunked.UnitTest.Commands

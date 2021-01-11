@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Skunked.Cards;
+using Skunked.Domain.State;
 using Skunked.Players;
 using Skunked.Rules;
 using Skunked.Score;
-using Skunked.State;
 
 namespace Skunked.UnitTest.Commands
 {

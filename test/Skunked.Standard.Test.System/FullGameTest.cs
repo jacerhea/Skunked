@@ -12,7 +12,7 @@ namespace Skunked.Test.System
     {
         public FullGameTest()
         {
-            RandomProvider.RandomInstance = new ThreadLocal<Random>(() => new IncrementalRandom());
+            //RandomProvider.RandomInstance = new ThreadLocal<Random>(() => new IncrementalRandom());
         }
 
         [Fact]

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using FluentAssertions;
+using Skunked.Domain.State;
 using Skunked.Rules;
-using Skunked.State;
 using Skunked.Utility;
 using Xunit;
 
@@ -19,7 +19,7 @@ namespace Skunked.Test.System
             gameState.TeamScores.Count(ts => ts.Score >= gameState.GameRules.WinningScore).Should().Be(1);
 
             gameState.IsGameFinished().Should().BeTrue();
-            Assert.True(gameState.Rounds.All(r => r.DealtCards.Select(p => p.Hand).All(cards => cards.Distinct().Count() == gameState.GameRules.HandSizeToDeal)));
+            Assert.True(gameState.Rounds.All(r => r.DealtCards.Select(p => p.Hand).All(cards => cards.Distinct().Count() == gameState.GameRules.DealSize)));
             Assert.True(gameState.Rounds.All(r => r.Hands.Select(p => p.Hand).All(cards => cards.Distinct().Count() == GameRules.HandSize)));
 
             //Assert.True(

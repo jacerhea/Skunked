@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Skunked.Cards;
+using Skunked.Domain.State;
 using Skunked.Players;
 using Skunked.Rules;
-using Skunked.State;
 using Xunit;
 
 namespace Skunked.UnitTest.State

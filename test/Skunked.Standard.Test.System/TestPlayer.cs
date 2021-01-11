@@ -40,14 +40,15 @@ namespace Skunked.Test.System
         /// </summary>
         /// <param name="hand"></param>
         /// <returns>Set of Cards to throw in crib.</returns>
-        public List<Card> DealHand(IList<Card> hand)
+        public List<Card> DetermineCardsToThrow(IEnumerable<Card> hand)
         {
+            var cardCountToThrow = hand.Count() - 4;
             var handCopy = hand.ToList();
             handCopy.Shuffle();
-            return handCopy.Take(2).ToList();
+            return handCopy.Take(cardCountToThrow).ToList();
         }
 
-        public Card PlayShow(GameRules gameRules, List<Card> pile, List<Card> handLeft)
+        public Card DetermineCardsToPlay(GameRules gameRules, List<Card> pile, List<Card> handLeft)
         {
             if (gameRules == null) throw new ArgumentNullException(nameof(gameRules));
             if (pile == null) throw new ArgumentNullException(nameof(pile));
@@ -57,7 +58,7 @@ namespace Skunked.Test.System
             return handLeft.OrderBy(card => card, RankComparer.Instance).First();
         }
 
-        public Card ChooseCard(List<Card> cardsToChoose)
+        public Card CutCards(List<Card> cardsToChoose)
         {
             if (cardsToChoose == null) throw new ArgumentNullException(nameof(cardsToChoose));
             var randomIndex = RandomProvider.GetThreadRandom().Next(0, cardsToChoose.Count - 1);
@@ -66,7 +67,7 @@ namespace Skunked.Test.System
 
         public int CountHand(Card card, IEnumerable<Card> hand)
         {
-            return _calculator.CountShowScore(card, hand).Score;
+            return _calculator.CountShowPoints(card, hand).Points.Score;
         }
 
         public bool Equals(TestPlayer other)
