@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Skunked.Cards;
+using Skunked.Domain.State;
 using Skunked.Players;
-using Skunked.PlayingCards;
 using Skunked.Rules;
-using Skunked.State;
 using Xunit;
 
 namespace Skunked.UnitTest.State
@@ -19,13 +19,13 @@ namespace Skunked.UnitTest.State
         {
             var gameState = new GameState
             {
-                GameRules = new GameRules(GameScoreType.Short61, 4),
+                GameRules = new GameRules(WinningScoreType.Short61, 4),
                 Id = Guid.NewGuid(),
                 IndividualScores =
                     new List<PlayerScore>
                     {
-                        new PlayerScore {Player = 1, Score = 2},
-                        new PlayerScore {Player = 2, Score = 3}
+                        new() {Player = 1, Score = 2},
+                        new() {Player = 2, Score = 3}
                     },
                 LastUpdated = DateTimeOffset.Now,
                 OpeningRound =
@@ -35,15 +35,15 @@ namespace Skunked.UnitTest.State
                         CutCards =
                             new List<PlayerIdCard>
                             {
-                                new PlayerIdCard{Player= 1, Card= new Card()}
+                                new() {Player= 1, Card= new Card()}
                             },
                         WinningPlayerCut = 1,
                         Deck = new Deck().ToList()
                     },
                 StartedAt = DateTimeOffset.Now,
-                Rounds = new List<RoundState> { new RoundState { Complete = false } },
+                Rounds = new List<RoundState> { new() { Complete = false } },
                 PlayerIds = new List<int> { 1, 2 },
-                TeamScores = new List<TeamScore> { new TeamScore { Players = new List<int> { 1 }, Score = 5 } }
+                TeamScores = new List<TeamScore> { new() { Players = new List<int> { 1 }, Score = 5 } }
             };
 
             //var stream = new MemoryStream();

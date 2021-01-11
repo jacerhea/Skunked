@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Skunked.PlayingCards;
+using Skunked.Cards;
 using Skunked.Utility;
 using Xunit;
 

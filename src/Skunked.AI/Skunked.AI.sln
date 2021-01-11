@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Skunked.AI", "Skunked.AI\Skunked.AI.fsproj", "{E7624C99-FC4A-488F-A61D-8C5670A84E40}"
+EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Skunked.AI.Tests", "Skunked.AI.Tests\Skunked.AI.Tests.fsproj", "{0149E8AA-6A96-41F5-ACB2-9328109DBD21}"
+EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Skunked.AI.Modeling", "Skunked.AI.Modeling\Skunked.AI.Modeling.fsproj", "{4EC4F0E6-5944-4170-BC09-7D79236638C3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionApp1", "FunctionApp1\FunctionApp1.csproj", "{501DCF89-AD63-4AE4-937C-B2EF11F0B383}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skunked.AI.OptimisticDecision", "Skunked.AI.OptimisticDecision\Skunked.AI.OptimisticDecision.csproj", "{BAA35A3F-CAD8-4FD5-98DB-66922C12AFF1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E7624C99-FC4A-488F-A61D-8C5670A84E40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7624C99-FC4A-488F-A61D-8C5670A84E40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7624C99-FC4A-488F-A61D-8C5670A84E40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7624C99-FC4A-488F-A61D-8C5670A84E40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0149E8AA-6A96-41F5-ACB2-9328109DBD21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0149E8AA-6A96-41F5-ACB2-9328109DBD21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0149E8AA-6A96-41F5-ACB2-9328109DBD21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0149E8AA-6A96-41F5-ACB2-9328109DBD21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EC4F0E6-5944-4170-BC09-7D79236638C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EC4F0E6-5944-4170-BC09-7D79236638C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EC4F0E6-5944-4170-BC09-7D79236638C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EC4F0E6-5944-4170-BC09-7D79236638C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{501DCF89-AD63-4AE4-937C-B2EF11F0B383}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{501DCF89-AD63-4AE4-937C-B2EF11F0B383}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{501DCF89-AD63-4AE4-937C-B2EF11F0B383}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{501DCF89-AD63-4AE4-937C-B2EF11F0B383}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAA35A3F-CAD8-4FD5-98DB-66922C12AFF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAA35A3F-CAD8-4FD5-98DB-66922C12AFF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAA35A3F-CAD8-4FD5-98DB-66922C12AFF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAA35A3F-CAD8-4FD5-98DB-66922C12AFF1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A7B0D18D-D94E-4E84-9473-FD58CE6961A6}
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+EndGlobal

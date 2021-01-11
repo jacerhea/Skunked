@@ -1,42 +1,60 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Jobs;
 using Combinatorics.Collections;
-using Skunked.PlayingCards;
-using Xunit;
+using Skunked.Cards;
+using Skunked.Score;
 
-namespace Skunked.Standard.Analytics
+namespace Skunked.Benchmarks
 {
-    public class CombinationsPerformanceTest
+    [SimpleJob(RuntimeMoniker.NetCoreApp50)]
+    [HtmlExporter]
+    public class ScoreCalculator_Benchmarks
     {
         private readonly List<Card> _hand;
+        private readonly Card _starter;
+        private readonly List<int> _continous = Enumerable.Range(0, 100).ToList();
+        private readonly List<int> _nonContinous;
+        private readonly ScoreCalculator _scoreCalculator = new();
 
-        public CombinationsPerformanceTest()
+        public ScoreCalculator_Benchmarks()
         {
             _hand = new List<Card>
             {
-                new Card(Rank.Six, Suit.Clubs),
-                new Card(Rank.Eight, Suit.Diamonds),
-                new Card(Rank.Two, Suit.Hearts),
-                new Card(Rank.Queen, Suit.Spades),
-                new Card(Rank.Eight, Suit.Clubs),
-                new Card(Rank.Ace, Suit.Diamonds)
-            };            
+                new(Rank.Six, Suit.Clubs),
+                new(Rank.Eight, Suit.Diamonds),
+                new(Rank.Two, Suit.Hearts),
+                new(Rank.Queen, Suit.Spades)
+            };
+            _starter = new Card(Rank.Seven, Suit.Diamonds);
+            _nonContinous = Enumerable.Range(0, 100).ToList();
+            _nonContinous.RemoveAt(50);
         }
 
-        [Fact]
-        public void Combinations()
+        [Benchmark]
+        public void CountShowPoints()
         {
-            foreach (var i in Enumerable.Range(0, 1000))
-            {
-                foreach (int value in Enumerable.Range(1, _hand.Count))
-                {
-                    var comboGen = new Combinations<Card>(_hand, value);
-                    foreach (var set in comboGen)
-                    {
-                        Assert.True(set.Count > 0);
-                    }
-                }
-            }
+            _scoreCalculator.CountShowPoints(_starter, _hand);
+        }
+
+        [Benchmark]
+        public void AreContinuous()
+        {
+            _scoreCalculator.AreContinuous(_continous);
+        }
+
+        [Benchmark]
+        public void AreNonContinuous()
+        {
+            _scoreCalculator.AreContinuous(_nonContinous);
+        }
+
+        [Benchmark]
+        public void GetCombinations()
+        {
+            _scoreCalculator.GetCombinations(_hand.Append(_starter).ToList());
         }
     }
 }
+

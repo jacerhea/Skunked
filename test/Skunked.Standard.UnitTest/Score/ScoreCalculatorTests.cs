@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentAssertions;
-using Skunked.PlayingCards;
+using Skunked.Cards;
 using Skunked.Score;
 using Xunit;
 
@@ -21,22 +21,21 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Two, Suit.Spades),
-                               new Card(Rank.Three, Suit.Spades),
-                               new Card(Rank.Two, Suit.Clubs),
-                               new Card(Rank.Seven, Suit.Hearts),
-                               new Card(Rank.Six, Suit.Diamonds)
+                               new(Rank.Two, Suit.Spades),
+                               new(Rank.Three, Suit.Spades),
+                               new(Rank.Two, Suit.Clubs),
+                               new(Rank.Seven, Suit.Hearts),
+                               new(Rank.Six, Suit.Diamonds)
                            };
 
             var resultSets = _scoreCalculator.GetCombinations(hand);
-            Assert.Equal(5, resultSets.Count);
+            resultSets.Count.Should().Be(5);
 
-            Assert.Equal(5, resultSets[1].Count);
-            Assert.Equal(10, resultSets[2].Count);
-            Assert.Equal(10, resultSets[3].Count);
-            Assert.Equal(5, resultSets[4].Count);
+            resultSets[1].Count.Should().Be(5);
+            resultSets[2].Count.Should().Be(10);
+            resultSets[3].Count.Should().Be(10);
+            resultSets[4].Count.Should().Be(5);
             resultSets[5].Count.Should().Be(1);
-
         }
 
         [Fact]
@@ -44,14 +43,14 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Three, Suit.Spades),
-                               new Card(Rank.Two, Suit.Clubs),
-                               new Card(Rank.Seven, Suit.Hearts),
-                               new Card(Rank.Six, Suit.Diamonds)
+                               new(Rank.Three, Suit.Spades),
+                               new(Rank.Two, Suit.Clubs),
+                               new(Rank.Seven, Suit.Hearts),
+                               new(Rank.Six, Suit.Diamonds)
                            };
 
-            var result = _scoreCalculator.CountShowScore(new Card(Rank.Two, Suit.Spades), hand);
-            Assert.Equal(2, result.Fifteens.Count);
+            var result = _scoreCalculator.CountShowPoints(new Card(Rank.Two, Suit.Spades), hand);
+            result.Combinations.Fifteens.Count.Should().Be(2);
         }
 
         [Fact]
@@ -59,17 +58,17 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Two, Suit.Spades),
-                               new Card(Rank.Three, Suit.Spades),
-                               new Card(Rank.Two, Suit.Clubs),
-                               new Card(Rank.Four, Suit.Hearts),
-                               new Card(Rank.Six, Suit.Diamonds)
+                               new(Rank.Two, Suit.Spades),
+                               new(Rank.Three, Suit.Spades),
+                               new(Rank.Two, Suit.Clubs),
+                               new(Rank.Four, Suit.Hearts),
+                               new(Rank.Six, Suit.Diamonds)
                            };
 
             var combos = _scoreCalculator.GetCombinations(hand);
 
             var combosMakeRuns = _scoreCalculator.CountRuns(combos);
-            Assert.Equal(2, combosMakeRuns.Count);
+            combosMakeRuns.Count.Should().Be(2);
         }
 
         [Fact]
@@ -77,17 +76,17 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Ace, Suit.Spades),
-                               new Card(Rank.Three, Suit.Spades),
-                               new Card(Rank.Two, Suit.Clubs),
-                               new Card(Rank.Four, Suit.Hearts),
-                               new Card(Rank.Ace, Suit.Diamonds)
+                               new(Rank.Ace, Suit.Spades),
+                               new(Rank.Three, Suit.Spades),
+                               new(Rank.Two, Suit.Clubs),
+                               new(Rank.Four, Suit.Hearts),
+                               new(Rank.Ace, Suit.Diamonds)
                            };
 
             var combos = _scoreCalculator.GetCombinations(hand);
 
             var combosMakeRuns = _scoreCalculator.CountRuns(combos);
-            Assert.Equal(2, combosMakeRuns.Count);
+            combosMakeRuns.Count.Should().Be(2);
         }
 
         [Fact]
@@ -95,17 +94,17 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Ace, Suit.Spades),
-                               new Card(Rank.Three, Suit.Spades),
-                               new Card(Rank.Four, Suit.Clubs),
-                               new Card(Rank.Four, Suit.Hearts),
-                               new Card(Rank.Ace, Suit.Diamonds)
+                               new(Rank.Ace, Suit.Spades),
+                               new(Rank.Three, Suit.Spades),
+                               new(Rank.Four, Suit.Clubs),
+                               new(Rank.Four, Suit.Hearts),
+                               new(Rank.Ace, Suit.Diamonds)
                            };
 
             var combos = _scoreCalculator.GetCombinations(hand);
 
             var pairsCombinations = _scoreCalculator.CountPairs(combos);
-            Assert.Equal(2, pairsCombinations.Count);
+            pairsCombinations.Count.Should().Be(2);
         }
 
         [Fact]
@@ -113,15 +112,15 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Nine, Suit.Clubs),
-                               new Card(Rank.Nine, Suit.Diamonds),
-                               new Card(Rank.Nine, Suit.Hearts),
-                               new Card(Rank.Nine, Suit.Spades)
+                               new(Rank.Nine, Suit.Clubs),
+                               new(Rank.Nine, Suit.Diamonds),
+                               new(Rank.Nine, Suit.Hearts),
+                               new(Rank.Nine, Suit.Spades)
                            };
 
             var areSameKind = _scoreCalculator.AreSameKind(hand);
 
-            Assert.True(areSameKind);
+            areSameKind.Should().BeTrue();
         }
 
         [Fact]
@@ -129,15 +128,15 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Nine, Suit.Clubs),
-                               new Card(Rank.Nine, Suit.Diamonds),
-                               new Card(Rank.Nine, Suit.Hearts),
-                               new Card(Rank.Ten, Suit.Spades)
+                               new(Rank.Nine, Suit.Clubs),
+                               new(Rank.Nine, Suit.Diamonds),
+                               new(Rank.Nine, Suit.Hearts),
+                               new(Rank.Ten, Suit.Spades)
                            };
 
             var areNotSameKind = _scoreCalculator.AreSameKind(hand);
 
-            Assert.False(areNotSameKind);
+            areNotSameKind.Should().BeFalse();
         }
 
         [Fact]
@@ -145,17 +144,17 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Ace, Suit.Spades),
-                               new Card(Rank.Three, Suit.Spades),
-                               new Card(Rank.Ace, Suit.Clubs),
-                               new Card(Rank.Four, Suit.Hearts),
-                               new Card(Rank.Ace, Suit.Diamonds)
+                               new(Rank.Ace, Suit.Spades),
+                               new(Rank.Three, Suit.Spades),
+                               new(Rank.Ace, Suit.Clubs),
+                               new(Rank.Four, Suit.Hearts),
+                               new(Rank.Ace, Suit.Diamonds)
                            };
 
             var combos = _scoreCalculator.GetCombinations(hand);
 
             var pairsCombinations = _scoreCalculator.CountPairs(combos);
-            Assert.Equal(3, pairsCombinations.Count);
+            pairsCombinations.Count.Should().Be(3);
         }
 
         [Fact]
@@ -163,14 +162,14 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Ace, Suit.Spades),
-                               new Card(Rank.Three, Suit.Spades),
-                               new Card(Rank.Eight, Suit.Spades),
-                               new Card(Rank.Four, Suit.Spades)
+                               new(Rank.Ace, Suit.Spades),
+                               new(Rank.Three, Suit.Spades),
+                               new(Rank.Eight, Suit.Spades),
+                               new(Rank.Four, Suit.Spades)
                            };
 
             var pairsCombinations = _scoreCalculator.CountFlush(hand, new Card(Rank.Queen, Suit.Clubs));
-            Assert.Equal(4, pairsCombinations.Count);
+            pairsCombinations.Count.Should().Be(4);
         }
 
         [Fact]
@@ -178,25 +177,25 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Ace, Suit.Spades),
-                               new Card(Rank.Three, Suit.Spades),
-                               new Card(Rank.Eight, Suit.Spades),
-                               new Card(Rank.Four, Suit.Spades)
+                               new(Rank.Ace, Suit.Spades),
+                               new(Rank.Three, Suit.Spades),
+                               new(Rank.Eight, Suit.Spades),
+                               new(Rank.Four, Suit.Spades)
                            };
 
             var pairsCombinations = _scoreCalculator.CountFlush(hand, new Card(Rank.Queen, Suit.Spades));
-            Assert.Equal(5, pairsCombinations.Count);
+            pairsCombinations.Count.Should().Be(5);
         }
 
         [Fact]
-        public void NotFlushTest()
+        public void Non_Flush_Is_Not_Counted_As_A_Flush()
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Ace, Suit.Spades),
-                               new Card(Rank.Three, Suit.Spades),
-                               new Card(Rank.Eight, Suit.Spades),
-                               new Card(Rank.Four, Suit.Diamonds)
+                               new(Rank.Ace, Suit.Spades),
+                               new(Rank.Three, Suit.Spades),
+                               new(Rank.Eight, Suit.Spades),
+                               new(Rank.Four, Suit.Diamonds)
                            };
 
             var pairsCombinations = _scoreCalculator.CountFlush(hand, new Card(Rank.Queen, Suit.Spades));
@@ -204,22 +203,22 @@ namespace Skunked.UnitTest.Score
         }
 
         [Fact]
-        public void Count29Test()
+        public void Elusive_29_Hand_Counts_As_29()
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Five, Suit.Clubs),
-                               new Card(Rank.Five, Suit.Diamonds),
-                               new Card(Rank.Five, Suit.Hearts),
-                               new Card(Rank.Jack, Suit.Spades)
+                               new(Rank.Five, Suit.Clubs),
+                               new(Rank.Five, Suit.Diamonds),
+                               new(Rank.Five, Suit.Hearts),
+                               new(Rank.Jack, Suit.Spades)
                            };
 
-            var score = _scoreCalculator.CountShowScore(new Card(Rank.Five, Suit.Spades), hand);
-            score.Score.Should().Be(29);
-            score.PairScore.Should().Be(12);
-            score.NobScore.Should().Be(1);
-            score.FifteenScore.Should().Be(16);
-            score.FlushScore.Should().Be(0);
+            var score = _scoreCalculator.CountShowPoints(new Card(Rank.Five, Suit.Spades), hand);
+            score.Points.Score.Should().Be(29);
+            score.Points.PairScore.Should().Be(12);
+            score.Points.NobScore.Should().Be(1);
+            score.Points.FifteenScore.Should().Be(16);
+            score.Points.FlushScore.Should().Be(0);
         }
 
 
@@ -235,19 +234,19 @@ namespace Skunked.UnitTest.Score
         {
             var hand = new List<Card>
                            {
-                               new Card(Rank.Six, Suit.Spades),
-                               new Card(Rank.Seven, Suit.Spades),
-                               new Card(Rank.Eight, Suit.Clubs),
-                               new Card(Rank.Eight, Suit.Hearts)
+                               new(Rank.Six, Suit.Spades),
+                               new(Rank.Seven, Suit.Spades),
+                               new(Rank.Eight, Suit.Clubs),
+                               new(Rank.Eight, Suit.Hearts)
                            };
 
-            var scoreResult = _scoreCalculator.CountShowScore(new Card(Rank.Seven, Suit.Diamonds), hand);
-            scoreResult.Score.Should().Be(24);
-            scoreResult.PairScore.Should().Be(4);
-            scoreResult.NobScore.Should().Be(0);
-            scoreResult.FifteenScore.Should().Be(8);
-            scoreResult.FlushScore.Should().Be(0);
-            scoreResult.RunScore.Should().Be(12);
+            var scoreResult = _scoreCalculator.CountShowPoints(new Card(Rank.Seven, Suit.Diamonds), hand);
+            scoreResult.Points.Score.Should().Be(24);
+            scoreResult.Points.PairScore.Should().Be(4);
+            scoreResult.Points.NobScore.Should().Be(0);
+            scoreResult.Points.FifteenScore.Should().Be(8);
+            scoreResult.Points.FlushScore.Should().Be(0);
+            scoreResult.Points.RunScore.Should().Be(12);
         }
 
         [Fact]
@@ -255,16 +254,16 @@ namespace Skunked.UnitTest.Score
         {
             var play = new List<Card>
                            {
-                               new Card(Rank.Six, Suit.Spades),
-                               new Card(Rank.Seven, Suit.Spades),
-                               new Card(Rank.Queen, Suit.Hearts),
-                               new Card(Rank.Two, Suit.Clubs),
-                               new Card(Rank.Two, Suit.Diamonds),
-                               new Card(Rank.Two, Suit.Hearts),
-                               new Card(Rank.Two, Suit.Spades)
+                               new(Rank.Six, Suit.Spades),
+                               new(Rank.Seven, Suit.Spades),
+                               new(Rank.Queen, Suit.Hearts),
+                               new(Rank.Two, Suit.Clubs),
+                               new(Rank.Two, Suit.Diamonds),
+                               new(Rank.Two, Suit.Hearts),
+                               new(Rank.Two, Suit.Spades)
                            };
 
-            var totalScore = _scoreCalculator.CountThePlay(play);
+            var totalScore = _scoreCalculator.CountPlayPoints(play);
             totalScore.Should().Be(14);
         }
 
@@ -273,10 +272,10 @@ namespace Skunked.UnitTest.Score
         {
             var play = new List<Card>
                            {
-                               new Card(Rank.Ace, Suit.Spades),
-                               new Card(Rank.Two, Suit.Spades),
-                               new Card(Rank.Three, Suit.Hearts),
-                               new Card(Rank.Four, Suit.Clubs)
+                               new(Rank.Ace, Suit.Spades),
+                               new(Rank.Two, Suit.Spades),
+                               new(Rank.Three, Suit.Hearts),
+                               new(Rank.Four, Suit.Clubs)
                            };
 
             var isFifteen = _scoreCalculator.IsFifteen(play);
@@ -288,197 +287,127 @@ namespace Skunked.UnitTest.Score
         {
             var play = new List<Card>
                            {
-                               new Card(Rank.Ace, Suit.Spades),
-                               new Card(Rank.Two, Suit.Spades),
-                               new Card(Rank.Three, Suit.Hearts),
-                               new Card(Rank.Four, Suit.Clubs),
-                               new Card(Rank.Five, Suit.Diamonds)
+                               new(Rank.Ace, Suit.Spades),
+                               new(Rank.Two, Suit.Spades),
+                               new(Rank.Three, Suit.Hearts),
+                               new(Rank.Four, Suit.Clubs),
+                               new(Rank.Five, Suit.Diamonds)
                            };
 
             var isFifteen = _scoreCalculator.IsFifteen(play);
             isFifteen.Should().BeTrue();
         }
 
-        [Fact]
-        public void ScoreCalculatorHasNobsTest()
+        [Theory]
+        [MemberData(nameof(NobsTestData))]
+        public void ScoreCalculatorDoesNotHaveNobsTest(IEnumerable<Card> play, Card starter, int expectation)
         {
-            var play = new List<Card>
-                           {
-                               new Card(Rank.Six, Suit.Spades),
-                               new Card(Rank.Seven, Suit.Spades),
-                               new Card(Rank.Queen, Suit.Hearts),
-                               new Card(Rank.Jack, Suit.Clubs)
-                           };
-
-            var nobs = _scoreCalculator.Nobs(play, new Card(Rank.Three, Suit.Clubs));
-            nobs.Count.Should().Be(1);
+            var hasNobs = _scoreCalculator.Nobs(play, starter);
+            hasNobs.Count.Should().Be(expectation);
         }
 
-        [Fact]
-        public void ScoreCalculatorDoesNotHaveNobsTest()
+        [Theory]
+        [MemberData(nameof(ContinousTestData))]
+        public void ScoreCalculatorAreContinuous(List<int> play, bool expectation)
         {
-            var play = new List<Card>
-                           {
-                               new Card(Rank.Six, Suit.Spades),
-                               new Card(Rank.Seven, Suit.Spades),
-                               new Card(Rank.Queen, Suit.Hearts),
-                               new Card(Rank.Jack, Suit.Clubs)
-                           };
-
-            var hasNobs = _scoreCalculator.Nobs(play, new Card(Rank.Three, Suit.Diamonds));
-            hasNobs.Count.Should().Be(0);
-        }
-
-        [Fact]
-        public void ScoreCalculatorAreContinuousTestOne()
-        {
-            var play = new List<int> { 109 };
-
-            bool areContinuous = _scoreCalculator.AreContinuous(play);
-            areContinuous.Should().BeTrue();
-        }
-
-        [Fact]
-        public void ScoreCalculatorAreContinuousTestTwo()
-        {
-            var play = new List<int> { 109, 110 };
-
-            bool areContinuous = _scoreCalculator.AreContinuous(play);
-            areContinuous.Should().BeTrue();
-        }
-
-        [Fact]
-        public void ScoreCalculatorAreContinuousTestThree()
-        {
-            var play = new List<int> { 110, 111, 109 };
-
-            bool areContinuous = _scoreCalculator.AreContinuous(play);
-            areContinuous.Should().BeTrue();
-        }
-
-        [Fact]
-        public void ScoreCalculatorAreContinuousTest()
-        {
-            var play = new List<int> { 0, -1 };
-
-            bool areContinuous = _scoreCalculator.AreContinuous(play);
-            areContinuous.Should().BeTrue();
-        }
-
-        [Fact]
-        public void ScoreCalculatorAreNotContinuousTestTwo()
-        {
-            var play = new List<int> { 108, 110 };
-
-            bool areContinuous = _scoreCalculator.AreContinuous(play);
-            areContinuous.Should().BeFalse();
-        }
-
-        [Fact]
-        public void ScoreCalculatorAreNotContinuousTestThree()
-        {
-            var play = new List<int> { 110, 107, 108 };
-
-            bool areContinuous = _scoreCalculator.AreContinuous(play);
-            areContinuous.Should().BeFalse();
-        }
-
-        [Fact]
-        public void Zero_NegativeTwo_Are_Not_Continuous()
-        {
-            var play = new List<int> { 0, -2 };
             var areContinuous = _scoreCalculator.AreContinuous(play);
-            areContinuous.Should().BeFalse();
+            areContinuous.Should().Be(expectation);
         }
 
-        [Fact]
-        public void FiveSixSeven_Is_A_Run()
+        [Theory]
+        [MemberData(nameof(RunTestData))]
+        public void FiveSixSeven_Is_A_Run(List<Card> hand, bool expectation)
         {
-            var hand = new List<Card>
-                           {
-                               new Card(Rank.Six, Suit.Spades),
-                               new Card(Rank.Seven, Suit.Clubs),
-                               new Card(Rank.Five, Suit.Hearts)
-                           };
-
             var isRun = _scoreCalculator.IsRun(hand);
-            isRun.Should().BeTrue();
+            isRun.Should().Be(expectation);
         }
 
-        [Fact]
-        public void AceThroughKing_Is_A_Run()
-        {
-            var hand = new List<Card>
-                           {
-                               new Card(Rank.Ace, Suit.Spades),
-                               new Card(Rank.Two, Suit.Clubs),
-                               new Card(Rank.Three, Suit.Hearts),
-                               new Card(Rank.Four, Suit.Hearts),
-                               new Card(Rank.Five, Suit.Hearts),
-                               new Card(Rank.Six, Suit.Hearts),
-                               new Card(Rank.Seven, Suit.Hearts),
-                               new Card(Rank.Eight, Suit.Hearts),
-                               new Card(Rank.Nine, Suit.Hearts),
-                               new Card(Rank.Ten, Suit.Hearts),
-                               new Card(Rank.Jack, Suit.Hearts),
-                               new Card(Rank.Queen, Suit.Hearts),
-                               new Card(Rank.King, Suit.Hearts)
-                           };
+        public static IEnumerable<object[]> NobsTestData =>
+            new List<object[]>
+            {
+                new object[] { new List<Card>
+                {
+                    new(Rank.Six, Suit.Spades),
+                    new(Rank.Seven, Suit.Spades),
+                    new(Rank.Queen, Suit.Hearts),
+                    new(Rank.Jack, Suit.Clubs)
+                }, new Card(Rank.Three, Suit.Diamonds) ,0 },
+                new object[] { new List<Card>
+                {
+                    new(Rank.Six, Suit.Spades),
+                    new(Rank.Seven, Suit.Spades),
+                    new(Rank.Queen, Suit.Hearts),
+                    new(Rank.Jack, Suit.Clubs)
+                }, new Card(Rank.Three, Suit.Clubs), 1 },
+            };
 
-            var isRun = _scoreCalculator.IsRun(hand);
-            isRun.Should().BeTrue();
-        }
+        public static IEnumerable<object[]> ContinousTestData =>
+            new List<object[]>
+            {
+                new object[] { new List<int> { 109 } ,true },
+                new object[] { new List<int> { 109, 110 }, true },
+                new object[] { new List<int> { 110, 111, 109 }, true },
+                new object[] { new List<int> { 0, -1 }, true },
+                new object[] { new List<int> { 108, 110 }, false },
+                new object[] { new List<int> { 110, 107, 108 }, false },
+                new object[] { new List<int> { 0, -2 }, false },
+            };
 
-        [Fact]
-        public void AceThroughKing_Except_Six_Is_Not_A_Run()
-        {
-            var hand = new List<Card>
-                           {
-                               new Card(Rank.Ace, Suit.Spades),
-                               new Card(Rank.Two, Suit.Clubs),
-                               new Card(Rank.Three, Suit.Hearts),
-                               new Card(Rank.Four, Suit.Hearts),
-                               new Card(Rank.Five, Suit.Hearts),
-                               new Card(Rank.Seven, Suit.Hearts),
-                               new Card(Rank.Eight, Suit.Hearts),
-                               new Card(Rank.Nine, Suit.Hearts),
-                               new Card(Rank.Ten, Suit.Hearts),
-                               new Card(Rank.Jack, Suit.Hearts),
-                               new Card(Rank.Queen, Suit.Hearts),
-                               new Card(Rank.King, Suit.Hearts)
-                           };
 
-            var isRun = _scoreCalculator.IsRun(hand);
-            isRun.Should().BeFalse();
-        }
-
-        [Fact]
-        public void JackQueenKing_Is_A_Run()
-        {
-            var hand = new List<Card>
-                           {
-                               new Card(Rank.Jack, Suit.Spades),
-                               new Card(Rank.King, Suit.Clubs),
-                               new Card(Rank.Queen, Suit.Hearts)
-                           };
-
-            var isRun = _scoreCalculator.IsRun(hand);
-            isRun.Should().BeTrue();
-        }
-
-        [Fact]
-        public void ThreeFiveSixSeven_Is_Not_A_Run()
-        {
-            var hand = new List<Card>
-                           {
-                               new Card(Rank.Six, Suit.Spades),
-                               new Card(Rank.Seven, Suit.Clubs),
-                               new Card(Rank.Five, Suit.Hearts),
-                               new Card(Rank.Three, Suit.Diamonds)
-                           };
-
-            var isRun = _scoreCalculator.IsRun(hand);
-            isRun.Should().BeFalse();
-        }
+        public static IEnumerable<object[]> RunTestData =>
+            new List<object[]>
+            {
+                new object[] { new List<Card>
+                {
+                    new(Rank.Six, Suit.Spades),
+                    new(Rank.Seven, Suit.Clubs),
+                    new(Rank.Five, Suit.Hearts)
+                } ,true },
+                new object[] { new List<Card>
+                {
+                    new(Rank.Ace, Suit.Spades),
+                    new(Rank.Two, Suit.Clubs),
+                    new(Rank.Three, Suit.Hearts),
+                    new(Rank.Four, Suit.Hearts),
+                    new(Rank.Five, Suit.Hearts),
+                    new(Rank.Six, Suit.Hearts),
+                    new(Rank.Seven, Suit.Hearts),
+                    new(Rank.Eight, Suit.Hearts),
+                    new(Rank.Nine, Suit.Hearts),
+                    new(Rank.Ten, Suit.Hearts),
+                    new(Rank.Jack, Suit.Hearts),
+                    new(Rank.Queen, Suit.Hearts),
+                    new(Rank.King, Suit.Hearts)
+                } ,true },
+                new object[] { new List<Card>
+                {
+                    new(Rank.Ace, Suit.Spades),
+                    new(Rank.Two, Suit.Clubs),
+                    new(Rank.Three, Suit.Hearts),
+                    new(Rank.Four, Suit.Hearts),
+                    new(Rank.Five, Suit.Hearts),
+                    new(Rank.Seven, Suit.Hearts),
+                    new(Rank.Eight, Suit.Hearts),
+                    new(Rank.Nine, Suit.Hearts),
+                    new(Rank.Ten, Suit.Hearts),
+                    new(Rank.Jack, Suit.Hearts),
+                    new(Rank.Queen, Suit.Hearts),
+                    new(Rank.King, Suit.Hearts)
+                } ,false },
+                new object[] { new List<Card>
+                {
+                    new(Rank.Jack, Suit.Spades),
+                    new(Rank.King, Suit.Clubs),
+                    new(Rank.Queen, Suit.Hearts)
+                },true },
+                new object[] { new List<Card>
+                {
+                    new(Rank.Six, Suit.Spades),
+                    new(Rank.Seven, Suit.Clubs),
+                    new(Rank.Five, Suit.Hearts),
+                    new(Rank.Three, Suit.Diamonds)
+                } ,false }
+            };
     }
 }
+

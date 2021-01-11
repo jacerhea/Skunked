@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentAssertions;
+using Skunked.Cards;
+using Skunked.Domain.Events;
+using Skunked.Domain.State;
+using Skunked.Domain.Validations;
 using Skunked.Exceptions;
 using Skunked.Players;
-using Skunked.PlayingCards;
 using Skunked.Rules;
-using Skunked.State;
-using Skunked.State.Events;
-using Skunked.State.Validations;
 using Xunit;
 
 namespace Skunked.UnitTest.State.Validations
@@ -22,7 +22,7 @@ namespace Skunked.UnitTest.State.Validations
                 PlayerIds = new List<int> { 1, 2 },
                 GameRules = new GameRules(),
                 TeamScores = new List<TeamScore>
-                    {new TeamScore {Players = new List<int> {1}}, new TeamScore {Players = new List<int> {2}}},
+                    {new() {Players = new List<int> {1}}, new() {Players = new List<int> {2}}},
                 OpeningRound = new OpeningRound
                 {
                     CutCards = new List<PlayerIdCard>()
@@ -43,10 +43,10 @@ namespace Skunked.UnitTest.State.Validations
                 PlayerIds = new List<int> { 1, 2 },
                 GameRules = new GameRules(),
                 TeamScores = new List<TeamScore>
-                    {new TeamScore {Players = new List<int> {1}}, new TeamScore {Players = new List<int> {2}}},
+                    {new() {Players = new List<int> {1}}, new() {Players = new List<int> {2}}},
                 OpeningRound = new OpeningRound
                 {
-                    CutCards = new List<PlayerIdCard> { new PlayerIdCard { Card = new Card(Rank.Eight, Suit.Diamonds), Player = 1 } }
+                    CutCards = new List<PlayerIdCard> { new() { Card = new Card(Rank.Eight, Suit.Diamonds), Player = 1 } }
                 }
             };
 
@@ -64,10 +64,10 @@ namespace Skunked.UnitTest.State.Validations
                 PlayerIds = new List<int> { 1, 2 },
                 GameRules = new GameRules(),
                 TeamScores = new List<TeamScore>
-                    {new TeamScore {Players = new List<int> {1}}, new TeamScore {Players = new List<int> {2}}},
+                    {new() {Players = new List<int> {1}}, new() {Players = new List<int> {2}}},
                 OpeningRound = new OpeningRound
                 {
-                    CutCards = new List<PlayerIdCard> { new PlayerIdCard { Card = new Card(Rank.Nine, Suit.Hearts), Player = 1 } }
+                    CutCards = new List<PlayerIdCard> { new() { Card = new Card(Rank.Nine, Suit.Hearts), Player = 1 } }
                 }
             };
 

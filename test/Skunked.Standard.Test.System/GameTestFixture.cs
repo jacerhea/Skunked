@@ -6,7 +6,7 @@ namespace Skunked.Test.System
 {
     public class GameTestFixture
     {
-        private readonly Random _random = new Random(Environment.TickCount);
+        private readonly Random _random = new(Environment.TickCount);
 
         [Fact]
         public void SmokeTest()
@@ -52,7 +52,7 @@ namespace Skunked.Test.System
 
         private GameRules CreateRandomizedGameRules(int players)
         {
-            return new GameRules( GameScoreType.Short61, players);
+            return new( WinningScoreType.Short61, players);
         }
 
 

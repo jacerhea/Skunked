@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Skunked.Cards;
+using Skunked.Cards.Order;
 using Skunked.Players;
-using Skunked.PlayingCards;
-using Skunked.PlayingCards.Order;
-using Skunked.PlayingCards.Order.Interface;
 using Skunked.Rules;
 using Skunked.Score;
 using Skunked.Utility;
@@ -13,8 +12,7 @@ namespace Skunked.Test.System
 {
     public class TestPlayer : IEquatable<TestPlayer>, IGameRunnerPlayer
     {
-        private readonly ScoreCalculator _calculator = new ScoreCalculator();
-        private readonly IOrderStrategy _orderStrategy = new StandardOrder();
+        private readonly ScoreCalculator _calculator = new();
 
         public TestPlayer(string name, int id)
         {
@@ -42,24 +40,25 @@ namespace Skunked.Test.System
         /// </summary>
         /// <param name="hand"></param>
         /// <returns>Set of Cards to throw in crib.</returns>
-        public List<Card> DealHand(IList<Card> hand)
+        public List<Card> DetermineCardsToThrow(IEnumerable<Card> hand)
         {
+            var cardCountToThrow = hand.Count() - 4;
             var handCopy = hand.ToList();
             handCopy.Shuffle();
-            return handCopy.Take(2).ToList();
+            return handCopy.Take(cardCountToThrow).ToList();
         }
 
-        public Card PlayShow(GameRules gameRules, List<Card> pile, List<Card> handLeft)
+        public Card DetermineCardsToPlay(GameRules gameRules, List<Card> pile, List<Card> handLeft)
         {
             if (gameRules == null) throw new ArgumentNullException(nameof(gameRules));
             if (pile == null) throw new ArgumentNullException(nameof(pile));
             if (handLeft == null) throw new ArgumentNullException(nameof(handLeft));
-            if (handLeft.Count == 0) throw new ArgumentException("handLeft");
+            if (handLeft.Count == 0) throw new ArgumentException(nameof(handLeft));
 
-            return handLeft.OrderBy(card => _orderStrategy.Order(card)).First();
+            return handLeft.OrderBy(card => card, RankComparer.Instance).First();
         }
 
-        public Card ChooseCard(List<Card> cardsToChoose)
+        public Card CutCards(List<Card> cardsToChoose)
         {
             if (cardsToChoose == null) throw new ArgumentNullException(nameof(cardsToChoose));
             var randomIndex = RandomProvider.GetThreadRandom().Next(0, cardsToChoose.Count - 1);
@@ -68,7 +67,7 @@ namespace Skunked.Test.System
 
         public int CountHand(Card card, IEnumerable<Card> hand)
         {
-            return _calculator.CountShowScore(card, hand).Score;
+            return _calculator.CountShowPoints(card, hand).Points.Score;
         }
 
         public bool Equals(TestPlayer other)
