@@ -10,6 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Packs
-        run: dotnet pack src/Skunked/Skunked.csproj  --configuration Release --include-symbols --include-source -p:PackageVersion=1.0.$GITHUB_RUN_NUMBER
+        run: dotnet pack src/Skunked/Skunked.csproj  --configuration Release --include-symbols --include-source -p:Version=1.0.$GITHUB_RUN_NUMBER
       - name: Push
         run: dotnet nuget push src/Skunked/bin/Release/Skunked.1.0.$GITHUB_RUN_NUMBER.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
