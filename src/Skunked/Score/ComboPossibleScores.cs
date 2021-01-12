@@ -12,14 +12,14 @@ namespace Skunked.Score
     /// </summary>
     public class ComboPossibleScores
     {
-        public ImmutableList<Card> Combo { get; }
-        public ImmutableList<ScoreWithCut> PossibleScores { get; }
+        public List<Card> Combo { get; }
+        public List<ScoreWithCut> PossibleScores { get; }
 
         public ComboPossibleScores(IEnumerable<Card> combo, IEnumerable<ScoreWithCut> possibleScores)
         {
             if (combo == null) throw new ArgumentNullException(nameof(combo));
-            Combo = combo.ToImmutableList();
-            PossibleScores = possibleScores.ToImmutableList();
+            Combo = combo.ToList();
+            PossibleScores = possibleScores.ToList();
         }
 
         public int GetScoreSummation()

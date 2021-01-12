@@ -5,8 +5,6 @@
     <RootNamespace>Skunked</RootNamespace>
     <AssemblyName>Skunked</AssemblyName>
     <Nullable>enable</Nullable>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <NuspecFile>Skunked.nuspec</NuspecFile>
     <NuspecProperties>$(NuspecProperties);version=$(Version)</NuspecProperties>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -16,7 +14,6 @@
 
   <ItemGroup>
     <PackageReference Include="Combinatorics" Version="1.1.0.19" />
-    <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
   </ItemGroup>
 
 </Project>
