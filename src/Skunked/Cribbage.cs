@@ -20,6 +20,8 @@ namespace Skunked
         private readonly Dealer _dealer = new();
         private readonly Deck _deck = new();
 
+        private int NewVersion => State.Version + 1;
+
         /// <summary>
         /// Constructs a new game of Cribbage.
         /// </summary>
@@ -34,14 +36,8 @@ namespace Skunked
             listeners.AddRange(eventListeners ?? Enumerable.Empty<IEventListener>());
             Stream = new EventStream(listeners);
 
-            Emit(new GameStartedEvent
-            {
-                GameId = Guid.NewGuid(),
-                Occurred = DateTimeOffset.Now,
-                Rules = rules,
-                Players = players.ToList()
-            });
-            Emit(new DeckShuffledEvent { GameId = State.Id, Deck = _deck.ToList() });
+            Emit(new GameStartedEvent(Guid.NewGuid(), NewVersion, players.ToList(), rules));
+            Emit(new DeckShuffledEvent(State.Id, NewVersion, _deck.ToList()));
         }
 
         public GameState State { get; }
@@ -50,25 +46,25 @@ namespace Skunked
         public void CutCard(int playerId, Card card)
         {
             var validation = new CardCutEventValidation();
-            var cardCutEvent = new CardCutEvent { GameId = State.Id, CutCard = card, PlayerId = playerId };
+            var cardCutEvent = new CardCutEvent(State.Id, 1, playerId, card);
             validation.Validate(State, cardCutEvent);
 
             Emit(cardCutEvent);
 
             if (State.OpeningRound.Complete)
             {
-                Emit(new RoundStartedEvent { GameId = State.Id });
+                Emit(new RoundStartedEvent(State.Id, NewVersion));
                 _deck.Shuffle();
-                Emit(new DeckShuffledEvent { GameId = State.Id, Deck = _deck.ToList() });
+                Emit(new DeckShuffledEvent(State.Id, NewVersion, _deck.ToList()));
                 var playerHands = _dealer.Deal(_deck, State.PlayerIds, State.PlayerIds.NextOf(playerId), State.GameRules.DealSize); // get next player from who won cut.
-                Emit(new HandsDealtEvent { GameId = State.Id, Hands = playerHands });
+                Emit(new HandsDealtEvent(State.Id, NewVersion, playerHands));
             }
         }
 
         public void ThrowCards(int playerId, IEnumerable<Card> cribCards)
         {
             var validation = new CardsThrownEventValidation();
-            var cardsThrown = new CardsThrownEvent { GameId = State.Id, Thrown = cribCards.ToList(), PlayerId = playerId };
+            var cardsThrown = new CardsThrownEvent(State.Id, NewVersion, playerId, cribCards.ToList());
             validation.Validate(State, cardsThrown);
 
             Emit(cardsThrown);
@@ -78,28 +74,28 @@ namespace Skunked
                 var cardsNotDealt = _deck.Except(currentRound.Crib).Except(currentRound.Hands.SelectMany(s => s.Hand)).ToList();
                 var randomIndex = RandomProvider.GetThreadRandom().Next(0, cardsNotDealt.Count - 1);
                 var startingCard = cardsNotDealt[randomIndex];
-                Emit(new StarterCardSelectedEvent { GameId = State.Id, Starter = startingCard });
-                Emit(new PlayStartedEvent { GameId = State.Id, Round = currentRound.Round });
+                Emit(new StarterCardSelectedEvent(State.Id, NewVersion, startingCard));
+                Emit(new PlayStartedEvent(State.Id, NewVersion, currentRound.Round));
             }
         }
 
         public void PlayCard(int playerId, Card card)
         {
             var validation = new CardPlayedEventValidation();
-            var @event = new CardPlayedEvent { GameId = State.Id, Played = card, PlayerId = playerId };
+            var @event = new CardPlayedEvent(State.Id, NewVersion, playerId, card);
             validation.Validate(State, @event);
             Emit(@event);
 
             if (State.GetCurrentRound().PlayedCardsComplete)
             {
-                Emit(new PlayFinishedEvent { GameId = State.Id, Round = State.GetCurrentRound().Round });
+                Emit(new PlayFinishedEvent(State.Id, NewVersion, State.GetCurrentRound().Round));
             }
         }
 
         public void CountHand(int playerId, int score)
         {
             var validation = new HandCountedEventValidation(new ScoreCalculator());
-            var @event = new HandCountedEvent { GameId = State.Id, PlayerId = playerId, CountedScore = score };
+            var @event = new HandCountedEvent(State.Id, NewVersion, playerId, score);
             validation.Validate(State, @event);
             Emit(@event);
         }
@@ -107,15 +103,15 @@ namespace Skunked
         public void CountCrib(int playerId, int score)
         {
             var validation = new CribCountedEventValidation();
-            var @event = new CribCountedEvent { GameId = State.Id, PlayerId = playerId, CountedScore = score };
+            var @event = new CribCountedEvent(State.Id, NewVersion, playerId, score);
             validation.Validate(State, @event);
             Emit(@event);
 
-            Emit(new RoundStartedEvent { GameId = State.Id });
+            Emit(new RoundStartedEvent(State.Id, NewVersion));
             _deck.Shuffle(3);
-            Emit(new DeckShuffledEvent { GameId = State.Id, Deck = _deck.ToList() });
+            Emit(new DeckShuffledEvent(State.Id, NewVersion, _deck.ToList()));
             var playerHands = _dealer.Deal(_deck, State.PlayerIds, State.PlayerIds.NextOf(State.PlayerIds.NextOf(playerId)), State.GameRules.DealSize);
-            Emit(new HandsDealtEvent { GameId = State.Id, Hands = playerHands });
+            Emit(new HandsDealtEvent(State.Id, NewVersion, playerHands));
         }
 
         public void Emit(StreamEvent @event)

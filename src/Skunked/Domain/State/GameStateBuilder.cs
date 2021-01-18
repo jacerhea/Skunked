@@ -12,6 +12,9 @@ using Skunked.Utility;
 
 namespace Skunked.Domain.State
 {
+    /// <summary>
+    /// Builds the GameState from the game events.
+    /// </summary>
     public class GameStateBuilder
     {
         private readonly ScoreCalculator _scoreCalculator;

@@ -322,7 +322,12 @@
         </member>
         <member name="P:Skunked.Domain.Events.StreamEvent.Occurred">
             <summary>
-            The time stamp this event took palce.
+            The time stamp this event took place.
+            </summary>
+        </member>
+        <member name="T:Skunked.Domain.State.GameStateBuilder">
+            <summary>
+            Builds the GameState from the game events.
             </summary>
         </member>
         <member name="T:Skunked.Domain.State.PlayerScore">
@@ -533,7 +538,7 @@
         </member>
         <member name="T:Skunked.Rules.WinningScoreType">
             <summary>
-            
+            Set of winning scores.
             </summary>
         </member>
         <member name="F:Skunked.Rules.WinningScoreType.Short61">
@@ -600,6 +605,13 @@
             <param name="starterCard">The starter card.</param>
             <param name="playerHand">Cards in the players hand.</param>
             <param name="isCrib">A crib is being scored.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Skunked.Score.ScoreCalculator.CountFifteens(System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.List{System.Collections.Generic.IList{Skunked.Cards.Card}}})">
+            <summary>
+            Returns collection of all unique sets of cards that add up to 15.
+            </summary>
+            <param name="combinationsToCount"></param>
             <returns></returns>
         </member>
         <member name="M:Skunked.Score.ScoreCalculator.CountFlush(System.Collections.Generic.List{Skunked.Cards.Card},Skunked.Cards.Card)">

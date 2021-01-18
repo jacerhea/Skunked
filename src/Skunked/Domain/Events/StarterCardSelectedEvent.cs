@@ -1,4 +1,5 @@
-﻿using Skunked.Cards;
+﻿using System;
+using Skunked.Cards;
 
 namespace Skunked.Domain.Events
 {
@@ -7,6 +8,11 @@ namespace Skunked.Domain.Events
     /// </summary>
     public class StarterCardSelectedEvent : StreamEvent
     {
-        public Card Starter { get; set; }
+        public StarterCardSelectedEvent(Guid gameId, int version, Card starter) : base(gameId, version)
+        {
+            Starter = starter;
+        }
+
+        public Card Starter { get; }
     }
 }

@@ -37,7 +37,7 @@ namespace Skunked.UnitTest.State.Validations
                 }
             };
 
-            var @event = new CardPlayedEvent { PlayerId = 1, GameId = state.Id, Played = new Card(Rank.Eight, Suit.Clubs) };
+            var @event = new CardPlayedEvent(state.Id, 1, 1, new Card(Rank.Eight, Suit.Clubs));
             var validation = new CardPlayedEventValidation();
             Action validate = () => validation.Validate(state, @event);
             validate.Should().Throw<InvalidCribbageOperationException>()
@@ -72,7 +72,8 @@ namespace Skunked.UnitTest.State.Validations
                 }
             };
 
-            var @event = new CardPlayedEvent { PlayerId = 1, GameId = state.Id, Played = new Card(Rank.Eight, Suit.Clubs) };
+            var @event = new CardPlayedEvent(state.Id, 1, 1, new Card(Rank.Eight, Suit.Clubs));
+
             var validation = new CardPlayedEventValidation();
             Action validate = () => validation.Validate(state, @event);
             validate.Should().Throw<InvalidCribbageOperationException>()
@@ -108,7 +109,8 @@ namespace Skunked.UnitTest.State.Validations
                 }
             };
 
-            var @event = new CardPlayedEvent { PlayerId = 1, GameId = state.Id, Played = new Card(Rank.King, Suit.Diamonds) };
+            var @event = new CardPlayedEvent(state.Id, 1, 1, new Card(Rank.King, Suit.Diamonds));
+
             var validation = new CardPlayedEventValidation();
             Action validate = () => validation.Validate(state, @event);
             validate.Should().Throw<InvalidCribbageOperationException>()

@@ -29,7 +29,7 @@ namespace Skunked.UnitTest.State.Validations
                 }
             };
 
-            var @event = new CardCutEvent { CutCard = new Card(Rank.Eight, Suit.Clubs), PlayerId = 1 };
+            var @event = new CardCutEvent(Guid.NewGuid(), 1, 1, new Card(Rank.Eight, Suit.Clubs));
             var validation = new CardCutEventValidation();
             Action validate = () => validation.Validate(state, @event);
             validate.Should().NotThrow();
@@ -50,7 +50,7 @@ namespace Skunked.UnitTest.State.Validations
                 }
             };
 
-            var @event = new CardCutEvent { CutCard = new Card(Rank.Eight, Suit.Diamonds), PlayerId = 2 };
+            var @event = new CardCutEvent(Guid.NewGuid(), 1, 2, new Card(Rank.Eight, Suit.Diamonds));
             var validation = new CardCutEventValidation();
             Action validate = () => validation.Validate(state, @event);
             validate.Should().Throw<InvalidCribbageOperationException>("player 1 already cut the eight of diamonds");
@@ -71,7 +71,8 @@ namespace Skunked.UnitTest.State.Validations
                 }
             };
 
-            var @event = new CardCutEvent { CutCard = new Card(Rank.Eight, Suit.Diamonds), PlayerId = 1 };
+            var @event = new CardCutEvent(Guid.NewGuid(), 1, 1, new Card(Rank.Eight, Suit.Diamonds));
+
             var validation = new CardCutEventValidation();
             Action validate = () => validation.Validate(state, @event);
             validate.Should().Throw<InvalidCribbageOperationException>("player 1 already cut their card.");

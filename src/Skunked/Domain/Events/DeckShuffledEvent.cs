@@ -1,10 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Skunked.Cards;
 
 namespace Skunked.Domain.Events
 {
     public class DeckShuffledEvent : StreamEvent
     {
-        public List<Card> Deck { get; set; } = new();
+        public DeckShuffledEvent(Guid gameId, int version, List<Card> deck) : base(gameId, version)
+        {
+            Deck = deck;
+        }
+
+        public List<Card> Deck { get; }
     }
 }
