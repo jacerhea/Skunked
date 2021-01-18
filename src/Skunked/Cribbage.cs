@@ -40,9 +40,21 @@ namespace Skunked
             Emit(new DeckShuffledEvent(State.Id, NewVersion, _deck.ToList()));
         }
 
+        /// <summary>
+        /// The state of the game.
+        /// </summary>
         public GameState State { get; }
+
+        /// <summary>
+        /// Set of events that have occurred in the game.
+        /// </summary>
         public EventStream Stream { get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="playerId"></param>
+        /// <param name="card"></param>
         public void CutCard(int playerId, Card card)
         {
             var validation = new CardCutEventValidation();
@@ -61,6 +73,11 @@ namespace Skunked
             }
         }
 
+        /// <summary>
+        /// Throw cards to the crib.
+        /// </summary>
+        /// <param name="playerId"></param>
+        /// <param name="cribCards"></param>
         public void ThrowCards(int playerId, IEnumerable<Card> cribCards)
         {
             var validation = new CardsThrownEventValidation();
@@ -79,6 +96,11 @@ namespace Skunked
             }
         }
 
+        /// <summary>
+        /// Play a card.
+        /// </summary>
+        /// <param name="playerId"></param>
+        /// <param name="card"></param>
         public void PlayCard(int playerId, Card card)
         {
             var validation = new CardPlayedEventValidation();
@@ -92,6 +114,11 @@ namespace Skunked
             }
         }
 
+        /// <summary>
+        /// Count a players hand.
+        /// </summary>
+        /// <param name="playerId">Player Id.</param>
+        /// <param name="score">Score.  Over counting is penalized.</param>
         public void CountHand(int playerId, int score)
         {
             var validation = new HandCountedEventValidation(new ScoreCalculator());
@@ -100,6 +127,11 @@ namespace Skunked
             Emit(@event);
         }
 
+        /// <summary>
+        /// Count a players crib.
+        /// </summary>
+        /// <param name="playerId">Player Id.</param>
+        /// <param name="score">Score.  Over counting is penalized.</param>
         public void CountCrib(int playerId, int score)
         {
             var validation = new CribCountedEventValidation();
@@ -113,8 +145,7 @@ namespace Skunked
             var playerHands = _dealer.Deal(_deck, State.PlayerIds, State.PlayerIds.NextOf(State.PlayerIds.NextOf(playerId)), State.GameRules.DealSize);
             Emit(new HandsDealtEvent(State.Id, NewVersion, playerHands));
         }
-
-        public void Emit(StreamEvent @event)
+        private void Emit(StreamEvent @event)
         {
             Stream.Add(@event);
         }
