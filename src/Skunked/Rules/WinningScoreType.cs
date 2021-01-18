@@ -1,7 +1,7 @@
 ﻿namespace Skunked.Rules
 {
     /// <summary>
-    /// 
+    /// Set of winning scores.
     /// </summary>
     public enum WinningScoreType
     {

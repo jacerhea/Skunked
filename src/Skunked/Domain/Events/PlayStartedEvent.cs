@@ -1,7 +1,14 @@
-﻿namespace Skunked.Domain.Events
+﻿using System;
+
+namespace Skunked.Domain.Events
 {
     public class PlayStartedEvent : StreamEvent
     {
-        public int Round { get; set; }
+        public PlayStartedEvent(Guid gameId, int version, int round) : base(gameId, version)
+        {
+            Round = round;
+        }
+
+        public int Round { get; }
     }
 }

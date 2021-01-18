@@ -1,4 +1,5 @@
-﻿using Skunked.Cards;
+﻿using System;
+using Skunked.Cards;
 
 namespace Skunked.Domain.Events
 {
@@ -7,14 +8,20 @@ namespace Skunked.Domain.Events
     /// </summary>
     public class CardPlayedEvent : StreamEvent
     {
+        public CardPlayedEvent(Guid gameId, int version, int playerId, Card played) : base(gameId, version)
+        {
+            PlayerId = playerId;
+            Played = played;
+        }
+
         /// <summary>
         /// The player id. 
         /// </summary>
-        public int PlayerId { get; set; }
-        
+        public int PlayerId { get; }
+
         /// <summary>
         /// The Card being played.
         /// </summary>
-        public Card Played { get; set; }
+        public Card Played { get; }
     }
 }

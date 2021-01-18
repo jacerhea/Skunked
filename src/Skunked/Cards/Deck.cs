@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using Skunked.Utility;
 
@@ -11,8 +10,8 @@ namespace Skunked.Cards
     /// </summary>
     public sealed class Deck : IEnumerable<Card>
     {
-        private static readonly ImmutableList<Card> InitialDeck = EnumHelper.GetValues<Rank>()
-            .Cartesian(EnumHelper.GetValues<Suit>(), (rank, suit) => new Card(rank, suit)).ToImmutableList();
+        private static readonly List<Card> InitialDeck = EnumHelper.GetValues<Rank>()
+            .Cartesian(EnumHelper.GetValues<Suit>(), (rank, suit) => new Card(rank, suit)).ToList();
         private readonly List<Card> _deck;
 
         /// <summary>
@@ -40,7 +39,7 @@ namespace Skunked.Cards
             _deck.Shuffle();
         }
 
-        
+
         /// <summary>
         /// Randomly shuffles the deck the given number of times. 
         /// </summary>        

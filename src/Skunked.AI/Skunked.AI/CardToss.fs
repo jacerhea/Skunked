@@ -36,7 +36,6 @@ module CardToss =
 
 
     let optimisticDecision(cards: IEnumerable<_>) = 
-        let handSet = new HashSet<Card>(cards)
-        let combinationResult = combinations handSet
-        let possible = possibleRemaining handSet
-        4
+        let highestPossibleCombo = baseDecision(cards) 
+                                |> Seq.maxBy (fun combo -> combo.PossibleScores |> Seq.maxBy (fun com -> com.Score) |> fun x -> x.Score)
+        cards |> Seq.except highestPossibleCombo.Combo
