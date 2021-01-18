@@ -223,13 +223,6 @@ namespace Skunked.UnitTest.Score
 
 
         [Fact]
-        public void ExceptionsForRunTest()
-        {
-            Action countRuns = () => _scoreCalculator.CountRuns(null);
-            countRuns.Should().Throw<ArgumentNullException>();
-        }
-
-        [Fact]
         public void ScoreCalculatorTotalTest()
         {
             var hand = new List<Card>
