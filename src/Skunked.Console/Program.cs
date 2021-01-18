@@ -44,25 +44,26 @@ namespace Skunked.ConsoleApp
         private readonly Dictionary<int, IConsole> _windowLookup;
         private IConsole _ai;
         private IConsole _crib;
+        private Layout _layout = new Layout();
 
         public ConsoleEventListener(GameState gameState)
         {
             _gameState = gameState;
             var standardHeight = 6;
 
-            _userWindow = Window.OpenBox("You: 0", 40, standardHeight, new BoxStyle()
+            _userWindow = Window.OpenBox("You: 0", _layout.Player1X, _layout.Player1Y, _layout.PlayerWidth, _layout.PlayerHeight, new BoxStyle()
             {
                 ThickNess = LineThickNess.Single,
                 Title = new Colors(White, Red)
             });
 
-            _ai = Window.OpenBox("Computer: 0", 0, 15, 40, standardHeight, new BoxStyle
+            _ai = Window.OpenBox("Computer: 0", _layout.Player2X, _layout.Player2Y, _layout.PlayerWidth, _layout.PlayerHeight, new BoxStyle
             {
                 ThickNess = LineThickNess.Single,
                 Title = new Colors(White, Blue)
             });
 
-            _crib = Window.OpenBox("Crib", 50, 15, 40, standardHeight, new BoxStyle
+            _crib = Window.OpenBox("Crib", _layout.Player2X, _layout.Player2Y, _layout.PlayerWidth, _layout.PlayerHeight, new BoxStyle
             {
                 ThickNess = LineThickNess.Single,
                 Title = new Colors(White, Blue)
@@ -146,6 +147,18 @@ namespace Skunked.ConsoleApp
         private void Handle(RoundStartedEvent @event)
         {
 
+            _crib = Window.OpenBox("                  ", _layout.CribX, _layout.Player1Y, _layout.PlayerWidth, _layout.PlayerHeight, new BoxStyle
+            {
+                ThickNess = LineThickNess.Single,
+                Title = new Colors(Black, Black),
+                Line = new Colors(Black, Black)
+            });
+
+            _crib = Window.OpenBox("Crib", _layout.CribX, _layout.Player1Y, _layout.PlayerWidth, _layout.PlayerHeight, new BoxStyle
+            {
+                ThickNess = LineThickNess.Single,
+                Title = new Colors(White, Red)
+            });
         }
 
         private void Handle(StarterCardSelectedEvent @event)
@@ -169,4 +182,20 @@ namespace Skunked.ConsoleApp
         }
 
     }
+
+
+    public class Layout
+    {
+        public int Player1X { get; set; } = 0;
+        public int Player1Y { get; set; } = 1;
+
+        public int Player2X { get; set; } = 0;
+        public int Player2Y { get; set; } = 15;
+
+        public int CribX { get; set; } = 50;
+
+        public int PlayerHeight { get; set; } = 6;
+        public int PlayerWidth { get; set; } = 40;
+    }
+
 }
