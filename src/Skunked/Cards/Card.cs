@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace Skunked.Cards
 {
@@ -14,13 +15,15 @@ namespace Skunked.Cards
         public Card()
             : this(Rank.Ace, Suit.Clubs) { }
 
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="Card"/> class.
+        /// Initializes a new instance of the <see cref="Card"/> class with the specified Rank and Suit.
         /// </summary>
-        /// <param name="rank"></param>
-        /// <param name="suit"></param>
+        /// <param name="rank">Set Rank.</param>
+        /// <param name="suit">Set Suit.</param>
         public Card(Rank rank = Rank.Ace, Suit suit = Suit.Clubs)
         {
+            var x = new Point(1, 2);
             Rank = rank;
             Suit = suit;
         }

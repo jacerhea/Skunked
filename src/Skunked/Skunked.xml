@@ -18,6 +18,8 @@
             <summary>
             Initializes a new instance of the <see cref="T:Skunked.Cards.Card"/> class.
             </summary>
+            <param name="rank"></param>
+            <param name="suit"></param>
         </member>
         <member name="M:Skunked.Cards.Card.#ctor(Skunked.Cards.Card)">
             <summary>
@@ -540,7 +542,7 @@
         </member>
         <member name="M:Skunked.Game.GameRunner.#ctor(Skunked.Cards.Deck)">
             <summary>
-            Synchronous Game of Cribbage.
+            Initializes a new instance of the <see cref="T:Skunked.Game.GameRunner"/> class.
             </summary>
             <param name="deck"></param>
         </member>
@@ -568,6 +570,18 @@
             Set of Cribbage rules.
             </summary>
         </member>
+        <member name="M:Skunked.Rules.GameRules.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Rules.GameRules"/> class.
+            </summary>
+        </member>
+        <member name="M:Skunked.Rules.GameRules.#ctor(Skunked.Rules.WinningScoreType,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Rules.GameRules"/> class.
+            </summary>
+            <param name="winningScore"></param>
+            <param name="numberOfPlayers"></param>
+        </member>
         <member name="P:Skunked.Rules.GameRules.NumberOfPlayers">
             <summary>
             Gets number of players.
@@ -587,18 +601,6 @@
             <summary>
             Gets size of hand after throwing cards to crib.
             </summary>
-        </member>
-        <member name="M:Skunked.Rules.GameRules.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Skunked.Rules.GameRules"/> class.
-            </summary>
-        </member>
-        <member name="M:Skunked.Rules.GameRules.#ctor(Skunked.Rules.WinningScoreType,System.Int32)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Skunked.Rules.GameRules"/> class.
-            </summary>
-            <param name="winningScore"></param>
-            <param name="numberOfPlayers"></param>
         </member>
         <member name="T:Skunked.Rules.GameRules.Points">
              <summary>
@@ -802,7 +804,7 @@
         </member>
         <member name="M:Skunked.Utility.GameStateExtensions.IsGameFinished(Skunked.Domain.State.GameState)">
             <summary>
-            Is the game finished?
+            If the game finished.
             </summary>
             <param name="game"></param>
             <returns></returns>
