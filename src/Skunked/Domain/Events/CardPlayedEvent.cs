@@ -15,12 +15,12 @@ namespace Skunked.Domain.Events
         }
 
         /// <summary>
-        /// The player id. 
+        /// Gets the player id.
         /// </summary>
         public int PlayerId { get; }
 
         /// <summary>
-        /// The Card being played.
+        /// Gets the Card being played.
         /// </summary>
         public Card Played { get; }
     }

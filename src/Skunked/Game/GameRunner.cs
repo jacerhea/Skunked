@@ -14,7 +14,7 @@ namespace Skunked.Game
         private readonly Deck _deck;
 
         /// <summary>
-        /// Synchronous Game of Cribbage
+        /// Synchronous Game of Cribbage.
         /// </summary>
         /// <param name="deck"></param>
         public GameRunner(Deck deck)

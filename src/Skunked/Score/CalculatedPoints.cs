@@ -7,7 +7,7 @@ namespace Skunked.Score
     /// Result Calculated
     /// </summary>
     public record CalculatedResult(CalculatedPoints Points, CalculatedCombinations Combinations);
-    
+
     /// <summary>
     /// Set of points scored.
     /// </summary>
@@ -21,9 +21,9 @@ namespace Skunked.Score
     /// <summary>
     /// A set of combinations that can score points.
     /// </summary>
-    public record CalculatedCombinations(IList<IList<Card>> Fifteens, 
-        IList<IList<Card>> Pairs, 
+    public record CalculatedCombinations(IList<IList<Card>> Fifteens,
+        IList<IList<Card>> Pairs,
         IList<IList<Card>> Runs,
-        IList<Card> Flushes, 
+        IList<Card> Flushes,
         IList<Card> Nobs);
 }

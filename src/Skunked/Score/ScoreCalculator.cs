@@ -9,14 +9,14 @@ using Skunked.Utility;
 namespace Skunked.Score
 {
     /// <summary>
-    /// Calculates points scored in shows and plays
+    /// Calculates points scored in shows and plays.
     /// </summary>
     public class ScoreCalculator
     {
         private static readonly AceLowFaceTenCardValueStrategy ValueStrategy = new();
 
         /// <summary>
-        /// Check cut card for dealer
+        /// Check cut card for dealer.
         /// </summary>
         /// <param name="cut"></param>
         /// <returns></returns>
@@ -65,10 +65,10 @@ namespace Skunked.Score
 
             var scored = 0;
 
-            //count 15s
+            // count 15s
             scored += IsFifteen(pile) ? GameRules.Points.Fifteen : 0;
 
-            //count pairs
+            // count pairs
             if (pile.Count > 3 && pile.TakeLast(4).GroupBy(c => c.Rank).Count() == 1)
             {
                 scored += GameRules.Points.DoublePairRoyal;
@@ -82,7 +82,7 @@ namespace Skunked.Score
                 scored += AreSameKind(pile.TakeLast(2)) ? GameRules.Points.Pair : 0;
             }
 
-            //count runs
+            // count runs
             var count = pile.Count;
             while (count > 2)
             {
@@ -94,7 +94,7 @@ namespace Skunked.Score
                 count--;
             }
 
-            //31 count
+            // 31 count
             if (SumValues(pile) == GameRules.Points.MaxPlayCount)
             {
                 scored += 2;
@@ -137,13 +137,15 @@ namespace Skunked.Score
                     returnHand.Add(starterCard);
                     return returnHand;
                 }
+
                 return playersHand.ToList();
             }
+
             return new List<Card>(0);
         }
 
         /// <summary>
-        /// A pair of cards of a kind
+        /// A pair of cards of a kind.
         /// </summary>
         /// <param name="combinationsToCheck"></param>
         /// <returns>Returns all pairs found.</returns>
@@ -151,7 +153,7 @@ namespace Skunked.Score
             combinationsToCheck[2].Where(c => c[0].Rank == c[1].Rank).ToList();
 
         /// <summary>
-        /// Three consecutive cards (regardless of suit)
+        /// Three consecutive cards (regardless of suit).
         /// </summary>
         /// <param name="combinationsToCount"></param>
         /// <returns></returns>
@@ -193,10 +195,8 @@ namespace Skunked.Score
             return cards.Sum(c => ValueStrategy.GetValue(c));
         }
 
-        public int GoValue => GameRules.Points.Go;
-
         /// <summary>
-        ///  Separate combination of two or more cards totaling exactly fifteen
+        ///  Separate combination of two or more cards totaling exactly fifteen.
         /// </summary>
         /// <param name="cards"></param>
         /// <returns></returns>
@@ -211,7 +211,7 @@ namespace Skunked.Score
         }
 
         /// <summary>
-        /// Three or more consecutive cards (regardless of suit)
+        /// Three or more consecutive cards (regardless of suit).
         /// </summary>
         /// <param name="combo"></param>
         /// <returns></returns>
@@ -244,7 +244,7 @@ namespace Skunked.Score
 
         /// <summary>
         /// Dictionary of the combinations.  The key is "k" in k-combination combinatorial mathematics. Zero is not calculated.
-        /// The Value is the set of the combination sets
+        /// The Value is the set of the combination sets.
         /// </summary>
         /// <param name="sourceSet"></param>
         /// <returns></returns>

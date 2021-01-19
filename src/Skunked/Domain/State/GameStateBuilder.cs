@@ -178,7 +178,7 @@ namespace Skunked.Domain.State
                 playerCardPlayedScore.NewCount = playCountNew;
                 if (playCountNew != GameRules.Points.MaxPlayCount)
                 {
-                    var goValue = _scoreCalculator.GoValue;
+                    var goValue = GameRules.Points.Go;
                     playScore += goValue;
                 }
 

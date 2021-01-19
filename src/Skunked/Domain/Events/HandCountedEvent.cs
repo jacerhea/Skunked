@@ -2,6 +2,9 @@
 
 namespace Skunked.Domain.Events
 {
+    /// <summary>
+    ///
+    /// </summary>
     public class HandCountedEvent : StreamEvent
     {
         public HandCountedEvent(Guid gameId, int version, int playerId, int countedScore) : base(gameId, version)
@@ -11,7 +14,7 @@ namespace Skunked.Domain.Events
         }
 
         /// <summary>
-        /// The player id. 
+        /// Gets the player id.
         /// </summary>
         public int PlayerId { get; }
         public int CountedScore { get; }

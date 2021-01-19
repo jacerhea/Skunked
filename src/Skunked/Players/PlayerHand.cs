@@ -5,7 +5,7 @@ using Skunked.Cards;
 namespace Skunked.Players
 {
     /// <summary>
-    /// A player id and their hand
+    /// A player id and their hand.
     /// </summary>
     public class PlayerHand
     {

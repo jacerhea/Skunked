@@ -8,12 +8,7 @@ namespace Skunked.Exceptions
     public class InvalidCribbageOperationException : InvalidOperationException
     {
         /// <summary>
-        /// The invalid cribbage operation that was attempted.
-        /// </summary>
-        public InvalidCribbageOperation Operation { get; }
-
-        /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="operation"></param>
         public InvalidCribbageOperationException(InvalidCribbageOperation operation)
@@ -21,5 +16,10 @@ namespace Skunked.Exceptions
         {
             Operation = operation;
         }
+
+        /// <summary>
+        /// Gets the invalid cribbage operation that was attempted.
+        /// </summary>
+        public InvalidCribbageOperation Operation { get; }
     }
 }

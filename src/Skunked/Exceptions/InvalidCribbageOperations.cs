@@ -22,43 +22,43 @@
         /// </summary>
         CardHasBeenPlayed,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         CardsHaveBeenThrown,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         InvalidPlayer,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         InvalidStateForPlay,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         InvalidCard,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         InvalidStateForCount,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         InvalidStateForCribCount,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         InvalidShowCount,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         PlayerHasAlreadyCounted,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         GameFinished,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         InvalidRequest
     }

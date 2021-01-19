@@ -1,7 +1,7 @@
 ﻿namespace Skunked.Cards
 {
     /// <summary>
-    /// Set of playing card ranks
+    /// Set of playing card ranks.
     /// </summary>
     public enum Rank
     {

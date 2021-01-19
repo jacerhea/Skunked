@@ -9,30 +9,31 @@
             Standard 52-card deck playing card.
             </summary>
         </member>
-        <member name="P:Skunked.Cards.Card.Rank">
-            <summary>
-            Playing card's rank.
-            </summary>
-        </member>
-        <member name="P:Skunked.Cards.Card.Suit">
-            <summary>
-            Playing card's suit.
-            </summary>
-        </member>
         <member name="M:Skunked.Cards.Card.#ctor">
             <summary>
-            Initializes a new instance of Card with default Rank and Suit.
+            Initializes a new instance of the <see cref="T:Skunked.Cards.Card"/> class.
             </summary>
         </member>
         <member name="M:Skunked.Cards.Card.#ctor(Skunked.Cards.Rank,Skunked.Cards.Suit)">
             <summary>
-            Initializes a new instance of Card with optional Rank and Suit
+            Initializes a new instance of the <see cref="T:Skunked.Cards.Card"/> class.
             </summary>        
         </member>
         <member name="M:Skunked.Cards.Card.#ctor(Skunked.Cards.Card)">
             <summary>
-            Initializes a new instance of Card from existing Card.
-            </summary>           
+            Initializes a new instance of the <see cref="T:Skunked.Cards.Card"/> class.
+            </summary>
+            <param name="card">The card to make a copy of.</param>
+        </member>
+        <member name="P:Skunked.Cards.Card.Rank">
+            <summary>
+            Gets playing card's rank.
+            </summary>
+        </member>
+        <member name="P:Skunked.Cards.Card.Suit">
+            <summary>
+            Gets playing card's suit.
+            </summary>
         </member>
         <member name="M:Skunked.Cards.Card.ToString">
             <summary>
@@ -94,7 +95,7 @@
         </member>
         <member name="M:Skunked.Cards.Deck.#ctor(System.Collections.Generic.IEnumerable{Skunked.Cards.Card})">
             <summary>
-            Initializes a deck with the given cards.
+            Initializes a new instance of the <see cref="T:Skunked.Cards.Deck"/> class.
             </summary>
             <param name="deck"></param>
         </member>
@@ -110,7 +111,7 @@
         </member>
         <member name="M:Skunked.Cards.Deck.GetEnumerator">
             <summary>
-            Returns an enumerator that iterates through the Deck
+            Returns an enumerator that iterates through the Deck.
             </summary>
             <returns></returns>
         </member>
@@ -132,7 +133,7 @@
         </member>
         <member name="T:Skunked.Cards.Rank">
             <summary>
-            Set of playing card ranks
+            Set of playing card ranks.
             </summary>
         </member>
         <member name="F:Skunked.Cards.Rank.Ace">
@@ -202,7 +203,7 @@
         </member>
         <member name="T:Skunked.Cards.Suit">
             <summary>
-            Categories into which the cards of a deck are divided
+            Categories into which the cards of a deck are divided.
             </summary>
         </member>
         <member name="F:Skunked.Cards.Suit.Clubs">
@@ -244,11 +245,56 @@
         </member>
         <member name="M:Skunked.Cribbage.#ctor(System.Collections.Generic.IEnumerable{System.Int32},Skunked.Rules.GameRules,System.Collections.Generic.IEnumerable{Skunked.Domain.Events.IEventListener})">
             <summary>
-            Constructs a new game of Cribbage.
+            Initializes a new instance of the <see cref="T:Skunked.Cribbage"/> class.
             </summary>
             <param name="players"></param>
             <param name="rules"></param>
             <param name="eventListeners"></param>
+        </member>
+        <member name="P:Skunked.Cribbage.State">
+            <summary>
+            Gets the state of the game.
+            </summary>
+        </member>
+        <member name="P:Skunked.Cribbage.Stream">
+            <summary>
+            Gets set of events that have occurred in the game.
+            </summary>
+        </member>
+        <member name="M:Skunked.Cribbage.CutCard(System.Int32,Skunked.Cards.Card)">
+            <summary>
+            
+            </summary>
+            <param name="playerId"></param>
+            <param name="card"></param>
+        </member>
+        <member name="M:Skunked.Cribbage.ThrowCards(System.Int32,System.Collections.Generic.IEnumerable{Skunked.Cards.Card})">
+            <summary>
+            Throw cards to the crib.
+            </summary>
+            <param name="playerId"></param>
+            <param name="cribCards"></param>
+        </member>
+        <member name="M:Skunked.Cribbage.PlayCard(System.Int32,Skunked.Cards.Card)">
+            <summary>
+            Play a card.
+            </summary>
+            <param name="playerId"></param>
+            <param name="card"></param>
+        </member>
+        <member name="M:Skunked.Cribbage.CountHand(System.Int32,System.Int32)">
+            <summary>
+            Count a players hand.
+            </summary>
+            <param name="playerId">Player Id.</param>
+            <param name="score">Score.  Over counting is penalized.</param>
+        </member>
+        <member name="M:Skunked.Cribbage.CountCrib(System.Int32,System.Int32)">
+            <summary>
+            Count a players crib.
+            </summary>
+            <param name="playerId">Player Id.</param>
+            <param name="score">Score.  Over counting is penalized.</param>
         </member>
         <member name="T:Skunked.Domain.Events.CardCutEvent">
             <summary>
@@ -257,12 +303,12 @@
         </member>
         <member name="P:Skunked.Domain.Events.CardCutEvent.PlayerId">
             <summary>
-            The player's id who cut the card.
+            Gets the player's id who cut the card.
             </summary>
         </member>
         <member name="P:Skunked.Domain.Events.CardCutEvent.CutCard">
             <summary>
-            The card that was cut.
+            Gets the card that was cut.
             </summary>
         </member>
         <member name="T:Skunked.Domain.Events.CardPlayedEvent">
@@ -272,12 +318,12 @@
         </member>
         <member name="P:Skunked.Domain.Events.CardPlayedEvent.PlayerId">
             <summary>
-            The player id. 
+            Gets the player id. 
             </summary>
         </member>
         <member name="P:Skunked.Domain.Events.CardPlayedEvent.Played">
             <summary>
-            The Card being played.
+            Gets the Card being played.
             </summary>
         </member>
         <member name="T:Skunked.Domain.Events.CardsThrownEvent">
@@ -285,19 +331,57 @@
             
             </summary>
         </member>
+        <member name="M:Skunked.Domain.Events.CardsThrownEvent.#ctor(System.Guid,System.Int32,System.Int32,System.Collections.Generic.List{Skunked.Cards.Card})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Events.CardsThrownEvent"/> class.
+            </summary>
+            <param name="gameId"></param>
+            <param name="version"></param>
+            <param name="playerId"></param>
+            <param name="thrown"></param>
+        </member>
         <member name="P:Skunked.Domain.Events.CardsThrownEvent.PlayerId">
             <summary>
-            The player id. 
+            Gets the player id.
             </summary>
+        </member>
+        <member name="P:Skunked.Domain.Events.CardsThrownEvent.Thrown">
+            <summary>
+            Gets the cards throw to the crib.
+            </summary>
+        </member>
+        <member name="T:Skunked.Domain.Events.CribCountedEvent">
+            <summary>
+            The crib has been scored.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Events.CribCountedEvent.#ctor(System.Guid,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Events.CribCountedEvent"/> class.
+            </summary>
+            <param name="gameId">The Id of the game.</param>
+            <param name="version">The event number.</param>
+            <param name="playerId">The Id of the player.</param>
+            <param name="countedScore">The counted score.</param>
         </member>
         <member name="P:Skunked.Domain.Events.CribCountedEvent.PlayerId">
             <summary>
-            The player id. 
+            Gets the player id.
             </summary>
+        </member>
+        <member name="P:Skunked.Domain.Events.CribCountedEvent.CountedScore">
+            <summary>
+            Gets the score the player counted for the crib.
+            </summary>
+        </member>
+        <member name="T:Skunked.Domain.Events.HandCountedEvent">
+             <summary>
+            
+             </summary>
         </member>
         <member name="P:Skunked.Domain.Events.HandCountedEvent.PlayerId">
             <summary>
-            The player id. 
+            Gets the player id.
             </summary>
         </member>
         <member name="T:Skunked.Domain.Events.StarterCardSelectedEvent">
@@ -307,22 +391,29 @@
         </member>
         <member name="T:Skunked.Domain.Events.StreamEvent">
             <summary>
-            Base event
+            Base event.
             </summary>
+        </member>
+        <member name="M:Skunked.Domain.Events.StreamEvent.#ctor(System.Guid,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Events.StreamEvent"/> class.
+            </summary>
+            <param name="gameId">Identifier of the game.</param>
+            <param name="version">Version of the game state.</param>
         </member>
         <member name="P:Skunked.Domain.Events.StreamEvent.GameId">
             <summary>
-            Identifier of the game.
+            Gets identifier of the game.
             </summary>
         </member>
         <member name="P:Skunked.Domain.Events.StreamEvent.Version">
             <summary>
-            Version of the game state.
+            Gets version of the game state.
             </summary>
         </member>
         <member name="P:Skunked.Domain.Events.StreamEvent.Occurred">
             <summary>
-            The time stamp this event took place.
+            Gets the time stamp this event took place.
             </summary>
         </member>
         <member name="T:Skunked.Domain.State.GameStateBuilder">
@@ -337,12 +428,12 @@
         </member>
         <member name="P:Skunked.Domain.State.PlayerScore.Player">
             <summary>
-            Player Id
+            Gets or sets player Id.
             </summary>
         </member>
         <member name="P:Skunked.Domain.State.PlayerScore.Score">
             <summary>
-            The player's score.
+            Gets or sets the player's score.
             </summary>
         </member>
         <member name="T:Skunked.Exceptions.InvalidCribbageOperationException">
@@ -350,16 +441,16 @@
             An invalid move was attempted in the game.
             </summary>
         </member>
+        <member name="M:Skunked.Exceptions.InvalidCribbageOperationException.#ctor(Skunked.Exceptions.InvalidCribbageOperation)">
+             <summary>
+            
+             </summary>
+             <param name="operation"></param>
+        </member>
         <member name="P:Skunked.Exceptions.InvalidCribbageOperationException.Operation">
             <summary>
-            The invalid cribbage operation that was attempted.
+            Gets the invalid cribbage operation that was attempted.
             </summary>
-        </member>
-        <member name="M:Skunked.Exceptions.InvalidCribbageOperationException.#ctor(Skunked.Exceptions.InvalidCribbageOperation)">
-            <summary>
-            
-            </summary>
-            <param name="operation"></param>
         </member>
         <member name="T:Skunked.Exceptions.InvalidCribbageOperation">
             <summary>
@@ -438,20 +529,20 @@
         </member>
         <member name="M:Skunked.Game.GameRunner.#ctor(Skunked.Cards.Deck)">
             <summary>
-            Synchronous Game of Cribbage
+            Synchronous Game of Cribbage.
             </summary>
             <param name="deck"></param>
         </member>
         <member name="M:Skunked.Players.IGameRunnerPlayer.DetermineCardsToThrow(System.Collections.Generic.IEnumerable{Skunked.Cards.Card})">
             <summary>
-            Deal Hand and return cards that will go back in crib
+            Deal Hand and return cards that will go back in crib.
             </summary>
             <param name="hand"></param>
             <returns>Set of Cards to throw in crib.</returns>
         </member>
         <member name="T:Skunked.Players.PlayerHand">
             <summary>
-            A player id and their hand
+            A player id and their hand.
             </summary>
         </member>
         <member name="M:Skunked.Players.PlayerHand.#ctor(System.Int32,System.Collections.Generic.List{Skunked.Cards.Card})">
@@ -468,22 +559,22 @@
         </member>
         <member name="P:Skunked.Rules.GameRules.NumberOfPlayers">
             <summary>
-            Number of players
+            Gets number of players.
             </summary>
         </member>
         <member name="P:Skunked.Rules.GameRules.WinningScore">
             <summary>
-            The score a player needs to reach first to win the game.
+            Gets the score a player needs to reach first to win the game.
             </summary>
         </member>
         <member name="P:Skunked.Rules.GameRules.DealSize">
             <summary>
-            Size of initial hand that dealer gives to each player
+            Gets size of initial hand that dealer gives to each player.
             </summary>
         </member>
         <member name="P:Skunked.Rules.GameRules.HandSize">
             <summary>
-            Size of hand after throwing cards to crib.
+            Gets size of hand after throwing cards to crib.
             </summary>
         </member>
         <member name="T:Skunked.Rules.GameRules.Points">
@@ -493,47 +584,47 @@
         </member>
         <member name="P:Skunked.Rules.GameRules.Points.Go">
             <summary>
-            Points for laying the last card in a play where the count is under 31.
+            Gets points for laying the last card in a play where the count is under 31.
             </summary>
         </member>
         <member name="P:Skunked.Rules.GameRules.Points.MaxPlayCount">
             <summary>
-            Max count a play can reach before starting a new play.
+            Gets max count a play can reach before starting a new play.
             </summary>
         </member>
         <member name="P:Skunked.Rules.GameRules.Points.Fifteen">
             <summary>
-            Combination of two or more cards totaling exactly fifteen
+            Gets combination of two or more cards totaling exactly fifteen.
             </summary>
         </member>
         <member name="P:Skunked.Rules.GameRules.Points.Nibs">
             <summary>
-            Jack is cut as the starter card. Points are awarded to dealer.
+            Gets jack is cut as the starter card. Points are awarded to dealer.
             </summary>
         </member>
         <member name="P:Skunked.Rules.GameRules.Points.Nobs">
             <summary>
-            One point for holding the Jack of the same suit as the starter card
+            Gets one point for holding the Jack of the same suit as the starter card.
             </summary>
         </member>
         <member name="P:Skunked.Rules.GameRules.Points.Pair">
             <summary>
-            Two cards of a kind
+            Gets two cards of a kind.
             </summary>
         </member>
         <member name="P:Skunked.Rules.GameRules.Points.PairRoyal">
             <summary>
-            Three cards of a kind
+            Gets three cards of a kind.
             </summary>
         </member>
         <member name="P:Skunked.Rules.GameRules.Points.DoublePairRoyal">
             <summary>
-            Four cards of a kind
+            Gets four cards of a kind.
             </summary>
         </member>
         <member name="P:Skunked.Rules.GameRules.Points.Flush">
             <summary>
-            All four cards in the hand are of the same suit
+            Gets all four cards in the hand are of the same suit.
             </summary>
         </member>
         <member name="T:Skunked.Rules.WinningScoreType">
@@ -583,17 +674,17 @@
         </member>
         <member name="T:Skunked.Score.ComboPossibleScores">
             <summary>
-            Couple a set of cards with all of the possible scoring outcomes for that combo
+            Couple a set of cards with all of the possible scoring outcomes for that combo.
             </summary>
         </member>
         <member name="T:Skunked.Score.ScoreCalculator">
             <summary>
-            Calculates points scored in shows and plays
+            Calculates points scored in shows and plays.
             </summary>
         </member>
         <member name="M:Skunked.Score.ScoreCalculator.CountCut(Skunked.Cards.Card)">
             <summary>
-            Check cut card for dealer
+            Check cut card for dealer.
             </summary>
             <param name="cut"></param>
             <returns></returns>
@@ -624,14 +715,14 @@
         </member>
         <member name="M:Skunked.Score.ScoreCalculator.CountPairs(System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.List{System.Collections.Generic.IList{Skunked.Cards.Card}}})">
             <summary>
-            A pair of cards of a kind
+            A pair of cards of a kind.
             </summary>
             <param name="combinationsToCheck"></param>
             <returns>Returns all pairs found.</returns>
         </member>
         <member name="M:Skunked.Score.ScoreCalculator.CountRuns(System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.List{System.Collections.Generic.IList{Skunked.Cards.Card}}})">
             <summary>
-            Three consecutive cards (regardless of suit)
+            Three consecutive cards (regardless of suit).
             </summary>
             <param name="combinationsToCount"></param>
             <returns></returns>
@@ -646,14 +737,14 @@
         </member>
         <member name="M:Skunked.Score.ScoreCalculator.IsFifteen(System.Collections.Generic.IList{Skunked.Cards.Card})">
             <summary>
-             Separate combination of two or more cards totaling exactly fifteen
+             Separate combination of two or more cards totaling exactly fifteen.
             </summary>
             <param name="cards"></param>
             <returns></returns>
         </member>
         <member name="M:Skunked.Score.ScoreCalculator.IsRun(System.Collections.Generic.IList{Skunked.Cards.Card})">
             <summary>
-            Three or more consecutive cards (regardless of suit)
+            Three or more consecutive cards (regardless of suit).
             </summary>
             <param name="combo"></param>
             <returns></returns>
@@ -661,7 +752,7 @@
         <member name="M:Skunked.Score.ScoreCalculator.GetCombinations(System.Collections.Generic.IList{Skunked.Cards.Card})">
             <summary>
             Dictionary of the combinations.  The key is "k" in k-combination combinatorial mathematics. Zero is not calculated.
-            The Value is the set of the combination sets
+            The Value is the set of the combination sets.
             </summary>
             <param name="sourceSet"></param>
             <returns></returns>
@@ -673,40 +764,222 @@
         </member>
         <member name="M:Skunked.Utility.EnumHelper.GetValues``1">
             <summary>
-            Returns all values of an enumeration
+            Returns all values of an enumeration.
             </summary>
-            <typeparam name="T">The enum type to enumerate</typeparam>
-            <returns>Returns all values of an enumeration</returns>
+            <typeparam name="T">The enum type to enumerate.</typeparam>
+            <returns>Returns all values of an enumeration.</returns>
+        </member>
+        <member name="T:Skunked.Utility.GameStateExtensions">
+            <summary>
+            Set of convenience methods to aggregate state from GameState.
+            </summary>
+        </member>
+        <member name="M:Skunked.Utility.GameStateExtensions.IsGameFinished(Skunked.Domain.State.GameState)">
+            <summary>
+            Is the game finished?.
+            </summary>
+            <param name="game"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Skunked.Utility.GameStateExtensions.GetCurrentRound(Skunked.Domain.State.GameState)">
+            <summary>
+            Get the current round.
+            </summary>
+            <param name="game"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Skunked.Utility.GameStateExtensions.GetNextPlayerFrom(Skunked.Domain.State.GameState,System.Int32)">
+            <summary>
+            Get the next player after the given playerId in the rotation.
+            </summary>
+            <param name="gameState"></param>
+            <param name="playerId"></param>
+            <returns></returns>
         </member>
         <member name="T:Skunked.Utility.LinqExtended">
             <summary>
             Functionally similar projections as LINQ library.
             </summary>
         </member>
+        <member name="M:Skunked.Utility.LinqExtended.Cartesian``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,``2})">
+            <summary>
+            Returns the Cartesian product of two sequences by enumerating all
+            possible combinations of one item from each sequence, and applying
+            a user-defined projection to the items in a given combination.
+            </summary>
+            <typeparam name="T1">
+            The type of the elements of <paramref name="first"/>.</typeparam>
+            <typeparam name="T2">
+            The type of the elements of <paramref name="second"/>.</typeparam>
+            <typeparam name="TResult">
+            The type of the elements of the result sequence.</typeparam>
+            <param name="first">The first sequence of elements.</param>
+            <param name="second">The second sequence of elements.</param>
+            <param name="resultSelector">A projection function that combines
+            elements from all of the sequences.</param>
+            <returns>A sequence of elements returned by
+            <paramref name="resultSelector"/>.</returns>
+            <remarks>
+            <para>
+            The method returns items in the same order as a nested foreach
+            loop, but all sequences except for <paramref name="first"/> are
+            cached when iterated over. The cache is then re-used for any
+            subsequent iterations.</para>
+            <para>
+            This method uses deferred execution and stream its results.</para>
+            </remarks>
+        </member>
         <member name="M:Skunked.Utility.LinqExtended.Shuffle``1(System.Collections.Generic.IList{``0})">
             <summary>
             Randomly rearrange the set of items.
             </summary>
-            <param name="list"></param>
-            <typeparam name="T"></typeparam>
+            <param name="source"></param>
+            <typeparam name="T">The type of source sequence elements.</typeparam>
         </member>
         <member name="M:Skunked.Utility.LinqExtended.Shuffle``1(System.Collections.Generic.IList{``0},System.Random)">
             <summary>
             Randomly rearrange the set of items using the given random generator.
             </summary>
-            <param name="list"></param>
-            <param name="random">Random number generator to be used in shuffle.</param>
-            <typeparam name="T"></typeparam>        
+            <param name="source"></param>
+            <param name="random">A random generator used as part of the selection algorithm.</param>
+            <typeparam name="T">The type of source sequence elements.</typeparam>      
+        </member>
+        <member name="M:Skunked.Utility.LinqExtended.MinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+            Returns the minimal elements of the given sequence, based on
+            the given projection.
+            </summary>
+            <remarks>
+            This overload uses the default comparer for the projected type.
+            This operator uses deferred execution. The results are evaluated
+            and cached on first use to returned sequence.
+            </remarks>
+            <typeparam name="TSource">Type of the source sequence.</typeparam>
+            <typeparam name="TKey">Type of the projected element.</typeparam>
+            <param name="source">Source sequence.</param>
+            <param name="selector">Selector to use to pick the results to compare.</param>
+            <returns>The sequence of minimal elements, according to the projection.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="source"/> or <paramref name="selector"/> is null.</exception>
+        </member>
+        <member name="M:Skunked.Utility.LinqExtended.MinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
+            <summary>
+            Returns the minimal elements of the given sequence, based on
+            the given projection and the specified comparer for projected values.
+            </summary>
+            <remarks>
+            This operator uses deferred execution. The results are evaluated
+            and cached on first use to returned sequence.
+            </remarks>
+            <typeparam name="TSource">Type of the source sequence.</typeparam>
+            <typeparam name="TKey">Type of the projected element.</typeparam>
+            <param name="source">Source sequence.</param>
+            <param name="selector">Selector to use to pick the results to compare.</param>
+            <param name="comparer">Comparer to use to compare projected values.</param>
+            <returns>The sequence of minimal elements, according to the projection.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="source"/>, <paramref name="selector"/>
+            or <paramref name="comparer"/> is null.</exception>
+        </member>
+        <member name="M:Skunked.Utility.LinqExtended.MaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+            Returns the maximal elements of the given sequence, based on
+            the given projection.
+            </summary>
+            <remarks>
+            This overload uses the default comparer  for the projected type.
+            This operator uses deferred execution. The results are evaluated
+            and cached on first use to returned sequence.
+            </remarks>
+            <typeparam name="TSource">Type of the source sequence.</typeparam>
+            <typeparam name="TKey">Type of the projected element.</typeparam>
+            <param name="source">Source sequence.</param>
+            <param name="selector">Selector to use to pick the results to compare.</param>
+            <returns>The sequence of maximal elements, according to the projection.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="source"/> or <paramref name="selector"/> is null.</exception>
+        </member>
+        <member name="M:Skunked.Utility.LinqExtended.MaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
+            <summary>
+            Returns the maximal elements of the given sequence, based on
+            the given projection and the specified comparer for projected values.
+            </summary>
+            <remarks>
+            This operator uses deferred execution. The results are evaluated
+            and cached on first use to returned sequence.
+            </remarks>
+            <typeparam name="TSource">Type of the source sequence.</typeparam>
+            <typeparam name="TKey">Type of the projected element.</typeparam>
+            <param name="source">Source sequence.</param>
+            <param name="selector">Selector to use to pick the results to compare.</param>
+            <param name="comparer">Comparer to use to compare projected values.</param>
+            <returns>The sequence of maximal elements, according to the projection.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="source"/>, <paramref name="selector"/>
+            or <paramref name="comparer"/> is null.</exception>
+        </member>
+        <member name="M:Skunked.Utility.LinqExtended.TakeEvery``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
+            <summary>
+            Returns every N-th element of a sequence.
+            </summary>
+            <typeparam name="TSource">Type of the source sequence.</typeparam>
+            <param name="source">Source sequence.</param>
+            <param name="step">Number of elements to bypass before returning the next element.</param>
+            <returns>
+            A sequence with every N-th element of the input sequence.
+            </returns>
+            <remarks>
+            This operator uses deferred execution and streams its results.
+            </remarks>
+            <example>
+            <code><![CDATA[
+            int[] numbers = { 1, 2, 3, 4, 5 };
+            var result = numbers.TakeEvery(2);
+            ]]></code>
+            The <c>result</c> variable, when iterated over, will yield 1, 3 and 5, in turn.
+            </example>
+        </member>
+        <member name="M:Skunked.Utility.LinqExtended.DistinctBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+            Returns all distinct elements of the given source, where "distinctness"
+            is determined via a projection and the default equality comparer for the projected type.
+            </summary>
+            <remarks>
+            This operator uses deferred execution and streams the results, although
+            a set of already-seen keys is retained. If a key is seen multiple times,
+            only the first element with that key is returned.
+            </remarks>
+            <typeparam name="TSource">Type of the source sequence.</typeparam>
+            <typeparam name="TKey">Type of the projected element.</typeparam>
+            <param name="source">Source sequence.</param>
+            <param name="keySelector">Projection for determining "distinctness".</param>
+            <returns>A sequence consisting of distinct elements from the source sequence,
+            comparing them by the specified key projection.</returns>
+        </member>
+        <member name="M:Skunked.Utility.LinqExtended.DistinctBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``1})">
+            <summary>
+            Returns all distinct elements of the given source, where "distinctness"
+            is determined via a projection and the specified comparer for the projected type.
+            </summary>
+            <remarks>
+            This operator uses deferred execution and streams the results, although
+            a set of already-seen keys is retained. If a key is seen multiple times,
+            only the first element with that key is returned.
+            </remarks>
+            <typeparam name="TSource">Type of the source sequence.</typeparam>
+            <typeparam name="TKey">Type of the projected element.</typeparam>
+            <param name="source">Source sequence.</param>
+            <param name="keySelector">Projection for determining "distinctness".</param>
+            <param name="comparer">The equality comparer to use to determine whether or not keys are equal.
+            If null, the default equality comparer for <c>TSource</c> is used.</param>
+            <returns>A sequence consisting of distinct elements from the source sequence,
+            comparing them by the specified key projection.</returns>
         </member>
         <member name="T:Skunked.Utility.RandomProvider">
             <summary>
             Thread Safe Implementation of a Random class provider by Jon Skeet
-            http://csharpindepth.com/Articles/Chapter12/Random.aspx
+            http://csharpindepth.com/Articles/Chapter12/Random.aspx.
             </summary>
         </member>
         <member name="M:Skunked.Utility.RandomProvider.#cctor">
             <summary>
-            Initialize static 
+            Initialize static. 
             </summary>
         </member>
         <member name="M:Skunked.Utility.RandomProvider.ResetInstance">
@@ -716,7 +989,7 @@
         </member>
         <member name="P:Skunked.Utility.RandomProvider.RandomInstance">
             <summary>
-            For Testing purposes only
+            Sets for Testing purposes only.
             </summary>
         </member>
     </members>

@@ -15,12 +15,12 @@ namespace Skunked.Domain.Events
         }
 
         /// <summary>
-        /// The player's id who cut the card.
+        /// Gets the player's id who cut the card.
         /// </summary>
         public int PlayerId { get; }
 
         /// <summary>
-        /// The card that was cut.
+        /// Gets the card that was cut.
         /// </summary>
         public Card CutCard { get; }
     }

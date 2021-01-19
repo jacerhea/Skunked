@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 
 namespace Skunked.Utility
@@ -14,7 +14,7 @@ namespace Skunked.Utility
         private static ThreadLocal<Random> _randomWrapper = null!;
 
         /// <summary>
-        /// Initialize static 
+        /// Initialize static.
         /// </summary>
         static RandomProvider()
         {

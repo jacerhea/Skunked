@@ -9,32 +9,24 @@ namespace Skunked.Cards
     public class Card : IEquatable<Card>, IEqualityComparer<Card>
     {
         /// <summary>
-        /// Playing card's rank.
+        /// Initializes a new instance of the <see cref="Card"/> class.
         /// </summary>
-        public Rank Rank { get; }
-        
-        /// <summary>
-        /// Playing card's suit.
-        /// </summary>
-        public Suit Suit { get; }
+        public Card() : this(Rank.Ace, Suit.Clubs) { }
 
         /// <summary>
-        /// Initializes a new instance of Card with default Rank and Suit.
+        /// Initializes a new instance of the <see cref="Card"/> class.
         /// </summary>
-        public Card(): this(Rank.Ace, Suit.Clubs) { }
-
-        /// <summary>
-        /// Initializes a new instance of Card with optional Rank and Suit
-        /// </summary>        
         public Card(Rank rank = Rank.Ace, Suit suit = Suit.Clubs)
         {
             Rank = rank;
             Suit = suit;
         }
 
+
         /// <summary>
-        /// Initializes a new instance of Card from existing Card.
-        /// </summary>           
+        /// Initializes a new instance of the <see cref="Card"/> class.
+        /// </summary>
+        /// <param name="card">The card to make a copy of.</param>
         public Card(Card card)
         {
             Rank = card.Rank;
@@ -42,8 +34,18 @@ namespace Skunked.Cards
         }
 
         /// <summary>
+        /// Gets playing card's rank.
+        /// </summary>
+        public Rank Rank { get; }
+
+        /// <summary>
+        /// Gets playing card's suit.
+        /// </summary>
+        public Suit Suit { get; }
+
+        /// <summary>
         /// Returns a string representation of the Card.
-        /// </summary>   
+        /// </summary>
         public override string ToString()
         {
             return $"{Rank} of {Suit}";
@@ -77,7 +79,7 @@ namespace Skunked.Cards
         /// Checks if the object has same value as Card.
         /// </summary>
         /// <param name="other"></param>
-        /// <returns>True if objects are equal.</returns>        
+        /// <returns>True if objects are equal.</returns>
         public bool Equals(Card other)
         {
             if (other == null)

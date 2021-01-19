@@ -26,7 +26,7 @@ namespace Skunked.Cards.Value
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="card"></param>
         /// <returns></returns>

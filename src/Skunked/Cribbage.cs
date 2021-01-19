@@ -17,13 +17,13 @@ namespace Skunked
     /// </summary>
     public class Cribbage
     {
-        private readonly Dealer _dealer = new();
-        private readonly Deck _deck = new();
+        private readonly Dealer _dealer = new ();
+        private readonly Deck _deck = new ();
 
         private int NewVersion => State.Version + 1;
 
         /// <summary>
-        /// Constructs a new game of Cribbage.
+        /// Initializes a new instance of the <see cref="Cribbage"/> class.
         /// </summary>
         /// <param name="players"></param>
         /// <param name="rules"></param>
@@ -41,17 +41,17 @@ namespace Skunked
         }
 
         /// <summary>
-        /// The state of the game.
+        /// Gets the state of the game.
         /// </summary>
         public GameState State { get; }
 
         /// <summary>
-        /// Set of events that have occurred in the game.
+        /// Gets set of events that have occurred in the game.
         /// </summary>
         public EventStream Stream { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="playerId"></param>
         /// <param name="card"></param>

@@ -9,7 +9,7 @@ namespace Skunked.Cards.Order
     public class RankComparer : IComparer<Card>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static RankComparer Instance => new();
 

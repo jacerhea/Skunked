@@ -14,7 +14,7 @@ namespace Skunked.Cards
         //todo: make the startingWith into the dealer.  this saves a step for the caller to figure out who needs to be dealt to first.
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="deck"></param>
         /// <param name="players"></param>

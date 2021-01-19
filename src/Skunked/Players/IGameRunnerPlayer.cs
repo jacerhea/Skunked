@@ -9,7 +9,7 @@ namespace Skunked.Players
         int Id { get; }
 
         /// <summary>
-        /// Deal Hand and return cards that will go back in crib
+        /// Deal Hand and return cards that will go back in crib.
         /// </summary>
         /// <param name="hand"></param>
         /// <returns>Set of Cards to throw in crib.</returns>

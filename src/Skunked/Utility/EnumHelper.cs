@@ -10,10 +10,10 @@ namespace Skunked.Utility
     public static class EnumHelper
     {
         /// <summary>
-        /// Returns all values of an enumeration
+        /// Returns all values of an enumeration.
         /// </summary>
-        /// <typeparam name="T">The enum type to enumerate</typeparam>
-        /// <returns>Returns all values of an enumeration</returns>
+        /// <typeparam name="T">The enum type to enumerate.</typeparam>
+        /// <returns>Returns all values of an enumeration.</returns>
         public static List<T> GetValues<T>() where T : struct
         {
             var type = typeof (T);

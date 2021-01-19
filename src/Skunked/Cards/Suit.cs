@@ -1,7 +1,7 @@
 ﻿namespace Skunked.Cards
 {
     /// <summary>
-    /// Categories into which the cards of a deck are divided
+    /// Categories into which the cards of a deck are divided.
     /// </summary>
     public enum Suit
     {

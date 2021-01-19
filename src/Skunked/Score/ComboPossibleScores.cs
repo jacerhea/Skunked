@@ -8,7 +8,7 @@ using Skunked.Cards;
 namespace Skunked.Score
 {
     /// <summary>
-    /// Couple a set of cards with all of the possible scoring outcomes for that combo
+    /// Couple a set of cards with all of the possible scoring outcomes for that combo.
     /// </summary>
     public class ComboPossibleScores
     {

@@ -1,10 +1,10 @@
-﻿using System.Linq;
+using System.Linq;
 using Skunked.Domain.State;
 
 namespace Skunked.Utility
 {
     /// <summary>
-    /// Set of convenience methods to aggregate state from GameState
+    /// Set of convenience methods to aggregate state from GameState.
     /// </summary>
     public static class GameStateExtensions
     {
