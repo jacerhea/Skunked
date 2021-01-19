@@ -9,6 +9,7 @@
         /// Gets or sets player Id.
         /// </summary>
         public int Player { get; set; }
+
         /// <summary>
         /// Gets or sets the player's score.
         /// </summary>

@@ -51,7 +51,7 @@ namespace Skunked.Domain.Validations
                 throw new InvalidCribbageOperationException(InvalidCribbageOperation.NotPlayersTurn);
             }
 
-            //is the player starting new round with card sum over 31 and they have a playable card for current round?
+            // is the player starting new round with card sum over 31 and they have a playable card for current round?
             var currentPlayCount = _scoreCalculator.SumValues(setOfPlays.Last().Select(scs => scs.Card));
             int playCount = currentPlayCount + _scoreCalculator.SumValues(new List<Card> { new(cardPlayedEvent.Played) });
             if (playCount > GameRules.Points.MaxPlayCount)

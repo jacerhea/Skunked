@@ -9,57 +9,70 @@
         /// Player already cut a card from the deck.
         /// </summary>
         CutCardPlayerAlreadyCut,
+
         /// <summary>
         /// A player already this card from the deck.
         /// </summary>
         CutCardCardAlreadyCut,
+
         /// <summary>
         /// Player attempted to play when not their turn.
         /// </summary>
         NotPlayersTurn,
+
         /// <summary>
         /// The played card has already been played.
         /// </summary>
         CardHasBeenPlayed,
+
         /// <summary>
         ///
         /// </summary>
         CardsHaveBeenThrown,
+
         /// <summary>
         ///
         /// </summary>
         InvalidPlayer,
+
         /// <summary>
         ///
         /// </summary>
         InvalidStateForPlay,
+
         /// <summary>
         ///
         /// </summary>
         InvalidCard,
+
         /// <summary>
         ///
         /// </summary>
         InvalidStateForCount,
+
         /// <summary>
         ///
         /// </summary>
         InvalidStateForCribCount,
+
         /// <summary>
         ///
         /// </summary>
         InvalidShowCount,
+
         /// <summary>
         ///
         /// </summary>
         PlayerHasAlreadyCounted,
+
         /// <summary>
         ///
         /// </summary>
         GameFinished,
+
         /// <summary>
         ///
         /// </summary>
-        InvalidRequest
+        InvalidRequest,
     }
 }

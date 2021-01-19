@@ -11,7 +11,7 @@ namespace Skunked.Cards
     /// </summary>
     public class Dealer
     {
-        //todo: make the startingWith into the dealer.  this saves a step for the caller to figure out who needs to be dealt to first.
+        // todo: make the startingWith into the dealer.  this saves a step for the caller to figure out who needs to be dealt to first.
 
         /// <summary>
         ///

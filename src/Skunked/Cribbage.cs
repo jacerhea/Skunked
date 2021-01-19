@@ -20,8 +20,6 @@ namespace Skunked
         private readonly Dealer _dealer = new ();
         private readonly Deck _deck = new ();
 
-        private int NewVersion => State.Version + 1;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Cribbage"/> class.
         /// </summary>
@@ -40,6 +38,7 @@ namespace Skunked
             Emit(new DeckShuffledEvent(State.Id, NewVersion, _deck.ToList()));
         }
 
+
         /// <summary>
         /// Gets the state of the game.
         /// </summary>
@@ -49,6 +48,8 @@ namespace Skunked
         /// Gets set of events that have occurred in the game.
         /// </summary>
         public EventStream Stream { get; }
+
+        private int NewVersion => State.Version + 1;
 
         /// <summary>
         ///
@@ -145,6 +146,7 @@ namespace Skunked
             var playerHands = _dealer.Deal(_deck, State.PlayerIds, State.PlayerIds.NextOf(State.PlayerIds.NextOf(playerId)), State.GameRules.DealSize);
             Emit(new HandsDealtEvent(State.Id, NewVersion, playerHands));
         }
+
         private void Emit(StreamEvent @event)
         {
             Stream.Add(@event);

@@ -14,8 +14,11 @@ namespace Skunked.Players
         /// <param name="hand"></param>
         /// <returns>Set of Cards to throw in crib.</returns>
         List<Card> DetermineCardsToThrow(IEnumerable<Card> hand);
+
         Card DetermineCardsToPlay(GameRules gameRules, List<Card> pile, List<Card> handLeft);
+
         Card CutCards(List<Card> cardsToChoose);
+
         int CountHand(Card card, IEnumerable<Card> hand);
     }
 }

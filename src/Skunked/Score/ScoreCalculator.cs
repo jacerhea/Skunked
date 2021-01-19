@@ -130,7 +130,7 @@ namespace Skunked.Score
 
             if (fourCardFlush.Count == 1)
             {
-                //check for 5 card flush
+                // check for 5 card flush
                 if (fourCardFlush.First().Key == starterCard.Suit)
                 {
                     var returnHand = playersHand.ToList();
@@ -157,7 +157,7 @@ namespace Skunked.Score
         /// </summary>
         /// <param name="combinationsToCount"></param>
         /// <returns></returns>
-        //only looking for runs of 3,4, and 5
+        // only looking for runs of 3,4, and 5
         public List<IList<Card>> CountRuns(Dictionary<int, List<IList<Card>>> combinationsToCount)
         {
             var returnList = combinationsToCount[5].Where(IsRun).ToList();

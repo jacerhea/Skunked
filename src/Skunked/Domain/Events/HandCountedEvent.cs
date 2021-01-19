@@ -17,6 +17,7 @@ namespace Skunked.Domain.Events
         /// Gets the player id.
         /// </summary>
         public int PlayerId { get; }
+
         public int CountedScore { get; }
     }
 }

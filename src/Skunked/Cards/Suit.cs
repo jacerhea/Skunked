@@ -9,17 +9,20 @@
         /// ♣
         /// </summary>
         Clubs,
+
         /// <summary>
         /// ♦
         /// </summary>
         Diamonds,
+
         /// <summary>
         /// ♥
         /// </summary>
         Hearts,
+
         /// <summary>
         /// ♠
         /// </summary>
-        Spades
+        Spades,
     }
 }

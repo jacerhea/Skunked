@@ -13,6 +13,7 @@ namespace Skunked.Domain.Events
         }
 
         public List<int> Players { get; }
+
         public GameRules Rules { get; }
     }
 }

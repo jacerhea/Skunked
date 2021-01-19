@@ -10,6 +10,7 @@ namespace Skunked.Players
     public class PlayerHand
     {
         public int PlayerId { get; }
+
         public List<Card> Hand { get; }
 
         /// <summary>

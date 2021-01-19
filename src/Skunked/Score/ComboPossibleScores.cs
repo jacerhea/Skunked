@@ -13,6 +13,7 @@ namespace Skunked.Score
     public class ComboPossibleScores
     {
         public List<Card> Combo { get; }
+
         public List<ScoreWithCut> PossibleScores { get; }
 
         public ComboPossibleScores(IEnumerable<Card> combo, IEnumerable<ScoreWithCut> possibleScores)
@@ -39,6 +40,7 @@ namespace Skunked.Score
     public class ScoreWithCut
     {
         public int Score { get; set; }
+
         public Card Cut { get; set; }
     }
 }

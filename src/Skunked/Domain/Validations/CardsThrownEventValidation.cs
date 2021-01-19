@@ -22,7 +22,7 @@ namespace Skunked.Domain.Validations
 
             if (dealtCards.Intersect(cutEvent.Thrown).Count() != cutEvent.Thrown.Count)
             {
-                //invalid request, player was not dealt these cards
+                // invalid request, player was not dealt these cards
                 throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidCard);
             }
 
