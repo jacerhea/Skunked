@@ -10,11 +10,11 @@ namespace Skunked.Domain.State
 
         public int Round { get; set; }
 
-        public List<PlayerHand> DealtCards { get; set; } = new();
+        public List<PlayerHand> DealtCards { get; set; } = new ();
 
-        public List<PlayerHand> Hands { get; set; } = new();
+        public List<PlayerHand> Hands { get; set; } = new ();
 
-        public List<List<PlayItem>> ThePlay { get; set; } = new();
+        public List<List<PlayItem>> ThePlay { get; set; } = new ();
 
         public bool ThrowCardsComplete { get; set; }
 
@@ -24,9 +24,9 @@ namespace Skunked.Domain.State
 
         public int PlayerCrib { get; set; }
 
-        public List<Card> Crib { get; set; } = new();
+        public List<Card> Crib { get; set; } = new ();
 
-        public List<PlayerScoreShow> ShowScores { get; set; } = new();
+        public List<PlayerScoreShow> ShowScores { get; set; } = new ();
 
         public PreRound PreRound { get; set; }
     }

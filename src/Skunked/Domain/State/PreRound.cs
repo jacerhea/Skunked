@@ -7,6 +7,6 @@ namespace Skunked.Domain.State
 
     public class PreRound
     {
-        public List<Card> Deck { get; set; } = new();
+        public List<Card> Deck { get; set; } = new ();
     }
 }

@@ -8,7 +8,8 @@ namespace Skunked.Domain.Events
     /// </summary>
     public class CardCutEvent : StreamEvent
     {
-        public CardCutEvent(Guid gameId, int version, int playerId, Card cutCard) : base(gameId, version)
+        public CardCutEvent(Guid gameId, int version, int playerId, Card cutCard)
+            : base(gameId, version)
         {
             PlayerId = playerId;
             CutCard = cutCard;

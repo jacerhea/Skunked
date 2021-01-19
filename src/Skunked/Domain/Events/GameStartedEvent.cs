@@ -6,7 +6,8 @@ namespace Skunked.Domain.Events
 {
     public class GameStartedEvent : StreamEvent
     {
-        public GameStartedEvent(Guid gameId, int version, List<int> players, GameRules rules) : base(gameId, version)
+        public GameStartedEvent(Guid gameId, int version, List<int> players, GameRules rules)
+            : base(gameId, version)
         {
             Players = players;
             Rules = rules;

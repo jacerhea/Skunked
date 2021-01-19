@@ -14,7 +14,7 @@ namespace Skunked.Game
         private readonly Deck _deck;
 
         /// <summary>
-        /// Synchronous Game of Cribbage.
+        /// Initializes a new instance of the <see cref="GameRunner"/> class.
         /// </summary>
         /// <param name="deck"></param>
         public GameRunner(Deck deck)

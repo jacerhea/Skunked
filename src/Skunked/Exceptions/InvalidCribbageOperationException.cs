@@ -8,7 +8,7 @@ namespace Skunked.Exceptions
     public class InvalidCribbageOperationException : InvalidOperationException
     {
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="InvalidCribbageOperationException"/> class.
         /// </summary>
         /// <param name="operation"></param>
         public InvalidCribbageOperationException(InvalidCribbageOperation operation)

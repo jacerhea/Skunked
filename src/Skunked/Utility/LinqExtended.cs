@@ -97,7 +97,8 @@ namespace Skunked.Utility
         /// <param name="selector">Selector to use to pick the results to compare.</param>
         /// <returns>The sequence of minimal elements, according to the projection.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source"/> or <paramref name="selector"/> is null.</exception>
-        public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source,
+        public static TSource MinBy<TSource, TKey>(
+            this IEnumerable<TSource> source,
             Func<TSource, TKey> selector)
         {
             return source.MinBy(selector, Comparer<TKey>.Default);
@@ -119,8 +120,10 @@ namespace Skunked.Utility
         /// <returns>The sequence of minimal elements, according to the projection.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source"/>, <paramref name="selector"/>
         /// or <paramref name="comparer"/> is null.</exception>
-        public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source,
-            Func<TSource, TKey> selector, IComparer<TKey> comparer)
+        public static TSource MinBy<TSource, TKey>(
+            this IEnumerable<TSource> source,
+            Func<TSource, TKey> selector,
+            IComparer<TKey> comparer)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (selector == null) throw new ArgumentNullException(nameof(selector));
@@ -266,7 +269,8 @@ namespace Skunked.Utility
         /// <returns>A sequence consisting of distinct elements from the source sequence,
         /// comparing them by the specified key projection.</returns>
 
-        public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source,
+        public static IEnumerable<TSource> DistinctBy<TSource, TKey>(
+            this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector)
         {
             return source.DistinctBy(keySelector, null);
@@ -289,7 +293,8 @@ namespace Skunked.Utility
         /// If null, the default equality comparer for <c>TSource</c> is used.</param>
         /// <returns>A sequence consisting of distinct elements from the source sequence,
         /// comparing them by the specified key projection.</returns>
-        public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source,
+        public static IEnumerable<TSource> DistinctBy<TSource, TKey>(
+            this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector,
             IEqualityComparer<TKey>? comparer)
         {

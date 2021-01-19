@@ -11,7 +11,7 @@ namespace Skunked.Cards.Order
         /// <summary>
         ///
         /// </summary>
-        public static RankComparer Instance => new();
+        public static RankComparer Instance => new ();
 
         /// <inheritdoc />
         public int Compare(Card? x, Card? y)

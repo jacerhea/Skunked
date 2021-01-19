@@ -108,15 +108,13 @@
             <summary>
             Randomly shuffles the deck the given number of times.
             </summary>
+            <param name="count"></param>
         </member>
         <member name="M:Skunked.Cards.Deck.GetEnumerator">
-            <summary>
-            Returns an enumerator that iterates through the Deck.
-            </summary>
-            <returns></returns>
+            <inheritdoc/>
         </member>
         <member name="M:Skunked.Cards.Deck.System#Collections#IEnumerable#GetEnumerator">
-            Returns an enumerator that iterates through the Deck
+            <inheritdoc/>
         </member>
         <member name="T:Skunked.Cards.Order.RankComparer">
             <summary>
@@ -389,6 +387,19 @@
             
              </summary>
         </member>
+        <member name="M:Skunked.Domain.Events.StarterCardSelectedEvent.#ctor(System.Guid,System.Int32,Skunked.Cards.Card)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Events.StarterCardSelectedEvent"/> class.
+            </summary>
+            <param name="gameId"></param>
+            <param name="version"></param>
+            <param name="starter"></param>
+        </member>
+        <member name="P:Skunked.Domain.Events.StarterCardSelectedEvent.Starter">
+             <summary>
+            
+             </summary>
+        </member>
         <member name="T:Skunked.Domain.Events.StreamEvent">
             <summary>
             Base event.
@@ -442,10 +453,10 @@
             </summary>
         </member>
         <member name="M:Skunked.Exceptions.InvalidCribbageOperationException.#ctor(Skunked.Exceptions.InvalidCribbageOperation)">
-             <summary>
-            
-             </summary>
-             <param name="operation"></param>
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Exceptions.InvalidCribbageOperationException"/> class.
+            </summary>
+            <param name="operation"></param>
         </member>
         <member name="P:Skunked.Exceptions.InvalidCribbageOperationException.Operation">
             <summary>
@@ -547,7 +558,7 @@
         </member>
         <member name="M:Skunked.Players.PlayerHand.#ctor(System.Int32,System.Collections.Generic.List{Skunked.Cards.Card})">
             <summary>
-            Initializes a new instance of PlayerHand with the player's id and their hand.
+            Initializes a new instance of the <see cref="T:Skunked.Players.PlayerHand"/> class.
             </summary>
             <param name="playerId"></param>
             <param name="hand"></param>
@@ -576,6 +587,18 @@
             <summary>
             Gets size of hand after throwing cards to crib.
             </summary>
+        </member>
+        <member name="M:Skunked.Rules.GameRules.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Rules.GameRules"/> class.
+            </summary>
+        </member>
+        <member name="M:Skunked.Rules.GameRules.#ctor(Skunked.Rules.WinningScoreType,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Rules.GameRules"/> class.
+            </summary>
+            <param name="winningScore"></param>
+            <param name="numberOfPlayers"></param>
         </member>
         <member name="T:Skunked.Rules.GameRules.Points">
              <summary>
@@ -676,6 +699,9 @@
             <summary>
             Couple a set of cards with all of the possible scoring outcomes for that combo.
             </summary>
+        </member>
+        <member name="M:Skunked.Score.ComboPossibleScores.ToString">
+            <inheritdoc/>
         </member>
         <member name="T:Skunked.Score.ScoreCalculator">
             <summary>

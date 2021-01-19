@@ -9,7 +9,7 @@ namespace Skunked.Utility
     public static class GameStateExtensions
     {
         /// <summary>
-        /// Is the game finished?
+        /// If the game finished.
         /// </summary>
         /// <param name="game"></param>
         /// <returns></returns>

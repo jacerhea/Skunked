@@ -6,7 +6,8 @@ namespace Skunked.Domain.Events
 {
     public class DeckShuffledEvent : StreamEvent
     {
-        public DeckShuffledEvent(Guid gameId, int version, List<Card> deck) : base(gameId, version)
+        public DeckShuffledEvent(Guid gameId, int version, List<Card> deck)
+            : base(gameId, version)
         {
             Deck = deck;
         }

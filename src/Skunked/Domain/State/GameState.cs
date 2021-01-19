@@ -12,15 +12,15 @@ namespace Skunked.Domain.State
 
         public List<int> PlayerIds { get; set; }
 
-        public List<PlayerScore> IndividualScores { get; set; } = new();
+        public List<PlayerScore> IndividualScores { get; set; } = new ();
 
-        public List<TeamScore> TeamScores { get; set; } = new();
+        public List<TeamScore> TeamScores { get; set; } = new ();
 
         public GameRules GameRules { get; set; }
 
         public OpeningRound OpeningRound { get; set; }
 
-        public List<RoundState> Rounds { get; set; } = new();
+        public List<RoundState> Rounds { get; set; } = new ();
 
         public DateTimeOffset StartedAt { get; set; }
 

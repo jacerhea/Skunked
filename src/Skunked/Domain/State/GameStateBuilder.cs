@@ -44,8 +44,8 @@ namespace Skunked.Domain.State
                 ? startedEvent.Players.Select(p => new TeamScore { Players = new List<int> { p } }).ToList()
                 : new List<TeamScore>
                 {
-                    new() {Players = new List<int> {startedEvent.Players[0], startedEvent.Players[2]}},
-                    new() {Players = new List<int> {startedEvent.Players[1], startedEvent.Players[3]}},
+                    new () {Players = new List<int> {startedEvent.Players[0], startedEvent.Players[2] } },
+                    new () {Players = new List<int> {startedEvent.Players[1], startedEvent.Players[3] } },
                 };
             gameState.Rounds = new List<RoundState>();
         }
@@ -101,7 +101,7 @@ namespace Skunked.Domain.State
                 Complete = false,
                 PlayerCrib = cribPlayerId,
                 Hands = new List<PlayerHand>(),
-                ThePlay = new List<List<PlayItem>> { new() },
+                ThePlay = new List<List<PlayItem>> { new () },
                 Round = currentRound + 1,
                 ShowScores = playerShowScores,
             };

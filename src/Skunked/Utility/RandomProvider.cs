@@ -30,9 +30,9 @@ namespace Skunked.Utility
         }
 
         /// <summary>
-        /// For Testing purposes only
+        /// Sets for Testing purposes only
         /// </summary>
-        public static ThreadLocal<Random> RandomInstance 
+        public static ThreadLocal<Random> RandomInstance
         {
             set => _randomWrapper = value;
         }

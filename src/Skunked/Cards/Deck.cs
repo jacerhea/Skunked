@@ -44,6 +44,7 @@ namespace Skunked.Cards
         /// <summary>
         /// Randomly shuffles the deck the given number of times.
         /// </summary>
+        /// <param name="count"></param>
         public void Shuffle(int count)
         {
             foreach (var _ in Enumerable.Range(1, count))
@@ -52,16 +53,13 @@ namespace Skunked.Cards
             }
         }
 
-        /// <summary>
-        /// Returns an enumerator that iterates through the Deck.
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public IEnumerator<Card> GetEnumerator()
         {
             return _deck.GetEnumerator();
         }
 
-        /// Returns an enumerator that iterates through the Deck
+        /// <inheritdoc/>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();

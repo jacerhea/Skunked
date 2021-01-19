@@ -9,12 +9,8 @@ namespace Skunked.Players
     /// </summary>
     public class PlayerHand
     {
-        public int PlayerId { get; }
-
-        public List<Card> Hand { get; }
-
         /// <summary>
-        /// Initializes a new instance of PlayerHand with the player's id and their hand.
+        /// Initializes a new instance of the <see cref="PlayerHand"/> class.
         /// </summary>
         /// <param name="playerId"></param>
         /// <param name="hand"></param>
@@ -23,5 +19,9 @@ namespace Skunked.Players
             PlayerId = playerId;
             Hand = hand ?? throw new ArgumentNullException(nameof(hand));
         }
+
+        public int PlayerId { get; }
+
+        public List<Card> Hand { get; }
     }
 }

@@ -11,17 +11,19 @@ namespace Skunked.Cards
         /// <summary>
         /// Initializes a new instance of the <see cref="Card"/> class.
         /// </summary>
-        public Card() : this(Rank.Ace, Suit.Clubs) { }
+        public Card()
+            : this(Rank.Ace, Suit.Clubs) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Card"/> class.
         /// </summary>
+        /// <param name="rank"></param>
+        /// <param name="suit"></param>
         public Card(Rank rank = Rank.Ace, Suit suit = Suit.Clubs)
         {
             Rank = rank;
             Suit = suit;
         }
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Card"/> class.

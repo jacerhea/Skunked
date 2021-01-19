@@ -13,7 +13,7 @@ namespace Skunked.Score
     /// </summary>
     public class ScoreCalculator
     {
-        private static readonly AceLowFaceTenCardValueStrategy ValueStrategy = new();
+        private static readonly AceLowFaceTenCardValueStrategy ValueStrategy = new ();
 
         /// <summary>
         /// Check cut card for dealer.
@@ -233,7 +233,7 @@ namespace Skunked.Score
                     continue;
                 }
 
-                if (orderedSet[i - 1] != (orderedSet[i] - 1))
+                if (orderedSet[i - 1] != orderedSet[i] - 1)
                 {
                     return false;
                 }

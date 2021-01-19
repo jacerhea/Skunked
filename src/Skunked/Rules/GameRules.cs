@@ -9,6 +9,25 @@ namespace Skunked.Rules
     {
         private readonly WinningScoreType _winningScore;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GameRules"/> class.
+        /// </summary>
+        public GameRules()
+            : this(WinningScoreType.Standard121, 2)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GameRules"/> class.
+        /// </summary>
+        /// <param name="winningScore"></param>
+        /// <param name="numberOfPlayers"></param>
+        public GameRules(WinningScoreType winningScore, int numberOfPlayers)
+        {
+            if (numberOfPlayers != 2 && numberOfPlayers != 4) { throw new ArgumentOutOfRangeException(nameof(numberOfPlayers)); }
+            NumberOfPlayers = numberOfPlayers;
+            _winningScore = winningScore;
+        }
 
         /// <summary>
         /// Gets number of players.
@@ -32,16 +51,6 @@ namespace Skunked.Rules
         public static int HandSize => 4;
 
 
-        public GameRules() : this(WinningScoreType.Standard121, 2)
-        {
-        }
-
-        public GameRules(WinningScoreType winningScore, int numberOfPlayers)
-        {
-            if (numberOfPlayers != 2 && numberOfPlayers != 4) { throw new ArgumentOutOfRangeException(nameof(numberOfPlayers)); }
-            NumberOfPlayers = numberOfPlayers;
-            _winningScore = winningScore;
-        }
 
         /// <summary>
         ///

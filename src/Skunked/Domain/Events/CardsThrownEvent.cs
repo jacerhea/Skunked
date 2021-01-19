@@ -16,7 +16,8 @@ namespace Skunked.Domain.Events
         /// <param name="version"></param>
         /// <param name="playerId"></param>
         /// <param name="thrown"></param>
-        public CardsThrownEvent(Guid gameId, int version, int playerId, List<Card> thrown) : base(gameId, version)
+        public CardsThrownEvent(Guid gameId, int version, int playerId, List<Card> thrown)
+            : base(gameId, version)
         {
             PlayerId = playerId;
             Thrown = thrown;

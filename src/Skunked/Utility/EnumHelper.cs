@@ -16,7 +16,7 @@ namespace Skunked.Utility
         /// <returns>Returns all values of an enumeration.</returns>
         public static List<T> GetValues<T>() where T : struct
         {
-            var type = typeof (T);
+            var type = typeof(T);
             return Enum.GetValues(type).Cast<T>().ToList();
         }
     }
