@@ -5,7 +5,7 @@ namespace Skunked.Utility
 {
     /// <summary>
     /// Thread Safe Implementation of a Random class provider by Jon Skeet
-    /// http://csharpindepth.com/Articles/Chapter12/Random.aspx
+    /// http://csharpindepth.com/Articles/Chapter12/Random.aspx .
     /// </summary>
     public static class RandomProvider
     {
@@ -14,7 +14,7 @@ namespace Skunked.Utility
         private static ThreadLocal<Random> _randomWrapper = null!;
 
         /// <summary>
-        /// Initialize static.
+        /// Initializes static members of the <see cref="RandomProvider"/> class.
         /// </summary>
         static RandomProvider()
         {

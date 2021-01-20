@@ -48,19 +48,13 @@ namespace Skunked.Cards
         /// </summary>
         public Suit Suit { get; }
 
-        /// <summary>
-        /// Returns a string representation of the Card.
-        /// </summary>
+        /// <inheritdoc/>
         public override string ToString()
         {
             return $"{Rank} of {Suit}";
         }
 
-        /// <summary>
-        /// True if the object has same value as Card.
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public override bool Equals(object? obj)
         {
             if (obj == null)
@@ -71,20 +65,14 @@ namespace Skunked.Cards
             return card.Rank == Rank && card.Suit == Suit;
         }
 
-        /// <summary>
-        /// Gets hash code.
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return (int)Suit ^ (int)Rank;
         }
 
-        /// <summary>
-        /// Checks if the object has same value as Card.
-        /// </summary>
-        /// <param name="other"></param>
-        /// <returns>True if objects are equal.</returns>
+
+        /// <inheritdoc/>
         public bool Equals(Card other)
         {
             if (other == null)
@@ -94,17 +82,13 @@ namespace Skunked.Cards
             return other.Rank == Rank && other.Suit == Suit;
         }
 
-        /// <summary>
-        /// Checks if objects are equal.
-        /// </summary>
-        /// <param name="x">Card 1.</param>
-        /// <param name="y">Card 2.</param>
-        /// <returns>True if objects are equal.</returns>
+        /// <inheritdoc/>
         public bool Equals(Card x, Card y)
         {
             return x.Rank == y.Rank && x.Suit == y.Suit;
         }
 
+        /// <inheritdoc/>
         public int GetHashCode(Card obj)
         {
             return (int)obj.Suit ^ (int)obj.Rank;

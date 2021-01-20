@@ -26,52 +26,47 @@
         CardHasBeenPlayed,
 
         /// <summary>
-        ///
+        /// Player can not rethrow their cards.
         /// </summary>
         CardsHaveBeenThrown,
 
         /// <summary>
-        ///
+        /// It is not the given players' turn.
         /// </summary>
         InvalidPlayer,
 
         /// <summary>
-        ///
+        /// The game is not currently in the play.
         /// </summary>
         InvalidStateForPlay,
 
         /// <summary>
-        ///
+        /// Card can not be used.  This may be because the player was not dealt the card.
         /// </summary>
         InvalidCard,
 
         /// <summary>
-        ///
+        /// The hand can not be counted in the current state of the game.
         /// </summary>
         InvalidStateForCount,
 
         /// <summary>
-        ///
+        /// The crib can not be counted in the current state of the game.
         /// </summary>
         InvalidStateForCribCount,
 
         /// <summary>
-        ///
+        /// The player announced a score that was not possible with the given hand.
         /// </summary>
         InvalidShowCount,
 
         /// <summary>
-        ///
+        /// The player has already counted their hand in this round.
         /// </summary>
         PlayerHasAlreadyCounted,
 
         /// <summary>
-        ///
-        /// </summary>
-        GameFinished,
-
-        /// <summary>
-        ///
+        /// The parameters of the game were violated.
         /// </summary>
         InvalidRequest,
     }

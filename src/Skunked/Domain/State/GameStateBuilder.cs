@@ -19,11 +19,19 @@ namespace Skunked.Domain.State
     {
         private readonly ScoreCalculator _scoreCalculator;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GameStateBuilder"/> class.
+        /// </summary>
         public GameStateBuilder()
         {
             _scoreCalculator = new ScoreCalculator();
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="startedEvent"></param>
+        /// <param name="gameState">The game state.</param>
         public void Handle(GameStartedEvent startedEvent, GameState gameState)
         {
             var deck = new Deck().ToList();
@@ -50,6 +58,11 @@ namespace Skunked.Domain.State
             gameState.Rounds = new List<RoundState>();
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="deckShuffledEvent"></param>
+        /// <param name="gameState">The game state.</param>
         public void Handle(DeckShuffledEvent deckShuffledEvent, GameState gameState)
         {
             if (!gameState.OpeningRound.Complete)
@@ -64,6 +77,11 @@ namespace Skunked.Domain.State
             }
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="cardCutEvent"></param>
+        /// <param name="gameState">The game state.</param>
         public void Handle(CardCutEvent cardCutEvent, GameState gameState)
         {
             gameState.OpeningRound.CutCards.Add(new PlayerIdCard { Player = cardCutEvent.PlayerId, Card = new Card(cardCutEvent.CutCard) });
@@ -78,6 +96,11 @@ namespace Skunked.Domain.State
             }
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="roundStartedEvent"></param>
+        /// <param name="gameState">The game state.</param>
         public void Handle(RoundStartedEvent roundStartedEvent, GameState gameState)
         {
             var playerShowScores = new List<PlayerScoreShow>(gameState.PlayerIds.Select(player => new PlayerScoreShow { CribScore = null, HasShowed = false, Player = player, PlayerCountedShowScore = 0, ShowScore = 0 }));
@@ -109,6 +132,11 @@ namespace Skunked.Domain.State
             gameState.Rounds.Add(roundState);
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="handsDealtEvent"></param>
+        /// <param name="gameState">The game state.</param>
         public void Handle(HandsDealtEvent handsDealtEvent, GameState gameState)
         {
             var round = gameState.GetCurrentRound();

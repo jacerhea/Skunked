@@ -5,17 +5,17 @@ using Skunked.Cards;
 namespace Skunked.Domain.Events
 {
     /// <summary>
-    ///
+    /// A player threw cards into the crib.
     /// </summary>
     public class CardsThrownEvent : StreamEvent
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CardsThrownEvent"/> class.
         /// </summary>
-        /// <param name="gameId"></param>
-        /// <param name="version"></param>
-        /// <param name="playerId"></param>
-        /// <param name="thrown"></param>
+        /// <param name="gameId">Unique identifier of the game.</param>
+        /// <param name="version">The version of the game.</param>
+        /// <param name="playerId">The id of the player.</param>
+        /// <param name="thrown">The cards thrown to the crib.</param>
         public CardsThrownEvent(Guid gameId, int version, int playerId, List<Card> thrown)
             : base(gameId, version)
         {

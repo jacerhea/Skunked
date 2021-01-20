@@ -6,6 +6,13 @@ namespace Skunked.Domain.Events
 {
     public class GameStartedEvent : StreamEvent
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GameStartedEvent"/> class.
+        /// </summary>
+        /// <param name="gameId">Unique identifier of the game.</param>
+        /// <param name="version">The version of the game.</param>
+        /// <param name="players"></param>
+        /// <param name="rules"></param>
         public GameStartedEvent(Guid gameId, int version, List<int> players, GameRules rules)
             : base(gameId, version)
         {

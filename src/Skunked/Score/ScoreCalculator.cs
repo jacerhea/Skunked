@@ -16,6 +16,11 @@ namespace Skunked.Score
         private static readonly AceLowFaceTenCardValueStrategy ValueStrategy = new ();
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="ScoreCalculator"/> class.
+        /// </summary>
+        public ScoreCalculator() { }
+
+        /// <summary>
         /// Check cut card for dealer.
         /// </summary>
         /// <param name="cut"></param>

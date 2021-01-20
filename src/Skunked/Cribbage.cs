@@ -23,9 +23,9 @@ namespace Skunked
         /// <summary>
         /// Initializes a new instance of the <see cref="Cribbage"/> class.
         /// </summary>
-        /// <param name="players"></param>
-        /// <param name="rules"></param>
-        /// <param name="eventListeners"></param>
+        /// <param name="players">Players in order by index and the value of the player id.</param>
+        /// <param name="rules">The set of rules to be followed.</param>
+        /// <param name="eventListeners">Listen to all game events.</param>
         public Cribbage(IEnumerable<int> players, GameRules rules, IEnumerable<IEventListener>? eventListeners = null)
         {
             State = new GameState();
@@ -52,10 +52,10 @@ namespace Skunked
         private int NewVersion => State.Version + 1;
 
         /// <summary>
-        ///
+        /// Cut the deck.
         /// </summary>
-        /// <param name="playerId"></param>
-        /// <param name="card"></param>
+        /// <param name="playerId">The id of the player.</param>
+        /// <param name="card">Card being cut.</param>
         public void CutCard(int playerId, Card card)
         {
             var validation = new CardCutEventValidation();
@@ -77,7 +77,7 @@ namespace Skunked
         /// <summary>
         /// Throw cards to the crib.
         /// </summary>
-        /// <param name="playerId"></param>
+        /// <param name="playerId">The id of the player.</param>
         /// <param name="cribCards"></param>
         public void ThrowCards(int playerId, IEnumerable<Card> cribCards)
         {
@@ -100,8 +100,8 @@ namespace Skunked
         /// <summary>
         /// Play a card.
         /// </summary>
-        /// <param name="playerId"></param>
-        /// <param name="card"></param>
+        /// <param name="playerId">The id of the player.</param>
+        /// <param name="card">Card to play.</param>
         public void PlayCard(int playerId, Card card)
         {
             var validation = new CardPlayedEventValidation();
@@ -118,7 +118,7 @@ namespace Skunked
         /// <summary>
         /// Count a players hand.
         /// </summary>
-        /// <param name="playerId">Player Id.</param>
+        /// <param name="playerId">The id of the player.</param>
         /// <param name="score">Score.  Over counting is penalized.</param>
         public void CountHand(int playerId, int score)
         {
@@ -131,7 +131,7 @@ namespace Skunked
         /// <summary>
         /// Count a players crib.
         /// </summary>
-        /// <param name="playerId">Player Id.</param>
+        /// <param name="playerId">The id of the player.</param>
         /// <param name="score">Score.  Over counting is penalized.</param>
         public void CountCrib(int playerId, int score)
         {

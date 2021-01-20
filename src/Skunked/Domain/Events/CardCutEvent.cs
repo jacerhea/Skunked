@@ -8,6 +8,13 @@ namespace Skunked.Domain.Events
     /// </summary>
     public class CardCutEvent : StreamEvent
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CardCutEvent"/> class.
+        /// </summary>
+        /// <param name="gameId">Unique identifier of the game.</param>
+        /// <param name="version">The version of the game.</param>
+        /// <param name="playerId">The id of the player.</param>
+        /// <param name="cutCard"></param>
         public CardCutEvent(Guid gameId, int version, int playerId, Card cutCard)
             : base(gameId, version)
         {

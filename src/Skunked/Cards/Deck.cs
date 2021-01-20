@@ -6,7 +6,7 @@ using Skunked.Utility;
 namespace Skunked.Cards
 {
     /// <summary>
-    ///
+    /// Deck of playing cards.
     /// </summary>
     public sealed class Deck : IEnumerable<Card>
     {
@@ -26,7 +26,7 @@ namespace Skunked.Cards
         /// <summary>
         /// Initializes a new instance of the <see cref="Deck"/> class with 52 cards.
         /// </summary>
-        /// <param name="deck"></param>
+        /// <param name="deck">Set of cards that make up the deck.</param>
         public Deck(IEnumerable<Card> deck)
         {
             _deck = deck.ToList();
@@ -44,7 +44,7 @@ namespace Skunked.Cards
         /// <summary>
         /// Randomly shuffles the deck the given number of times.
         /// </summary>
-        /// <param name="count"></param>
+        /// <param name="count">Number of times to shuffle the card.</param>
         public void Shuffle(int count)
         {
             foreach (var _ in Enumerable.Range(1, count))

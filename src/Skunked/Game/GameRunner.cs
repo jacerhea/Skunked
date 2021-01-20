@@ -9,6 +9,10 @@ using Skunked.Utility;
 
 namespace Skunked.Game
 {
+    /// <summary>
+    /// Runs a game of cribbage with the given player strategies provided.
+    /// Used for testing, AI comparison, or any other need to run through many games automatically.
+    /// </summary>
     public class GameRunner
     {
         private readonly Deck _deck;
@@ -78,14 +82,9 @@ namespace Skunked.Game
                     cribbage.CountCrib(currentRound.PlayerCrib, cribCount);
                 }
             }
-            catch (InvalidCribbageOperationException exception)
+            catch (GameFinishedException)
             {
-                if (exception.Operation != InvalidCribbageOperation.GameFinished)
-                {
-                    throw;
-                }
             }
-
 
             return cribbage;
         }

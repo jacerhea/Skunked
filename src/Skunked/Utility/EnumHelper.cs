@@ -5,7 +5,7 @@ using System.Linq;
 namespace Skunked.Utility
 {
     /// <summary>
-    /// Various enum helper functions.
+    /// Set of enum helper functions.
     /// </summary>
     public static class EnumHelper
     {

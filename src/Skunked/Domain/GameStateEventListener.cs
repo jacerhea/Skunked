@@ -8,6 +8,11 @@ namespace Skunked.Domain
         private readonly GameState _gameState;
         private readonly GameStateBuilder _gameStateBuilder;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GameStateEventListener"/> class.
+        /// </summary>
+        /// <param name="gameState">The game state.</param>
+        /// <param name="gameStateBuilder"></param>
         public GameStateEventListener(GameState gameState, GameStateBuilder gameStateBuilder)
         {
             _gameState = gameState;

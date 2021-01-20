@@ -6,8 +6,17 @@ using Skunked.Utility;
 
 namespace Skunked.Domain.Validations
 {
+    /// <summary>
+    /// Base class for validating cribbage commands.
+    /// </summary>
     public abstract class ValidationBase
     {
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="gameState"></param>
+        /// <param name="playerId">The id of the player.</param>
+        /// <param name="round"></param>
         protected void ValidateCore(GameState gameState, int playerId, int round)
         {
             CheckEndOfGame(gameState);
@@ -28,7 +37,7 @@ namespace Skunked.Domain.Validations
                     gameState.CompletedAt = DateTimeOffset.Now;
                     gameState.GetCurrentRound().Complete = true;
                 }
-                throw new InvalidCribbageOperationException(InvalidCribbageOperation.GameFinished);
+                throw new GameFinishedException();
             }
         }
     }

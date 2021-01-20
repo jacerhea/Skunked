@@ -10,8 +10,8 @@ namespace Skunked.Domain.Events
         /// <summary>
         /// Initializes a new instance of the <see cref="StreamEvent"/> class.
         /// </summary>
-        /// <param name="gameId">Identifier of the game.</param>
-        /// <param name="version">Version of the game state.</param>
+        /// <param name="gameId">Unique identifier of the game.</param>
+        /// <param name="version">The version of the game.</param>
         protected StreamEvent(Guid gameId, int version)
         {
             GameId = gameId;

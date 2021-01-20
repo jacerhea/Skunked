@@ -4,8 +4,14 @@ using Skunked.Rules;
 
 namespace Skunked.Players
 {
+    /// <summary>
+    /// An interface to implement an automated player's decisions.
+    /// </summary>
     public interface IGameRunnerPlayer
     {
+        /// <summary>
+        /// Gets the id of the player.
+        /// </summary>
         int Id { get; }
 
         /// <summary>
@@ -15,10 +21,28 @@ namespace Skunked.Players
         /// <returns>Set of Cards to throw in crib.</returns>
         List<Card> DetermineCardsToThrow(IEnumerable<Card> hand);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="gameRules"></param>
+        /// <param name="pile"></param>
+        /// <param name="handLeft"></param>
+        /// <returns></returns>
         Card DetermineCardsToPlay(GameRules gameRules, List<Card> pile, List<Card> handLeft);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cardsToChoose"></param>
+        /// <returns></returns>
         Card CutCards(List<Card> cardsToChoose);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="card"></param>
+        /// <param name="hand"></param>
+        /// <returns></returns>
         int CountHand(Card card, IEnumerable<Card> hand);
     }
 }

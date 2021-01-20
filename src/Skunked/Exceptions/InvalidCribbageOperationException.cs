@@ -10,7 +10,7 @@ namespace Skunked.Exceptions
         /// <summary>
         /// Initializes a new instance of the <see cref="InvalidCribbageOperationException"/> class.
         /// </summary>
-        /// <param name="operation"></param>
+        /// <param name="operation">The type of operation attempted.</param>
         public InvalidCribbageOperationException(InvalidCribbageOperation operation)
             : base(operation.ToString())
         {

@@ -26,9 +26,10 @@ namespace Skunked.Cards.Value
         };
 
         /// <summary>
-        ///
+        /// Get the play value.
         /// </summary>
-        /// <param name="card"></param>
+        /// <param name="card">The card to get the value for.</param>
+        /// <returns>Value of the card for the play.</returns>
         public int GetValue(Card card)
         {
             if (card == null) throw new ArgumentNullException(nameof(card));

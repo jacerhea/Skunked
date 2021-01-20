@@ -21,8 +21,8 @@ namespace Skunked.Utility
         /// <summary>
         /// Get the current round.
         /// </summary>
-        /// <param name="game"></param>
-        /// <returns></returns>
+        /// <param name="game">The game state.</param>
+        /// <returns>The current round</returns>
         public static RoundState GetCurrentRound(this GameState game)
         {
             return game.Rounds.MaxBy(round => round.Round);
@@ -31,8 +31,8 @@ namespace Skunked.Utility
         /// <summary>
         /// Get the next player after the given playerId in the rotation.
         /// </summary>
-        /// <param name="gameState"></param>
-        /// <param name="playerId"></param>
+        /// <param name="gameState">The game state.</param>
+        /// <param name="playerId">The id of the player.</param>
         /// <returns></returns>
         public static int GetNextPlayerFrom(this GameState gameState, int playerId)
         {
