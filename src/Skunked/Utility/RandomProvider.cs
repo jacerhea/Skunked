@@ -22,19 +22,19 @@ namespace Skunked.Utility
         }
 
         /// <summary>
+        /// Sets for Testing purposes only.
+        /// </summary>
+        public static ThreadLocal<Random> RandomInstance
+        {
+            set => _randomWrapper = value;
+        }
+
+        /// <summary>
         /// Restart instance of random generator.
         /// </summary>
         public static void ResetInstance()
         {
             _randomWrapper = new ThreadLocal<Random>(() => new Random(Interlocked.Increment(ref _seed)));
-        }
-
-        /// <summary>
-        /// Sets for Testing purposes only
-        /// </summary>
-        public static ThreadLocal<Random> RandomInstance
-        {
-            set => _randomWrapper = value;
         }
 
         public static Random GetThreadRandom()

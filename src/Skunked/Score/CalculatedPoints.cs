@@ -4,9 +4,19 @@ using Skunked.Cards;
 namespace Skunked.Score
 {
     /// <summary>
-    /// Result Calculated
+    /// Result Calculated.
     /// </summary>
-    public record CalculatedResult(CalculatedPoints Points, CalculatedCombinations Combinations);
+    public class CalculatedResult
+    {
+        public CalculatedResult(CalculatedPoints points, CalculatedCombinations combinations)
+        {
+            Points = points;
+            Combinations = combinations;
+        }
+
+        public CalculatedPoints Points { get; }
+        public CalculatedCombinations Combinations { get; }
+    }
 
     /// <summary>
     /// Set of points scored.

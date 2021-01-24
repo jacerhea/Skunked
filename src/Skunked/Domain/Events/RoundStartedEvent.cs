@@ -2,6 +2,9 @@
 
 namespace Skunked.Domain.Events
 {
+    /// <summary>
+    /// Event when a round started.
+    /// </summary>
     public class RoundStartedEvent : StreamEvent
     {
         /// <summary>

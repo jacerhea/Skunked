@@ -4,6 +4,7 @@ using System.Linq;
 using Konsole;
 using Skunked.Cards;
 using Skunked.Domain;
+using Skunked.Domain.Commands;
 using Skunked.Domain.Events;
 using Skunked.Domain.State;
 using Skunked.Rules;
@@ -21,18 +22,18 @@ namespace Skunked.ConsoleApp
             var state = new GameState();
             var stateEventListener = new GameStateEventListener(state, new GameStateBuilder());
             var consoleListener = new ConsoleEventListener(state);
-            var cribbage = new Cribbage(players, new GameRules(WinningScoreType.Standard121, 2), new List<IEventListener> { stateEventListener, consoleListener });
+            var cribbage = new Cribbage(players, new GameRules(WinningScoreType.Standard121), new List<IEventListener> { stateEventListener, consoleListener });
 
             // cut opening round
             foreach (var tuple in players.Select((playerId, index) => (playerId, index)))
             {
-                cribbage.CutCard(tuple.playerId, cribbage.State.OpeningRound.Deck[tuple.index]);
+                cribbage.CutCard(new CutCardCommand(tuple.playerId, cribbage.State.OpeningRound.Deck[tuple.index]));
             }
 
             var readLine = Console.ReadLine();
             var toThrow = readLine.Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(input => int.Parse(input));
             var userHand = cribbage.State.GetCurrentRound().DealtCards.Single(ph => ph.PlayerId == 1).Hand;
-            cribbage.ThrowCards(1, toThrow.Select(value => userHand[value - 1]));
+            cribbage.ThrowCards(new ThrowCardsCommand(1, toThrow.Select(value => userHand[value - 1])));
             var aiHand = cribbage.State.GetCurrentRound().DealtCards.Single(ph => ph.PlayerId == 2);
         }
     }

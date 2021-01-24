@@ -3,7 +3,7 @@
 namespace Skunked.Domain.Events
 {
     /// <summary>
-    /// The crib has been scored.
+    /// Event when the crib has been counted.
     /// </summary>
     public class CribCountedEvent : StreamEvent
     {

@@ -47,7 +47,7 @@ namespace Skunked.Cards
         /// <param name="count">Number of times to shuffle the card.</param>
         public void Shuffle(int count)
         {
-            foreach (var _ in Enumerable.Range(1, count))
+            foreach (var i in Enumerable.Range(1, count))
             {
                 _deck.Shuffle();
             }

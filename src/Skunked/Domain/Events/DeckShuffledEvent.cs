@@ -4,6 +4,9 @@ using Skunked.Cards;
 
 namespace Skunked.Domain.Events
 {
+    /// <summary>
+    /// Event when the deck has been shuffled.
+    /// </summary>
     public class DeckShuffledEvent : StreamEvent
     {
         /// <summary>

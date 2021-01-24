@@ -4,7 +4,7 @@ using Skunked.Cards;
 namespace Skunked.Domain.Events
 {
     /// <summary>
-    /// The starter card has been cut.
+    /// Event when a starter card has been selected.
     /// </summary>
     public class StarterCardSelectedEvent : StreamEvent
     {

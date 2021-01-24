@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Globalization;
 using System.Linq;
 using Skunked.Cards;
@@ -36,12 +35,5 @@ namespace Skunked.Score
 
             return $"{psString} : {{{cString}}}";
         }
-    }
-
-    public class ScoreWithCut
-    {
-        public int Score { get; set; }
-
-        public Card Cut { get; set; }
     }
 }

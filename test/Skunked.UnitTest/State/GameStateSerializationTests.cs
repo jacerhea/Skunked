@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Skunked.Cards;
 using Skunked.Domain.State;
-using Skunked.Players;
 using Skunked.Rules;
 using Xunit;
 
@@ -19,7 +17,7 @@ namespace Skunked.UnitTest.State
         {
             var gameState = new GameState
             {
-                GameRules = new GameRules(WinningScoreType.Short61, 4),
+                GameRules = new GameRules(WinningScoreType.Short61),
                 Id = Guid.NewGuid(),
                 IndividualScores =
                     new List<PlayerScore>

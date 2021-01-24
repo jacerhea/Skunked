@@ -22,7 +22,7 @@ namespace Skunked.Players
         List<Card> DetermineCardsToThrow(IEnumerable<Card> hand);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="gameRules"></param>
         /// <param name="pile"></param>
@@ -31,18 +31,18 @@ namespace Skunked.Players
         Card DetermineCardsToPlay(GameRules gameRules, List<Card> pile, List<Card> handLeft);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="cardsToChoose"></param>
         /// <returns></returns>
         Card CutCards(List<Card> cardsToChoose);
 
         /// <summary>
-        /// 
+        /// Count the score with the given hand and starter starter.
         /// </summary>
-        /// <param name="card"></param>
+        /// <param name="starter"></param>
         /// <param name="hand"></param>
         /// <returns></returns>
-        int CountHand(Card card, IEnumerable<Card> hand);
+        int CountHand(Card starter, IEnumerable<Card> hand);
     }
 }

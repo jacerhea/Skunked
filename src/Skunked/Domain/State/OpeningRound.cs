@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Skunked.Cards;
-using Skunked.Players;
 
 namespace Skunked.Domain.State
 {

@@ -10,15 +10,18 @@ namespace Skunked.Domain.State
     public class GameState
     {
         /// <summary>
-        /// Unique identifier of the game.
+        /// Gets or sets unique identifier of the game.
         /// </summary>
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Version of the game.  Each event creates a new version of the game.
+        /// Gets or sets version of the game.  Each event creates a new version of the game.
         /// </summary>
         public int Version { get; set; }
 
+        /// <summary>
+        /// Gets or sets player ids.
+        /// </summary>
         public List<int> PlayerIds { get; set; }
 
         public List<PlayerScore> IndividualScores { get; set; } = new ();
@@ -26,7 +29,7 @@ namespace Skunked.Domain.State
         public List<TeamScore> TeamScores { get; set; } = new ();
 
         /// <summary>
-        /// The rules used during the game.
+        /// Gets or sets the rules used during the game.
         /// </summary>
         public GameRules GameRules { get; set; }
 

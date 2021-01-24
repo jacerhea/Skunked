@@ -2,6 +2,9 @@
 
 namespace Skunked.Domain.Events
 {
+    /// <summary>
+    /// Event when the play has completed.
+    /// </summary>
     public class PlayFinishedEvent : StreamEvent
     {
         /// <summary>

@@ -22,7 +22,7 @@ namespace Skunked.Utility
         /// Get the current round.
         /// </summary>
         /// <param name="game">The game state.</param>
-        /// <returns>The current round</returns>
+        /// <returns>The current round.</returns>
         public static RoundState GetCurrentRound(this GameState game)
         {
             return game.Rounds.MaxBy(round => round.Round);

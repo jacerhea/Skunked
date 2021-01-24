@@ -4,7 +4,7 @@ using Skunked.Cards;
 namespace Skunked.Domain.Events
 {
     /// <summary>
-    /// A Card has been played.
+    /// Event when a card has been played.
     /// </summary>
     public class CardPlayedEvent : StreamEvent
     {

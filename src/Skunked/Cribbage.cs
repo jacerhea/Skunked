@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Skunked.Cards;
 using Skunked.Domain;
+using Skunked.Domain.Commands;
 using Skunked.Domain.Events;
 using Skunked.Domain.State;
 using Skunked.Domain.Validations;
@@ -17,8 +18,8 @@ namespace Skunked
     /// </summary>
     public class Cribbage
     {
-        private readonly Dealer _dealer = new ();
-        private readonly Deck _deck = new ();
+        private readonly Dealer _dealer = new();
+        private readonly Deck _deck = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Cribbage"/> class.
@@ -54,14 +55,13 @@ namespace Skunked
         /// <summary>
         /// Cut the deck.
         /// </summary>
-        /// <param name="playerId">The id of the player.</param>
-        /// <param name="card">Card being cut.</param>
-        public void CutCard(int playerId, Card card)
+        /// <param name="command">The command to execute.</param>
+        public void CutCard(CutCardCommand command)
         {
-            var validation = new CardCutEventValidation();
-            var cardCutEvent = new CardCutEvent(State.Id, 1, playerId, card);
-            validation.Validate(State, cardCutEvent);
+            var validation = new CutCardCommandValidation();
+            validation.Validate(State, command);
 
+            var cardCutEvent = new CardCutEvent(State.Id, 1, command.PlayerId, command.CutCard);
             Emit(cardCutEvent);
 
             if (State.OpeningRound.Complete)
@@ -69,7 +69,7 @@ namespace Skunked
                 Emit(new RoundStartedEvent(State.Id, NewVersion));
                 _deck.Shuffle();
                 Emit(new DeckShuffledEvent(State.Id, NewVersion, _deck.ToList()));
-                var playerHands = _dealer.Deal(_deck, State.PlayerIds, State.PlayerIds.NextOf(playerId), State.GameRules.DealSize); // get next player from who won cut.
+                var playerHands = _dealer.Deal(_deck, State.PlayerIds, State.PlayerIds.NextOf(command.PlayerId), State.GameRules.GetDealSize(State.PlayerIds.Count)); // get next player from who won cut.
                 Emit(new HandsDealtEvent(State.Id, NewVersion, playerHands));
             }
         }
@@ -77,13 +77,12 @@ namespace Skunked
         /// <summary>
         /// Throw cards to the crib.
         /// </summary>
-        /// <param name="playerId">The id of the player.</param>
-        /// <param name="cribCards"></param>
-        public void ThrowCards(int playerId, IEnumerable<Card> cribCards)
+        /// <param name="command">Command to throw cards.</param>
+        public void ThrowCards(ThrowCardsCommand command)
         {
-            var validation = new CardsThrownEventValidation();
-            var cardsThrown = new CardsThrownEvent(State.Id, NewVersion, playerId, cribCards.ToList());
-            validation.Validate(State, cardsThrown);
+            var validation = new ThrowCardsCommandValidation();
+            var cardsThrown = new CardsThrownEvent(State.Id, NewVersion, command.PlayerId, command.CribCards.ToList());
+            validation.Validate(State, command);
 
             Emit(cardsThrown);
             var currentRound = State.GetCurrentRound();
@@ -100,13 +99,12 @@ namespace Skunked
         /// <summary>
         /// Play a card.
         /// </summary>
-        /// <param name="playerId">The id of the player.</param>
-        /// <param name="card">Card to play.</param>
-        public void PlayCard(int playerId, Card card)
+        /// <param name="command">Command to play card.</param>
+        public void PlayCard(PlayCardCommand command)
         {
-            var validation = new CardPlayedEventValidation();
-            var @event = new CardPlayedEvent(State.Id, NewVersion, playerId, card);
-            validation.Validate(State, @event);
+            var validation = new PlayCardCommandValidation();
+            var @event = new CardPlayedEvent(State.Id, NewVersion, command.PlayerId, command.Card);
+            validation.Validate(State, command);
             Emit(@event);
 
             if (State.GetCurrentRound().PlayedCardsComplete)
@@ -118,32 +116,30 @@ namespace Skunked
         /// <summary>
         /// Count a players hand.
         /// </summary>
-        /// <param name="playerId">The id of the player.</param>
-        /// <param name="score">Score.  Over counting is penalized.</param>
-        public void CountHand(int playerId, int score)
+        /// <param name="command">Command to count hand.</param>
+        public void CountHand(CountHandCommand command)
         {
-            var validation = new HandCountedEventValidation(new ScoreCalculator());
-            var @event = new HandCountedEvent(State.Id, NewVersion, playerId, score);
-            validation.Validate(State, @event);
+            var validation = new CountHandCommandValidation();
+            var @event = new HandCountedEvent(State.Id, NewVersion, command.PlayerId, command.Score);
+            validation.Validate(State, command);
             Emit(@event);
         }
 
         /// <summary>
         /// Count a players crib.
         /// </summary>
-        /// <param name="playerId">The id of the player.</param>
-        /// <param name="score">Score.  Over counting is penalized.</param>
-        public void CountCrib(int playerId, int score)
+        /// <param name="command">The id of the player.</param>
+        public void CountCrib(CountCribCommand command)
         {
-            var validation = new CribCountedEventValidation();
-            var @event = new CribCountedEvent(State.Id, NewVersion, playerId, score);
-            validation.Validate(State, @event);
+            var validation = new CountCribCommandValidation();
+            var @event = new CribCountedEvent(State.Id, NewVersion, command.PlayerId, command.PlayerId);
+            validation.Validate(State, command);
             Emit(@event);
 
             Emit(new RoundStartedEvent(State.Id, NewVersion));
             _deck.Shuffle(3);
             Emit(new DeckShuffledEvent(State.Id, NewVersion, _deck.ToList()));
-            var playerHands = _dealer.Deal(_deck, State.PlayerIds, State.PlayerIds.NextOf(State.PlayerIds.NextOf(playerId)), State.GameRules.DealSize);
+            var playerHands = _dealer.Deal(_deck, State.PlayerIds, State.PlayerIds.NextOf(State.PlayerIds.NextOf(command.PlayerId)), State.GameRules.GetDealSize(State.PlayerIds.Count));
             Emit(new HandsDealtEvent(State.Id, NewVersion, playerHands));
         }
 

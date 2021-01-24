@@ -2,6 +2,9 @@
 
 namespace Skunked.Domain.Events
 {
+    /// <summary>
+    /// Event when the play has started.
+    /// </summary>
     public class PlayStartedEvent : StreamEvent
     {
         /// <summary>

@@ -5,7 +5,7 @@ using Skunked.Cards;
 namespace Skunked.Domain.Events
 {
     /// <summary>
-    /// A player threw cards into the crib.
+    /// Event when a cards have been thrown to the crib.
     /// </summary>
     public class CardsThrownEvent : StreamEvent
     {

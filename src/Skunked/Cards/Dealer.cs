@@ -17,7 +17,7 @@ namespace Skunked.Cards
         /// Deals cards singly to each player starting with the given startingWith player.
         /// </summary>
         /// <param name="deck">The set of cards to deal from.</param>
-        /// <param name="players"></param>
+        /// <param name="players">Set of players being dealt to.</param>
         /// <param name="startingWith">The player to start the deal with.</param>
         /// <param name="handSize">Number of cards to deal to each player.</param>
         /// <returns>Set of player hands in order from dealer.</returns>

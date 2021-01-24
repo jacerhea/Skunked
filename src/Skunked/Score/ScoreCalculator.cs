@@ -13,7 +13,7 @@ namespace Skunked.Score
     /// </summary>
     public class ScoreCalculator
     {
-        private static readonly AceLowFaceTenCardValueStrategy ValueStrategy = new ();
+        private static readonly AceLowFaceTenCardValueStrategy ValueStrategy = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ScoreCalculator"/> class.
@@ -23,8 +23,8 @@ namespace Skunked.Score
         /// <summary>
         /// Check cut card for dealer.
         /// </summary>
-        /// <param name="cut"></param>
-        /// <returns></returns>
+        /// <param name="cut">The cut card.</param>
+        /// <returns>Points to the dealer for the cut card.</returns>
         public int CountCut(Card cut) => cut.Rank == Rank.Jack ? GameRules.Points.Nibs : 0;
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace Skunked.Score
         /// <param name="starterCard">The starter card.</param>
         /// <param name="playerHand">Cards in the players hand.</param>
         /// <param name="isCrib">A crib is being scored.</param>
-        /// <returns></returns>
+        /// <returns>The calculated result of points earned.</returns>
         public CalculatedResult CountShowPoints(Card starterCard, IEnumerable<Card> playerHand, bool isCrib = false)
         {
             var playerHandList = playerHand.ToList();
@@ -61,6 +61,11 @@ namespace Skunked.Score
             return new CalculatedResult(points, combinations);
         }
 
+        /// <summary>
+        /// Count the points in the pile.
+        /// </summary>
+        /// <param name="pile">The current pile.</param>
+        /// <returns>The points in the pile.</returns>
         public int CountPlayPoints(IList<Card> pile)
         {
             if (pile.Count < 2)
@@ -112,8 +117,8 @@ namespace Skunked.Score
         /// <summary>
         /// Returns collection of all unique sets of cards that add up to 15.
         /// </summary>
-        /// <param name="combinationsToCount"></param>
-        /// <returns></returns>
+        /// <param name="combinationsToCount">Lookup of all card combinations by permutation count.</param>
+        /// <returns>List of all 15 combinations.</returns>
         public List<IList<Card>> CountFifteens(Dictionary<int, List<IList<Card>>> combinationsToCount) =>
             combinationsToCount
                 .Where(d => d.Key > 1)
@@ -124,9 +129,9 @@ namespace Skunked.Score
         /// <summary>
         /// All four cards in the hand are of the same suit.
         /// </summary>
-        /// <param name="playersHand"></param>
-        /// <param name="starterCard"></param>
-        /// <returns></returns>
+        /// <param name="playersHand">The players hand.</param>
+        /// <param name="starterCard">The starter card.</param>
+        /// <returns>List of cards that make a flush.</returns>
         public List<Card> CountFlush(List<Card> playersHand, Card starterCard)
         {
             if (playersHand.Count < 4) { return new List<Card>(0); }
@@ -152,34 +157,34 @@ namespace Skunked.Score
         /// <summary>
         /// A pair of cards of a kind.
         /// </summary>
-        /// <param name="combinationsToCheck"></param>
+        /// <param name="combinations">Lookup of all card combinations by permutation count.</param>
         /// <returns>Returns all pairs found.</returns>
-        public List<IList<Card>> CountPairs(Dictionary<int, List<IList<Card>>> combinationsToCheck) =>
-            combinationsToCheck[2].Where(c => c[0].Rank == c[1].Rank).ToList();
+        public List<IList<Card>> CountPairs(Dictionary<int, List<IList<Card>>> combinations) =>
+            combinations[2].Where(c => c[0].Rank == c[1].Rank).ToList();
 
         /// <summary>
         /// Three consecutive cards (regardless of suit).
         /// </summary>
-        /// <param name="combinationsToCount"></param>
+        /// <param name="combinations">Lookup of all card combinations by permutation count.</param>
         /// <returns></returns>
         // only looking for runs of 3,4, and 5
-        public List<IList<Card>> CountRuns(Dictionary<int, List<IList<Card>>> combinationsToCount)
+        public List<IList<Card>> CountRuns(Dictionary<int, List<IList<Card>>> combinations)
         {
-            var returnList = combinationsToCount[5].Where(IsRun).ToList();
+            var returnList = combinations[5].Where(IsRun).ToList();
 
             if (returnList.Count > 0)
             {
                 return returnList;
             }
 
-            returnList.AddRange(combinationsToCount[4].Where(IsRun));
+            returnList.AddRange(combinations[4].Where(IsRun));
 
             if (returnList.Count > 0)
             {
                 return returnList;
             }
 
-            returnList.AddRange(combinationsToCount[3].Where(IsRun));
+            returnList.AddRange(combinations[3].Where(IsRun));
 
             return returnList;
         }
@@ -210,6 +215,11 @@ namespace Skunked.Score
             return SumValues(cards) == 15;
         }
 
+        /// <summary>
+        /// Three or more consecutive cards (regardless of suit).
+        /// </summary>
+        /// <param name="cards"></param>
+        /// <returns></returns>
         public bool AreSameKind(IEnumerable<Card> cards)
         {
             return cards.DistinctBy(c => c.Rank).Count() == 1;
@@ -218,15 +228,20 @@ namespace Skunked.Score
         /// <summary>
         /// Three or more consecutive cards (regardless of suit).
         /// </summary>
-        /// <param name="combo"></param>
-        /// <returns></returns>
-        public bool IsRun(IList<Card> combo)
+        /// <param name="set">The set of cards.</param>
+        /// <returns>True if the cards form a run.</returns>
+        public bool IsRun(IList<Card> set)
         {
-            if (combo.Count < 3) return false;
-            var cardinalSet = combo.Select(c => (int)c.Rank);
+            if (set.Count < 3) return false;
+            var cardinalSet = set.Select(c => (int)c.Rank);
             return AreContinuous(cardinalSet);
         }
 
+        /// <summary>
+        /// Check if the value are continuous.
+        /// </summary>
+        /// <param name="values">The set of values.</param>
+        /// <returns>True if all the values in set are continuous.</returns>
         public bool AreContinuous(IEnumerable<int> values)
         {
             var orderedSet = values.OrderBy(c => c).ToList();
@@ -251,12 +266,12 @@ namespace Skunked.Score
         /// Dictionary of the combinations.  The key is "k" in k-combination combinatorial mathematics. Zero is not calculated.
         /// The Value is the set of the combination sets.
         /// </summary>
-        /// <param name="sourceSet"></param>
-        /// <returns></returns>
-        public Dictionary<int, List<IList<Card>>> GetCombinations(IList<Card> sourceSet)
+        /// <param name="source">The set of cards.</param>
+        /// <returns>A dictionary where the key is the number of </returns>
+        public Dictionary<int, List<IList<T>>> GetCombinations<T>(IList<T> source)
         {
-            return Enumerable.Range(1, sourceSet.Count)
-                .ToDictionary(size => size, size => new Combinations<Card>(sourceSet, size).ToList());
+            return Enumerable.Range(1, source.Count)
+                .ToDictionary(size => size, size => new Combinations<T>(source, size).ToList());
         }
     }
 }

@@ -4,6 +4,9 @@ using Skunked.Rules;
 
 namespace Skunked.Domain.Events
 {
+    /// <summary>
+    /// Event when the game has started.
+    /// </summary>
     public class GameStartedEvent : StreamEvent
     {
         /// <summary>

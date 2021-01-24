@@ -65,9 +65,9 @@ namespace Skunked.Test.System
             return cardsToChoose[randomIndex];
         }
 
-        public int CountHand(Card card, IEnumerable<Card> hand)
+        public int CountHand(Card starter, IEnumerable<Card> hand)
         {
-            return _calculator.CountShowPoints(card, hand).Points.Score;
+            return _calculator.CountShowPoints(starter, hand).Points.Score;
         }
 
         public bool Equals(TestPlayer other)

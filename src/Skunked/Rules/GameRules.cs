@@ -13,7 +13,7 @@ namespace Skunked.Rules
         /// Initializes a new instance of the <see cref="GameRules"/> class.
         /// </summary>
         public GameRules()
-            : this(WinningScoreType.Standard121, 2)
+            : this(WinningScoreType.Standard121)
         {
         }
 
@@ -22,27 +22,16 @@ namespace Skunked.Rules
         /// </summary>
         /// <param name="winningScore"></param>
         /// <param name="numberOfPlayers"></param>
-        public GameRules(WinningScoreType winningScore, int numberOfPlayers)
+        public GameRules(WinningScoreType winningScore)
         {
-            if (numberOfPlayers != 2 && numberOfPlayers != 4) { throw new ArgumentOutOfRangeException(nameof(numberOfPlayers)); }
-            NumberOfPlayers = numberOfPlayers;
             _winningScore = winningScore;
         }
 
-        /// <summary>
-        /// Gets number of players.
-        /// </summary>
-        public int NumberOfPlayers { get; }
 
         /// <summary>
         /// Gets the score a player needs to reach first to win the game.
         /// </summary>
         public int WinningScore => _winningScore == WinningScoreType.Standard121 ? 121 : 61;
-
-        /// <summary>
-        /// Gets size of initial hand that dealer gives to each player.
-        /// </summary>
-        public int DealSize => NumberOfPlayers == 2 ? 6 : 5;
 
 
         /// <summary>
@@ -50,10 +39,15 @@ namespace Skunked.Rules
         /// </summary>
         public static int HandSize => 4;
 
-
+        /// <summary>
+        /// Gets size of initial hand that dealer gives to each player.
+        /// </summary>
+        /// <param name="numberOfPlayers">Number of players.</param>
+        /// <returns>Number of cards to be dealt to each player.</returns>
+        public int GetDealSize(int numberOfPlayers) => numberOfPlayers == 2 ? 6 : 5;
 
         /// <summary>
-        ///
+        /// The points scored for all combinations.
         /// </summary>
         public static class Points
         {

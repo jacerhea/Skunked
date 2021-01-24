@@ -3,7 +3,7 @@
 namespace Skunked.Domain.Events
 {
     /// <summary>
-    ///
+    /// Event when a hand has been counted.
     /// </summary>
     public class HandCountedEvent : StreamEvent
     {
@@ -13,7 +13,7 @@ namespace Skunked.Domain.Events
         /// <param name="gameId">Unique identifier of the game.</param>
         /// <param name="version">The version of the game.</param>
         /// <param name="playerId">The id of the player.</param>
-        /// <param name="countedScore"></param>
+        /// <param name="countedScore">Gets the counted score.</param>
         public HandCountedEvent(Guid gameId, int version, int playerId, int countedScore)
             : base(gameId, version)
         {
@@ -26,6 +26,9 @@ namespace Skunked.Domain.Events
         /// </summary>
         public int PlayerId { get; }
 
+        /// <summary>
+        /// Gets the counted score.
+        /// </summary>
         public int CountedScore { get; }
     }
 }

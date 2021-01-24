@@ -4,7 +4,7 @@ using Skunked.Cards;
 namespace Skunked.Domain.Events
 {
     /// <summary>
-    /// A card has been cut.
+    /// Event when a card has been cut.
     /// </summary>
     public class CardCutEvent : StreamEvent
     {
@@ -14,7 +14,7 @@ namespace Skunked.Domain.Events
         /// <param name="gameId">Unique identifier of the game.</param>
         /// <param name="version">The version of the game.</param>
         /// <param name="playerId">The id of the player.</param>
-        /// <param name="cutCard"></param>
+        /// <param name="cutCard">Card that was cut.</param>
         public CardCutEvent(Guid gameId, int version, int playerId, Card cutCard)
             : base(gameId, version)
         {

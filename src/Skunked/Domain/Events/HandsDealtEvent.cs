@@ -4,6 +4,9 @@ using Skunked.Players;
 
 namespace Skunked.Domain.Events
 {
+    /// <summary>
+    /// Event when all hands have been dealt.
+    /// </summary>
     public class HandsDealtEvent : StreamEvent
     {
         /// <summary>

@@ -12,11 +12,11 @@ namespace Skunked.Domain.Validations
     public abstract class ValidationBase
     {
         /// <summary>
-        ///
+        /// Validate common elements of commands.
         /// </summary>
-        /// <param name="gameState"></param>
+        /// <param name="gameState">Current game state.</param>
         /// <param name="playerId">The id of the player.</param>
-        /// <param name="round"></param>
+        /// <param name="round">Round number.</param>
         protected void ValidateCore(GameState gameState, int playerId, int round)
         {
             CheckEndOfGame(gameState);
@@ -28,6 +28,10 @@ namespace Skunked.Domain.Validations
             }
         }
 
+        /// <summary>
+        /// Throw if game is complete..
+        /// </summary>
+        /// <param name="gameState">Current state of the game.</param>
         protected void CheckEndOfGame(GameState gameState)
         {
             if (gameState.IsGameFinished())
