@@ -9,9 +9,9 @@ namespace Skunked.Cards.Order
     public class RankComparer : IComparer<Card>
     {
         /// <summary>
-        /// 
+        /// Gets instance of <see cref="RankComparer"/> RankComparer.
         /// </summary>
-        public static RankComparer Instance => new();
+        public static RankComparer Instance => new ();
 
         /// <inheritdoc />
         public int Compare(Card? x, Card? y)

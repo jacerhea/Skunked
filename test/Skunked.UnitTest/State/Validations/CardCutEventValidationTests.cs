@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using Skunked.Cards;
-using Skunked.Domain.Events;
+using Skunked.Domain.Commands;
 using Skunked.Domain.State;
 using Skunked.Domain.Validations;
 using Skunked.Exceptions;
-using Skunked.Players;
 using Skunked.Rules;
 using Xunit;
 
@@ -29,9 +28,9 @@ namespace Skunked.UnitTest.State.Validations
                 }
             };
 
-            var @event = new CardCutEvent(Guid.NewGuid(), 1, 1, new Card(Rank.Eight, Suit.Clubs));
-            var validation = new CardCutEventValidation();
-            Action validate = () => validation.Validate(state, @event);
+            var command = new CutCardCommand(1, new Card(Rank.Eight, Suit.Clubs));
+            var validation = new CutCardCommandValidation();
+            Action validate = () => validation.Validate(state, command);
             validate.Should().NotThrow();
         }
 
@@ -50,9 +49,9 @@ namespace Skunked.UnitTest.State.Validations
                 }
             };
 
-            var @event = new CardCutEvent(Guid.NewGuid(), 1, 2, new Card(Rank.Eight, Suit.Diamonds));
-            var validation = new CardCutEventValidation();
-            Action validate = () => validation.Validate(state, @event);
+            var command = new CutCardCommand(2, new Card(Rank.Eight, Suit.Diamonds));
+            var validation = new CutCardCommandValidation();
+            Action validate = () => validation.Validate(state, command);
             validate.Should().Throw<InvalidCribbageOperationException>("player 1 already cut the eight of diamonds");
         }
 
@@ -71,10 +70,10 @@ namespace Skunked.UnitTest.State.Validations
                 }
             };
 
-            var @event = new CardCutEvent(Guid.NewGuid(), 1, 1, new Card(Rank.Eight, Suit.Diamonds));
+            var command = new CutCardCommand(1, new Card(Rank.Eight, Suit.Diamonds));
 
-            var validation = new CardCutEventValidation();
-            Action validate = () => validation.Validate(state, @event);
+            var validation = new CutCardCommandValidation();
+            Action validate = () => validation.Validate(state, command);
             validate.Should().Throw<InvalidCribbageOperationException>("player 1 already cut their card.");
         }
     }

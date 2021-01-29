@@ -8,18 +8,18 @@ namespace Skunked.Exceptions
     public class InvalidCribbageOperationException : InvalidOperationException
     {
         /// <summary>
-        /// The invalid cribbage operation that was attempted.
+        /// Initializes a new instance of the <see cref="InvalidCribbageOperationException"/> class.
         /// </summary>
-        public InvalidCribbageOperation Operation { get; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="operation"></param>
+        /// <param name="operation">The type of operation attempted.</param>
         public InvalidCribbageOperationException(InvalidCribbageOperation operation)
             : base(operation.ToString())
         {
             Operation = operation;
         }
+
+        /// <summary>
+        /// Gets the invalid cribbage operation that was attempted.
+        /// </summary>
+        public InvalidCribbageOperation Operation { get; }
     }
 }

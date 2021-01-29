@@ -4,10 +4,25 @@ using Skunked.Cards;
 namespace Skunked.Score
 {
     /// <summary>
-    /// Result Calculated
+    /// Result Calculated.
     /// </summary>
-    public record CalculatedResult(CalculatedPoints Points, CalculatedCombinations Combinations);
-    
+    public class CalculatedResult
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CalculatedResult"/> class.
+        /// </summary>
+        /// <param name="points"></param>
+        /// <param name="combinations"></param>
+        public CalculatedResult(CalculatedPoints points, CalculatedCombinations combinations)
+        {
+            Points = points;
+            Combinations = combinations;
+        }
+
+        public CalculatedPoints Points { get; }
+        public CalculatedCombinations Combinations { get; }
+    }
+
     /// <summary>
     /// Set of points scored.
     /// </summary>
@@ -21,9 +36,9 @@ namespace Skunked.Score
     /// <summary>
     /// A set of combinations that can score points.
     /// </summary>
-    public record CalculatedCombinations(IList<IList<Card>> Fifteens, 
-        IList<IList<Card>> Pairs, 
+    public record CalculatedCombinations(IList<IList<Card>> Fifteens,
+        IList<IList<Card>> Pairs,
         IList<IList<Card>> Runs,
-        IList<Card> Flushes, 
-        IList<Card> Nobs);
+        IList<Card> Flushes,
+        Card? Nobs);
 }

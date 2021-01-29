@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Globalization;
 using System.Linq;
 using Skunked.Cards;
 
 namespace Skunked.Score
 {
     /// <summary>
-    /// Couple a set of cards with all of the possible scoring outcomes for that combo
+    /// Couple a set of cards with all of the possible scoring outcomes for that combo.
     /// </summary>
     public class ComboPossibleScores
     {
-        public List<Card> Combo { get; }
-        public List<ScoreWithCut> PossibleScores { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ComboPossibleScores"/> class.
+        /// </summary>
+        /// <param name="combo">The combination of cards.</param>
+        /// <param name="possibleScores">Possible scores.</param>
         public ComboPossibleScores(IEnumerable<Card> combo, IEnumerable<ScoreWithCut> possibleScores)
         {
             if (combo == null) throw new ArgumentNullException(nameof(combo));
@@ -22,23 +23,14 @@ namespace Skunked.Score
             PossibleScores = possibleScores.ToList();
         }
 
-        public int GetScoreSummation()
-        {
-            return PossibleScores.Sum(s => s.Score);
-        }
+        /// <summary>
+        /// The given combination of cards.
+        /// </summary>
+        public List<Card> Combo { get; }
 
-        public override string ToString()
-        {
-            var psString = string.Join(", ", PossibleScores.Select(s => s.Score.ToString(CultureInfo.InvariantCulture)).ToArray());
-            var cString = string.Join(", ", Combo.Select(c => c.ToString()).ToArray());
-
-            return $"{psString} : {{{cString}}}";
-        }
-    }
-
-    public class ScoreWithCut
-    {
-        public int Score { get; set; }
-        public Card Cut { get; set; }
+        /// <summary>
+        /// Possible scores given the combination and the starter.
+        /// </summary>
+        public List<ScoreWithCut> PossibleScores { get; }
     }
 }

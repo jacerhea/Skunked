@@ -6,11 +6,12 @@
     public class PlayerScore
     {
         /// <summary>
-        /// Player Id
+        /// Gets or sets player Id.
         /// </summary>
         public int Player { get; set; }
+
         /// <summary>
-        /// The player's score.
+        /// Gets or sets the player's score.
         /// </summary>
         public int Score { get; set; }
     }

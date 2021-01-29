@@ -4,23 +4,31 @@ using Skunked.Cards;
 namespace Skunked.Domain.Events
 {
     /// <summary>
-    /// A Card has been played.
+    /// Event when a card has been played.
     /// </summary>
     public class CardPlayedEvent : StreamEvent
     {
-        public CardPlayedEvent(Guid gameId, int version, int playerId, Card played) : base(gameId, version)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CardPlayedEvent"/> class.
+        /// </summary>
+        /// <param name="gameId">Unique identifier of the game.</param>
+        /// <param name="version">The version of the game.</param>
+        /// <param name="playerId">The id of the player.</param>
+        /// <param name="played">The card played.</param>
+        public CardPlayedEvent(Guid gameId, int version, int playerId, Card played)
+            : base(gameId, version)
         {
             PlayerId = playerId;
             Played = played;
         }
 
         /// <summary>
-        /// The player id. 
+        /// Gets the player id.
         /// </summary>
         public int PlayerId { get; }
 
         /// <summary>
-        /// The Card being played.
+        /// Gets the Card being played.
         /// </summary>
         public Card Played { get; }
     }

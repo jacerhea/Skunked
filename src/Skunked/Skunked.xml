@@ -9,63 +9,51 @@
             Standard 52-card deck playing card.
             </summary>
         </member>
-        <member name="P:Skunked.Cards.Card.Rank">
-            <summary>
-            Playing card's rank.
-            </summary>
-        </member>
-        <member name="P:Skunked.Cards.Card.Suit">
-            <summary>
-            Playing card's suit.
-            </summary>
-        </member>
         <member name="M:Skunked.Cards.Card.#ctor">
             <summary>
-            Initializes a new instance of Card with default Rank and Suit.
+            Initializes a new instance of the <see cref="T:Skunked.Cards.Card"/> class.
             </summary>
         </member>
         <member name="M:Skunked.Cards.Card.#ctor(Skunked.Cards.Rank,Skunked.Cards.Suit)">
             <summary>
-            Initializes a new instance of Card with optional Rank and Suit
-            </summary>        
+            Initializes a new instance of the <see cref="T:Skunked.Cards.Card"/> class with the specified Rank and Suit.
+            </summary>
+            <param name="rank">Set Rank.</param>
+            <param name="suit">Set Suit.</param>
         </member>
         <member name="M:Skunked.Cards.Card.#ctor(Skunked.Cards.Card)">
             <summary>
-            Initializes a new instance of Card from existing Card.
-            </summary>           
+            Initializes a new instance of the <see cref="T:Skunked.Cards.Card"/> class.
+            </summary>
+            <param name="card">The card to make a copy of.</param>
+        </member>
+        <member name="P:Skunked.Cards.Card.Rank">
+            <summary>
+            Gets playing card's rank.
+            </summary>
+        </member>
+        <member name="P:Skunked.Cards.Card.Suit">
+            <summary>
+            Gets playing card's suit.
+            </summary>
         </member>
         <member name="M:Skunked.Cards.Card.ToString">
-            <summary>
-            Returns a string representation of the Card.
-            </summary>   
+            <inheritdoc/>
         </member>
         <member name="M:Skunked.Cards.Card.Equals(System.Object)">
-            <summary>
-            True if the object has same value as Card.
-            </summary>
-            <param name="obj"></param>
-            <returns></returns>
+            <inheritdoc/>
         </member>
         <member name="M:Skunked.Cards.Card.GetHashCode">
-            <summary>
-            Gets hash code.
-            </summary>
-            <returns></returns>
+            <inheritdoc/>
         </member>
         <member name="M:Skunked.Cards.Card.Equals(Skunked.Cards.Card)">
-            <summary>
-            Checks if the object has same value as Card.
-            </summary>
-            <param name="other"></param>
-            <returns>True if objects are equal.</returns>        
+            <inheritdoc/>
         </member>
         <member name="M:Skunked.Cards.Card.Equals(Skunked.Cards.Card,Skunked.Cards.Card)">
-            <summary>
-            Checks if objects are equal.
-            </summary>
-            <param name="x">Card 1.</param>
-            <param name="y">Card 2.</param>
-            <returns>True if objects are equal.</returns>
+            <inheritdoc/>
+        </member>
+        <member name="M:Skunked.Cards.Card.GetHashCode(Skunked.Cards.Card)">
+            <inheritdoc/>
         </member>
         <member name="T:Skunked.Cards.Dealer">
             <summary>
@@ -74,48 +62,46 @@
         </member>
         <member name="M:Skunked.Cards.Dealer.Deal(Skunked.Cards.Deck,System.Collections.Generic.IList{System.Int32},System.Int32,System.Int32)">
             <summary>
-            
+            Deals cards singly to each player starting with the given startingWith player.
             </summary>
-            <param name="deck"></param>
-            <param name="players"></param>
-            <param name="startingWith"></param>
-            <param name="handSize"></param>
+            <param name="deck">The set of cards to deal from.</param>
+            <param name="players">Set of players being dealt to.</param>
+            <param name="startingWith">The player to start the deal with.</param>
+            <param name="handSize">Number of cards to deal to each player.</param>
             <returns>Set of player hands in order from dealer.</returns>
         </member>
         <member name="T:Skunked.Cards.Deck">
             <summary>
-            
+            Deck of playing cards.
             </summary>
         </member>
         <member name="M:Skunked.Cards.Deck.#ctor">
             <summary>
-            Initializes a deck with 52 cards.
+            Initializes a new instance of the <see cref="T:Skunked.Cards.Deck"/> class with 52 cards.
             </summary>
         </member>
         <member name="M:Skunked.Cards.Deck.#ctor(System.Collections.Generic.IEnumerable{Skunked.Cards.Card})">
             <summary>
-            Initializes a deck with the given cards.
+            Initializes a new instance of the <see cref="T:Skunked.Cards.Deck"/> class with 52 cards.
             </summary>
-            <param name="deck"></param>
+            <param name="deck">Set of cards that make up the deck.</param>
         </member>
         <member name="M:Skunked.Cards.Deck.Shuffle">
             <summary>
-            Randomly shuffles the deck. 
+            Randomly shuffles the deck.
             </summary>
         </member>
         <member name="M:Skunked.Cards.Deck.Shuffle(System.Int32)">
             <summary>
-            Randomly shuffles the deck the given number of times. 
-            </summary>        
+            Randomly shuffles the deck the given number of times.
+            </summary>
+            <param name="count">Number of times to shuffle the card.</param>
         </member>
         <member name="M:Skunked.Cards.Deck.GetEnumerator">
-            <summary>
-            Returns an enumerator that iterates through the Deck
-            </summary>
-            <returns></returns>
+            <inheritdoc/>
         </member>
         <member name="M:Skunked.Cards.Deck.System#Collections#IEnumerable#GetEnumerator">
-            Returns an enumerator that iterates through the Deck
+            <inheritdoc/>
         </member>
         <member name="T:Skunked.Cards.Order.RankComparer">
             <summary>
@@ -124,7 +110,7 @@
         </member>
         <member name="P:Skunked.Cards.Order.RankComparer.Instance">
             <summary>
-            
+            Gets instance of <see cref="T:Skunked.Cards.Order.RankComparer"/> RankComparer.
             </summary>
         </member>
         <member name="M:Skunked.Cards.Order.RankComparer.Compare(Skunked.Cards.Card,Skunked.Cards.Card)">
@@ -132,7 +118,7 @@
         </member>
         <member name="T:Skunked.Cards.Rank">
             <summary>
-            Set of playing card ranks
+            Set of playing card ranks.
             </summary>
         </member>
         <member name="F:Skunked.Cards.Rank.Ace">
@@ -202,7 +188,7 @@
         </member>
         <member name="T:Skunked.Cards.Suit">
             <summary>
-            Categories into which the cards of a deck are divided
+            Categories into which the cards of a deck are divided.
             </summary>
         </member>
         <member name="F:Skunked.Cards.Suit.Clubs">
@@ -232,10 +218,10 @@
         </member>
         <member name="M:Skunked.Cards.Value.AceLowFaceTenCardValueStrategy.GetValue(Skunked.Cards.Card)">
             <summary>
-            
+            Get the play value.
             </summary>
-            <param name="card"></param>
-            <returns></returns>
+            <param name="card">The card to get the value for.</param>
+            <returns>Value of the card for the play.</returns>
         </member>
         <member name="T:Skunked.Cribbage">
             <summary>
@@ -244,90 +230,577 @@
         </member>
         <member name="M:Skunked.Cribbage.#ctor(System.Collections.Generic.IEnumerable{System.Int32},Skunked.Rules.GameRules,System.Collections.Generic.IEnumerable{Skunked.Domain.Events.IEventListener})">
             <summary>
-            Constructs a new game of Cribbage.
+            Initializes a new instance of the <see cref="T:Skunked.Cribbage"/> class.
             </summary>
-            <param name="players"></param>
-            <param name="rules"></param>
-            <param name="eventListeners"></param>
+            <param name="players">Players in order by index and the value of the player id.</param>
+            <param name="rules">The set of rules to be followed.</param>
+            <param name="eventListeners">Listen to all game events.</param>
+        </member>
+        <member name="P:Skunked.Cribbage.State">
+            <summary>
+            Gets the state of the game.
+            </summary>
+        </member>
+        <member name="P:Skunked.Cribbage.Stream">
+            <summary>
+            Gets set of events that have occurred in the game.
+            </summary>
+        </member>
+        <member name="M:Skunked.Cribbage.CutCard(Skunked.Domain.Commands.CutCardCommand)">
+            <summary>
+            Cut the deck.
+            </summary>
+            <param name="command">The command to execute.</param>
+        </member>
+        <member name="M:Skunked.Cribbage.ThrowCards(Skunked.Domain.Commands.ThrowCardsCommand)">
+            <summary>
+            Throw cards to the crib.
+            </summary>
+            <param name="command">Command to throw cards.</param>
+        </member>
+        <member name="M:Skunked.Cribbage.PlayCard(Skunked.Domain.Commands.PlayCardCommand)">
+            <summary>
+            Play a card.
+            </summary>
+            <param name="command">Command to play card.</param>
+        </member>
+        <member name="M:Skunked.Cribbage.CountHand(Skunked.Domain.Commands.CountHandCommand)">
+            <summary>
+            Count a players hand.
+            </summary>
+            <param name="command">Command to count hand.</param>
+        </member>
+        <member name="M:Skunked.Cribbage.CountCrib(Skunked.Domain.Commands.CountCribCommand)">
+            <summary>
+            Count a players crib.
+            </summary>
+            <param name="command">The id of the player.</param>
+        </member>
+        <member name="T:Skunked.Domain.Commands.CommandBase">
+            <summary>
+            Base class for all commands.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Commands.CommandBase.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Commands.CommandBase"/> class.
+            </summary>
+            <param name="playerId">The id of player.</param>
+        </member>
+        <member name="P:Skunked.Domain.Commands.CommandBase.PlayerId">
+            <summary>
+            Gets the id of the player associated with the command.
+            </summary>
+        </member>
+        <member name="T:Skunked.Domain.Commands.CountCribCommand">
+            <summary>
+            Command to count the points in the crib.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Commands.CountCribCommand.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Commands.CountCribCommand"/> class.
+            </summary>
+            <param name="playerId">The id of the player associated with the command for the crib.</param>
+            <param name="score">The score that was counted.</param>
+        </member>
+        <member name="P:Skunked.Domain.Commands.CountCribCommand.Score">
+            <summary>
+            Gets the score that was counted for the crib.
+            </summary>
+        </member>
+        <member name="T:Skunked.Domain.Commands.CountHandCommand">
+            <summary>
+            Command to count the points in a hand.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Commands.CountHandCommand.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Commands.CountHandCommand"/> class.
+            </summary>
+            <param name="playerId">Id of the player.</param>
+            <param name="score">Score counted.</param>
+        </member>
+        <member name="P:Skunked.Domain.Commands.CountHandCommand.Score">
+            <summary>
+            Gets the score that was counted.
+            </summary>
+        </member>
+        <member name="T:Skunked.Domain.Commands.CutCardCommand">
+            <summary>
+            Command to cut the deck.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Commands.CutCardCommand.#ctor(System.Int32,Skunked.Cards.Card)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Commands.CutCardCommand"/> class.
+            </summary>
+            <param name="playerId">The id of player.</param>
+            <param name="cutCard">Card that was cut.</param>
+        </member>
+        <member name="P:Skunked.Domain.Commands.CutCardCommand.CutCard">
+            <summary>
+            Gets card that was cut.
+            </summary>
+        </member>
+        <member name="T:Skunked.Domain.Commands.PlayCardCommand">
+            <summary>
+            Command to play a card.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Commands.PlayCardCommand.#ctor(System.Int32,Skunked.Cards.Card)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Commands.PlayCardCommand"/> class.
+            </summary>
+            <param name="playerId">The id of the player associated with the command.</param>
+            <param name="card">The card being played.</param>
+        </member>
+        <member name="P:Skunked.Domain.Commands.PlayCardCommand.Card">
+            <summary>
+            Gets card being played.
+            </summary>
+        </member>
+        <member name="T:Skunked.Domain.Commands.ThrowCardsCommand">
+            <summary>
+            Command to discard cards to the crib.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Commands.ThrowCardsCommand.#ctor(System.Int32,System.Collections.Generic.IEnumerable{Skunked.Cards.Card})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Commands.ThrowCardsCommand"/> class.
+            </summary>
+            <param name="playerId">The id of player.</param>
+            <param name="cribCards">Cards being discarded to crib.</param>
+        </member>
+        <member name="P:Skunked.Domain.Commands.ThrowCardsCommand.CribCards">
+            <summary>
+            Gets cards being discarded to crib.
+            </summary>
+        </member>
+        <member name="T:Skunked.Domain.EventStream">
+            <summary>
+            A stream of events.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.EventStream.#ctor(System.Collections.Generic.IEnumerable{Skunked.Domain.Events.IEventListener})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.EventStream"/> class.
+            </summary>
+            <param name="eventListeners">Listeners for events.</param>
+        </member>
+        <member name="M:Skunked.Domain.EventStream.Add(Skunked.Domain.Events.StreamEvent)">
+            <summary>
+            Add an event to the stream.
+            </summary>
+            <param name="event">The event to add.</param>
+        </member>
+        <member name="M:Skunked.Domain.EventStream.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Skunked.Domain.EventStream.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
         </member>
         <member name="T:Skunked.Domain.Events.CardCutEvent">
             <summary>
-            A card has been cut.
+            Event when a card has been cut.
             </summary>
+        </member>
+        <member name="M:Skunked.Domain.Events.CardCutEvent.#ctor(System.Guid,System.Int32,System.Int32,Skunked.Cards.Card)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Events.CardCutEvent"/> class.
+            </summary>
+            <param name="gameId">Unique identifier of the game.</param>
+            <param name="version">The version of the game.</param>
+            <param name="playerId">The id of the player.</param>
+            <param name="cutCard">Card that was cut.</param>
         </member>
         <member name="P:Skunked.Domain.Events.CardCutEvent.PlayerId">
             <summary>
-            The player's id who cut the card.
+            Gets the player's id who cut the card.
             </summary>
         </member>
         <member name="P:Skunked.Domain.Events.CardCutEvent.CutCard">
             <summary>
-            The card that was cut.
+            Gets the card that was cut.
             </summary>
         </member>
         <member name="T:Skunked.Domain.Events.CardPlayedEvent">
             <summary>
-            A Card has been played.
+            Event when a card has been played.
             </summary>
+        </member>
+        <member name="M:Skunked.Domain.Events.CardPlayedEvent.#ctor(System.Guid,System.Int32,System.Int32,Skunked.Cards.Card)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Events.CardPlayedEvent"/> class.
+            </summary>
+            <param name="gameId">Unique identifier of the game.</param>
+            <param name="version">The version of the game.</param>
+            <param name="playerId">The id of the player.</param>
+            <param name="played">The card played.</param>
         </member>
         <member name="P:Skunked.Domain.Events.CardPlayedEvent.PlayerId">
             <summary>
-            The player id. 
+            Gets the player id.
             </summary>
         </member>
         <member name="P:Skunked.Domain.Events.CardPlayedEvent.Played">
             <summary>
-            The Card being played.
+            Gets the Card being played.
             </summary>
         </member>
         <member name="T:Skunked.Domain.Events.CardsThrownEvent">
             <summary>
-            
+            Event when a cards have been thrown to the crib.
             </summary>
+        </member>
+        <member name="M:Skunked.Domain.Events.CardsThrownEvent.#ctor(System.Guid,System.Int32,System.Int32,System.Collections.Generic.List{Skunked.Cards.Card})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Events.CardsThrownEvent"/> class.
+            </summary>
+            <param name="gameId">Unique identifier of the game.</param>
+            <param name="version">The version of the game.</param>
+            <param name="playerId">The id of the player.</param>
+            <param name="thrown">The cards thrown to the crib.</param>
         </member>
         <member name="P:Skunked.Domain.Events.CardsThrownEvent.PlayerId">
             <summary>
-            The player id. 
+            Gets the player id.
             </summary>
+        </member>
+        <member name="P:Skunked.Domain.Events.CardsThrownEvent.Thrown">
+            <summary>
+            Gets the cards throw to the crib.
+            </summary>
+        </member>
+        <member name="T:Skunked.Domain.Events.CribCountedEvent">
+            <summary>
+            Event when the crib has been counted.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Events.CribCountedEvent.#ctor(System.Guid,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Events.CribCountedEvent"/> class.
+            </summary>
+            <param name="gameId">Unique identifier of the game.</param>
+            <param name="version">The version of the game.</param>
+            <param name="playerId">The id of the player.</param>
+            <param name="countedScore">The counted score.</param>
         </member>
         <member name="P:Skunked.Domain.Events.CribCountedEvent.PlayerId">
             <summary>
-            The player id. 
+            Gets the player id.
             </summary>
+        </member>
+        <member name="P:Skunked.Domain.Events.CribCountedEvent.CountedScore">
+            <summary>
+            Gets the score the player counted for the crib.
+            </summary>
+        </member>
+        <member name="T:Skunked.Domain.Events.DeckShuffledEvent">
+            <summary>
+            Event when the deck has been shuffled.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Events.DeckShuffledEvent.#ctor(System.Guid,System.Int32,System.Collections.Generic.List{Skunked.Cards.Card})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Events.DeckShuffledEvent"/> class.
+            </summary>
+            <param name="gameId">Unique identifier of the game.</param>
+            <param name="version">The version of the game.</param>
+            <param name="deck">The shuffled deck.</param>
+        </member>
+        <member name="P:Skunked.Domain.Events.DeckShuffledEvent.Deck">
+            <summary>
+            Gets the new state of the deck after the shuffle.
+            </summary>
+        </member>
+        <member name="T:Skunked.Domain.Events.GameCompletedEvent">
+            <summary>
+            Event when the game has completed.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Events.GameCompletedEvent.#ctor(System.Guid,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Events.GameCompletedEvent"/> class.
+            </summary>
+            <param name="gameId">Unique identifier of the game.</param>
+            <param name="version">The version of the game.</param>
+        </member>
+        <member name="T:Skunked.Domain.Events.GameStartedEvent">
+            <summary>
+            Event when the game has started.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Events.GameStartedEvent.#ctor(System.Guid,System.Int32,System.Collections.Generic.List{System.Int32},Skunked.Rules.GameRules)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Events.GameStartedEvent"/> class.
+            </summary>
+            <param name="gameId">Unique identifier of the game.</param>
+            <param name="version">The version of the game.</param>
+            <param name="players"></param>
+            <param name="rules"></param>
+        </member>
+        <member name="T:Skunked.Domain.Events.HandCountedEvent">
+            <summary>
+            Event when a hand has been counted.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Events.HandCountedEvent.#ctor(System.Guid,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Events.HandCountedEvent"/> class.
+            </summary>
+            <param name="gameId">Unique identifier of the game.</param>
+            <param name="version">The version of the game.</param>
+            <param name="playerId">The id of the player.</param>
+            <param name="countedScore">Gets the counted score.</param>
         </member>
         <member name="P:Skunked.Domain.Events.HandCountedEvent.PlayerId">
             <summary>
-            The player id. 
+            Gets the player id.
             </summary>
+        </member>
+        <member name="P:Skunked.Domain.Events.HandCountedEvent.CountedScore">
+            <summary>
+            Gets the counted score.
+            </summary>
+        </member>
+        <member name="T:Skunked.Domain.Events.HandsDealtEvent">
+            <summary>
+            Event when all hands have been dealt.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Events.HandsDealtEvent.#ctor(System.Guid,System.Int32,System.Collections.Generic.List{Skunked.Players.PlayerHand})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Events.HandsDealtEvent"/> class.
+            </summary>
+            <param name="gameId">Unique identifier of the game.</param>
+            <param name="version">The version of the game.</param>
+            <param name="hands"></param>
+        </member>
+        <member name="P:Skunked.Domain.Events.HandsDealtEvent.Hands">
+            <summary>
+            All of the player hands that were dealt.
+            </summary>
+        </member>
+        <member name="T:Skunked.Domain.Events.IEventListener">
+            <summary>
+            An event listener.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Events.IEventListener.Notify(Skunked.Domain.Events.StreamEvent)">
+            <summary>
+            Notify when an event occurs.
+            </summary>
+            <param name="event">The occurred event.</param>
+        </member>
+        <member name="T:Skunked.Domain.Events.PlayFinishedEvent">
+            <summary>
+            Event when the play has completed.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Events.PlayFinishedEvent.#ctor(System.Guid,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Events.PlayFinishedEvent"/> class.
+            </summary>
+            <param name="gameId">Unique identifier of the game.</param>
+            <param name="version">The version of the game.</param>
+            <param name="round"></param>
+        </member>
+        <member name="T:Skunked.Domain.Events.PlayStartedEvent">
+            <summary>
+            Event when the play has started.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Events.PlayStartedEvent.#ctor(System.Guid,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Events.PlayStartedEvent"/> class.
+            </summary>
+            <param name="gameId">Unique identifier of the game.</param>
+            <param name="version">The version of the game.</param>
+            <param name="round"></param>
+        </member>
+        <member name="T:Skunked.Domain.Events.RoundStartedEvent">
+            <summary>
+            Event when a round started.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Events.RoundStartedEvent.#ctor(System.Guid,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Events.RoundStartedEvent"/> class.
+            </summary>
+            <param name="gameId">Unique identifier of the game.</param>
+            <param name="version">The version of the game.</param>
         </member>
         <member name="T:Skunked.Domain.Events.StarterCardSelectedEvent">
             <summary>
-            
+            Event when a starter card has been selected.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Events.StarterCardSelectedEvent.#ctor(System.Guid,System.Int32,Skunked.Cards.Card)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Events.StarterCardSelectedEvent"/> class.
+            </summary>
+            <param name="gameId">Unique identifier of the game.</param>
+            <param name="version">The version of the game.</param>
+            <param name="starter">The starter card that was cut.</param>
+        </member>
+        <member name="P:Skunked.Domain.Events.StarterCardSelectedEvent.Starter">
+            <summary>
+            Gets the starter card.
             </summary>
         </member>
         <member name="T:Skunked.Domain.Events.StreamEvent">
             <summary>
-            Base event
+            Base event.
             </summary>
+        </member>
+        <member name="M:Skunked.Domain.Events.StreamEvent.#ctor(System.Guid,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Events.StreamEvent"/> class.
+            </summary>
+            <param name="gameId">Unique identifier of the game.</param>
+            <param name="version">The version of the game.</param>
         </member>
         <member name="P:Skunked.Domain.Events.StreamEvent.GameId">
             <summary>
-            Identifier of the game.
+            Gets identifier of the game.
             </summary>
         </member>
         <member name="P:Skunked.Domain.Events.StreamEvent.Version">
             <summary>
-            Version of the game state.
+            Gets version of the game state.
             </summary>
         </member>
         <member name="P:Skunked.Domain.Events.StreamEvent.Occurred">
             <summary>
-            The time stamp this event took place.
+            Gets the time stamp this event took place.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.GameStateEventListener.#ctor(Skunked.Domain.State.GameState,Skunked.Domain.State.GameStateBuilder)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.GameStateEventListener"/> class.
+            </summary>
+            <param name="gameState">The game state.</param>
+            <param name="gameStateBuilder"></param>
+        </member>
+        <member name="T:Skunked.Domain.State.GameState">
+            <summary>
+            Snapshot of a game's state.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.GameState.Id">
+            <summary>
+            Gets or sets unique identifier of the game.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.GameState.Version">
+            <summary>
+            Gets or sets version of the game.  Each event creates a new version of the game.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.GameState.PlayerIds">
+            <summary>
+            Gets or sets player ids.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.GameState.GameRules">
+            <summary>
+            Gets or sets the rules used during the game.
             </summary>
         </member>
         <member name="T:Skunked.Domain.State.GameStateBuilder">
             <summary>
             Builds the GameState from the game events.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.State.GameStateBuilder.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.State.GameStateBuilder"/> class.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.State.GameStateBuilder.Handle(Skunked.Domain.Events.GameStartedEvent,Skunked.Domain.State.GameState)">
+            <summary>
+            Handle cref="GameStartedEvent" event.
+            </summary>
+            <param name="streamEvent">Event to handle.</param>
+            <param name="gameState">The game state.</param>
+        </member>
+        <member name="M:Skunked.Domain.State.GameStateBuilder.Handle(Skunked.Domain.Events.DeckShuffledEvent,Skunked.Domain.State.GameState)">
+            <summary>
+            Handle cref="DeckShuffledEvent" event.
+            </summary>
+            <param name="streamEvent">Event to handle.</param>
+            <param name="gameState">The game state.</param>
+        </member>
+        <member name="M:Skunked.Domain.State.GameStateBuilder.Handle(Skunked.Domain.Events.CardCutEvent,Skunked.Domain.State.GameState)">
+            <summary>
+            Handle cref="CardCutEvent" event.
+            </summary>
+            <param name="streamEvent">Event to handle.</param>
+            <param name="gameState">The game state.</param>
+        </member>
+        <member name="M:Skunked.Domain.State.GameStateBuilder.Handle(Skunked.Domain.Events.RoundStartedEvent,Skunked.Domain.State.GameState)">
+            <summary>
+            Handle cref="RoundStartedEvent" event.
+            </summary>
+            <param name="streamEvent">Event to handle.</param>
+            <param name="gameState">The game state.</param>
+        </member>
+        <member name="M:Skunked.Domain.State.GameStateBuilder.Handle(Skunked.Domain.Events.HandsDealtEvent,Skunked.Domain.State.GameState)">
+            <summary>
+            Handle cref="HandsDealtEvent" event.
+            </summary>
+            <param name="streamEvent">Event to handle.</param>
+            <param name="gameState">The game state.</param>
+        </member>
+        <member name="M:Skunked.Domain.State.GameStateBuilder.Handle(Skunked.Domain.Events.CardsThrownEvent,Skunked.Domain.State.GameState)">
+            <summary>
+            Handle cref="CardsThrownEvent" event.
+            </summary>
+            <param name="streamEvent">Event to handle.</param>
+            <param name="gameState"></param>
+        </member>
+        <member name="M:Skunked.Domain.State.GameStateBuilder.Handle(Skunked.Domain.Events.StarterCardSelectedEvent,Skunked.Domain.State.GameState)">
+            <summary>
+            Handle cref="StarterCardSelectedEvent" event.
+            </summary>
+            <param name="streamEvent">Event to handle.</param>
+            <param name="gameState"></param>
+        </member>
+        <member name="M:Skunked.Domain.State.GameStateBuilder.Handle(Skunked.Domain.Events.CardPlayedEvent,Skunked.Domain.State.GameState)">
+            <summary>
+            Handle cref="CardPlayedEvent" event.
+            </summary>
+            <param name="streamEvent">Event to handle.</param>
+            <param name="gameState"></param>
+        </member>
+        <member name="M:Skunked.Domain.State.GameStateBuilder.Handle(Skunked.Domain.Events.HandCountedEvent,Skunked.Domain.State.GameState)">
+            <summary>
+            Handle cref="HandCountedEvent" event.
+            </summary>
+            <param name="streamEvent">Event to handle.</param>
+            <param name="gameState"></param>
+        </member>
+        <member name="M:Skunked.Domain.State.GameStateBuilder.Handle(Skunked.Domain.Events.CribCountedEvent,Skunked.Domain.State.GameState)">
+            <summary>
+            Handle cref="CribCountedEvent" event.
+            </summary>
+            <param name="streamEvent">Event to handle.</param>
+            <param name="gameState"></param>
+        </member>
+        <member name="T:Skunked.Domain.State.PlayerIdCard">
+            <summary>
+            A player id and a card.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.PlayerIdCard.Player">
+            <summary>
+            Gets the playerId.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.PlayerIdCard.Card">
+            <summary>
+            Gets the card.
             </summary>
         </member>
         <member name="T:Skunked.Domain.State.PlayerScore">
@@ -337,12 +810,159 @@
         </member>
         <member name="P:Skunked.Domain.State.PlayerScore.Player">
             <summary>
-            Player Id
+            Gets or sets player Id.
             </summary>
         </member>
         <member name="P:Skunked.Domain.State.PlayerScore.Score">
             <summary>
-            The player's score.
+            Gets or sets the player's score.
+            </summary>
+        </member>
+        <member name="T:Skunked.Domain.State.RoundState">
+            <summary>
+            The state of the Round.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.RoundState.Starter">
+            <summary>
+            Gets or sets the stater card.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.RoundState.Round">
+            <summary>
+            Gets or sets round number.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.RoundState.DealtCards">
+            <summary>
+            Gets or sets the set of cards initially dealt to all players.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.RoundState.Hands">
+            <summary>
+            Gets or sets the set of cards in each players hand after thrown to the crib.
+            </summary>
+        </member>
+        <member name="T:Skunked.Domain.State.TeamScore">
+            <summary>
+            The team and their score.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.TeamScore.Players">
+            <summary>
+            Player id's on a team.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.TeamScore.Score">
+            <summary>
+            The team's score.
+            </summary>
+        </member>
+        <member name="T:Skunked.Domain.Validations.CountCribCommandValidation">
+            <summary>
+            Validates <see cref="T:Skunked.Domain.Commands.CountCribCommand"/> command.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Validations.CountCribCommandValidation.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Validations.CountCribCommandValidation"/> class.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Validations.CountCribCommandValidation.Validate(Skunked.Domain.State.GameState,Skunked.Domain.Commands.CountCribCommand)">
+            <inheritdoc />
+        </member>
+        <member name="T:Skunked.Domain.Validations.CountHandCommandValidation">
+            <summary>
+            Validates <see cref="T:Skunked.Domain.Commands.CountHandCommand"/> command.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Validations.CountHandCommandValidation.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Validations.CountHandCommandValidation"/> class.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Validations.CountHandCommandValidation.Validate(Skunked.Domain.State.GameState,Skunked.Domain.Commands.CountHandCommand)">
+            <inheritdoc />
+        </member>
+        <member name="T:Skunked.Domain.Validations.CutCardCommandValidation">
+            <summary>
+            Validates <see cref="T:Skunked.Domain.Commands.CutCardCommand"/> command.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Validations.CutCardCommandValidation.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Validations.CutCardCommandValidation"/> class.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Validations.CutCardCommandValidation.Validate(Skunked.Domain.State.GameState,Skunked.Domain.Commands.CutCardCommand)">
+            <inheritdoc />
+        </member>
+        <member name="T:Skunked.Domain.Validations.IValidation`1">
+            <summary>
+            Validate commands are valid given the current state of the game.
+            </summary>
+            <typeparam name="T">Type of command to be validated.</typeparam>
+        </member>
+        <member name="M:Skunked.Domain.Validations.IValidation`1.Validate(Skunked.Domain.State.GameState,`0)">
+            <summary>
+            Exception is thrown if command is not valid when applied to the current state of the game.
+            </summary>
+            <param name="gameState">The current state of the game.</param>
+            <param name="command">The command being validated.</param>
+        </member>
+        <member name="T:Skunked.Domain.Validations.PlayCardCommandValidation">
+            <summary>
+            Validates <see cref="T:Skunked.Domain.Commands.PlayCardCommand"/> command.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Validations.PlayCardCommandValidation.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Validations.PlayCardCommandValidation"/> class.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Validations.PlayCardCommandValidation.Validate(Skunked.Domain.State.GameState,Skunked.Domain.Commands.PlayCardCommand)">
+            <inheritdoc />
+        </member>
+        <member name="T:Skunked.Domain.Validations.ThrowCardsCommandValidation">
+            <summary>
+            Validates <see cref="T:Skunked.Domain.Commands.ThrowCardsCommand"/> command.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Validations.ThrowCardsCommandValidation.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Validations.ThrowCardsCommandValidation"/> class.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Validations.ThrowCardsCommandValidation.Validate(Skunked.Domain.State.GameState,Skunked.Domain.Commands.ThrowCardsCommand)">
+            <inheritdoc />
+        </member>
+        <member name="T:Skunked.Domain.Validations.ValidationBase">
+            <summary>
+            Base class for validating cribbage commands.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Validations.ValidationBase.ValidateCore(Skunked.Domain.State.GameState,System.Int32,System.Int32)">
+            <summary>
+            Validate common elements of commands.
+            </summary>
+            <param name="gameState">Current game state.</param>
+            <param name="playerId">The id of the player.</param>
+            <param name="round">Round number.</param>
+        </member>
+        <member name="M:Skunked.Domain.Validations.ValidationBase.CheckEndOfGame(Skunked.Domain.State.GameState)">
+            <summary>
+            Throw if game is complete..
+            </summary>
+            <param name="gameState">Current state of the game.</param>
+        </member>
+        <member name="T:Skunked.Exceptions.GameFinishedException">
+            <summary>
+            An exception to stop the game.
+            </summary>
+        </member>
+        <member name="M:Skunked.Exceptions.GameFinishedException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Exceptions.GameFinishedException"/> class.
             </summary>
         </member>
         <member name="T:Skunked.Exceptions.InvalidCribbageOperationException">
@@ -350,16 +970,16 @@
             An invalid move was attempted in the game.
             </summary>
         </member>
-        <member name="P:Skunked.Exceptions.InvalidCribbageOperationException.Operation">
-            <summary>
-            The invalid cribbage operation that was attempted.
-            </summary>
-        </member>
         <member name="M:Skunked.Exceptions.InvalidCribbageOperationException.#ctor(Skunked.Exceptions.InvalidCribbageOperation)">
             <summary>
-            
+            Initializes a new instance of the <see cref="T:Skunked.Exceptions.InvalidCribbageOperationException"/> class.
             </summary>
-            <param name="operation"></param>
+            <param name="operation">The type of operation attempted.</param>
+        </member>
+        <member name="P:Skunked.Exceptions.InvalidCribbageOperationException.Operation">
+            <summary>
+            Gets the invalid cribbage operation that was attempted.
+            </summary>
         </member>
         <member name="T:Skunked.Exceptions.InvalidCribbageOperation">
             <summary>
@@ -388,152 +1008,205 @@
         </member>
         <member name="F:Skunked.Exceptions.InvalidCribbageOperation.CardsHaveBeenThrown">
             <summary>
-            
+            Player can not rethrow their cards.
             </summary>
         </member>
         <member name="F:Skunked.Exceptions.InvalidCribbageOperation.InvalidPlayer">
             <summary>
-            
+            It is not the given players' turn.
             </summary>
         </member>
         <member name="F:Skunked.Exceptions.InvalidCribbageOperation.InvalidStateForPlay">
             <summary>
-            
+            The game is not currently in the play.
             </summary>
         </member>
         <member name="F:Skunked.Exceptions.InvalidCribbageOperation.InvalidCard">
             <summary>
-            
+            Card can not be used.  This may be because the player was not dealt the card.
             </summary>
         </member>
         <member name="F:Skunked.Exceptions.InvalidCribbageOperation.InvalidStateForCount">
             <summary>
-            
+            The hand can not be counted in the current state of the game.
             </summary>
         </member>
         <member name="F:Skunked.Exceptions.InvalidCribbageOperation.InvalidStateForCribCount">
             <summary>
-            
+            The crib can not be counted in the current state of the game.
             </summary>
         </member>
         <member name="F:Skunked.Exceptions.InvalidCribbageOperation.InvalidShowCount">
             <summary>
-            
+            The player announced a score that was not possible with the given hand.
             </summary>
         </member>
         <member name="F:Skunked.Exceptions.InvalidCribbageOperation.PlayerHasAlreadyCounted">
             <summary>
-            
-            </summary>
-        </member>
-        <member name="F:Skunked.Exceptions.InvalidCribbageOperation.GameFinished">
-            <summary>
-            
+            The player has already counted their hand in this round.
             </summary>
         </member>
         <member name="F:Skunked.Exceptions.InvalidCribbageOperation.InvalidRequest">
             <summary>
-            
+            The parameters of the game were violated.
+            </summary>
+        </member>
+        <member name="T:Skunked.Game.GameRunner">
+            <summary>
+            Runs a game of cribbage with the given player strategies provided.
+            Used for testing, AI comparison, or any other need to run through many games automatically.
             </summary>
         </member>
         <member name="M:Skunked.Game.GameRunner.#ctor(Skunked.Cards.Deck)">
             <summary>
-            Synchronous Game of Cribbage
+            Initializes a new instance of the <see cref="T:Skunked.Game.GameRunner"/> class.
             </summary>
-            <param name="deck"></param>
+            <param name="deck">The deck to use.</param>
+        </member>
+        <member name="T:Skunked.Players.IGameRunnerPlayer">
+            <summary>
+            An interface to implement an automated player's decisions.
+            </summary>
+        </member>
+        <member name="P:Skunked.Players.IGameRunnerPlayer.Id">
+            <summary>
+            Gets the id of the player.
+            </summary>
         </member>
         <member name="M:Skunked.Players.IGameRunnerPlayer.DetermineCardsToThrow(System.Collections.Generic.IEnumerable{Skunked.Cards.Card})">
             <summary>
-            Deal Hand and return cards that will go back in crib
+            Deal Hand and return cards that will go back in crib.
             </summary>
-            <param name="hand"></param>
+            <param name="hand">The set of cards dealt to the player.</param>
             <returns>Set of Cards to throw in crib.</returns>
+        </member>
+        <member name="M:Skunked.Players.IGameRunnerPlayer.DetermineCardsToPlay(Skunked.Rules.GameRules,System.Collections.Generic.List{Skunked.Cards.Card},System.Collections.Generic.List{Skunked.Cards.Card})">
+            <summary>
+            Determine card to throw to play pile.
+            </summary>
+            <param name="gameRules">The rules of the game.</param>
+            <param name="pile">Cards currently in the pile.</param>
+            <param name="handLeft">Cards not yet played from hand.</param>
+            <returns>The card to throw to the pile.</returns>
+        </member>
+        <member name="M:Skunked.Players.IGameRunnerPlayer.CutCards(System.Collections.Generic.IEnumerable{Skunked.Cards.Card})">
+             <summary>
+            
+             </summary>
+             <param name="cardsToChoose">e</param>
+             <returns></returns>
+        </member>
+        <member name="M:Skunked.Players.IGameRunnerPlayer.CountHand(Skunked.Cards.Card,System.Collections.Generic.IEnumerable{Skunked.Cards.Card})">
+            <summary>
+            Count the score with the given hand and starter starter.
+            </summary>
+            <param name="starter">The starter card or cut.</param>
+            <param name="hand">The player's hand.</param>
+            <returns>The </returns>
         </member>
         <member name="T:Skunked.Players.PlayerHand">
             <summary>
-            A player id and their hand
+            A player id and their hand.
             </summary>
         </member>
         <member name="M:Skunked.Players.PlayerHand.#ctor(System.Int32,System.Collections.Generic.List{Skunked.Cards.Card})">
             <summary>
-            Initializes a new instance of PlayerHand with the player's id and their hand.
+            Initializes a new instance of the <see cref="T:Skunked.Players.PlayerHand"/> class.
             </summary>
-            <param name="playerId"></param>
+            <param name="playerId">The id of the player.</param>
             <param name="hand"></param>
+        </member>
+        <member name="P:Skunked.Players.PlayerHand.PlayerId">
+            <summary>
+            Gets the id of the player.
+            </summary>
+        </member>
+        <member name="P:Skunked.Players.PlayerHand.Hand">
+            <summary>
+            Gets the hand of the player.
+            </summary>
         </member>
         <member name="T:Skunked.Rules.GameRules">
             <summary>
             Set of Cribbage rules.
             </summary>
         </member>
-        <member name="P:Skunked.Rules.GameRules.NumberOfPlayers">
+        <member name="M:Skunked.Rules.GameRules.#ctor">
             <summary>
-            Number of players
+            Initializes a new instance of the <see cref="T:Skunked.Rules.GameRules"/> class.
             </summary>
+        </member>
+        <member name="M:Skunked.Rules.GameRules.#ctor(Skunked.Rules.WinningScoreType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Rules.GameRules"/> class.
+            </summary>
+            <param name="winningScore"></param>
         </member>
         <member name="P:Skunked.Rules.GameRules.WinningScore">
             <summary>
-            The score a player needs to reach first to win the game.
-            </summary>
-        </member>
-        <member name="P:Skunked.Rules.GameRules.DealSize">
-            <summary>
-            Size of initial hand that dealer gives to each player
+            Gets the score a player needs to reach first to win the game.
             </summary>
         </member>
         <member name="P:Skunked.Rules.GameRules.HandSize">
             <summary>
-            Size of hand after throwing cards to crib.
+            Gets size of hand after throwing cards to crib.
             </summary>
+        </member>
+        <member name="M:Skunked.Rules.GameRules.GetDealSize(System.Int32)">
+            <summary>
+            Gets size of initial hand that dealer gives to each player.
+            </summary>
+            <param name="numberOfPlayers">Number of players.</param>
+            <returns>Number of cards to be dealt to each player.</returns>
         </member>
         <member name="T:Skunked.Rules.GameRules.Points">
             <summary>
-            
+            The points scored for all combinations.
             </summary>
         </member>
         <member name="P:Skunked.Rules.GameRules.Points.Go">
             <summary>
-            Points for laying the last card in a play where the count is under 31.
+            Gets points for laying the last card in a play where the count is under 31.
             </summary>
         </member>
         <member name="P:Skunked.Rules.GameRules.Points.MaxPlayCount">
             <summary>
-            Max count a play can reach before starting a new play.
+            Gets max count a play can reach before starting a new play.
             </summary>
         </member>
         <member name="P:Skunked.Rules.GameRules.Points.Fifteen">
             <summary>
-            Combination of two or more cards totaling exactly fifteen
+            Gets combination of two or more cards totaling exactly fifteen.
             </summary>
         </member>
         <member name="P:Skunked.Rules.GameRules.Points.Nibs">
             <summary>
-            Jack is cut as the starter card. Points are awarded to dealer.
+            Gets jack is cut as the starter card. Points are awarded to dealer.
             </summary>
         </member>
         <member name="P:Skunked.Rules.GameRules.Points.Nobs">
             <summary>
-            One point for holding the Jack of the same suit as the starter card
+            Gets one point for holding the Jack of the same suit as the starter card.
             </summary>
         </member>
         <member name="P:Skunked.Rules.GameRules.Points.Pair">
             <summary>
-            Two cards of a kind
+            Gets two cards of a kind.
             </summary>
         </member>
         <member name="P:Skunked.Rules.GameRules.Points.PairRoyal">
             <summary>
-            Three cards of a kind
+            Gets three cards of a kind.
             </summary>
         </member>
         <member name="P:Skunked.Rules.GameRules.Points.DoublePairRoyal">
             <summary>
-            Four cards of a kind
+            Gets four cards of a kind.
             </summary>
         </member>
         <member name="P:Skunked.Rules.GameRules.Points.Flush">
             <summary>
-            All four cards in the hand are of the same suit
+            Gets all four cards in the hand are of the same suit.
             </summary>
         </member>
         <member name="T:Skunked.Rules.WinningScoreType">
@@ -553,13 +1226,15 @@
         </member>
         <member name="T:Skunked.Score.CalculatedResult">
             <summary>
-            Result Calculated
+            Result Calculated.
             </summary>
         </member>
         <member name="M:Skunked.Score.CalculatedResult.#ctor(Skunked.Score.CalculatedPoints,Skunked.Score.CalculatedCombinations)">
             <summary>
-            Result Calculated
+            Initializes a new instance of the <see cref="T:Skunked.Score.CalculatedResult"/> class.
             </summary>
+            <param name="points"></param>
+            <param name="combinations"></param>
         </member>
         <member name="T:Skunked.Score.CalculatedPoints">
             <summary>
@@ -576,27 +1251,49 @@
             A set of combinations that can score points.
             </summary>
         </member>
-        <member name="M:Skunked.Score.CalculatedCombinations.#ctor(System.Collections.Generic.IList{System.Collections.Generic.IList{Skunked.Cards.Card}},System.Collections.Generic.IList{System.Collections.Generic.IList{Skunked.Cards.Card}},System.Collections.Generic.IList{System.Collections.Generic.IList{Skunked.Cards.Card}},System.Collections.Generic.IList{Skunked.Cards.Card},System.Collections.Generic.IList{Skunked.Cards.Card})">
+        <member name="M:Skunked.Score.CalculatedCombinations.#ctor(System.Collections.Generic.IList{System.Collections.Generic.IList{Skunked.Cards.Card}},System.Collections.Generic.IList{System.Collections.Generic.IList{Skunked.Cards.Card}},System.Collections.Generic.IList{System.Collections.Generic.IList{Skunked.Cards.Card}},System.Collections.Generic.IList{Skunked.Cards.Card},Skunked.Cards.Card)">
             <summary>
             A set of combinations that can score points.
             </summary>
         </member>
         <member name="T:Skunked.Score.ComboPossibleScores">
             <summary>
-            Couple a set of cards with all of the possible scoring outcomes for that combo
+            Couple a set of cards with all of the possible scoring outcomes for that combo.
+            </summary>
+        </member>
+        <member name="M:Skunked.Score.ComboPossibleScores.#ctor(System.Collections.Generic.IEnumerable{Skunked.Cards.Card},System.Collections.Generic.IEnumerable{Skunked.Score.ScoreWithCut})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Score.ComboPossibleScores"/> class.
+            </summary>
+            <param name="combo">The combination of cards.</param>
+            <param name="possibleScores">Possible scores.</param>
+        </member>
+        <member name="P:Skunked.Score.ComboPossibleScores.Combo">
+            <summary>
+            The given combination of cards.
+            </summary>
+        </member>
+        <member name="P:Skunked.Score.ComboPossibleScores.PossibleScores">
+            <summary>
+            Possible scores given the combination and the starter.
             </summary>
         </member>
         <member name="T:Skunked.Score.ScoreCalculator">
             <summary>
-            Calculates points scored in shows and plays
+            Calculates points scored in shows and plays.
+            </summary>
+        </member>
+        <member name="M:Skunked.Score.ScoreCalculator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Score.ScoreCalculator"/> class.
             </summary>
         </member>
         <member name="M:Skunked.Score.ScoreCalculator.CountCut(Skunked.Cards.Card)">
             <summary>
-            Check cut card for dealer
+            Check cut card for dealer.
             </summary>
-            <param name="cut"></param>
-            <returns></returns>
+            <param name="cut">The cut card.</param>
+            <returns>Points to the dealer for the cut card.</returns>
         </member>
         <member name="M:Skunked.Score.ScoreCalculator.CountShowPoints(Skunked.Cards.Card,System.Collections.Generic.IEnumerable{Skunked.Cards.Card},System.Boolean)">
             <summary>
@@ -605,118 +1302,343 @@
             <param name="starterCard">The starter card.</param>
             <param name="playerHand">Cards in the players hand.</param>
             <param name="isCrib">A crib is being scored.</param>
-            <returns></returns>
+            <returns>The calculated result of points earned.</returns>
         </member>
-        <member name="M:Skunked.Score.ScoreCalculator.CountFifteens(System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.List{System.Collections.Generic.IList{Skunked.Cards.Card}}})">
+        <member name="M:Skunked.Score.ScoreCalculator.CountPlayPoints(System.Collections.Generic.IList{Skunked.Cards.Card})">
+            <summary>
+            Count the points in the pile.
+            </summary>
+            <param name="pile">The current pile.</param>
+            <returns>The points in the pile.</returns>
+        </member>
+        <member name="M:Skunked.Score.ScoreCalculator.FindFifteens(System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.List{System.Collections.Generic.IList{Skunked.Cards.Card}}})">
             <summary>
             Returns collection of all unique sets of cards that add up to 15.
             </summary>
-            <param name="combinationsToCount"></param>
-            <returns></returns>
+            <param name="combinationsToCount">Lookup of all card combinations by permutation count.</param>
+            <returns>List of all 15 combinations.</returns>
         </member>
-        <member name="M:Skunked.Score.ScoreCalculator.CountFlush(System.Collections.Generic.List{Skunked.Cards.Card},Skunked.Cards.Card)">
+        <member name="M:Skunked.Score.ScoreCalculator.FindFlush(System.Collections.Generic.List{Skunked.Cards.Card},Skunked.Cards.Card)">
             <summary>
             All four cards in the hand are of the same suit.
             </summary>
-            <param name="playersHand"></param>
-            <param name="starterCard"></param>
-            <returns></returns>
+            <param name="playersHand">The players hand.</param>
+            <param name="starterCard">The starter card.</param>
+            <returns>List of cards that make a flush or null if no flush found.</returns>
         </member>
-        <member name="M:Skunked.Score.ScoreCalculator.CountPairs(System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.List{System.Collections.Generic.IList{Skunked.Cards.Card}}})">
+        <member name="M:Skunked.Score.ScoreCalculator.FindPairs(System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.List{System.Collections.Generic.IList{Skunked.Cards.Card}}})">
             <summary>
-            A pair of cards of a kind
+            A pair of cards of a kind.
             </summary>
-            <param name="combinationsToCheck"></param>
+            <param name="combinations">Lookup of all card combinations by permutation count.</param>
             <returns>Returns all pairs found.</returns>
         </member>
-        <member name="M:Skunked.Score.ScoreCalculator.CountRuns(System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.List{System.Collections.Generic.IList{Skunked.Cards.Card}}})">
+        <member name="M:Skunked.Score.ScoreCalculator.FindRuns(System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.List{System.Collections.Generic.IList{Skunked.Cards.Card}}})">
             <summary>
-            Three consecutive cards (regardless of suit)
+            Find all unique runs of 3, 4, or 5 cards.
             </summary>
-            <param name="combinationsToCount"></param>
-            <returns></returns>
+            <param name="combinations">Lookup of all card combinations by permutation count.</param>
+            <returns>Set of all combinations of runs.</returns>
         </member>
-        <member name="M:Skunked.Score.ScoreCalculator.Nobs(System.Collections.Generic.IEnumerable{Skunked.Cards.Card},Skunked.Cards.Card)">
+        <member name="M:Skunked.Score.ScoreCalculator.FindNobs(System.Collections.Generic.IEnumerable{Skunked.Cards.Card},Skunked.Cards.Card)">
             <summary>
             When the Jack of the same suit matches the starter card.
             </summary>
-            <param name="cards"></param>
-            <param name="starterCard"></param>
-            <returns></returns>
+            <param name="cards">Player's hand.</param>
+            <param name="starterCard">The starter or the cut.</param>
+            <returns>The Nob.</returns>
         </member>
         <member name="M:Skunked.Score.ScoreCalculator.IsFifteen(System.Collections.Generic.IList{Skunked.Cards.Card})">
             <summary>
-             Separate combination of two or more cards totaling exactly fifteen
+             Separate combination of two or more cards totaling exactly fifteen.
             </summary>
-            <param name="cards"></param>
-            <returns></returns>
+            <param name="set">Set of cards to check.</param>
+            <returns>True of set adds up to 15.</returns>
+        </member>
+        <member name="M:Skunked.Score.ScoreCalculator.SumValues(System.Collections.Generic.IEnumerable{Skunked.Cards.Card})">
+            <summary>
+            Sum of the value of the cards.
+            </summary>
+            <param name="set">Set of cards to sum.</param>
+            <returns>The sum of the values.</returns>
+        </member>
+        <member name="M:Skunked.Score.ScoreCalculator.IsSameKind(System.Collections.Generic.IEnumerable{Skunked.Cards.Card})">
+            <summary>
+            Check if cards are all of same kind..
+            </summary>
+            <param name="set">Set of cards to check.</param>
+            <returns>True of all cards are of the same kind.</returns>
         </member>
         <member name="M:Skunked.Score.ScoreCalculator.IsRun(System.Collections.Generic.IList{Skunked.Cards.Card})">
             <summary>
-            Three or more consecutive cards (regardless of suit)
+            Three or more consecutive cards (regardless of suit).
             </summary>
-            <param name="combo"></param>
-            <returns></returns>
+            <param name="set">The set of cards.</param>
+            <returns>True if the cards form a run.</returns>
         </member>
-        <member name="M:Skunked.Score.ScoreCalculator.GetCombinations(System.Collections.Generic.IList{Skunked.Cards.Card})">
+        <member name="M:Skunked.Score.ScoreCalculator.IsContinuous(System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            Check if the value are continuous.
+            </summary>
+            <param name="values">The set of values.</param>
+            <returns>True if all the values in set are continuous.</returns>
+        </member>
+        <member name="M:Skunked.Score.ScoreCalculator.GetCombinations``1(System.Collections.Generic.IList{``0})">
             <summary>
             Dictionary of the combinations.  The key is "k" in k-combination combinatorial mathematics. Zero is not calculated.
-            The Value is the set of the combination sets
+            The Value is the set of the combination sets.
             </summary>
-            <param name="sourceSet"></param>
-            <returns></returns>
+            <typeparam name="T">The type of class to find combinations.</typeparam>
+            <param name="source">The set of cards.</param>
+            <returns>A dictionary where the key is the number of combinations.</returns>
+        </member>
+        <member name="T:Skunked.Score.ScoreWithCut">
+            <summary>
+            Represents a starter card and a score.
+            </summary>
         </member>
         <member name="T:Skunked.Utility.EnumHelper">
             <summary>
-            Various enum helper functions.
+            Set of enum helper functions.
             </summary>
         </member>
         <member name="M:Skunked.Utility.EnumHelper.GetValues``1">
             <summary>
-            Returns all values of an enumeration
+            Returns all values of an enumeration.
             </summary>
-            <typeparam name="T">The enum type to enumerate</typeparam>
-            <returns>Returns all values of an enumeration</returns>
+            <typeparam name="T">The enum type to enumerate.</typeparam>
+            <returns>Returns all values of an enumeration.</returns>
+        </member>
+        <member name="T:Skunked.Utility.GameStateExtensions">
+            <summary>
+            Set of convenience methods to aggregate state from GameState.
+            </summary>
+        </member>
+        <member name="M:Skunked.Utility.GameStateExtensions.IsGameFinished(Skunked.Domain.State.GameState)">
+            <summary>
+            If the game finished.
+            </summary>
+            <param name="game"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Skunked.Utility.GameStateExtensions.GetCurrentRound(Skunked.Domain.State.GameState)">
+            <summary>
+            Get the current round.
+            </summary>
+            <param name="game">The game state.</param>
+            <returns>The current round.</returns>
+        </member>
+        <member name="M:Skunked.Utility.GameStateExtensions.GetNextPlayerFrom(Skunked.Domain.State.GameState,System.Int32)">
+            <summary>
+            Get the next player after the given playerId in the rotation.
+            </summary>
+            <param name="gameState">The game state.</param>
+            <param name="playerId">The id of the player.</param>
+            <returns></returns>
         </member>
         <member name="T:Skunked.Utility.LinqExtended">
             <summary>
             Functionally similar projections as LINQ library.
             </summary>
         </member>
+        <member name="M:Skunked.Utility.LinqExtended.Cartesian``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,``2})">
+            <summary>
+            Returns the Cartesian product of two sequences by enumerating all
+            possible combinations of one item from each sequence, and applying
+            a user-defined projection to the items in a given combination.
+            </summary>
+            <typeparam name="T1">
+            The type of the elements of <paramref name="first"/>.</typeparam>
+            <typeparam name="T2">
+            The type of the elements of <paramref name="second"/>.</typeparam>
+            <typeparam name="TResult">
+            The type of the elements of the result sequence.</typeparam>
+            <param name="first">The first sequence of elements.</param>
+            <param name="second">The second sequence of elements.</param>
+            <param name="resultSelector">A projection function that combines
+            elements from all of the sequences.</param>
+            <returns>A sequence of elements returned by
+            <paramref name="resultSelector"/>.</returns>
+            <remarks>
+            <para>
+            The method returns items in the same order as a nested foreach
+            loop, but all sequences except for <paramref name="first"/> are
+            cached when iterated over. The cache is then re-used for any
+            subsequent iterations.</para>
+            <para>
+            This method uses deferred execution and stream its results.</para>
+            </remarks>
+        </member>
         <member name="M:Skunked.Utility.LinqExtended.Shuffle``1(System.Collections.Generic.IList{``0})">
             <summary>
             Randomly rearrange the set of items.
             </summary>
-            <param name="list"></param>
-            <typeparam name="T"></typeparam>
+            <param name="source">IList to shuffle.</param>
+            <typeparam name="T">The type of source sequence elements.</typeparam>
         </member>
         <member name="M:Skunked.Utility.LinqExtended.Shuffle``1(System.Collections.Generic.IList{``0},System.Random)">
             <summary>
             Randomly rearrange the set of items using the given random generator.
             </summary>
-            <param name="list"></param>
-            <param name="random">Random number generator to be used in shuffle.</param>
-            <typeparam name="T"></typeparam>        
+            <param name="source">IList to shuffle.</param>
+            <param name="random">A random generator used as part of the selection algorithm.</param>
+            <typeparam name="T">The type of source sequence elements.</typeparam>
+        </member>
+        <member name="M:Skunked.Utility.LinqExtended.NextOf``1(System.Collections.Generic.IList{``0},``0)">
+            <summary>
+            The list goes round and round and this returns the next item after the given item.
+            </summary>
+            <typeparam name="T">Type of item in the list.</typeparam>
+            <param name="list">The source list.</param>
+            <param name="item">The item to find next from.</param>
+            <returns>The found item.</returns>
+        </member>
+        <member name="M:Skunked.Utility.LinqExtended.MinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+            Returns the minimal elements of the given sequence, based on
+            the given projection.
+            </summary>
+            <remarks>
+            This overload uses the default comparer for the projected type.
+            This operator uses deferred execution. The results are evaluated
+            and cached on first use to returned sequence.
+            </remarks>
+            <typeparam name="TSource">Type of the source sequence.</typeparam>
+            <typeparam name="TKey">Type of the projected element.</typeparam>
+            <param name="source">Source sequence.</param>
+            <param name="selector">Selector to use to pick the results to compare.</param>
+            <returns>The sequence of minimal elements, according to the projection.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="source"/> or <paramref name="selector"/> is null.</exception>
+        </member>
+        <member name="M:Skunked.Utility.LinqExtended.MinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
+            <summary>
+            Returns the minimal elements of the given sequence, based on
+            the given projection and the specified comparer for projected values.
+            </summary>
+            <remarks>
+            This operator uses deferred execution. The results are evaluated
+            and cached on first use to returned sequence.
+            </remarks>
+            <typeparam name="TSource">Type of the source sequence.</typeparam>
+            <typeparam name="TKey">Type of the projected element.</typeparam>
+            <param name="source">Source sequence.</param>
+            <param name="selector">Selector to use to pick the results to compare.</param>
+            <param name="comparer">Comparer to use to compare projected values.</param>
+            <returns>The sequence of minimal elements, according to the projection.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="source"/>, <paramref name="selector"/>
+            or <paramref name="comparer"/> is null.</exception>
+        </member>
+        <member name="M:Skunked.Utility.LinqExtended.MaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+            Returns the maximal elements of the given sequence, based on
+            the given projection.
+            </summary>
+            <remarks>
+            This overload uses the default comparer  for the projected type.
+            This operator uses deferred execution. The results are evaluated
+            and cached on first use to returned sequence.
+            </remarks>
+            <typeparam name="TSource">Type of the source sequence.</typeparam>
+            <typeparam name="TKey">Type of the projected element.</typeparam>
+            <param name="source">Source sequence.</param>
+            <param name="selector">Selector to use to pick the results to compare.</param>
+            <returns>The sequence of maximal elements, according to the projection.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="source"/> or <paramref name="selector"/> is null.</exception>
+        </member>
+        <member name="M:Skunked.Utility.LinqExtended.MaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
+            <summary>
+            Returns the maximal elements of the given sequence, based on
+            the given projection and the specified comparer for projected values.
+            </summary>
+            <remarks>
+            This operator uses deferred execution. The results are evaluated
+            and cached on first use to returned sequence.
+            </remarks>
+            <typeparam name="TSource">Type of the source sequence.</typeparam>
+            <typeparam name="TKey">Type of the projected element.</typeparam>
+            <param name="source">Source sequence.</param>
+            <param name="selector">Selector to use to pick the results to compare.</param>
+            <param name="comparer">Comparer to use to compare projected values.</param>
+            <returns>The sequence of maximal elements, according to the projection.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="source"/>, <paramref name="selector"/>
+            or <paramref name="comparer"/> is null.</exception>
+        </member>
+        <member name="M:Skunked.Utility.LinqExtended.TakeEvery``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
+            <summary>
+            Returns every N-th element of a sequence.
+            </summary>
+            <typeparam name="TSource">Type of the source sequence.</typeparam>
+            <param name="source">Source sequence.</param>
+            <param name="step">Number of elements to bypass before returning the next element.</param>
+            <returns>
+            A sequence with every N-th element of the input sequence.
+            </returns>
+            <remarks>
+            This operator uses deferred execution and streams its results.
+            </remarks>
+            <example>
+            <code><![CDATA[
+            int[] numbers = { 1, 2, 3, 4, 5 };
+            var result = numbers.TakeEvery(2);
+            ]]></code>
+            The <c>result</c> variable, when iterated over, will yield 1, 3 and 5, in turn.
+            </example>
+        </member>
+        <member name="M:Skunked.Utility.LinqExtended.DistinctBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+            Returns all distinct elements of the given source, where "distinctness"
+            is determined via a projection and the default equality comparer for the projected type.
+            </summary>
+            <remarks>
+            This operator uses deferred execution and streams the results, although
+            a set of already-seen keys is retained. If a key is seen multiple times,
+            only the first element with that key is returned.
+            </remarks>
+            <typeparam name="TSource">Type of the source sequence.</typeparam>
+            <typeparam name="TKey">Type of the projected element.</typeparam>
+            <param name="source">Source sequence.</param>
+            <param name="keySelector">Projection for determining "distinctness".</param>
+            <returns>A sequence consisting of distinct elements from the source sequence,
+            comparing them by the specified key projection.</returns>
+        </member>
+        <member name="M:Skunked.Utility.LinqExtended.DistinctBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``1})">
+            <summary>
+            Returns all distinct elements of the given source, where "distinctness"
+            is determined via a projection and the specified comparer for the projected type.
+            </summary>
+            <remarks>
+            This operator uses deferred execution and streams the results, although
+            a set of already-seen keys is retained. If a key is seen multiple times,
+            only the first element with that key is returned.
+            </remarks>
+            <typeparam name="TSource">Type of the source sequence.</typeparam>
+            <typeparam name="TKey">Type of the projected element.</typeparam>
+            <param name="source">Source sequence.</param>
+            <param name="keySelector">Projection for determining "distinctness".</param>
+            <param name="comparer">The equality comparer to use to determine whether or not keys are equal.
+            If null, the default equality comparer for <c>TSource</c> is used.</param>
+            <returns>A sequence consisting of distinct elements from the source sequence,
+            comparing them by the specified key projection.</returns>
         </member>
         <member name="T:Skunked.Utility.RandomProvider">
             <summary>
             Thread Safe Implementation of a Random class provider by Jon Skeet
-            http://csharpindepth.com/Articles/Chapter12/Random.aspx
+            http://csharpindepth.com/Articles/Chapter12/Random.aspx .
             </summary>
         </member>
         <member name="M:Skunked.Utility.RandomProvider.#cctor">
             <summary>
-            Initialize static 
+            Initializes static members of the <see cref="T:Skunked.Utility.RandomProvider"/> class.
+            </summary>
+        </member>
+        <member name="P:Skunked.Utility.RandomProvider.RandomInstance">
+            <summary>
+            Sets for Testing purposes only.
             </summary>
         </member>
         <member name="M:Skunked.Utility.RandomProvider.ResetInstance">
             <summary>
             Restart instance of random generator.
-            </summary>
-        </member>
-        <member name="P:Skunked.Utility.RandomProvider.RandomInstance">
-            <summary>
-            For Testing purposes only
             </summary>
         </member>
     </members>

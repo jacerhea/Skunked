@@ -19,54 +19,72 @@ namespace Skunked.Domain.State
     {
         private readonly ScoreCalculator _scoreCalculator;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GameStateBuilder"/> class.
+        /// </summary>
         public GameStateBuilder()
         {
             _scoreCalculator = new ScoreCalculator();
         }
 
-        public void Handle(GameStartedEvent startedEvent, GameState gameState)
+        /// <summary>
+        /// Handle cref="GameStartedEvent" event.
+        /// </summary>
+        /// <param name="streamEvent">Event to handle.</param>
+        /// <param name="gameState">The game state.</param>
+        public void Handle(GameStartedEvent streamEvent, GameState gameState)
         {
             var deck = new Deck().ToList();
-            gameState.Id = startedEvent.GameId;
-            gameState.GameRules = startedEvent.Rules;
-            gameState.StartedAt = startedEvent.Occurred;
-            gameState.LastUpdated = startedEvent.Occurred;
+            gameState.Id = streamEvent.GameId;
+            gameState.GameRules = streamEvent.Rules;
+            gameState.StartedAt = streamEvent.Occurred;
+            gameState.LastUpdated = streamEvent.Occurred;
             gameState.OpeningRound = new OpeningRound
             {
                 Deck = deck,
                 Complete = false,
                 CutCards = new List<PlayerIdCard>(),
-                WinningPlayerCut = null
+                WinningPlayerCut = null,
             };
-            gameState.IndividualScores = new List<PlayerScore>(startedEvent.Players.Select(player => new PlayerScore { Player = player, Score = 0 }));
-            gameState.PlayerIds = startedEvent.Players.ToList();
-            gameState.TeamScores = startedEvent.Players.Count == 2
-                ? startedEvent.Players.Select(p => new TeamScore { Players = new List<int> { p } }).ToList()
+            gameState.IndividualScores = new List<PlayerScore>(streamEvent.Players.Select(player => new PlayerScore { Player = player, Score = 0 }));
+            gameState.PlayerIds = streamEvent.Players.ToList();
+            gameState.TeamScores = streamEvent.Players.Count == 2
+                ? streamEvent.Players.Select(p => new TeamScore { Players = new List<int> { p } }).ToList()
                 : new List<TeamScore>
                 {
-                    new() {Players = new List<int> {startedEvent.Players[0], startedEvent.Players[2]}},
-                    new() {Players = new List<int> {startedEvent.Players[1], startedEvent.Players[3]}}
+                    new () { Players = new List<int> { streamEvent.Players[0], streamEvent.Players[2] } },
+                    new () { Players = new List<int> { streamEvent.Players[1], streamEvent.Players[3] } },
                 };
             gameState.Rounds = new List<RoundState>();
         }
 
-        public void Handle(DeckShuffledEvent deckShuffledEvent, GameState gameState)
+        /// <summary>
+        /// Handle cref="DeckShuffledEvent" event.
+        /// </summary>
+        /// <param name="streamEvent">Event to handle.</param>
+        /// <param name="gameState">The game state.</param>
+        public void Handle(DeckShuffledEvent streamEvent, GameState gameState)
         {
             if (!gameState.OpeningRound.Complete)
             {
-                gameState.OpeningRound.Deck = deckShuffledEvent.Deck;
+                gameState.OpeningRound.Deck = streamEvent.Deck;
             }
             else
             {
                 var currentRound = gameState.GetCurrentRound();
                 currentRound.PreRound = currentRound.PreRound ?? new PreRound();
-                currentRound.PreRound.Deck = deckShuffledEvent.Deck;
+                currentRound.PreRound.Deck = streamEvent.Deck;
             }
         }
 
-        public void Handle(CardCutEvent cardCutEvent, GameState gameState)
+        /// <summary>
+        /// Handle cref="CardCutEvent" event.
+        /// </summary>
+        /// <param name="streamEvent">Event to handle.</param>
+        /// <param name="gameState">The game state.</param>
+        public void Handle(CardCutEvent streamEvent, GameState gameState)
         {
-            gameState.OpeningRound.CutCards.Add(new PlayerIdCard { Player = cardCutEvent.PlayerId, Card = new Card(cardCutEvent.CutCard) });
+            gameState.OpeningRound.CutCards.Add(new PlayerIdCard { Player = streamEvent.PlayerId, Card = new Card(streamEvent.CutCard) });
 
             bool isDone = gameState.PlayerIds.Count == gameState.OpeningRound.CutCards.Count;
             gameState.OpeningRound.Complete = isDone;
@@ -78,7 +96,12 @@ namespace Skunked.Domain.State
             }
         }
 
-        public void Handle(RoundStartedEvent roundStartedEvent, GameState gameState)
+        /// <summary>
+        /// Handle cref="RoundStartedEvent" event.
+        /// </summary>
+        /// <param name="streamEvent">Event to handle.</param>
+        /// <param name="gameState">The game state.</param>
+        public void Handle(RoundStartedEvent streamEvent, GameState gameState)
         {
             var playerShowScores = new List<PlayerScoreShow>(gameState.PlayerIds.Select(player => new PlayerScoreShow { CribScore = null, HasShowed = false, Player = player, PlayerCountedShowScore = 0, ShowScore = 0 }));
 
@@ -101,124 +124,154 @@ namespace Skunked.Domain.State
                 Complete = false,
                 PlayerCrib = cribPlayerId,
                 Hands = new List<PlayerHand>(),
-                ThePlay = new List<List<PlayItem>> { new() },
+                ThePlay = new List<List<PlayItem>> { new () },
                 Round = currentRound + 1,
-                ShowScores = playerShowScores
+                ShowScores = playerShowScores,
             };
 
             gameState.Rounds.Add(roundState);
         }
 
-        public void Handle(HandsDealtEvent handsDealtEvent, GameState gameState)
+        /// <summary>
+        /// Handle cref="HandsDealtEvent" event.
+        /// </summary>
+        /// <param name="streamEvent">Event to handle.</param>
+        /// <param name="gameState">The game state.</param>
+        public void Handle(HandsDealtEvent streamEvent, GameState gameState)
         {
             var round = gameState.GetCurrentRound();
-            round.DealtCards = handsDealtEvent.Hands;
+            round.DealtCards = streamEvent.Hands;
         }
 
-        public void Handle(CardsThrownEvent cardsThrownEvent, GameState gameState)
+        /// <summary>
+        /// Handle cref="CardsThrownEvent" event.
+        /// </summary>
+        /// <param name="streamEvent">Event to handle.</param>
+        /// <param name="gameState"></param>
+        public void Handle(CardsThrownEvent streamEvent, GameState gameState)
         {
             var currentRound = gameState.GetCurrentRound();
 
-            //remove thrown cards from hand
-            var playerId = cardsThrownEvent.PlayerId;
-            var playerHand = currentRound.DealtCards.Single(ph => ph.PlayerId == playerId).Hand.Except(cardsThrownEvent.Thrown);
+            // remove thrown cards from hand
+            var playerId = streamEvent.PlayerId;
+            var playerHand = currentRound.DealtCards.Single(ph => ph.PlayerId == playerId).Hand.Except(streamEvent.Thrown);
             currentRound.Hands.Add(new PlayerHand(playerId, playerHand.ToList()));
 
-            currentRound.Crib.AddRange(cardsThrownEvent.Thrown);
+            currentRound.Crib.AddRange(streamEvent.Thrown);
 
             var playersDoneThrowing = gameState.GetCurrentRound().Crib.Count == GameRules.HandSize;
             currentRound.ThrowCardsComplete = playersDoneThrowing;
         }
 
-        public void Handle(StarterCardSelectedEvent starterCardSelected, GameState gameState)
+        /// <summary>
+        /// Handle cref="StarterCardSelectedEvent" event.
+        /// </summary>
+        /// <param name="streamEvent">Event to handle.</param>
+        /// <param name="gameState"></param>
+        public void Handle(StarterCardSelectedEvent streamEvent, GameState gameState)
         {
             var currentRound = gameState.GetCurrentRound();
             var dealerId = currentRound.PlayerCrib;
             var playerScore = gameState.IndividualScores.Single(ps => ps.Player == dealerId);
             var team = gameState.TeamScores.Single(t => t.Players.Contains(dealerId));
-            var cutScore = _scoreCalculator.CountCut(starterCardSelected.Starter);
+            var cutScore = _scoreCalculator.CountCut(streamEvent.Starter);
             playerScore.Score += cutScore;
             team.Score += cutScore;
-            currentRound.Starter = starterCardSelected.Starter;
+            currentRound.Starter = streamEvent.Starter;
         }
 
-        public void Handle(CardPlayedEvent cardPlayedEvent, GameState gameState)
+        /// <summary>
+        /// Handle cref="CardPlayedEvent" event.
+        /// </summary>
+        /// <param name="streamEvent">Event to handle.</param>
+        /// <param name="gameState"></param>
+        public void Handle(CardPlayedEvent streamEvent, GameState gameState)
         {
-            //2. Declare round variables
+            // 2. Declare round variables
             var currentRound = gameState.GetCurrentRound();
             var setOfPlays = currentRound.ThePlay;
 
-            //3.  Set new Round before play, if necessary
+            // 3.  Set new Round before play, if necessary
             var currentPlayRound = setOfPlays.Last();
-            //int playCount = _args.ScoreCalculator.SumValues(currentPlayRound.Select(scs => scs.Card).Append(_args.PlayedCard));
-            //if (playCount > GameState.Rules.MaxPlayCount)
-            //{
+            // int playCount = _args.ScoreCalculator.SumValues(currentPlayRound.Select(scs => scs.Card).Append(_args.PlayedCard));
+            // if (playCount > GameState.Rules.MaxPlayCount)
+            // {
             //    var playerPlayItems = new List<PlayerPlayItem>();
             //    setOfPlays.Add(playerPlayItems);
             //    currentPlayRound = playerPlayItems;
-            //}
+            // }
 
-            //4.  Card is played
+            // 4.  Card is played
             var playerCardPlayedScore = new PlayItem
             {
-                Card = new Card(cardPlayedEvent.Played),
-                Player = cardPlayedEvent.PlayerId
+                Card = new Card(streamEvent.Played),
+                Player = streamEvent.PlayerId,
             };
             currentPlayRound.Add(playerCardPlayedScore);
             var playScore = _scoreCalculator.CountPlayPoints(currentPlayRound.Select(psc => psc.Card).ToList());
-            //currentPlayerScore.Score += playScore;
+            // currentPlayerScore.Score += playScore;
 
-            //create new round
+            // create new round
             var playedCards = setOfPlays.SelectMany(c => c).Select(spc => spc.Card);
             var playsLeft = gameState.GetCurrentRound().Hands.SelectMany(kv => kv.Hand).Except(playedCards);
             if (playsLeft.All(c => _scoreCalculator.SumValues(currentPlayRound.Select(spc => spc.Card).Append(c)) > GameRules.Points.MaxPlayCount))
             {
-                //add Go Value.  not counted if 31 as was included with ScoreCalculation.CountThePlay
+                // add Go Value.  not counted if 31 as was included with ScoreCalculation.CountThePlay
                 int playCountNew = _scoreCalculator.SumValues(currentPlayRound.Select(ppi => ppi.Card));
                 playerCardPlayedScore.NewCount = playCountNew;
                 if (playCountNew != GameRules.Points.MaxPlayCount)
                 {
-                    var goValue = _scoreCalculator.GoValue;
+                    var goValue = GameRules.Points.Go;
                     playScore += goValue;
                 }
 
-                //not done playing, so add new play round
+                // not done playing, so add new play round
                 setOfPlays.Add(new List<PlayItem>());
             }
 
-            var currentPlayerScore = gameState.IndividualScores.Single(ps => ps.Player == cardPlayedEvent.PlayerId);
-            var currentTeamScore = gameState.TeamScores.Single(ps => ps.Players.Contains(cardPlayedEvent.PlayerId));
-            playerCardPlayedScore.NextPlayer = FindNextPlayer(gameState, cardPlayedEvent.PlayerId);
+            var currentPlayerScore = gameState.IndividualScores.Single(ps => ps.Player == streamEvent.PlayerId);
+            var currentTeamScore = gameState.TeamScores.Single(ps => ps.Players.Contains(streamEvent.PlayerId));
+            playerCardPlayedScore.NextPlayer = FindNextPlayer(gameState, streamEvent.PlayerId);
             playerCardPlayedScore.Score += playScore;
             currentPlayerScore.Score += playScore;
             currentTeamScore.Score += playScore;
 
-            //5.  Check if done with Play
+            // 5.  Check if done with Play
             bool isDone = setOfPlays.SelectMany(c => c).Select(spc => spc.Card).Count() == gameState.PlayerIds.Count * GameRules.HandSize;
             currentRound.PlayedCardsComplete = isDone;
         }
 
-        public void Handle(HandCountedEvent cardPlayedEvent, GameState gameState)
+        /// <summary>
+        /// Handle cref="HandCountedEvent" event.
+        /// </summary>
+        /// <param name="streamEvent">Event to handle.</param>
+        /// <param name="gameState"></param>
+        public void Handle(HandCountedEvent streamEvent, GameState gameState)
         {
             var roundState = gameState.GetCurrentRound();
             var starterCard = roundState.Starter;
-            var playerHand = roundState.Hands.First(ph => ph.PlayerId == cardPlayedEvent.PlayerId);
+            var playerHand = roundState.Hands.First(ph => ph.PlayerId == streamEvent.PlayerId);
 
             var calculatedShowScore = _scoreCalculator.CountShowPoints(starterCard, playerHand.Hand);
 
-            var playerScore = gameState.IndividualScores.Single(ps => ps.Player == cardPlayedEvent.PlayerId);
-            var teamScore = gameState.TeamScores.Single(ps => ps.Players.Contains(cardPlayedEvent.PlayerId));
-            playerScore.Score += cardPlayedEvent.CountedScore;
-            teamScore.Score += cardPlayedEvent.CountedScore;
+            var playerScore = gameState.IndividualScores.Single(ps => ps.Player == streamEvent.PlayerId);
+            var teamScore = gameState.TeamScores.Single(ps => ps.Players.Contains(streamEvent.PlayerId));
+            playerScore.Score += streamEvent.CountedScore;
+            teamScore.Score += streamEvent.CountedScore;
 
-            var playerShowScore = gameState.GetCurrentRound().ShowScores.Single(pss => pss.Player == cardPlayedEvent.PlayerId);
+            var playerShowScore = gameState.GetCurrentRound().ShowScores.Single(pss => pss.Player == streamEvent.PlayerId);
             playerShowScore.ShowScore = calculatedShowScore.Points.Score;
             playerShowScore.HasShowed = true;
-            playerShowScore.Complete = cardPlayedEvent.PlayerId != roundState.PlayerCrib;
-            playerShowScore.PlayerCountedShowScore = cardPlayedEvent.CountedScore;
+            playerShowScore.Complete = streamEvent.PlayerId != roundState.PlayerCrib;
+            playerShowScore.PlayerCountedShowScore = streamEvent.CountedScore;
         }
 
-        public void Handle(CribCountedEvent cribCountedEvent, GameState gameState)
+        /// <summary>
+        /// Handle cref="CribCountedEvent" event.
+        /// </summary>
+        /// <param name="streamEvent">Event to handle.</param>
+        /// <param name="gameState"></param>
+        public void Handle(CribCountedEvent streamEvent, GameState gameState)
         {
             var currentRound = gameState.GetCurrentRound();
             var starterCard = currentRound.Starter;
@@ -227,29 +280,29 @@ namespace Skunked.Domain.State
             var calculatedCribShowScore = _scoreCalculator.CountShowPoints(starterCard, crib);
 
             var calculatedCribScore = calculatedCribShowScore.Points.Score;
-            //penalty for over counting
+            // penalty for over counting
             var applicableScore = 0;
-            if (cribCountedEvent.CountedScore == calculatedCribScore)
+            if (streamEvent.CountedScore == calculatedCribScore)
             {
                 applicableScore = calculatedCribScore;
             }
-            else if (cribCountedEvent.CountedScore > calculatedCribScore)
+            else if (streamEvent.CountedScore > calculatedCribScore)
             {
-                //todo: fix
-                //var score = calculatedCribScore - ScorePenalty;
-                //applicableScore = score < 0 ? 0 : score;
+                // todo: fix
+                // var score = calculatedCribScore - ScorePenalty;
+                // applicableScore = score < 0 ? 0 : score;
             }
             else
             {
-                applicableScore = cribCountedEvent.CountedScore;
+                applicableScore = streamEvent.CountedScore;
             }
 
-            var playerScore = gameState.IndividualScores.Single(ps => ps.Player == cribCountedEvent.PlayerId);
-            var teamScore = gameState.TeamScores.Single(ps => ps.Players.Contains(cribCountedEvent.PlayerId));
+            var playerScore = gameState.IndividualScores.Single(ps => ps.Player == streamEvent.PlayerId);
+            var teamScore = gameState.TeamScores.Single(ps => ps.Players.Contains(streamEvent.PlayerId));
             playerScore.Score += applicableScore;
             teamScore.Score += applicableScore;
 
-            var playerShowScore = gameState.GetCurrentRound().ShowScores.Single(pss => pss.Player == cribCountedEvent.PlayerId);
+            var playerShowScore = gameState.GetCurrentRound().ShowScores.Single(pss => pss.Player == streamEvent.PlayerId);
             playerShowScore.CribScore = calculatedCribScore;
             playerShowScore.HasShowedCrib = true;
             playerShowScore.Complete = true;
@@ -275,17 +328,17 @@ namespace Skunked.Domain.State
             var playedCards = setOfPlays.SelectMany(c => c).Select(spc => spc.Card).ToList();
             var playerCardPlayedScores = setOfPlays.Last();
 
-            //if round is done
+            // if round is done
             if (playedCards.Count == state.PlayerIds.Count * GameRules.HandSize)
             {
                 return null;
             }
 
-            //move to current player
+            // move to current player
             var currentPlayer = state.PlayerIds.Single(sp => sp == playerId);
             var nextPlayer = state.PlayerIds.NextOf(currentPlayer);
 
-            //move to next player with valid move
+            // move to next player with valid move
             while (true)
             {
                 var nextPlayerAvailableCardsToPlay = roundState.Hands.Single(ph => ph.PlayerId == nextPlayer).Hand.Except(playedCards).ToList();

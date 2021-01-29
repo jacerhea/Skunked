@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using Skunked.Cards;
-using Skunked.Domain.Events;
+using Skunked.Domain.Commands;
 using Skunked.Domain.State;
 using Skunked.Domain.Validations;
 using Skunked.Exceptions;
@@ -42,8 +42,8 @@ namespace Skunked.UnitTest.State.Validations
                 }
             };
 
-            var @event = new HandCountedEvent(state.Id, 1, 1, 300);
-            var validation = new HandCountedEventValidation(new ScoreCalculator());
+            var @event = new CountHandCommand(1, 300);
+            var validation = new CountHandCommandValidation();
             Action validate = () => validation.Validate(state, @event);
             validate.Should().Throw<InvalidCribbageOperationException>()
                 .And.Operation.Should().Be(InvalidCribbageOperation.InvalidShowCount);

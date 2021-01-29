@@ -4,6 +4,7 @@ using System.Linq;
 using Konsole;
 using Skunked.Cards;
 using Skunked.Domain;
+using Skunked.Domain.Commands;
 using Skunked.Domain.Events;
 using Skunked.Domain.State;
 using Skunked.Rules;
@@ -17,23 +18,25 @@ namespace Skunked.ConsoleApp
     {
         static void Main(string[] args)
         {
-            var players = new List<int> { 1, 2 };
+            var player = 1;
+            var ai = 2;
+            var players = new List<int> { player, ai };
             var state = new GameState();
             var stateEventListener = new GameStateEventListener(state, new GameStateBuilder());
             var consoleListener = new ConsoleEventListener(state);
-            var cribbage = new Cribbage(players, new GameRules(WinningScoreType.Standard121, 2), new List<IEventListener> { stateEventListener, consoleListener });
+            var cribbage = new Cribbage(players, new GameRules(WinningScoreType.Standard121), new List<IEventListener> { stateEventListener, consoleListener });
 
             // cut opening round
             foreach (var tuple in players.Select((playerId, index) => (playerId, index)))
             {
-                cribbage.CutCard(tuple.playerId, cribbage.State.OpeningRound.Deck[tuple.index]);
+                cribbage.CutCard(new CutCardCommand(tuple.playerId, cribbage.State.OpeningRound.Deck[tuple.index]));
             }
 
             var readLine = Console.ReadLine();
             var toThrow = readLine.Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(input => int.Parse(input));
-            var userHand = cribbage.State.GetCurrentRound().DealtCards.Single(ph => ph.PlayerId == 1).Hand;
-            cribbage.ThrowCards(1, toThrow.Select(value => userHand[value - 1]));
-            var aiHand = cribbage.State.GetCurrentRound().DealtCards.Single(ph => ph.PlayerId == 2);
+            var userHand = cribbage.State.GetCurrentRound().DealtCards.Single(ph => ph.PlayerId == player).Hand;
+            cribbage.ThrowCards(new ThrowCardsCommand(1, toThrow.Select(value => userHand[value - 1])));
+            var aiHand = cribbage.State.GetCurrentRound().DealtCards.Single(ph => ph.PlayerId == ai);
         }
     }
 
@@ -44,25 +47,25 @@ namespace Skunked.ConsoleApp
         private readonly Dictionary<int, IConsole> _windowLookup;
         private IConsole _ai;
         private IConsole _crib;
+        private Layout _layout = new Layout();
 
         public ConsoleEventListener(GameState gameState)
         {
             _gameState = gameState;
-            var standardHeight = 6;
 
-            _userWindow = Window.OpenBox("You: 0", 40, standardHeight, new BoxStyle()
+            _userWindow = Window.OpenBox("You: 0", _layout.Player1X, _layout.Player1Y, _layout.PlayerWidth, _layout.PlayerHeight, new BoxStyle()
             {
                 ThickNess = LineThickNess.Single,
                 Title = new Colors(White, Red)
             });
 
-            _ai = Window.OpenBox("Computer: 0", 0, 15, 40, standardHeight, new BoxStyle
+            _ai = Window.OpenBox("Computer: 0", _layout.Player2X, _layout.Player2Y, _layout.PlayerWidth, _layout.PlayerHeight, new BoxStyle
             {
                 ThickNess = LineThickNess.Single,
                 Title = new Colors(White, Blue)
             });
 
-            _crib = Window.OpenBox("Crib", 50, 15, 40, standardHeight, new BoxStyle
+            _crib = Window.OpenBox("Crib", _layout.Player2X, _layout.Player2Y, _layout.PlayerWidth, _layout.PlayerHeight, new BoxStyle
             {
                 ThickNess = LineThickNess.Single,
                 Title = new Colors(White, Blue)
@@ -146,6 +149,18 @@ namespace Skunked.ConsoleApp
         private void Handle(RoundStartedEvent @event)
         {
 
+            _crib = Window.OpenBox("                  ", _layout.CribX, _layout.Player1Y, _layout.PlayerWidth, _layout.PlayerHeight, new BoxStyle
+            {
+                ThickNess = LineThickNess.Single,
+                Title = new Colors(Black, Black),
+                Line = new Colors(Black, Black)
+            });
+
+            _crib = Window.OpenBox("Crib", _layout.CribX, _layout.Player1Y, _layout.PlayerWidth, _layout.PlayerHeight, new BoxStyle
+            {
+                ThickNess = LineThickNess.Single,
+                Title = new Colors(White, Red)
+            });
         }
 
         private void Handle(StarterCardSelectedEvent @event)
@@ -169,4 +184,20 @@ namespace Skunked.ConsoleApp
         }
 
     }
+
+
+    public class Layout
+    {
+        public int Player1X { get; set; } = 0;
+        public int Player1Y { get; set; } = 1;
+
+        public int Player2X { get; set; } = 0;
+        public int Player2Y { get; set; } = 15;
+
+        public int CribX { get; set; } = 50;
+
+        public int PlayerHeight { get; set; } = 6;
+        public int PlayerWidth { get; set; } = 40;
+    }
+
 }

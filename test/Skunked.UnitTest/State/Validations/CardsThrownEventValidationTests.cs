@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using Skunked.Cards;
-using Skunked.Domain.Events;
+using Skunked.Domain.Commands;
 using Skunked.Domain.State;
 using Skunked.Domain.Validations;
 using Skunked.Exceptions;
@@ -12,7 +12,7 @@ using Xunit;
 
 namespace Skunked.UnitTest.State.Validations
 {
-    public class CardPlayedEventValidationTests
+    public class CardsThrownEventValidationTests
     {
         [Fact]
         public void Card_Played_With_Throw_Cards_Not_Complete_Should_Throw_Validation_Exception()
@@ -37,9 +37,9 @@ namespace Skunked.UnitTest.State.Validations
                 }
             };
 
-            var @event = new CardPlayedEvent(Guid.NewGuid(), 1, 1, new Card(Rank.Eight, Suit.Clubs));
-            var validation = new CardPlayedEventValidation();
-            Action validate = () => validation.Validate(state, @event);
+            var command = new PlayCardCommand(1, new Card(Rank.Eight, Suit.Clubs));
+            var validation = new PlayCardCommandValidation();
+            Action validate = () => validation.Validate(state, command);
             validate.Should().Throw<InvalidCribbageOperationException>()
                 .And.Operation.Should().Be(InvalidCribbageOperation.InvalidStateForPlay);
         }
@@ -72,9 +72,10 @@ namespace Skunked.UnitTest.State.Validations
                 }
             };
 
-            var @event = new CardPlayedEvent(Guid.NewGuid(), 1, 1, new Card(Rank.Eight, Suit.Clubs));
-            var validation = new CardPlayedEventValidation();
-            Action validate = () => validation.Validate(state, @event);
+            var command = new PlayCardCommand(1, new Card(Rank.Eight, Suit.Clubs));
+
+            var validation = new PlayCardCommandValidation();
+            Action validate = () => validation.Validate(state, command);
             validate.Should().Throw<InvalidCribbageOperationException>()
                 .And.Operation.Should().Be(InvalidCribbageOperation.InvalidStateForPlay);
         }
@@ -108,9 +109,10 @@ namespace Skunked.UnitTest.State.Validations
                 }
             };
 
-            var @event = new CardPlayedEvent(Guid.NewGuid(), 1, 1, new Card(Rank.King, Suit.Diamonds));
-            var validation = new CardPlayedEventValidation();
-            Action validate = () => validation.Validate(state, @event);
+            var command = new PlayCardCommand(1, new Card(Rank.King, Suit.Diamonds));
+
+            var validation = new PlayCardCommandValidation();
+            Action validate = () => validation.Validate(state, command);
             validate.Should().Throw<InvalidCribbageOperationException>()
                 .And.Operation.Should().Be(InvalidCribbageOperation.InvalidCard);
         }

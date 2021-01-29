@@ -11,15 +11,15 @@ namespace Skunked.Cards
     /// </summary>
     public class Dealer
     {
-        //todo: make the startingWith into the dealer.  this saves a step for the caller to figure out who needs to be dealt to first.
+        // todo: make the startingWith into the dealer.  this saves a step for the caller to figure out who needs to be dealt to first.
 
         /// <summary>
-        /// 
+        /// Deals cards singly to each player starting with the given startingWith player.
         /// </summary>
-        /// <param name="deck"></param>
-        /// <param name="players"></param>
-        /// <param name="startingWith"></param>
-        /// <param name="handSize"></param>
+        /// <param name="deck">The set of cards to deal from.</param>
+        /// <param name="players">Set of players being dealt to.</param>
+        /// <param name="startingWith">The player to start the deal with.</param>
+        /// <param name="handSize">Number of cards to deal to each player.</param>
         /// <returns>Set of player hands in order from dealer.</returns>
         public List<PlayerHand> Deal(Deck deck, IList<int> players, int startingWith, int handSize)
         {

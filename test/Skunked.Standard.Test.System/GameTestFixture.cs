@@ -26,33 +26,33 @@ namespace Skunked.Test.System
 
             //foreach (var game in results)
             //{
-                //TestEndGame.Test(game.State);
-                //var gameStateBuilder = new GameStateBuilder();
-                //var gameState = gameStateBuilder.Build(game.Stream);
+            //TestEndGame.Test(game.State);
+            //var gameStateBuilder = new GameStateBuilder();
+            //var gameState = gameStateBuilder.Build(game.Stream);
 
-                //XmlSerializer ser = new XmlSerializer(typeof(GameState));
-                //XmlSerializer eventStreamSerializer = new XmlSerializer(typeof(EventStream));
-                //var serializedGame = JsonConvert.SerializeObject(game.Stream.ToList());
+            //XmlSerializer ser = new XmlSerializer(typeof(GameState));
+            //XmlSerializer eventStreamSerializer = new XmlSerializer(typeof(EventStream));
+            //var serializedGame = JsonConvert.SerializeObject(game.Stream.ToList());
 
-                //MemoryStream ms = new MemoryStream();
-                //eventStreamSerializer.Serialize(ms, game.Stream);
-                //ms.Position = 0;
+            //MemoryStream ms = new MemoryStream();
+            //eventStreamSerializer.Serialize(ms, game.Stream);
+            //ms.Position = 0;
 
-                //StreamReader r = new StreamReader(ms);
-                //string builtGameState = r.ReadToEnd();
+            //StreamReader r = new StreamReader(ms);
+            //string builtGameState = r.ReadToEnd();
 
-                //MemoryStream ms2 = new MemoryStream();
-                //ser.Serialize(ms2, game.State);
-                //ms2.Position = 0;
+            //MemoryStream ms2 = new MemoryStream();
+            //ser.Serialize(ms2, game.State);
+            //ms2.Position = 0;
 
-                //StreamReader r2 = new StreamReader(ms2);
-                //string builtGameState2 = r2.ReadToEnd();
+            //StreamReader r2 = new StreamReader(ms2);
+            //string builtGameState2 = r2.ReadToEnd();
             //}
         }
 
-        private GameRules CreateRandomizedGameRules(int players)
+        private GameRules CreateRandomizedGameRules()
         {
-            return new( WinningScoreType.Short61, players);
+            return new(WinningScoreType.Short61);
         }
 
 

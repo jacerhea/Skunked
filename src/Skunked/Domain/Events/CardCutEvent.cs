@@ -4,23 +4,31 @@ using Skunked.Cards;
 namespace Skunked.Domain.Events
 {
     /// <summary>
-    /// A card has been cut.
+    /// Event when a card has been cut.
     /// </summary>
     public class CardCutEvent : StreamEvent
     {
-        public CardCutEvent(Guid gameId, int version, int playerId, Card cutCard) : base(gameId, version)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CardCutEvent"/> class.
+        /// </summary>
+        /// <param name="gameId">Unique identifier of the game.</param>
+        /// <param name="version">The version of the game.</param>
+        /// <param name="playerId">The id of the player.</param>
+        /// <param name="cutCard">Card that was cut.</param>
+        public CardCutEvent(Guid gameId, int version, int playerId, Card cutCard)
+            : base(gameId, version)
         {
             PlayerId = playerId;
             CutCard = cutCard;
         }
 
         /// <summary>
-        /// The player's id who cut the card.
+        /// Gets the player's id who cut the card.
         /// </summary>
         public int PlayerId { get; }
 
         /// <summary>
-        /// The card that was cut.
+        /// Gets the card that was cut.
         /// </summary>
         public Card CutCard { get; }
     }

@@ -8,7 +8,7 @@ namespace Skunked.Cards.Value
     /// </summary>
     public class AceLowFaceTenCardValueStrategy
     {
-        private static readonly Dictionary<Rank, int> ValueLookup = new()
+        private static readonly Dictionary<Rank, int> ValueLookup = new ()
         {
             { Rank.Ace, 1 },
             { Rank.Two, 2 },
@@ -22,14 +22,14 @@ namespace Skunked.Cards.Value
             { Rank.Ten, 10 },
             { Rank.Jack, 10 },
             { Rank.Queen, 10 },
-            { Rank.King, 10 }
+            { Rank.King, 10 },
         };
 
         /// <summary>
-        /// 
+        /// Get the play value.
         /// </summary>
-        /// <param name="card"></param>
-        /// <returns></returns>
+        /// <param name="card">The card to get the value for.</param>
+        /// <returns>Value of the card for the play.</returns>
         public int GetValue(Card card)
         {
             if (card == null) throw new ArgumentNullException(nameof(card));
