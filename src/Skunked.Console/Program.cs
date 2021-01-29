@@ -18,7 +18,9 @@ namespace Skunked.ConsoleApp
     {
         static void Main(string[] args)
         {
-            var players = new List<int> { 1, 2 };
+            var player = 1;
+            var ai = 2;
+            var players = new List<int> { player, ai };
             var state = new GameState();
             var stateEventListener = new GameStateEventListener(state, new GameStateBuilder());
             var consoleListener = new ConsoleEventListener(state);
@@ -32,9 +34,9 @@ namespace Skunked.ConsoleApp
 
             var readLine = Console.ReadLine();
             var toThrow = readLine.Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(input => int.Parse(input));
-            var userHand = cribbage.State.GetCurrentRound().DealtCards.Single(ph => ph.PlayerId == 1).Hand;
+            var userHand = cribbage.State.GetCurrentRound().DealtCards.Single(ph => ph.PlayerId == player).Hand;
             cribbage.ThrowCards(new ThrowCardsCommand(1, toThrow.Select(value => userHand[value - 1])));
-            var aiHand = cribbage.State.GetCurrentRound().DealtCards.Single(ph => ph.PlayerId == 2);
+            var aiHand = cribbage.State.GetCurrentRound().DealtCards.Single(ph => ph.PlayerId == ai);
         }
     }
 
@@ -50,7 +52,6 @@ namespace Skunked.ConsoleApp
         public ConsoleEventListener(GameState gameState)
         {
             _gameState = gameState;
-            var standardHeight = 6;
 
             _userWindow = Window.OpenBox("You: 0", _layout.Player1X, _layout.Player1Y, _layout.PlayerWidth, _layout.PlayerHeight, new BoxStyle()
             {

@@ -8,6 +8,11 @@ namespace Skunked.Score
     /// </summary>
     public class CalculatedResult
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CalculatedResult"/> class.
+        /// </summary>
+        /// <param name="points"></param>
+        /// <param name="combinations"></param>
         public CalculatedResult(CalculatedPoints points, CalculatedCombinations combinations)
         {
             Points = points;
@@ -35,5 +40,5 @@ namespace Skunked.Score
         IList<IList<Card>> Pairs,
         IList<IList<Card>> Runs,
         IList<Card> Flushes,
-        IList<Card> Nobs);
+        Card? Nobs);
 }

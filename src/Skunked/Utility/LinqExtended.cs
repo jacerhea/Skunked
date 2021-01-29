@@ -52,7 +52,7 @@ namespace Skunked.Utility
         /// <summary>
         /// Randomly rearrange the set of items.
         /// </summary>
-        /// <param name="source"></param>
+        /// <param name="source">IList to shuffle.</param>
         /// <typeparam name="T">The type of source sequence elements.</typeparam>
         public static void Shuffle<T>(this IList<T> source)
         {
@@ -62,7 +62,7 @@ namespace Skunked.Utility
         /// <summary>
         /// Randomly rearrange the set of items using the given random generator.
         /// </summary>
-        /// <param name="source"></param>
+        /// <param name="source">IList to shuffle.</param>
         /// <param name="random">A random generator used as part of the selection algorithm.</param>
         /// <typeparam name="T">The type of source sequence elements.</typeparam>
         public static void Shuffle<T>(this IList<T> source, Random random)
@@ -76,6 +76,13 @@ namespace Skunked.Utility
             }
         }
 
+        /// <summary>
+        /// The list goes round and round and this returns the next item after the given item.
+        /// </summary>
+        /// <typeparam name="T">Type of item in the list.</typeparam>
+        /// <param name="list">The source list.</param>
+        /// <param name="item">The item to find next from.</param>
+        /// <returns>The found item.</returns>
         public static T NextOf<T>(this IList<T> list, T item)
         {
             if (list.Count == 0) throw new ArgumentOutOfRangeException(nameof(list));

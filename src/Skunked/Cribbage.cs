@@ -18,8 +18,8 @@ namespace Skunked
     /// </summary>
     public class Cribbage
     {
-        private readonly Dealer _dealer = new();
-        private readonly Deck _deck = new();
+        private readonly Dealer _dealer = new ();
+        private readonly Deck _deck = new ();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Cribbage"/> class.

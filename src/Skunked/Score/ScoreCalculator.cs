@@ -40,18 +40,18 @@ namespace Skunked.Score
             var completeSet = playerHandList.Append(starterCard).ToList();
             var allCombinations = GetCombinations(completeSet);
 
-            var fifteens = CountFifteens(allCombinations);
-            var flush = CountFlush(playerHandList, starterCard);
-            var pairs = CountPairs(allCombinations);
-            var runs = CountRuns(allCombinations);
-            var hisNobs = Nobs(playerHandList, starterCard);
+            var fifteens = FindFifteens(allCombinations);
+            var flush = FindFlush(playerHandList, starterCard);
+            var pairs = FindPairs(allCombinations);
+            var runs = FindRuns(allCombinations);
+            var hisNobs = FindNobs(playerHandList, starterCard);
 
             var fifteenScore = fifteens.Count * GameRules.Points.Fifteen;
-            var flushScore = flush.Count == 5 ? GameRules.Points.Flush + 1 :
-                flush.Count == 4 && !isCrib ? GameRules.Points.Flush : 0;
+            var flushScore = flush?.Count == 5 ? GameRules.Points.Flush + 1 :
+                flush?.Count == 4 && !isCrib ? GameRules.Points.Flush : 0;
             var pairScore = pairs.Count * GameRules.Points.Pair;
             var runScore = runs.Sum(c => c.Count);
-            var hisNobsScore = hisNobs.Count == 0 ? 0 : GameRules.Points.Nobs;
+            var hisNobsScore = hisNobs == null ? 0 : GameRules.Points.Nobs;
 
             var totalScore = fifteenScore + flushScore + pairScore + runScore + hisNobsScore;
 
@@ -89,7 +89,7 @@ namespace Skunked.Score
             }
             else
             {
-                scored += AreSameKind(pile.TakeLast(2)) ? GameRules.Points.Pair : 0;
+                scored += IsSameKind(pile.TakeLast(2)) ? GameRules.Points.Pair : 0;
             }
 
             // count runs
@@ -119,7 +119,7 @@ namespace Skunked.Score
         /// </summary>
         /// <param name="combinationsToCount">Lookup of all card combinations by permutation count.</param>
         /// <returns>List of all 15 combinations.</returns>
-        public List<IList<Card>> CountFifteens(Dictionary<int, List<IList<Card>>> combinationsToCount) =>
+        public List<IList<Card>> FindFifteens(Dictionary<int, List<IList<Card>>> combinationsToCount) =>
             combinationsToCount
                 .Where(d => d.Key > 1)
                 .SelectMany(kv => kv.Value)
@@ -131,8 +131,8 @@ namespace Skunked.Score
         /// </summary>
         /// <param name="playersHand">The players hand.</param>
         /// <param name="starterCard">The starter card.</param>
-        /// <returns>List of cards that make a flush.</returns>
-        public List<Card> CountFlush(List<Card> playersHand, Card starterCard)
+        /// <returns>List of cards that make a flush or null if no flush found.</returns>
+        public List<Card>? FindFlush(List<Card> playersHand, Card starterCard)
         {
             if (playersHand.Count < 4) { return new List<Card>(0); }
 
@@ -151,7 +151,7 @@ namespace Skunked.Score
                 return playersHand.ToList();
             }
 
-            return new List<Card>(0);
+            return null;
         }
 
         /// <summary>
@@ -159,16 +159,16 @@ namespace Skunked.Score
         /// </summary>
         /// <param name="combinations">Lookup of all card combinations by permutation count.</param>
         /// <returns>Returns all pairs found.</returns>
-        public List<IList<Card>> CountPairs(Dictionary<int, List<IList<Card>>> combinations) =>
+        public List<IList<Card>> FindPairs(Dictionary<int, List<IList<Card>>> combinations) =>
             combinations[2].Where(c => c[0].Rank == c[1].Rank).ToList();
 
         /// <summary>
-        /// Three consecutive cards (regardless of suit).
+        /// Find all unique runs of 3, 4, or 5 cards.
         /// </summary>
         /// <param name="combinations">Lookup of all card combinations by permutation count.</param>
-        /// <returns></returns>
-        // only looking for runs of 3,4, and 5
-        public List<IList<Card>> CountRuns(Dictionary<int, List<IList<Card>>> combinations)
+        /// <returns>Set of all combinations of runs.</returns>
+        // only looking for runs of 3, 4, and 5
+        public List<IList<Card>> FindRuns(Dictionary<int, List<IList<Card>>> combinations)
         {
             var returnList = combinations[5].Where(IsRun).ToList();
 
@@ -192,37 +192,42 @@ namespace Skunked.Score
         /// <summary>
         /// When the Jack of the same suit matches the starter card.
         /// </summary>
-        /// <param name="cards"></param>
-        /// <param name="starterCard"></param>
-        /// <returns></returns>
-        public IList<Card> Nobs(IEnumerable<Card> cards, Card starterCard)
+        /// <param name="cards">Player's hand.</param>
+        /// <param name="starterCard">The starter or the cut.</param>
+        /// <returns>The Nob.</returns>
+        public Card? FindNobs(IEnumerable<Card> cards, Card starterCard)
         {
-            return cards.Where(c => c.Rank == Rank.Jack && c.Suit == starterCard.Suit).ToList();
-        }
-
-        public int SumValues(IEnumerable<Card> cards)
-        {
-            return cards.Sum(c => ValueStrategy.GetValue(c));
+            return cards.SingleOrDefault(c => c.Rank == Rank.Jack && c.Suit == starterCard.Suit);
         }
 
         /// <summary>
         ///  Separate combination of two or more cards totaling exactly fifteen.
         /// </summary>
-        /// <param name="cards"></param>
-        /// <returns></returns>
-        public bool IsFifteen(IList<Card> cards)
+        /// <param name="set">Set of cards to check.</param>
+        /// <returns>True of set adds up to 15.</returns>
+        public bool IsFifteen(IList<Card> set)
         {
-            return SumValues(cards) == 15;
+            return SumValues(set) == 15;
         }
 
         /// <summary>
-        /// Three or more consecutive cards (regardless of suit).
+        /// Sum of the value of the cards.
         /// </summary>
-        /// <param name="cards"></param>
-        /// <returns></returns>
-        public bool AreSameKind(IEnumerable<Card> cards)
+        /// <param name="set">Set of cards to sum.</param>
+        /// <returns>The sum of the values.</returns>
+        public int SumValues(IEnumerable<Card> set)
         {
-            return cards.DistinctBy(c => c.Rank).Count() == 1;
+            return set.Sum(c => ValueStrategy.GetValue(c));
+        }
+
+        /// <summary>
+        /// Check if cards are all of same kind..
+        /// </summary>
+        /// <param name="set">Set of cards to check.</param>
+        /// <returns>True of all cards are of the same kind.</returns>
+        public bool IsSameKind(IEnumerable<Card> set)
+        {
+            return set.DistinctBy(c => c.Rank).Count() == 1;
         }
 
         /// <summary>
@@ -234,7 +239,7 @@ namespace Skunked.Score
         {
             if (set.Count < 3) return false;
             var cardinalSet = set.Select(c => (int)c.Rank);
-            return AreContinuous(cardinalSet);
+            return IsContinuous(cardinalSet);
         }
 
         /// <summary>
@@ -242,7 +247,7 @@ namespace Skunked.Score
         /// </summary>
         /// <param name="values">The set of values.</param>
         /// <returns>True if all the values in set are continuous.</returns>
-        public bool AreContinuous(IEnumerable<int> values)
+        public bool IsContinuous(IEnumerable<int> values)
         {
             var orderedSet = values.OrderBy(c => c).ToList();
 
@@ -266,8 +271,9 @@ namespace Skunked.Score
         /// Dictionary of the combinations.  The key is "k" in k-combination combinatorial mathematics. Zero is not calculated.
         /// The Value is the set of the combination sets.
         /// </summary>
+        /// <typeparam name="T">The type of class to find combinations.</typeparam>
         /// <param name="source">The set of cards.</param>
-        /// <returns>A dictionary where the key is the number of </returns>
+        /// <returns>A dictionary where the key is the number of combinations.</returns>
         public Dictionary<int, List<IList<T>>> GetCombinations<T>(IList<T> source)
         {
             return Enumerable.Range(1, source.Count)

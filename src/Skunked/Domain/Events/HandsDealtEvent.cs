@@ -21,6 +21,9 @@ namespace Skunked.Domain.Events
             Hands = hands;
         }
 
+        /// <summary>
+        /// All of the player hands that were dealt.
+        /// </summary>
         public List<PlayerHand> Hands { get; }
     }
 }

@@ -21,7 +21,7 @@ namespace Skunked.Domain.Events
         }
 
         /// <summary>
-        /// The starter card.
+        /// Gets the starter card.
         /// </summary>
         public Card Starter { get; }
     }

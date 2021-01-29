@@ -66,7 +66,7 @@ namespace Skunked.UnitTest.Score
 
             var combos = _scoreCalculator.GetCombinations(hand);
 
-            var combosMakeRuns = _scoreCalculator.CountRuns(combos);
+            var combosMakeRuns = _scoreCalculator.FindRuns(combos);
             combosMakeRuns.Count.Should().Be(2);
         }
 
@@ -84,7 +84,7 @@ namespace Skunked.UnitTest.Score
 
             var combos = _scoreCalculator.GetCombinations(hand);
 
-            var combosMakeRuns = _scoreCalculator.CountRuns(combos);
+            var combosMakeRuns = _scoreCalculator.FindRuns(combos);
             combosMakeRuns.Count.Should().Be(2);
         }
 
@@ -102,7 +102,7 @@ namespace Skunked.UnitTest.Score
 
             var combos = _scoreCalculator.GetCombinations(hand);
 
-            var pairsCombinations = _scoreCalculator.CountPairs(combos);
+            var pairsCombinations = _scoreCalculator.FindPairs(combos);
             pairsCombinations.Count.Should().Be(2);
         }
 
@@ -117,7 +117,7 @@ namespace Skunked.UnitTest.Score
                                new(Rank.Nine, Suit.Spades)
                            };
 
-            var areSameKind = _scoreCalculator.AreSameKind(hand);
+            var areSameKind = _scoreCalculator.IsSameKind(hand);
 
             areSameKind.Should().BeTrue();
         }
@@ -133,7 +133,7 @@ namespace Skunked.UnitTest.Score
                                new(Rank.Ten, Suit.Spades)
                            };
 
-            var areNotSameKind = _scoreCalculator.AreSameKind(hand);
+            var areNotSameKind = _scoreCalculator.IsSameKind(hand);
 
             areNotSameKind.Should().BeFalse();
         }
@@ -152,7 +152,7 @@ namespace Skunked.UnitTest.Score
 
             var combos = _scoreCalculator.GetCombinations(hand);
 
-            var pairsCombinations = _scoreCalculator.CountPairs(combos);
+            var pairsCombinations = _scoreCalculator.FindPairs(combos);
             pairsCombinations.Count.Should().Be(3);
         }
 
@@ -167,7 +167,7 @@ namespace Skunked.UnitTest.Score
                                new(Rank.Four, Suit.Spades)
                            };
 
-            var pairsCombinations = _scoreCalculator.CountFlush(hand, new Card(Rank.Queen, Suit.Clubs));
+            var pairsCombinations = _scoreCalculator.FindFlush(hand, new Card(Rank.Queen, Suit.Clubs));
             pairsCombinations.Count.Should().Be(4);
         }
 
@@ -182,7 +182,7 @@ namespace Skunked.UnitTest.Score
                                new(Rank.Four, Suit.Spades)
                            };
 
-            var pairsCombinations = _scoreCalculator.CountFlush(hand, new Card(Rank.Queen, Suit.Spades));
+            var pairsCombinations = _scoreCalculator.FindFlush(hand, new Card(Rank.Queen, Suit.Spades));
             pairsCombinations.Count.Should().Be(5);
         }
 
@@ -197,8 +197,8 @@ namespace Skunked.UnitTest.Score
                                new(Rank.Four, Suit.Diamonds)
                            };
 
-            var pairsCombinations = _scoreCalculator.CountFlush(hand, new Card(Rank.Queen, Suit.Spades));
-            pairsCombinations.Count.Should().Be(0);
+            var pairsCombinations = _scoreCalculator.FindFlush(hand, new Card(Rank.Queen, Suit.Spades));
+            pairsCombinations.Should().BeNull();
         }
 
         [Fact]
@@ -292,17 +292,17 @@ namespace Skunked.UnitTest.Score
 
         [Theory]
         [MemberData(nameof(NobsTestData))]
-        public void ScoreCalculatorDoesNotHaveNobsTest(IEnumerable<Card> play, Card starter, int expectation)
+        public void ScoreCalculatorDoesNotHaveNobsTest(IEnumerable<Card> play, Card starter, Card expectation)
         {
-            var hasNobs = _scoreCalculator.Nobs(play, starter);
-            hasNobs.Count.Should().Be(expectation);
+            var hasNobs = _scoreCalculator.FindNobs(play, starter);
+            hasNobs.Should().Be(expectation);
         }
 
         [Theory]
         [MemberData(nameof(ContinousTestData))]
         public void ScoreCalculatorAreContinuous(List<int> play, bool expectation)
         {
-            var areContinuous = _scoreCalculator.AreContinuous(play);
+            var areContinuous = _scoreCalculator.IsContinuous(play);
             areContinuous.Should().Be(expectation);
         }
 
@@ -323,14 +323,14 @@ namespace Skunked.UnitTest.Score
                     new(Rank.Seven, Suit.Spades),
                     new(Rank.Queen, Suit.Hearts),
                     new(Rank.Jack, Suit.Clubs)
-                }, new Card(Rank.Three, Suit.Diamonds) ,0 },
+                }, new Card(Rank.Three, Suit.Diamonds) , null },
                 new object[] { new List<Card>
                 {
                     new(Rank.Six, Suit.Spades),
                     new(Rank.Seven, Suit.Spades),
                     new(Rank.Queen, Suit.Hearts),
                     new(Rank.Jack, Suit.Clubs)
-                }, new Card(Rank.Three, Suit.Clubs), 1 },
+                }, new Card(Rank.Three, Suit.Clubs), new Card(Rank.Jack, Suit.Clubs)  },
             };
 
         public static IEnumerable<object[]> ContinousTestData =>

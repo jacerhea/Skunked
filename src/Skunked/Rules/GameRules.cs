@@ -21,7 +21,6 @@ namespace Skunked.Rules
         /// Initializes a new instance of the <see cref="GameRules"/> class.
         /// </summary>
         /// <param name="winningScore"></param>
-        /// <param name="numberOfPlayers"></param>
         public GameRules(WinningScoreType winningScore)
         {
             _winningScore = winningScore;

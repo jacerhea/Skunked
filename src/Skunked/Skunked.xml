@@ -377,6 +377,29 @@
             Gets cards being discarded to crib.
             </summary>
         </member>
+        <member name="T:Skunked.Domain.EventStream">
+            <summary>
+            A stream of events.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.EventStream.#ctor(System.Collections.Generic.IEnumerable{Skunked.Domain.Events.IEventListener})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.EventStream"/> class.
+            </summary>
+            <param name="eventListeners">Listeners for events.</param>
+        </member>
+        <member name="M:Skunked.Domain.EventStream.Add(Skunked.Domain.Events.StreamEvent)">
+            <summary>
+            Add an event to the stream.
+            </summary>
+            <param name="event">The event to add.</param>
+        </member>
+        <member name="M:Skunked.Domain.EventStream.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Skunked.Domain.EventStream.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
         <member name="T:Skunked.Domain.Events.CardCutEvent">
             <summary>
             Event when a card has been cut.
@@ -413,7 +436,7 @@
             <param name="gameId">Unique identifier of the game.</param>
             <param name="version">The version of the game.</param>
             <param name="playerId">The id of the player.</param>
-            <param name="played"></param>
+            <param name="played">The card played.</param>
         </member>
         <member name="P:Skunked.Domain.Events.CardPlayedEvent.PlayerId">
             <summary>
@@ -484,7 +507,12 @@
             </summary>
             <param name="gameId">Unique identifier of the game.</param>
             <param name="version">The version of the game.</param>
-            <param name="deck"></param>
+            <param name="deck">The shuffled deck.</param>
+        </member>
+        <member name="P:Skunked.Domain.Events.DeckShuffledEvent.Deck">
+            <summary>
+            Gets the new state of the deck after the shuffle.
+            </summary>
         </member>
         <member name="T:Skunked.Domain.Events.GameCompletedEvent">
             <summary>
@@ -549,6 +577,22 @@
             <param name="version">The version of the game.</param>
             <param name="hands"></param>
         </member>
+        <member name="P:Skunked.Domain.Events.HandsDealtEvent.Hands">
+            <summary>
+            All of the player hands that were dealt.
+            </summary>
+        </member>
+        <member name="T:Skunked.Domain.Events.IEventListener">
+            <summary>
+            An event listener.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Events.IEventListener.Notify(Skunked.Domain.Events.StreamEvent)">
+            <summary>
+            Notify when an event occurs.
+            </summary>
+            <param name="event">The occurred event.</param>
+        </member>
         <member name="T:Skunked.Domain.Events.PlayFinishedEvent">
             <summary>
             Event when the play has completed.
@@ -602,7 +646,7 @@
         </member>
         <member name="P:Skunked.Domain.Events.StarterCardSelectedEvent.Starter">
             <summary>
-            The starter card.
+            Gets the starter card.
             </summary>
         </member>
         <member name="T:Skunked.Domain.Events.StreamEvent">
@@ -797,6 +841,21 @@
         <member name="P:Skunked.Domain.State.RoundState.Hands">
             <summary>
             Gets or sets the set of cards in each players hand after thrown to the crib.
+            </summary>
+        </member>
+        <member name="T:Skunked.Domain.State.TeamScore">
+            <summary>
+            The team and their score.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.TeamScore.Players">
+            <summary>
+            Player id's on a team.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.TeamScore.Score">
+            <summary>
+            The team's score.
             </summary>
         </member>
         <member name="T:Skunked.Domain.Validations.CountCribCommandValidation">
@@ -1018,32 +1077,32 @@
             <summary>
             Deal Hand and return cards that will go back in crib.
             </summary>
-            <param name="hand"></param>
+            <param name="hand">The set of cards dealt to the player.</param>
             <returns>Set of Cards to throw in crib.</returns>
         </member>
         <member name="M:Skunked.Players.IGameRunnerPlayer.DetermineCardsToPlay(Skunked.Rules.GameRules,System.Collections.Generic.List{Skunked.Cards.Card},System.Collections.Generic.List{Skunked.Cards.Card})">
-             <summary>
-            
-             </summary>
-             <param name="gameRules"></param>
-             <param name="pile"></param>
-             <param name="handLeft"></param>
-             <returns></returns>
+            <summary>
+            Determine card to throw to play pile.
+            </summary>
+            <param name="gameRules">The rules of the game.</param>
+            <param name="pile">Cards currently in the pile.</param>
+            <param name="handLeft">Cards not yet played from hand.</param>
+            <returns>The card to throw to the pile.</returns>
         </member>
-        <member name="M:Skunked.Players.IGameRunnerPlayer.CutCards(System.Collections.Generic.List{Skunked.Cards.Card})">
+        <member name="M:Skunked.Players.IGameRunnerPlayer.CutCards(System.Collections.Generic.IEnumerable{Skunked.Cards.Card})">
              <summary>
             
              </summary>
-             <param name="cardsToChoose"></param>
+             <param name="cardsToChoose">e</param>
              <returns></returns>
         </member>
         <member name="M:Skunked.Players.IGameRunnerPlayer.CountHand(Skunked.Cards.Card,System.Collections.Generic.IEnumerable{Skunked.Cards.Card})">
             <summary>
             Count the score with the given hand and starter starter.
             </summary>
-            <param name="starter"></param>
-            <param name="hand"></param>
-            <returns></returns>
+            <param name="starter">The starter card or cut.</param>
+            <param name="hand">The player's hand.</param>
+            <returns>The </returns>
         </member>
         <member name="T:Skunked.Players.PlayerHand">
             <summary>
@@ -1082,7 +1141,6 @@
             Initializes a new instance of the <see cref="T:Skunked.Rules.GameRules"/> class.
             </summary>
             <param name="winningScore"></param>
-            <param name="numberOfPlayers"></param>
         </member>
         <member name="P:Skunked.Rules.GameRules.WinningScore">
             <summary>
@@ -1171,6 +1229,13 @@
             Result Calculated.
             </summary>
         </member>
+        <member name="M:Skunked.Score.CalculatedResult.#ctor(Skunked.Score.CalculatedPoints,Skunked.Score.CalculatedCombinations)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Score.CalculatedResult"/> class.
+            </summary>
+            <param name="points"></param>
+            <param name="combinations"></param>
+        </member>
         <member name="T:Skunked.Score.CalculatedPoints">
             <summary>
             Set of points scored.
@@ -1186,7 +1251,7 @@
             A set of combinations that can score points.
             </summary>
         </member>
-        <member name="M:Skunked.Score.CalculatedCombinations.#ctor(System.Collections.Generic.IList{System.Collections.Generic.IList{Skunked.Cards.Card}},System.Collections.Generic.IList{System.Collections.Generic.IList{Skunked.Cards.Card}},System.Collections.Generic.IList{System.Collections.Generic.IList{Skunked.Cards.Card}},System.Collections.Generic.IList{Skunked.Cards.Card},System.Collections.Generic.IList{Skunked.Cards.Card})">
+        <member name="M:Skunked.Score.CalculatedCombinations.#ctor(System.Collections.Generic.IList{System.Collections.Generic.IList{Skunked.Cards.Card}},System.Collections.Generic.IList{System.Collections.Generic.IList{Skunked.Cards.Card}},System.Collections.Generic.IList{System.Collections.Generic.IList{Skunked.Cards.Card}},System.Collections.Generic.IList{Skunked.Cards.Card},Skunked.Cards.Card)">
             <summary>
             A set of combinations that can score points.
             </summary>
@@ -1196,8 +1261,22 @@
             Couple a set of cards with all of the possible scoring outcomes for that combo.
             </summary>
         </member>
-        <member name="M:Skunked.Score.ComboPossibleScores.ToString">
-            <inheritdoc/>
+        <member name="M:Skunked.Score.ComboPossibleScores.#ctor(System.Collections.Generic.IEnumerable{Skunked.Cards.Card},System.Collections.Generic.IEnumerable{Skunked.Score.ScoreWithCut})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Score.ComboPossibleScores"/> class.
+            </summary>
+            <param name="combo">The combination of cards.</param>
+            <param name="possibleScores">Possible scores.</param>
+        </member>
+        <member name="P:Skunked.Score.ComboPossibleScores.Combo">
+            <summary>
+            The given combination of cards.
+            </summary>
+        </member>
+        <member name="P:Skunked.Score.ComboPossibleScores.PossibleScores">
+            <summary>
+            Possible scores given the combination and the starter.
+            </summary>
         </member>
         <member name="T:Skunked.Score.ScoreCalculator">
             <summary>
@@ -1232,58 +1311,72 @@
             <param name="pile">The current pile.</param>
             <returns>The points in the pile.</returns>
         </member>
-        <member name="M:Skunked.Score.ScoreCalculator.CountFifteens(System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.List{System.Collections.Generic.IList{Skunked.Cards.Card}}})">
+        <member name="M:Skunked.Score.ScoreCalculator.FindFifteens(System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.List{System.Collections.Generic.IList{Skunked.Cards.Card}}})">
             <summary>
             Returns collection of all unique sets of cards that add up to 15.
             </summary>
             <param name="combinationsToCount">Lookup of all card combinations by permutation count.</param>
             <returns>List of all 15 combinations.</returns>
         </member>
-        <member name="M:Skunked.Score.ScoreCalculator.CountFlush(System.Collections.Generic.List{Skunked.Cards.Card},Skunked.Cards.Card)">
+        <member name="M:Skunked.Score.ScoreCalculator.FindFlush(System.Collections.Generic.List{Skunked.Cards.Card},Skunked.Cards.Card)">
             <summary>
             All four cards in the hand are of the same suit.
             </summary>
             <param name="playersHand">The players hand.</param>
             <param name="starterCard">The starter card.</param>
-            <returns>List of cards that make a flush.</returns>
+            <returns>List of cards that make a flush or null if no flush found.</returns>
         </member>
-        <member name="M:Skunked.Score.ScoreCalculator.CountPairs(System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.List{System.Collections.Generic.IList{Skunked.Cards.Card}}})">
+        <member name="M:Skunked.Score.ScoreCalculator.FindPairs(System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.List{System.Collections.Generic.IList{Skunked.Cards.Card}}})">
             <summary>
             A pair of cards of a kind.
             </summary>
             <param name="combinations">Lookup of all card combinations by permutation count.</param>
             <returns>Returns all pairs found.</returns>
         </member>
-        <member name="M:Skunked.Score.ScoreCalculator.CountRuns(System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.List{System.Collections.Generic.IList{Skunked.Cards.Card}}})">
+        <member name="M:Skunked.Score.ScoreCalculator.FindRuns(System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.List{System.Collections.Generic.IList{Skunked.Cards.Card}}})">
             <summary>
-            Three consecutive cards (regardless of suit).
+            Find all unique runs of 3, 4, or 5 cards.
             </summary>
             <param name="combinations">Lookup of all card combinations by permutation count.</param>
-            <returns></returns>
+            <returns>Set of all combinations of runs.</returns>
         </member>
-        <member name="M:Skunked.Score.ScoreCalculator.Nobs(System.Collections.Generic.IEnumerable{Skunked.Cards.Card},Skunked.Cards.Card)">
+        <member name="M:Skunked.Score.ScoreCalculator.FindNobs(System.Collections.Generic.IEnumerable{Skunked.Cards.Card},Skunked.Cards.Card)">
             <summary>
             When the Jack of the same suit matches the starter card.
             </summary>
-            <param name="cards"></param>
-            <param name="starterCard"></param>
-            <returns></returns>
+            <param name="cards">Player's hand.</param>
+            <param name="starterCard">The starter or the cut.</param>
+            <returns>The Nob.</returns>
         </member>
         <member name="M:Skunked.Score.ScoreCalculator.IsFifteen(System.Collections.Generic.IList{Skunked.Cards.Card})">
             <summary>
              Separate combination of two or more cards totaling exactly fifteen.
             </summary>
-            <param name="cards"></param>
-            <returns></returns>
+            <param name="set">Set of cards to check.</param>
+            <returns>True of set adds up to 15.</returns>
+        </member>
+        <member name="M:Skunked.Score.ScoreCalculator.SumValues(System.Collections.Generic.IEnumerable{Skunked.Cards.Card})">
+            <summary>
+            Sum of the value of the cards.
+            </summary>
+            <param name="set">Set of cards to sum.</param>
+            <returns>The sum of the values.</returns>
+        </member>
+        <member name="M:Skunked.Score.ScoreCalculator.IsSameKind(System.Collections.Generic.IEnumerable{Skunked.Cards.Card})">
+            <summary>
+            Check if cards are all of same kind..
+            </summary>
+            <param name="set">Set of cards to check.</param>
+            <returns>True of all cards are of the same kind.</returns>
         </member>
         <member name="M:Skunked.Score.ScoreCalculator.IsRun(System.Collections.Generic.IList{Skunked.Cards.Card})">
             <summary>
             Three or more consecutive cards (regardless of suit).
             </summary>
-            <param name="set"></param>
-            <returns></returns>
+            <param name="set">The set of cards.</param>
+            <returns>True if the cards form a run.</returns>
         </member>
-        <member name="M:Skunked.Score.ScoreCalculator.AreContinuous(System.Collections.Generic.IEnumerable{System.Int32})">
+        <member name="M:Skunked.Score.ScoreCalculator.IsContinuous(System.Collections.Generic.IEnumerable{System.Int32})">
             <summary>
             Check if the value are continuous.
             </summary>
@@ -1295,8 +1388,9 @@
             Dictionary of the combinations.  The key is "k" in k-combination combinatorial mathematics. Zero is not calculated.
             The Value is the set of the combination sets.
             </summary>
+            <typeparam name="T">The type of class to find combinations.</typeparam>
             <param name="source">The set of cards.</param>
-            <returns>A dictionary where the key is the number of </returns>
+            <returns>A dictionary where the key is the number of combinations.</returns>
         </member>
         <member name="T:Skunked.Score.ScoreWithCut">
             <summary>
@@ -1379,16 +1473,25 @@
             <summary>
             Randomly rearrange the set of items.
             </summary>
-            <param name="source"></param>
+            <param name="source">IList to shuffle.</param>
             <typeparam name="T">The type of source sequence elements.</typeparam>
         </member>
         <member name="M:Skunked.Utility.LinqExtended.Shuffle``1(System.Collections.Generic.IList{``0},System.Random)">
             <summary>
             Randomly rearrange the set of items using the given random generator.
             </summary>
-            <param name="source"></param>
+            <param name="source">IList to shuffle.</param>
             <param name="random">A random generator used as part of the selection algorithm.</param>
             <typeparam name="T">The type of source sequence elements.</typeparam>
+        </member>
+        <member name="M:Skunked.Utility.LinqExtended.NextOf``1(System.Collections.Generic.IList{``0},``0)">
+            <summary>
+            The list goes round and round and this returns the next item after the given item.
+            </summary>
+            <typeparam name="T">Type of item in the list.</typeparam>
+            <param name="list">The source list.</param>
+            <param name="item">The item to find next from.</param>
+            <returns>The found item.</returns>
         </member>
         <member name="M:Skunked.Utility.LinqExtended.MinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
             <summary>

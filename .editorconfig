@@ -14,3 +14,6 @@ dotnet_diagnostic.SA1309.severity = none
 
 # Default severity for analyzer diagnostics with category 'StyleCop.CSharp.LayoutRules'
 dotnet_analyzer_diagnostic.category-StyleCop.CSharp.LayoutRules.severity = none
+
+# CA1822: Mark members as static
+dotnet_diagnostic.CA1822.severity = none

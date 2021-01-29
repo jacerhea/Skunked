@@ -19,6 +19,9 @@ module CardToss =
                                                 |> Seq.map(fun cutCard -> new ScoreWithCut(Cut = cutCard, Score = calculator.CountShowPoints(cutCard, combo).Points.Score)) 
                             new ComboPossibleScores(combo, possibleScores))
 
+    let sumScores(possibleScores: seq<ScoreWithCut>) =
+        possibleScores |> Seq.sumBy(fun scoreWithCut -> scoreWithCut.Score)
+
     // Indent all program elements within modules that are declared with an equal sign.
     let baseDecision(hand: seq<_>) = 
         let handSet = new HashSet<Card>(hand)
@@ -26,12 +29,12 @@ module CardToss =
 
     let maxAverage cards = 
         let highestCombo = baseDecision(cards) 
-                        |> Seq.maxBy (fun combo -> combo.GetScoreSummation())
+                        |> Seq.maxBy (fun combo -> combo.PossibleScores |> sumScores)
         cards |> Seq.except highestCombo.Combo
 
     let minAverage cards = 
         let lowestCombo = baseDecision(cards) 
-                        |> Seq.minBy (fun combo -> combo.GetScoreSummation())
+                        |> Seq.minBy (fun combo -> combo.PossibleScores |> sumScores)
         cards |> Seq.except lowestCombo.Combo
 
 

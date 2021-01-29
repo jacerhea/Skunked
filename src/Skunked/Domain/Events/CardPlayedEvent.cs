@@ -14,7 +14,7 @@ namespace Skunked.Domain.Events
         /// <param name="gameId">Unique identifier of the game.</param>
         /// <param name="version">The version of the game.</param>
         /// <param name="playerId">The id of the player.</param>
-        /// <param name="played"></param>
+        /// <param name="played">The card played.</param>
         public CardPlayedEvent(Guid gameId, int version, int playerId, Card played)
             : base(gameId, version)
         {
