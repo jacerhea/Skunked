@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
         - uses: actions/checkout@master
-        - uses: goit/setup-resharper
+        - uses: goit/setup-resharper@v1
           with:
             version: '2020.1'
         - run: InspectCode src/Skunked/Skunked.csproj
@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
         - uses: actions/checkout@master
-        - uses: goit/setup-resharper
+        - uses: goit/setup-resharper@v1
           with:
             version: '2020.1'
         - run: dupFinder.sh src/Skunked/Skunked.csproj
