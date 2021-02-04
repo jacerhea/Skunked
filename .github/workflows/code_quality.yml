@@ -1,0 +1,24 @@
+name: Code Quality Checks
+on:
+  push:
+    branches:
+      - develop # Default release branch
+jobs:
+  inspect-code:
+    name: Code Quality Checks
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v2
+        - uses: goit/setup-resharper@v1
+          with:
+            version: '2020.1'
+        - run: InspectCode src/Skunked/Skunked.csproj
+  dup-finder:
+    name: DupFinder Checks
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v2
+        - uses: goit/setup-resharper@v1
+          with:
+            version: '2020.1'
+        - run: dupFinder.sh src/Skunked/Skunked.csproj
