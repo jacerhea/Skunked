@@ -6,7 +6,10 @@
 
   <ItemGroup>
     <Compile Include="CardToss.fs" />
+    <Compile Include="AiPlayer.fs" />
   </ItemGroup>
+
+  <ItemGroup />
 
   <ItemGroup>
     <PackageReference Include="Combinatorics" Version="1.1.0.19" />

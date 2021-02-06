@@ -58,11 +58,12 @@ namespace Skunked.Test.System
             return handLeft.OrderBy(card => card, RankComparer.Instance).First();
         }
 
-        public Card CutCards(List<Card> cardsToChoose)
+        public Card CutCards(IEnumerable<Card> cardsToChoose)
         {
+            var cards = cardsToChoose.ToList();
             if (cardsToChoose == null) throw new ArgumentNullException(nameof(cardsToChoose));
-            var randomIndex = RandomProvider.GetThreadRandom().Next(0, cardsToChoose.Count - 1);
-            return cardsToChoose[randomIndex];
+            var randomIndex = RandomProvider.GetThreadRandom().Next(0, cards.Count - 1);
+            return cards[randomIndex];
         }
 
         public int CountHand(Card starter, IEnumerable<Card> hand)

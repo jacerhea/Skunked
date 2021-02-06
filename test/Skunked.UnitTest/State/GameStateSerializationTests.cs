@@ -17,7 +17,7 @@ namespace Skunked.UnitTest.State
         {
             var gameState = new GameState
             {
-                GameRules = new GameRules(WinningScoreType.Short61),
+                GameRules = new GameRules(WinningScore.Short61),
                 Id = Guid.NewGuid(),
                 IndividualScores =
                     new List<PlayerScore>

@@ -21,7 +21,13 @@ namespace Skunked.Score
             if (combo == null) throw new ArgumentNullException(nameof(combo));
             Combo = combo.ToList();
             PossibleScores = possibleScores.ToList();
+            Total = PossibleScores.Sum(score => score.Score);
         }
+
+        /// <summary>
+        /// Total sum of all possible scores.
+        /// </summary>
+        public int Total { get; private set; }
 
         /// <summary>
         /// The given combination of cards.

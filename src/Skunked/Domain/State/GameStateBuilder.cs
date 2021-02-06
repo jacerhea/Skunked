@@ -15,16 +15,24 @@ namespace Skunked.Domain.State
     /// <summary>
     /// Builds the GameState from the game events.
     /// </summary>
-    public class GameStateBuilder
+    public class GameStateBuilder : IEventListener
     {
+        private readonly GameState _gameState;
         private readonly ScoreCalculator _scoreCalculator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameStateBuilder"/> class.
         /// </summary>
-        public GameStateBuilder()
+        public GameStateBuilder(GameState gameState)
         {
+            _gameState = gameState;
             _scoreCalculator = new ScoreCalculator();
+        }
+
+        public void Notify(StreamEvent @event)
+        {
+            dynamic dynamicEvent = @event;
+            Handle(dynamicEvent, _gameState);
         }
 
         /// <summary>
@@ -32,7 +40,7 @@ namespace Skunked.Domain.State
         /// </summary>
         /// <param name="streamEvent">Event to handle.</param>
         /// <param name="gameState">The game state.</param>
-        public void Handle(GameStartedEvent streamEvent, GameState gameState)
+        private void Handle(GameStartedEvent streamEvent, GameState gameState)
         {
             var deck = new Deck().ToList();
             gameState.Id = streamEvent.GameId;
@@ -63,7 +71,7 @@ namespace Skunked.Domain.State
         /// </summary>
         /// <param name="streamEvent">Event to handle.</param>
         /// <param name="gameState">The game state.</param>
-        public void Handle(DeckShuffledEvent streamEvent, GameState gameState)
+        private void Handle(DeckShuffledEvent streamEvent, GameState gameState)
         {
             if (!gameState.OpeningRound.Complete)
             {
@@ -82,7 +90,7 @@ namespace Skunked.Domain.State
         /// </summary>
         /// <param name="streamEvent">Event to handle.</param>
         /// <param name="gameState">The game state.</param>
-        public void Handle(CardCutEvent streamEvent, GameState gameState)
+        private void Handle(CardCutEvent streamEvent, GameState gameState)
         {
             gameState.OpeningRound.CutCards.Add(new PlayerIdCard { Player = streamEvent.PlayerId, Card = new Card(streamEvent.CutCard) });
 
@@ -97,11 +105,21 @@ namespace Skunked.Domain.State
         }
 
         /// <summary>
+        /// Handle cref="PlayStartedEvent" event.
+        /// </summary>
+        /// <param name="streamEvent"></param>
+        /// <param name="gameState">The game state.</param>
+        private void Handle(PlayStartedEvent streamEvent, GameState gameState)
+        {
+
+        }
+
+        /// <summary>
         /// Handle cref="RoundStartedEvent" event.
         /// </summary>
         /// <param name="streamEvent">Event to handle.</param>
         /// <param name="gameState">The game state.</param>
-        public void Handle(RoundStartedEvent streamEvent, GameState gameState)
+        private void Handle(RoundStartedEvent streamEvent, GameState gameState)
         {
             var playerShowScores = new List<PlayerScoreShow>(gameState.PlayerIds.Select(player => new PlayerScoreShow { CribScore = null, HasShowed = false, Player = player, PlayerCountedShowScore = 0, ShowScore = 0 }));
 
@@ -124,7 +142,7 @@ namespace Skunked.Domain.State
                 Complete = false,
                 PlayerCrib = cribPlayerId,
                 Hands = new List<PlayerHand>(),
-                ThePlay = new List<List<PlayItem>> { new () },
+                ThePlay = new List<List<PlayItem>> { new() },
                 Round = currentRound + 1,
                 ShowScores = playerShowScores,
             };
@@ -137,7 +155,7 @@ namespace Skunked.Domain.State
         /// </summary>
         /// <param name="streamEvent">Event to handle.</param>
         /// <param name="gameState">The game state.</param>
-        public void Handle(HandsDealtEvent streamEvent, GameState gameState)
+        private void Handle(HandsDealtEvent streamEvent, GameState gameState)
         {
             var round = gameState.GetCurrentRound();
             round.DealtCards = streamEvent.Hands;
@@ -147,8 +165,8 @@ namespace Skunked.Domain.State
         /// Handle cref="CardsThrownEvent" event.
         /// </summary>
         /// <param name="streamEvent">Event to handle.</param>
-        /// <param name="gameState"></param>
-        public void Handle(CardsThrownEvent streamEvent, GameState gameState)
+        /// <param name="gameState">The game state.</param>
+        private void Handle(CardsThrownEvent streamEvent, GameState gameState)
         {
             var currentRound = gameState.GetCurrentRound();
 
@@ -167,8 +185,8 @@ namespace Skunked.Domain.State
         /// Handle cref="StarterCardSelectedEvent" event.
         /// </summary>
         /// <param name="streamEvent">Event to handle.</param>
-        /// <param name="gameState"></param>
-        public void Handle(StarterCardSelectedEvent streamEvent, GameState gameState)
+        /// <param name="gameState">The game state.</param>
+        private void Handle(StarterCardSelectedEvent streamEvent, GameState gameState)
         {
             var currentRound = gameState.GetCurrentRound();
             var dealerId = currentRound.PlayerCrib;
@@ -184,8 +202,8 @@ namespace Skunked.Domain.State
         /// Handle cref="CardPlayedEvent" event.
         /// </summary>
         /// <param name="streamEvent">Event to handle.</param>
-        /// <param name="gameState"></param>
-        public void Handle(CardPlayedEvent streamEvent, GameState gameState)
+        /// <param name="gameState">The game state.</param>
+        private void Handle(CardPlayedEvent streamEvent, GameState gameState)
         {
             // 2. Declare round variables
             var currentRound = gameState.GetCurrentRound();
@@ -245,8 +263,8 @@ namespace Skunked.Domain.State
         /// Handle cref="HandCountedEvent" event.
         /// </summary>
         /// <param name="streamEvent">Event to handle.</param>
-        /// <param name="gameState"></param>
-        public void Handle(HandCountedEvent streamEvent, GameState gameState)
+        /// <param name="gameState">The game state.</param>
+        private void Handle(HandCountedEvent streamEvent, GameState gameState)
         {
             var roundState = gameState.GetCurrentRound();
             var starterCard = roundState.Starter;
@@ -270,8 +288,8 @@ namespace Skunked.Domain.State
         /// Handle cref="CribCountedEvent" event.
         /// </summary>
         /// <param name="streamEvent">Event to handle.</param>
-        /// <param name="gameState"></param>
-        public void Handle(CribCountedEvent streamEvent, GameState gameState)
+        /// <param name="gameState">The game state.</param>
+        private void Handle(CribCountedEvent streamEvent, GameState gameState)
         {
             var currentRound = gameState.GetCurrentRound();
             var starterCard = currentRound.Starter;

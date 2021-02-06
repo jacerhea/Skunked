@@ -24,23 +24,44 @@ namespace Skunked.Domain.State
         /// </summary>
         public List<int> PlayerIds { get; set; }
 
-        public List<PlayerScore> IndividualScores { get; set; } = new ();
-
-        public List<TeamScore> TeamScores { get; set; } = new ();
+        /// <summary>
+        /// Gets or sets the players scores.
+        /// </summary>
+        public List<PlayerScore> IndividualScores { get; set; } = new();
 
         /// <summary>
-        /// Gets or sets the rules used during the game.
+        /// Gets or sets the team scores.
+        /// </summary>
+        public List<TeamScore> TeamScores { get; set; } = new();
+
+        /// <summary>
+        /// Gets or sets the set of rules for the game.
         /// </summary>
         public GameRules GameRules { get; set; }
 
+        /// <summary>
+        /// Gets or set the opening round.
+        /// </summary>
         public OpeningRound OpeningRound { get; set; }
 
-        public List<RoundState> Rounds { get; set; } = new ();
+        /// <summary>
+        /// Gets or set the set of rounds.
+        /// </summary>
+        public List<RoundState> Rounds { get; set; } = new();
 
+        /// <summary>
+        /// Gets or sets the time stamp of when the game started.
+        /// </summary>
         public DateTimeOffset StartedAt { get; set; }
 
+        /// <summary>
+        /// Gets or sets the time stamp of when the last event occurred.
+        /// </summary>
         public DateTimeOffset LastUpdated { get; set; }
 
+        /// <summary>
+        /// Gets or sets the time stamp of when the game we completed.
+        /// </summary>
         public DateTimeOffset? CompletedAt { get; set; }
     }
 }

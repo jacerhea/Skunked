@@ -11,8 +11,8 @@ namespace Skunked.Utility
         /// <summary>
         /// If the game finished.
         /// </summary>
-        /// <param name="game"></param>
-        /// <returns></returns>
+        /// <param name="game">The game state.</param>
+        /// <returns>True if the game is finished and no more moves may be made.</returns>
         public static bool IsGameFinished(this GameState game)
         {
             return game.TeamScores.Any(teamScore => teamScore.Score >= game.GameRules.WinningScore);
@@ -33,7 +33,7 @@ namespace Skunked.Utility
         /// </summary>
         /// <param name="gameState">The game state.</param>
         /// <param name="playerId">The id of the player.</param>
-        /// <returns></returns>
+        /// <returns>The next player id in the rotation.</returns>
         public static int GetNextPlayerFrom(this GameState gameState, int playerId)
         {
             var currentPlayer = gameState.PlayerIds.Single(id => id == playerId);

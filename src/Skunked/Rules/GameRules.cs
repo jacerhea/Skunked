@@ -7,36 +7,35 @@ namespace Skunked.Rules
     /// </summary>
     public class GameRules
     {
-        private readonly WinningScoreType _winningScore;
+        private readonly WinningScore _winningScore;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameRules"/> class.
         /// </summary>
         public GameRules()
-            : this(WinningScoreType.Standard121)
+            : this(Rules.WinningScore.Standard121)
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameRules"/> class.
         /// </summary>
-        /// <param name="winningScore"></param>
-        public GameRules(WinningScoreType winningScore)
+        /// <param name="winningScore">The winning score.</param>
+        public GameRules(WinningScore winningScore)
         {
             _winningScore = winningScore;
         }
-
-
-        /// <summary>
-        /// Gets the score a player needs to reach first to win the game.
-        /// </summary>
-        public int WinningScore => _winningScore == WinningScoreType.Standard121 ? 121 : 61;
-
 
         /// <summary>
         /// Gets size of hand after throwing cards to crib.
         /// </summary>
         public static int HandSize => 4;
+
+        /// <summary>
+        /// Gets the score a player needs to reach first to win the game.
+        /// </summary>
+        public int WinningScore => _winningScore == Rules.WinningScore.Standard121 ? 121 : 61;
+
 
         /// <summary>
         /// Gets size of initial hand that dealer gives to each player.

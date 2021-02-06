@@ -3,7 +3,7 @@
 namespace Skunked.Domain.Events
 {
     /// <summary>
-    /// Base event.
+    /// The base cribbage game event.
     /// </summary>
     public abstract class StreamEvent
     {

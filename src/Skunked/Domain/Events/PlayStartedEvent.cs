@@ -12,13 +12,16 @@ namespace Skunked.Domain.Events
         /// </summary>
         /// <param name="gameId">Unique identifier of the game.</param>
         /// <param name="version">The version of the game.</param>
-        /// <param name="round"></param>
+        /// <param name="round">The round.</param>
         public PlayStartedEvent(Guid gameId, int version, int round)
             : base(gameId, version)
         {
             Round = round;
         }
 
+        /// <summary>
+        /// The round.
+        /// </summary>
         public int Round { get; }
     }
 }

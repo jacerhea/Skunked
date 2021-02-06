@@ -27,11 +27,17 @@ namespace Skunked.Game
             _deck = deck;
         }
 
-        public Cribbage Run(List<IGameRunnerPlayer> players, WinningScoreType winningScoreType)
+        /// <summary>
+        /// Run a game of cribbage using the provided <see cref="IGameRunnerPlayer"/>.
+        /// </summary>
+        /// <param name="players">The players.</param>
+        /// <param name="winningScore">The winning score.</param>
+        /// <returns>The game of cribbage after it has completed.</returns>
+        public Cribbage Run(List<IGameRunnerPlayer> players, WinningScore winningScore)
         {
             if (players.Count > 4 || players.Count < 2) throw new ArgumentOutOfRangeException(nameof(players));
 
-            var gameRules = new GameRules(winningScoreType);
+            var gameRules = new GameRules(winningScore);
 
             var cribbage = new Cribbage(players.Select(p => p.Id), gameRules);
             var gameState = cribbage.State;

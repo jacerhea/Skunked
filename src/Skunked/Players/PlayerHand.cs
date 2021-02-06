@@ -13,7 +13,7 @@ namespace Skunked.Players
         /// Initializes a new instance of the <see cref="PlayerHand"/> class.
         /// </summary>
         /// <param name="playerId">The id of the player.</param>
-        /// <param name="hand"></param>
+        /// <param name="hand">The players hand.</param>
         public PlayerHand(int playerId, List<Card> hand)
         {
             PlayerId = playerId;

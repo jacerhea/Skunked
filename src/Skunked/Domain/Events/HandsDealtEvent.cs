@@ -14,7 +14,7 @@ namespace Skunked.Domain.Events
         /// </summary>
         /// <param name="gameId">Unique identifier of the game.</param>
         /// <param name="version">The version of the game.</param>
-        /// <param name="hands"></param>
+        /// <param name="hands">All player hands have been dealt.</param>
         public HandsDealtEvent(Guid gameId, int version, List<PlayerHand> hands)
             : base(gameId, version)
         {

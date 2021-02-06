@@ -13,7 +13,7 @@ namespace Skunked.Utility
         /// Returns all values of an enumeration.
         /// </summary>
         /// <typeparam name="T">The enum type to enumerate.</typeparam>
-        /// <returns>Returns all values of an enumeration.</returns>
+        /// <returns>The values of an enumeration.</returns>
         public static List<T> GetValues<T>() where T : struct
         {
             var type = typeof(T);

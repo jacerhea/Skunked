@@ -3,7 +3,7 @@
     /// <summary>
     /// Set of winning scores.
     /// </summary>
-    public enum WinningScoreType
+    public enum WinningScore
     {
         /// <summary>
         /// Shortened 61 point game

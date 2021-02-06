@@ -18,7 +18,7 @@ namespace Skunked.UnitTest.Commands
 
             _gameState = new GameState
             {
-                GameRules = new GameRules(WinningScoreType.Standard121),
+                GameRules = new GameRules(WinningScore.Standard121),
                 PlayerIds = new List<int> { 1, 2 },
                 OpeningRound = new OpeningRound(),
                 IndividualScores = new List<PlayerScore>

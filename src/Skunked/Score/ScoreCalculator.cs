@@ -13,7 +13,7 @@ namespace Skunked.Score
     /// </summary>
     public class ScoreCalculator
     {
-        private static readonly AceLowFaceTenCardValueStrategy ValueStrategy = new();
+        private static readonly AceLowFaceTenCardValueStrategy ValueStrategy = new ();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ScoreCalculator"/> class.
@@ -227,7 +227,8 @@ namespace Skunked.Score
         /// <returns>True of all cards are of the same kind.</returns>
         public bool IsSameKind(IEnumerable<Card> set)
         {
-            return set.DistinctBy(c => c.Rank).Count() == 1;
+            var x = set.DistinctBy(c => c.Rank);
+            return x.Count() == 1;
         }
 
         /// <summary>

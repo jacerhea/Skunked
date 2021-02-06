@@ -51,3 +51,18 @@ let ``optimisticDecision`` () =
     Assert.Contains(new Card(Rank.Two, Suit.Spades), result)
     Assert.Contains(new Card(Rank.Nine, Suit.Hearts), result)
 
+[<Fact>]
+let ``fdaf`` () =
+    let hand = [
+        new Card(Rank.Two, Suit.Clubs);
+        new Card(Rank.Four, Suit.Clubs);
+        new Card(Rank.Seven, Suit.Clubs);
+        new Card(Rank.Eight, Suit.Spades);
+        new Card(Rank.Nine, Suit.Hearts);
+        new Card(Rank.King, Suit.Spades);
+    ]
+    let result = CardToss.maxAverage hand |> Seq.toList
+    let x = CardToss.baseDecision hand |> Seq.toList
+    6
+
+

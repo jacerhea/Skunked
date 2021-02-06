@@ -18,19 +18,19 @@ namespace Skunked
     /// </summary>
     public class Cribbage
     {
-        private readonly Dealer _dealer = new ();
-        private readonly Deck _deck = new ();
+        private readonly Dealer _dealer = new();
+        private readonly Deck _deck = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Cribbage"/> class.
         /// </summary>
         /// <param name="players">Players in order by index and the value of the player id.</param>
-        /// <param name="rules">The set of rules to be followed.</param>
+        /// <param name="rules">The set of rules for the game.</param>
         /// <param name="eventListeners">Listen to all game events.</param>
         public Cribbage(IEnumerable<int> players, GameRules rules, IEnumerable<IEventListener>? eventListeners = null)
         {
             State = new GameState();
-            var internalStateBuilder = new GameStateEventListener(State, new GameStateBuilder());
+            var internalStateBuilder = new GameStateBuilder(State);
             var listeners = new List<IEventListener> { internalStateBuilder };
             listeners.AddRange(eventListeners ?? Enumerable.Empty<IEventListener>());
             Stream = new EventStream(listeners);

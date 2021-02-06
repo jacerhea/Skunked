@@ -31,10 +31,10 @@ namespace Skunked.Players
         Card DetermineCardsToPlay(GameRules gameRules, List<Card> pile, List<Card> handLeft);
 
         /// <summary>
-        ///
+        /// Get the card to cut.
         /// </summary>
-        /// <param name="cardsToChoose">e</param>
-        /// <returns></returns>
+        /// <param name="cardsToChoose">Cards to choose from.</param>
+        /// <returns>The cut card.</returns>
         Card CutCards(IEnumerable<Card> cardsToChoose);
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Skunked.Players
         /// </summary>
         /// <param name="starter">The starter card or cut.</param>
         /// <param name="hand">The player's hand.</param>
-        /// <returns>The </returns>
+        /// <returns>The points counted.</returns>
         int CountHand(Card starter, IEnumerable<Card> hand);
     }
 }

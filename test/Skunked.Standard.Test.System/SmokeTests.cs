@@ -32,7 +32,7 @@ namespace Skunked.Test.System
                 {
                     new TestPlayer($"TestPlayer {index}", 1),
                     new TestPlayer($"TestPlayer {index}_2", 2)
-                }, WinningScoreType.Standard121);
+                }, WinningScore.Standard121);
 
                 TestEndGame.Test(result.State);
             });
@@ -54,7 +54,7 @@ namespace Skunked.Test.System
                     new TestPlayer($"TestPlayer {index}_3", 3),
                     new TestPlayer($"TestPlayer {index}_4", 4),
                 };
-                var result = game.Run(players, WinningScoreType.Standard121);
+                var result = game.Run(players, WinningScore.Standard121);
 
                 TestEndGame.Test(result.State);
             });

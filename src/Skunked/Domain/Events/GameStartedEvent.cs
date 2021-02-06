@@ -14,8 +14,8 @@ namespace Skunked.Domain.Events
         /// </summary>
         /// <param name="gameId">Unique identifier of the game.</param>
         /// <param name="version">The version of the game.</param>
-        /// <param name="players"></param>
-        /// <param name="rules"></param>
+        /// <param name="players">The players.</param>
+        /// <param name="rules">The set of rules for the game.</param>
         public GameStartedEvent(Guid gameId, int version, List<int> players, GameRules rules)
             : base(gameId, version)
         {
@@ -23,8 +23,14 @@ namespace Skunked.Domain.Events
             Rules = rules;
         }
 
+        /// <summary>
+        /// Gets the set of players.
+        /// </summary>
         public List<int> Players { get; }
 
+        /// <summary>
+        /// Gets the set of rules for the game.
+        /// </summary>
         public GameRules Rules { get; }
     }
 }

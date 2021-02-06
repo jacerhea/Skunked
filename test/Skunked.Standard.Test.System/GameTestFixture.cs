@@ -52,7 +52,7 @@ namespace Skunked.Test.System
 
         private GameRules CreateRandomizedGameRules()
         {
-            return new(WinningScoreType.Short61);
+            return new(WinningScore.Short61);
         }
 
 

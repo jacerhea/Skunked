@@ -24,14 +24,32 @@ namespace Skunked.Score
     }
 
     /// <summary>
-    /// Set of points scored.
+    /// Set of points calculated.
     /// </summary>
-    public record CalculatedPoints(int Score,
-        int FifteenScore,
-        int PairScore,
-        int RunScore,
-        int FlushScore,
-        int NobScore);
+    public class CalculatedPoints
+    {
+        public int Score { get; }
+        public int FifteenScore { get; }
+        public int PairScore { get; }
+        public int RunScore { get; }
+        public int FlushScore { get; }
+        public int NobScore { get; }
+
+        public CalculatedPoints(int score,
+            int fifteenScore,
+            int pairScore,
+            int runScore,
+            int flushScore,
+            int nobScore)
+        {
+            Score = score;
+            FifteenScore = fifteenScore;
+            PairScore = pairScore;
+            RunScore = runScore;
+            FlushScore = flushScore;
+            NobScore = nobScore;
+        }
+    }
 
     /// <summary>
     /// A set of combinations that can score points.
