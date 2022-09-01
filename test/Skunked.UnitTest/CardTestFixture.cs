@@ -1,44 +1,42 @@
-﻿using System.Collections.Generic;
-using Skunked.Cards;
+﻿using Skunked.Cards;
 using Skunked.Utility;
 using Xunit;
 
-namespace Skunked.UnitTest
-{
-    public class CardTestFixture
-    {
-        [Fact]
-        public void TestCardProperties()
-        {
-            IEnumerable<Rank> allRanks = EnumHelper.GetValues<Rank>();
-            IEnumerable<Suit> allSuits = EnumHelper.GetValues<Suit>();
+namespace Skunked.UnitTest;
 
-            foreach (var rank in allRanks)
+public class CardTestFixture
+{
+    [Fact]
+    public void TestCardProperties()
+    {
+        IEnumerable<Rank> allRanks = EnumHelper.GetValues<Rank>();
+        IEnumerable<Suit> allSuits = EnumHelper.GetValues<Suit>();
+
+        foreach (var rank in allRanks)
+        {
+            foreach (var suit in allSuits)
             {
-                foreach (var suit in allSuits)
-                {
-                    var card = new Card(rank, suit);
-                    Assert.Equal(rank, card.Rank);
-                    Assert.Equal(suit, card.Suit);
-                }
+                var card = new Card(rank, suit);
+                Assert.Equal(rank, card.Rank);
+                Assert.Equal(suit, card.Suit);
             }
         }
+    }
 
-        [Fact]
-        public void TestCardEqualsTyped()
+    [Fact]
+    public void TestCardEqualsTyped()
+    {
+        IEnumerable<Rank> allRanks = EnumHelper.GetValues<Rank>();
+        IEnumerable<Suit> allSuits = EnumHelper.GetValues<Suit>();
+
+        foreach (var rank in allRanks)
         {
-            IEnumerable<Rank> allRanks = EnumHelper.GetValues<Rank>();
-            IEnumerable<Suit> allSuits = EnumHelper.GetValues<Suit>();
-
-            foreach (var rank in allRanks)
+            foreach (var suit in allSuits)
             {
-                foreach (var suit in allSuits)
-                {
-                    var card = new Card(rank, suit);
-                    var clonedCard = new Card(rank, suit);
+                var card = new Card(rank, suit);
+                var clonedCard = new Card(rank, suit);
 
-                    Assert.True(card.Equals(clonedCard));
-                }
+                Assert.True(card.Equals(clonedCard));
             }
         }
     }

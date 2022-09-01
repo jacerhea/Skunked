@@ -1,11 +1,10 @@
 ﻿using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Running;
 
-namespace Skunked.Benchmarks
+namespace Skunked.Benchmarks;
+
+class Program
 {
-    class Program
-    {
-        static void Main(string[] args) =>
-            BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).RunAll(new DebugBuildConfig());
-    }
+    static void Main(string[] args) =>
+        BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).RunAll(new DebugBuildConfig());
 }

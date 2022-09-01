@@ -225,7 +225,7 @@
         </member>
         <member name="T:Skunked.Cribbage">
             <summary>
-            The class for creating and modeling a game of Cribbage. "Plays" are validated and stored as a stream of events. Event listeners allow denormalized state to be created from the stream.
+            The class for creating and modeling a game of Cribbage. "Plays" are validated and stored as a stream of events. Event listeners allow de-normalized state to be created from the stream.
             </summary>
         </member>
         <member name="M:Skunked.Cribbage.#ctor(System.Collections.Generic.IEnumerable{System.Int32},Skunked.Rules.GameRules,System.Collections.Generic.IEnumerable{Skunked.Domain.Events.IEventListener})">
@@ -1556,76 +1556,6 @@
             <param name="item">The item to find next from.</param>
             <returns>The found item.</returns>
         </member>
-        <member name="M:Skunked.Utility.LinqExtended.MinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
-            <summary>
-            Returns the minimal elements of the given sequence, based on
-            the given projection.
-            </summary>
-            <remarks>
-            This overload uses the default comparer for the projected type.
-            This operator uses deferred execution. The results are evaluated
-            and cached on first use to returned sequence.
-            </remarks>
-            <typeparam name="TSource">Type of the source sequence.</typeparam>
-            <typeparam name="TKey">Type of the projected element.</typeparam>
-            <param name="source">Source sequence.</param>
-            <param name="selector">Selector to use to pick the results to compare.</param>
-            <returns>The sequence of minimal elements, according to the projection.</returns>
-            <exception cref="T:System.ArgumentNullException"><paramref name="source"/> or <paramref name="selector"/> is null.</exception>
-        </member>
-        <member name="M:Skunked.Utility.LinqExtended.MinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
-            <summary>
-            Returns the minimal elements of the given sequence, based on
-            the given projection and the specified comparer for projected values.
-            </summary>
-            <remarks>
-            This operator uses deferred execution. The results are evaluated
-            and cached on first use to returned sequence.
-            </remarks>
-            <typeparam name="TSource">Type of the source sequence.</typeparam>
-            <typeparam name="TKey">Type of the projected element.</typeparam>
-            <param name="source">Source sequence.</param>
-            <param name="selector">Selector to use to pick the results to compare.</param>
-            <param name="comparer">Comparer to use to compare projected values.</param>
-            <returns>The sequence of minimal elements, according to the projection.</returns>
-            <exception cref="T:System.ArgumentNullException"><paramref name="source"/>, <paramref name="selector"/>
-            or <paramref name="comparer"/> is null.</exception>
-        </member>
-        <member name="M:Skunked.Utility.LinqExtended.MaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
-            <summary>
-            Returns the maximal elements of the given sequence, based on
-            the given projection.
-            </summary>
-            <remarks>
-            This overload uses the default comparer  for the projected type.
-            This operator uses deferred execution. The results are evaluated
-            and cached on first use to returned sequence.
-            </remarks>
-            <typeparam name="TSource">Type of the source sequence.</typeparam>
-            <typeparam name="TKey">Type of the projected element.</typeparam>
-            <param name="source">Source sequence.</param>
-            <param name="selector">Selector to use to pick the results to compare.</param>
-            <returns>The sequence of maximal elements, according to the projection.</returns>
-            <exception cref="T:System.ArgumentNullException"><paramref name="source"/> or <paramref name="selector"/> is null.</exception>
-        </member>
-        <member name="M:Skunked.Utility.LinqExtended.MaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
-            <summary>
-            Returns the maximal elements of the given sequence, based on
-            the given projection and the specified comparer for projected values.
-            </summary>
-            <remarks>
-            This operator uses deferred execution. The results are evaluated
-            and cached on first use to returned sequence.
-            </remarks>
-            <typeparam name="TSource">Type of the source sequence.</typeparam>
-            <typeparam name="TKey">Type of the projected element.</typeparam>
-            <param name="source">Source sequence.</param>
-            <param name="selector">Selector to use to pick the results to compare.</param>
-            <param name="comparer">Comparer to use to compare projected values.</param>
-            <returns>The sequence of maximal elements, according to the projection.</returns>
-            <exception cref="T:System.ArgumentNullException"><paramref name="source"/>, <paramref name="selector"/>
-            or <paramref name="comparer"/> is null.</exception>
-        </member>
         <member name="M:Skunked.Utility.LinqExtended.TakeEvery``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
             <summary>
             Returns every N-th element of a sequence.
@@ -1646,42 +1576,6 @@
             ]]></code>
             The <c>result</c> variable, when iterated over, will yield 1, 3 and 5, in turn.
             </example>
-        </member>
-        <member name="M:Skunked.Utility.LinqExtended.DistinctBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
-            <summary>
-            Returns all distinct elements of the given source, where "distinctness"
-            is determined via a projection and the default equality comparer for the projected type.
-            </summary>
-            <remarks>
-            This operator uses deferred execution and streams the results, although
-            a set of already-seen keys is retained. If a key is seen multiple times,
-            only the first element with that key is returned.
-            </remarks>
-            <typeparam name="TSource">Type of the source sequence.</typeparam>
-            <typeparam name="TKey">Type of the projected element.</typeparam>
-            <param name="source">Source sequence.</param>
-            <param name="keySelector">Projection for determining "distinctness".</param>
-            <returns>A sequence consisting of distinct elements from the source sequence,
-            comparing them by the specified key projection.</returns>
-        </member>
-        <member name="M:Skunked.Utility.LinqExtended.DistinctBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``1})">
-            <summary>
-            Returns all distinct elements of the given source, where "distinctness"
-            is determined via a projection and the specified comparer for the projected type.
-            </summary>
-            <remarks>
-            This operator uses deferred execution and streams the results, although
-            a set of already-seen keys is retained. If a key is seen multiple times,
-            only the first element with that key is returned.
-            </remarks>
-            <typeparam name="TSource">Type of the source sequence.</typeparam>
-            <typeparam name="TKey">Type of the projected element.</typeparam>
-            <param name="source">Source sequence.</param>
-            <param name="keySelector">Projection for determining "distinctness".</param>
-            <param name="comparer">The equality comparer to use to determine whether or not keys are equal.
-            If null, the default equality comparer for <c>TSource</c> is used.</param>
-            <returns>A sequence consisting of distinct elements from the source sequence,
-            comparing them by the specified key projection.</returns>
         </member>
         <member name="T:Skunked.Utility.RandomProvider">
             <summary>

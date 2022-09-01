@@ -1,20 +1,17 @@
-﻿using System.Collections.Generic;
+﻿namespace Skunked.Domain.State;
 
-namespace Skunked.Domain.State
+/// <summary>
+/// The team and their score.
+/// </summary>
+public class TeamScore
 {
     /// <summary>
-    /// The team and their score.
+    /// Player id's on a team.
     /// </summary>
-    public class TeamScore
-    {
-        /// <summary>
-        /// Player id's on a team.
-        /// </summary>
-        public List<int> Players { get; set; } = new ();
+    public List<int> Players { get; set; } = new ();
 
-        /// <summary>
-        /// The team's score.
-        /// </summary>
-        public int Score { get; set; }
-    }
+    /// <summary>
+    /// The team's score.
+    /// </summary>
+    public int Score { get; set; }
 }

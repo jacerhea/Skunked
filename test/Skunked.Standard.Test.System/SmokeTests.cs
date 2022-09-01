@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Skunked.Cards;
 using Skunked.Game;
 using Skunked.Players;
@@ -11,60 +6,59 @@ using Skunked.Rules;
 using Skunked.Utility;
 using Xunit;
 
-namespace Skunked.Test.System
+namespace Skunked.Test.System;
+
+public class SmokeTests : IDisposable
 {
-    public class SmokeTests : IDisposable
+
+    public SmokeTests()
     {
+        //RandomProvider.RandomInstance = new ThreadLocal<Random>(() => new IncrementalRandom());
+    }
 
-        public SmokeTests()
+    [Fact]
+    public void Run_2_Player_Game()
+    {
+        var game = new GameRunner(new Deck());
+
+        var result = Parallel.ForEach(Enumerable.Range(0, 1000), index =>
         {
-            //RandomProvider.RandomInstance = new ThreadLocal<Random>(() => new IncrementalRandom());
-        }
-
-        [Fact]
-        public void Run_2_Player_Game()
-        {
-            var game = new GameRunner(new Deck());
-
-            var result = Parallel.ForEach(Enumerable.Range(0, 1000), index =>
+            var result = game.Run(new List<IGameRunnerPlayer>
             {
-                var result = game.Run(new List<IGameRunnerPlayer>
-                {
-                    new TestPlayer($"TestPlayer {index}", 1),
-                    new TestPlayer($"TestPlayer {index}_2", 2)
-                }, WinningScore.Standard121);
+                new TestPlayer($"TestPlayer {index}", 1),
+                new TestPlayer($"TestPlayer {index}_2", 2)
+            }, WinningScore.Standard121);
 
-                TestEndGame.Test(result.State);
-            });
+            TestEndGame.Test(result.State);
+        });
 
-            result.IsCompleted.Should().BeTrue();
-        }
+        result.IsCompleted.Should().BeTrue();
+    }
 
-        [Fact]
-        public void Run_4_Player_Game()
+    [Fact]
+    public void Run_4_Player_Game()
+    {
+        var game = new GameRunner(new Deck());
+
+        var result = Parallel.ForEach(Enumerable.Range(0, 1000), index =>
         {
-            var game = new GameRunner(new Deck());
-
-            var result = Parallel.ForEach(Enumerable.Range(0, 1000), index =>
+            var players = new List<IGameRunnerPlayer>
             {
-                var players = new List<IGameRunnerPlayer>
-                {
-                    new TestPlayer($"TestPlayer {index}", 1),
-                    new TestPlayer($"TestPlayer {index}_2", 2),
-                    new TestPlayer($"TestPlayer {index}_3", 3),
-                    new TestPlayer($"TestPlayer {index}_4", 4),
-                };
-                var result = game.Run(players, WinningScore.Standard121);
+                new TestPlayer($"TestPlayer {index}", 1),
+                new TestPlayer($"TestPlayer {index}_2", 2),
+                new TestPlayer($"TestPlayer {index}_3", 3),
+                new TestPlayer($"TestPlayer {index}_4", 4),
+            };
+            var result = game.Run(players, WinningScore.Standard121);
 
-                TestEndGame.Test(result.State);
-            });
+            TestEndGame.Test(result.State);
+        });
 
-            result.IsCompleted.Should().BeTrue();
-        }
+        result.IsCompleted.Should().BeTrue();
+    }
 
-        public void Dispose()
-        {
-            RandomProvider.ResetInstance();
-        }
+    public void Dispose()
+    {
+        RandomProvider.ResetInstance();
     }
 }

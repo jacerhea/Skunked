@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using Skunked.Cards;
+﻿using Skunked.Cards;
 
-namespace Skunked.Domain.State
+namespace Skunked.Domain.State;
+
+public class PreRound
 {
-
-    public class PreRound
-    {
-        public List<Card> Deck { get; set; } = new ();
-    }
+    public List<Card> Deck { get; set; } = new ();
 }
