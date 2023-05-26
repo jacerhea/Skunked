@@ -24,7 +24,7 @@ public class ComboPossibleScores
     /// <summary>
     /// Total sum of all possible scores.
     /// </summary>
-    public int Total { get; private set; }
+    public int Total { get; }
 
     /// <summary>
     /// The given combination of cards.

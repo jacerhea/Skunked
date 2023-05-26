@@ -37,24 +37,6 @@
             Gets playing card's suit.
             </summary>
         </member>
-        <member name="M:Skunked.Cards.Card.ToString">
-            <inheritdoc/>
-        </member>
-        <member name="M:Skunked.Cards.Card.Equals(System.Object)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Skunked.Cards.Card.GetHashCode">
-            <inheritdoc/>
-        </member>
-        <member name="M:Skunked.Cards.Card.Equals(Skunked.Cards.Card)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Skunked.Cards.Card.Equals(Skunked.Cards.Card,Skunked.Cards.Card)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Skunked.Cards.Card.GetHashCode(Skunked.Cards.Card)">
-            <inheritdoc/>
-        </member>
         <member name="T:Skunked.Cards.Dealer">
             <summary>
             Standard dealer.  One card per pass.
@@ -618,7 +600,7 @@
         </member>
         <member name="P:Skunked.Domain.Events.PlayFinishedEvent.Round">
             <summary>
-            Get the round.
+            Gets the round.
             </summary>
         </member>
         <member name="T:Skunked.Domain.Events.PlayStartedEvent">
@@ -791,7 +773,7 @@
             <summary>
             Handle cref="PlayStartedEvent" event.
             </summary>
-            <param name="streamEvent"></param>
+            <param name="streamEvent">Event to handle</param>
             <param name="gameState">The game state.</param>
         </member>
         <member name="M:Skunked.Domain.State.GameStateBuilder.Handle(Skunked.Domain.Events.RoundStartedEvent,Skunked.Domain.State.GameState)">
@@ -842,6 +824,31 @@
             </summary>
             <param name="streamEvent">Event to handle.</param>
             <param name="gameState">The game state.</param>
+        </member>
+        <member name="T:Skunked.Domain.State.OpeningRound">
+            <summary>
+            State of the opening round
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.OpeningRound.Deck">
+            <summary>
+            State of the deck
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.OpeningRound.CutCards">
+            <summary>
+            State of the cut cards.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.OpeningRound.Complete">
+            <summary>
+            Is the opening round complete.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.OpeningRound.WinningPlayerCut">
+            <summary>
+            The index of the winning player cut.
+            </summary>
         </member>
         <member name="T:Skunked.Domain.State.PlayerIdCard">
             <summary>
@@ -1576,6 +1583,15 @@
             ]]></code>
             The <c>result</c> variable, when iterated over, will yield 1, 3 and 5, in turn.
             </example>
+        </member>
+        <member name="M:Skunked.Utility.LinqExtended.Infinite``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Endless iterates source.  l
+            </summary>
+            <param name="source"></param>
+            <typeparam name="TSource"></typeparam>
+            <returns>Iterated Item</returns>
+            <exception cref="T:System.ArgumentNullException">source must not be null.</exception>
         </member>
         <member name="T:Skunked.Utility.RandomProvider">
             <summary>

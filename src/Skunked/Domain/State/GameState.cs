@@ -20,7 +20,7 @@ public class GameState
     /// <summary>
     /// Gets or sets player ids.
     /// </summary>
-    public List<int> PlayerIds { get; set; }
+    public List<int> PlayerIds { get; set; } = new();
 
     /// <summary>
     /// Gets or sets the players scores.
@@ -35,12 +35,12 @@ public class GameState
     /// <summary>
     /// Gets or sets the set of rules for the game.
     /// </summary>
-    public GameRules GameRules { get; set; }
+    public GameRules GameRules { get; set; } = null!;
 
     /// <summary>
     /// Gets or set the opening round.
     /// </summary>
-    public OpeningRound OpeningRound { get; set; }
+    public OpeningRound OpeningRound { get; set; } = null!;
 
     /// <summary>
     /// Gets or set the set of rounds.

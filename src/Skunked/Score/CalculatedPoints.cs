@@ -53,8 +53,8 @@ public class CalculatedPoints
 /// <summary>
 /// A set of combinations that can score points.
 /// </summary>
-public record CalculatedCombinations(IList<IList<Card>> Fifteens,
-    IList<IList<Card>> Pairs,
-    IList<IList<Card>> Runs,
+public record CalculatedCombinations(IList<IReadOnlyList<Card>> Fifteens,
+    IList<IReadOnlyList<Card>> Pairs,
+    IList<IReadOnlyList<Card>> Runs,
     IList<Card> Flushes,
     Card? Nobs);

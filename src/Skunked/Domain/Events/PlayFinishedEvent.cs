@@ -18,7 +18,7 @@ public class PlayFinishedEvent : StreamEvent
     }
 
     /// <summary>
-    /// Get the round.
+    /// Gets the round.
     /// </summary>
     public int Round { get; }
 }

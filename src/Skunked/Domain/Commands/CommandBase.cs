@@ -9,7 +9,7 @@ public abstract class CommandBase
     /// Initializes a new instance of the <see cref="CommandBase"/> class.
     /// </summary>
     /// <param name="playerId">The id of player.</param>
-    public CommandBase(int playerId)
+    protected CommandBase(int playerId)
     {
         PlayerId = playerId;
     }

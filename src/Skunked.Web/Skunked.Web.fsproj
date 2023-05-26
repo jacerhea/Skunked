@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net7.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
@@ -16,6 +16,10 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Skunked.AI\Skunked.AI\Skunked.AI.fsproj" />
 		<ProjectReference Include="..\Skunked\Skunked.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Update="FSharp.Core" Version="7.0.300" />
 	</ItemGroup>
 
 </Project>

@@ -66,9 +66,7 @@ public static class LinqExtended
         for (int index = source.Count - 1; index > 0; index--)
         {
             int position = random.Next(index + 1);
-            T temp = source[index];
-            source[index] = source[position];
-            source[position] = temp;
+            (source[index], source[position]) = (source[position], source[index]);
         }
     }
 
@@ -113,6 +111,14 @@ public static class LinqExtended
         return source.Where((_, i) => i % step == 0);
     }
 
+
+    /// <summary>
+    /// Endless iterates source.  l
+    /// </summary>
+    /// <param name="source"></param>
+    /// <typeparam name="TSource"></typeparam>
+    /// <returns>Iterated Item</returns>
+    /// <exception cref="ArgumentNullException">source must not be null.</exception>
     public static IEnumerable<TSource> Infinite<TSource>(this IEnumerable<TSource> source)
     {
         if (source == null) throw new ArgumentNullException(nameof(source));

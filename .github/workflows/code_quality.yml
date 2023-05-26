@@ -11,7 +11,7 @@ jobs:
         - uses: actions/checkout@master
         - uses: goit/setup-resharper@v1
           with:
-            version: '2020.1'
+            version: '2022.1'
         - run: InspectCode src/Skunked/Skunked.csproj
   dup-finder:
     name: DupFinder Checks
@@ -20,5 +20,5 @@ jobs:
         - uses: actions/checkout@master
         - uses: goit/setup-resharper@v1
           with:
-            version: '2020.1'
+            version: '2022.1'
         - run: dupFinder.sh src/Skunked/Skunked.csproj

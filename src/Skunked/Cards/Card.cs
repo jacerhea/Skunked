@@ -4,13 +4,13 @@ namespace Skunked.Cards;
 /// <summary>
 /// Standard 52-card deck playing card.
 /// </summary>
-public class Card : IEquatable<Card>, IEqualityComparer<Card>
+public record Card
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="Card"/> class.
     /// </summary>
     public Card()
-        : this(Rank.Ace, Suit.Clubs) { }
+        : this(Rank.Ace) { }
 
 
     /// <summary>
@@ -43,50 +43,4 @@ public class Card : IEquatable<Card>, IEqualityComparer<Card>
     /// Gets playing card's suit.
     /// </summary>
     public Suit Suit { get; }
-
-    /// <inheritdoc/>
-    public override string ToString()
-    {
-        return $"{Rank} of {Suit}";
-    }
-
-    /// <inheritdoc/>
-    public override bool Equals(object? obj)
-    {
-        if (obj == null)
-        {
-            return false;
-        }
-        var card = (Card)obj;
-        return card.Rank == Rank && card.Suit == Suit;
-    }
-
-    /// <inheritdoc/>
-    public override int GetHashCode()
-    {
-        return (int)Suit ^ (int)Rank;
-    }
-
-
-    /// <inheritdoc/>
-    public bool Equals(Card other)
-    {
-        if (other == null)
-        {
-            return false;
-        }
-        return other.Rank == Rank && other.Suit == Suit;
-    }
-
-    /// <inheritdoc/>
-    public bool Equals(Card x, Card y)
-    {
-        return x.Rank == y.Rank && x.Suit == y.Suit;
-    }
-
-    /// <inheritdoc/>
-    public int GetHashCode(Card obj)
-    {
-        return (int)obj.Suit ^ (int)obj.Rank;
-    }
 }

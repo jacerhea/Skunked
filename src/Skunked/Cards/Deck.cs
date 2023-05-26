@@ -45,7 +45,7 @@ public sealed class Deck : IEnumerable<Card>
     /// <param name="count">Number of times to shuffle the card.</param>
     public void Shuffle(int count)
     {
-        foreach (var i in Enumerable.Range(1, count))
+        foreach (var _ in Enumerable.Range(1, count))
         {
             _deck.Shuffle();
         }

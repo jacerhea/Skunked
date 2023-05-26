@@ -77,7 +77,7 @@ public class GameStateBuilder : IEventListener
         else
         {
             var currentRound = gameState.GetCurrentRound();
-            currentRound.PreRound = currentRound.PreRound ?? new PreRound();
+            currentRound.PreRound ??= new ();
             currentRound.PreRound.Deck = streamEvent.Deck;
         }
     }
@@ -96,7 +96,7 @@ public class GameStateBuilder : IEventListener
 
         if (isDone && gameState.Rounds.Count == 0)
         {
-            var winningPlayerCut = gameState.OpeningRound.CutCards.MinBy(playerCard => playerCard.Card, RankComparer.Instance);
+            var winningPlayerCut = gameState.OpeningRound.CutCards.MinBy(playerCard => playerCard.Card, RankComparer.Instance)!;
             gameState.OpeningRound.WinningPlayerCut = winningPlayerCut.Player;
         }
     }
@@ -104,7 +104,7 @@ public class GameStateBuilder : IEventListener
     /// <summary>
     /// Handle cref="PlayStartedEvent" event.
     /// </summary>
-    /// <param name="streamEvent"></param>
+    /// <param name="streamEvent">Event to handle</param>
     /// <param name="gameState">The game state.</param>
     private void Handle(PlayStartedEvent streamEvent, GameState gameState)
     {
@@ -364,7 +364,7 @@ public class GameStateBuilder : IEventListener
             }
 
             var nextPlayerPlaySequence = playerCardPlayedScores.Select(s => s.Card).ToList();
-            nextPlayerPlaySequence.Add(nextPlayerAvailableCardsToPlay.MinBy(c => new AceLowFaceTenCardValueStrategy().GetValue(c)));
+            nextPlayerPlaySequence.Add(nextPlayerAvailableCardsToPlay.MinBy(c => new AceLowFaceTenCardValueStrategy().GetValue(c))!);
             var scoreTest = _scoreCalculator.SumValues(nextPlayerPlaySequence);
             if (scoreTest <= GameRules.Points.MaxPlayCount)
             {
