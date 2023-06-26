@@ -8,7 +8,7 @@ jobs:
     name: build, pack & publish
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Packs
         run: dotnet pack src/Skunked/Skunked.csproj -p:NuspecFile=Skunked.nuspec  --configuration Release --include-symbols --include-source -p:Version=1.0.$GITHUB_RUN_NUMBER
       - name: Push

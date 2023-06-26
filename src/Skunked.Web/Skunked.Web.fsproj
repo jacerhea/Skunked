@@ -14,7 +14,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Skunked.AI\Skunked.AI\Skunked.AI.fsproj" />
 		<ProjectReference Include="..\Skunked\Skunked.csproj" />
 	</ItemGroup>
 
