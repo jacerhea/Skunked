@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Text.Json;
+using FluentAssertions;
 using Skunked.Cards;
 using Xunit;
 
@@ -26,5 +27,16 @@ public class DeckTests
         var deck = new Deck();
         var cardsOriginal = deck.ToList();
         deck.Shuffle();
+        deck.Should().NotContainInOrder(cardsOriginal);
+    }
+
+    [Fact]
+    public void SystemTextJson_Is_Able_To_Serialize_And_Deserialize()
+    {
+        var deckCards = new Deck().ToList();
+
+        var serializedCards = JsonSerializer.Serialize(deckCards);
+        var deserializedCards = JsonSerializer.Deserialize<List<Card>>(serializedCards);
+        deckCards.Should().ContainInOrder(deserializedCards);
     }
 }

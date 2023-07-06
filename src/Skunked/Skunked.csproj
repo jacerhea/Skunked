@@ -10,7 +10,7 @@
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<Title>Skunked</Title>
-		<Version>2.1.0</Version>
+		<Version>2.2.0</Version>
 		<Authors>Jace Rhea</Authors>
 		<Description>A library of classes to model the game of Cribbage.</Description>
 		<RepositoryUrl>https://github.com/jacerhea/Skunked</RepositoryUrl>

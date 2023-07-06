@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Goblinfactory.Konsole" Version="6.2.2" />
+    <PackageReference Include="Skunked.AI" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>

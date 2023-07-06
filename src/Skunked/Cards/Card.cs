@@ -1,4 +1,4 @@
-﻿
+
 namespace Skunked.Cards;
 
 /// <summary>
@@ -37,10 +37,10 @@ public record Card
     /// <summary>
     /// Gets playing card's rank.
     /// </summary>
-    public Rank Rank { get; }
+    public Rank Rank { get; init; }
 
     /// <summary>
     /// Gets playing card's suit.
     /// </summary>
-    public Suit Suit { get; }
+    public Suit Suit { get; init; }
 }

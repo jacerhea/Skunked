@@ -1,4 +1,6 @@
-﻿using FluentAssertions;
+﻿using System.Text.Encodings.Web;
+using System.Text.Json;
+using FluentAssertions;
 using Skunked.Cards;
 using Xunit;
 
@@ -22,5 +24,17 @@ public class CardTests
         original.Rank.Should().Be(Rank.Four);
         original.Suit.Should().Be(Suit.Spades);
         original.Should().Be(testCard);
+    }
+
+    [Fact]
+    public void SystemTextJson_Is_Able_To_Serialize_And_Deserialize()
+    {
+        var original = new Card(Rank.Four, Suit.Spades);
+
+        var serializedCard = JsonSerializer.Serialize(original);
+        var deserializedCard = JsonSerializer.Deserialize<Card>(serializedCard);
+        original.Rank.Should().Be(Rank.Four);
+        original.Suit.Should().Be(Suit.Spades);
+        deserializedCard.Should().Be(original);
     }
 }

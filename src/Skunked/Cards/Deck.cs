@@ -52,14 +52,8 @@ public sealed class Deck : IEnumerable<Card>
     }
 
     /// <inheritdoc/>
-    public IEnumerator<Card> GetEnumerator()
-    {
-        return _deck.GetEnumerator();
-    }
+    public IEnumerator<Card> GetEnumerator() => _deck.GetEnumerator();
 
     /// <inheritdoc/>
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }
