@@ -128,7 +128,7 @@ public class Cribbage
     public void CountCrib(CountCribCommand command)
     {
         var validation = new CountCribCommandValidation();
-        var @event = new CribCountedEvent(State.Id, NewVersion, command.PlayerId, command.PlayerId);
+        var @event = new CribCountedEvent(State.Id, NewVersion, command.PlayerId, command.Score);
         validation.Validate(State, command);
         Emit(@event);
 

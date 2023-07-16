@@ -26,16 +26,37 @@ public class GameStateBuilder : IEventListener
         _scoreCalculator = new ScoreCalculator();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="event"></param>
+    /// <exception cref="NotImplementedException"></exception>
     public void Notify(StreamEvent @event)
     {
-        dynamic dynamicEvent = @event;
-        Handle(dynamicEvent, _gameState);
+        switch (@event)
+        {
+            case GameStartedEvent t1: Handle(t1, _gameState); break;
+            case DeckShuffledEvent t1: Handle(t1, _gameState); break;
+            case CardCutEvent t1: Handle(t1, _gameState); break;
+            case PlayStartedEvent t1: Handle(t1, _gameState); break;
+            case RoundStartedEvent t1: Handle(t1, _gameState); break;
+            case HandsDealtEvent t1: Handle(t1, _gameState); break;
+            case CardsThrownEvent t1: Handle(t1, _gameState); break;
+            case PlayFinishedEvent t1: Handle(t1, _gameState); break;
+            case StarterCardSelectedEvent t1: Handle(t1, _gameState); break;
+            case CardPlayedEvent t1: Handle(t1, _gameState); break;
+            case HandCountedEvent t1: Handle(t1, _gameState); break;
+            case CribCountedEvent t1: Handle(t1, _gameState); break;
+
+            default:
+                throw new NotImplementedException($"Event Type {@event.GetType()} not implemented.");
+        }
     }
 
     /// <summary>
     /// Handle cref="GameStartedEvent" event.
     /// </summary>
-    /// <param name="streamEvent">Event to handle.</param>
+    /// <param name="streamEvent">Event when the game has started.</param>
     /// <param name="gameState">The game state.</param>
     private void Handle(GameStartedEvent streamEvent, GameState gameState)
     {
@@ -66,7 +87,7 @@ public class GameStateBuilder : IEventListener
     /// <summary>
     /// Handle cref="DeckShuffledEvent" event.
     /// </summary>
-    /// <param name="streamEvent">Event to handle.</param>
+    /// <param name="streamEvent">Event when the deck has been shuffled.</param>
     /// <param name="gameState">The game state.</param>
     private void Handle(DeckShuffledEvent streamEvent, GameState gameState)
     {
@@ -77,7 +98,7 @@ public class GameStateBuilder : IEventListener
         else
         {
             var currentRound = gameState.GetCurrentRound();
-            currentRound.PreRound ??= new ();
+            currentRound.PreRound ??= new();
             currentRound.PreRound.Deck = streamEvent.Deck;
         }
     }
@@ -85,7 +106,7 @@ public class GameStateBuilder : IEventListener
     /// <summary>
     /// Handle cref="CardCutEvent" event.
     /// </summary>
-    /// <param name="streamEvent">Event to handle.</param>
+    /// <param name="streamEvent">Event when a card has been cut.</param>
     /// <param name="gameState">The game state.</param>
     private void Handle(CardCutEvent streamEvent, GameState gameState)
     {
@@ -104,7 +125,7 @@ public class GameStateBuilder : IEventListener
     /// <summary>
     /// Handle cref="PlayStartedEvent" event.
     /// </summary>
-    /// <param name="streamEvent">Event to handle</param>
+    /// <param name="streamEvent">Event when play has started.</param>
     /// <param name="gameState">The game state.</param>
     private void Handle(PlayStartedEvent streamEvent, GameState gameState)
     {
@@ -325,6 +346,18 @@ public class GameStateBuilder : IEventListener
         currentRound.Complete = true;
     }
 
+
+    /// <summary>
+    /// Handle cref="CribCountedEvent" event.
+    /// </summary>
+    /// <param name="streamEvent">Event to handle.</param>
+    /// <param name="gameState">The game state.</param>
+    private void Handle(PlayFinishedEvent streamEvent, GameState gameState)
+    {
+       
+    }
+
+    
     private bool CheckEndOfGame(GameState gameState)
     {
         if (gameState.TeamScores.Any(ts => ts.Score >= gameState.GameRules.WinningScore))
