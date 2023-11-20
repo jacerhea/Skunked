@@ -2,7 +2,13 @@
 
 namespace Skunked.Domain.State;
 
+/// <summary>
+/// The state of the pre-round.
+/// </summary>
 public class PreRound
 {
+    /// <summary>
+    /// The state of the deck before the round begins.
+    /// </summary>
     public List<Card> Deck { get; set; } = new ();
 }

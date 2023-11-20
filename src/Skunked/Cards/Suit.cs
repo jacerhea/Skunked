@@ -23,5 +23,5 @@ public enum Suit
     /// <summary>
     /// ♠
     /// </summary>
-    Spades,
+    Spades
 }

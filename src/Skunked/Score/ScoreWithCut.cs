@@ -7,7 +7,13 @@ namespace Skunked.Score;
 /// </summary>
 public class ScoreWithCut
 {
+    /// <summary>
+    /// Gets the score.
+    /// </summary>
     public int Score { get; set; }
 
+    /// <summary>
+    /// Gets the cut card.
+    /// </summary>
     public Card Cut { get; set; }
 }

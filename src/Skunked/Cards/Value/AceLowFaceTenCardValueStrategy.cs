@@ -19,7 +19,7 @@ public class AceLowFaceTenCardValueStrategy
         { Rank.Ten, 10 },
         { Rank.Jack, 10 },
         { Rank.Queen, 10 },
-        { Rank.King, 10 },
+        { Rank.King, 10 }
     };
 
     /// <summary>

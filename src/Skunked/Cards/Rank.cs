@@ -68,5 +68,5 @@ public enum Rank
     /// <summary>
     /// 🂮
     /// </summary>
-    King,
+    King
 }
