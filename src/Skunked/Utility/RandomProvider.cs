@@ -34,8 +34,12 @@ public static class RandomProvider
         _randomWrapper = new ThreadLocal<Random>(() => new Random(Interlocked.Increment(ref _seed)));
     }
 
+    /// <summary>
+    /// Get Thread-safe Random instance.
+    /// </summary>
+    /// <returns></returns>
     public static Random GetThreadRandom()
     {
-        return _randomWrapper.Value;
+        return _randomWrapper.Value!;
     }
 }

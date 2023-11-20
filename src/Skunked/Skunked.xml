@@ -894,6 +894,86 @@
             Gets or sets the player's score.
             </summary>
         </member>
+        <member name="T:Skunked.Domain.State.PlayerScoreShow">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.PlayerScoreShow.Player">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.PlayerScoreShow.PlayerCountedShowScore">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.PlayerScoreShow.ShowScore">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.PlayerScoreShow.HasShowed">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.PlayerScoreShow.HasShowedCrib">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.PlayerScoreShow.CribScore">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.PlayerScoreShow.Complete">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Skunked.Domain.State.PlayItem">
+            <summary>
+            Players play.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.PlayItem.Player">
+            <summary>
+            Id of the player.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.PlayItem.Card">
+            <summary>
+            Card played.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.PlayItem.Score">
+            <summary>
+            The count of the cards played.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.PlayItem.NextPlayer">
+            <summary>
+            The id of the next player.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.PlayItem.NewCount">
+            <summary>
+            The new count.
+            </summary>
+        </member>
+        <member name="T:Skunked.Domain.State.PreRound">
+            <summary>
+            The state of the pre-round.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.PreRound.Deck">
+            <summary>
+            The state of the deck before the round begins.
+            </summary>
+        </member>
         <member name="T:Skunked.Domain.State.RoundState">
             <summary>
             The state of the Round.
@@ -917,6 +997,46 @@
         <member name="P:Skunked.Domain.State.RoundState.Hands">
             <summary>
             Gets or sets the set of cards in each players hand after thrown to the crib.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.RoundState.ThePlay">
+            <summary>
+            Gets or sets the set of Play items.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.RoundState.ThrowCardsComplete">
+            <summary>
+            Gets or sets the condition if the throwing of cards is complete.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.RoundState.PlayedCardsComplete">
+            <summary>
+            Gets or sets the condition if the playing of cards is complete.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.RoundState.Complete">
+            <summary>
+            Gets or sets the state of the round being complete.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.RoundState.PlayerCrib">
+            <summary>
+            The Id of the players crib..
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.RoundState.Crib">
+            <summary>
+            The cards thrown to the crib.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.RoundState.ShowScores">
+            <summary>
+            Gets or sets the scores for each team.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.State.RoundState.PreRound">
+            <summary>
+            Gets or sets the preround state.
             </summary>
         </member>
         <member name="T:Skunked.Domain.State.TeamScore">
@@ -1320,20 +1440,96 @@
             <param name="points"></param>
             <param name="combinations"></param>
         </member>
+        <member name="P:Skunked.Score.CalculatedResult.Points">
+            <summary>
+            The set of points that can be scored.
+            </summary>
+        </member>
+        <member name="P:Skunked.Score.CalculatedResult.Combinations">
+            <summary>
+            The set of combinations that can score points.
+            </summary>
+        </member>
         <member name="T:Skunked.Score.CalculatedPoints">
             <summary>
             Set of points calculated.
             </summary>
         </member>
+        <member name="P:Skunked.Score.CalculatedPoints.Score">
+            <summary>
+            Total points scored.
+            </summary>
+        </member>
+        <member name="P:Skunked.Score.CalculatedPoints.FifteenScore">
+            <summary>
+            Points scored for fifteens. 
+            </summary>
+        </member>
+        <member name="P:Skunked.Score.CalculatedPoints.PairScore">
+            <summary>
+            Points scored for pairs.
+            </summary>
+        </member>
+        <member name="P:Skunked.Score.CalculatedPoints.RunScore">
+            <summary>
+            Points scored for runs.
+            </summary>
+        </member>
+        <member name="P:Skunked.Score.CalculatedPoints.FlushScore">
+            <summary>
+            Points scored for flushes.
+            </summary>
+        </member>
+        <member name="P:Skunked.Score.CalculatedPoints.NobScore">
+            <summary>
+            Points scored for nobs.
+            </summary>
+        </member>
+        <member name="M:Skunked.Score.CalculatedPoints.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="score"></param>
+            <param name="fifteenScore"></param>
+            <param name="pairScore"></param>
+            <param name="runScore"></param>
+            <param name="flushScore"></param>
+            <param name="nobScore"></param>
+        </member>
         <member name="T:Skunked.Score.CalculatedCombinations">
             <summary>
             A set of combinations that can score points.
             </summary>
+            <param name="Fifteens">Sets of fifteens that can score points</param>
+            <param name="Pairs"> Sets of pairs that can score points</param>
+            <param name="Runs"> Sets of runs that can score points</param>
+            <param name="Flushes"> Sets of flushes that can score points</param>
+            <param name="Nobs"> Sets of nobs that can score points</param>
         </member>
         <member name="M:Skunked.Score.CalculatedCombinations.#ctor(System.Collections.Generic.IList{System.Collections.Generic.IReadOnlyList{Skunked.Cards.Card}},System.Collections.Generic.IList{System.Collections.Generic.IReadOnlyList{Skunked.Cards.Card}},System.Collections.Generic.IList{System.Collections.Generic.IReadOnlyList{Skunked.Cards.Card}},System.Collections.Generic.IList{Skunked.Cards.Card},Skunked.Cards.Card)">
             <summary>
             A set of combinations that can score points.
             </summary>
+            <param name="Fifteens">Sets of fifteens that can score points</param>
+            <param name="Pairs"> Sets of pairs that can score points</param>
+            <param name="Runs"> Sets of runs that can score points</param>
+            <param name="Flushes"> Sets of flushes that can score points</param>
+            <param name="Nobs"> Sets of nobs that can score points</param>
+        </member>
+        <member name="P:Skunked.Score.CalculatedCombinations.Fifteens">
+            <summary>Sets of fifteens that can score points</summary>
+        </member>
+        <member name="P:Skunked.Score.CalculatedCombinations.Pairs">
+            <summary> Sets of pairs that can score points</summary>
+        </member>
+        <member name="P:Skunked.Score.CalculatedCombinations.Runs">
+            <summary> Sets of runs that can score points</summary>
+        </member>
+        <member name="P:Skunked.Score.CalculatedCombinations.Flushes">
+            <summary> Sets of flushes that can score points</summary>
+        </member>
+        <member name="P:Skunked.Score.CalculatedCombinations.Nobs">
+            <summary> Sets of nobs that can score points</summary>
         </member>
         <member name="T:Skunked.Score.ComboPossibleScores">
             <summary>
@@ -1479,6 +1675,16 @@
         <member name="T:Skunked.Score.ScoreWithCut">
             <summary>
             Represents a starter card and a score.
+            </summary>
+        </member>
+        <member name="P:Skunked.Score.ScoreWithCut.Score">
+            <summary>
+            Gets the score.
+            </summary>
+        </member>
+        <member name="P:Skunked.Score.ScoreWithCut.Cut">
+            <summary>
+            Gets the cut card.
             </summary>
         </member>
         <member name="T:Skunked.Utility.EnumHelper">
@@ -1627,6 +1833,12 @@
             <summary>
             Restart instance of random generator.
             </summary>
+        </member>
+        <member name="M:Skunked.Utility.RandomProvider.GetThreadRandom">
+            <summary>
+            Get Thread-safe Random instance.
+            </summary>
+            <returns></returns>
         </member>
     </members>
 </doc>

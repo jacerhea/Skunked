@@ -68,5 +68,5 @@ public enum InvalidCribbageOperation
     /// <summary>
     /// The parameters of the game were violated.
     /// </summary>
-    InvalidRequest,
+    InvalidRequest
 }

@@ -1,4 +1,4 @@
-﻿using Skunked.Cards;
+using Skunked.Cards;
 using Skunked.Domain.Commands;
 using Skunked.Exceptions;
 using Skunked.Players;
@@ -32,7 +32,7 @@ public class GameRunner
     /// <returns>The game of cribbage after it has completed.</returns>
     public Cribbage Run(List<IGameRunnerPlayer> players, WinningScore winningScore)
     {
-        if (players.Count > 4 || players.Count < 2) throw new ArgumentOutOfRangeException(nameof(players));
+        if (players.Count is > 4 or < 2) throw new ArgumentOutOfRangeException(nameof(players));
 
         var gameRules = new GameRules(winningScore);
 
@@ -55,7 +55,8 @@ public class GameRunner
                 var currentRound = gameState.GetCurrentRound();
                 foreach (var playerDiscard in players)
                 {
-                    var tossed = playerDiscard.DetermineCardsToThrow(currentRound.DealtCards.Single(p => p.PlayerId == playerDiscard.Id).Hand);
+                    var tossed = playerDiscard.DetermineCardsToThrow(currentRound.DealtCards
+                        .Single(p => p.PlayerId == playerDiscard.Id).Hand);
                     cribbage.ThrowCards(new ThrowCardsCommand(playerDiscard.Id, tossed));
                 }
 
