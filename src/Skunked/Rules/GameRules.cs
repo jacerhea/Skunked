@@ -1,7 +1,7 @@
 ﻿namespace Skunked.Rules;
 
 /// <summary>
-/// Set of Cribbage rules.
+/// Represents the rules that govern the behavior and scoring in a game.
 /// </summary>
 public class GameRules
 {

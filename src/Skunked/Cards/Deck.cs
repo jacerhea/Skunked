@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Skunked.Utility;
@@ -10,8 +11,8 @@ namespace Skunked.Cards;
 /// </summary>
 public sealed class Deck : IEnumerable<Card>
 {
-    private static readonly List<Card> InitialDeck = EnumHelper.GetValues<Rank>()
-        .Cartesian(EnumHelper.GetValues<Suit>())
+    private static readonly List<Card> InitialDeck = Enum.GetValues<Rank>()
+        .Cartesian(Enum.GetValues<Suit>())
         .Select(pair => new Card(pair.Item1, pair.Item2))
         .ToList();
 

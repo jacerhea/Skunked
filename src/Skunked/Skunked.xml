@@ -388,11 +388,11 @@
             </summary>
             <param name="eventListeners">Listeners for events.</param>
         </member>
-        <member name="M:Skunked.Domain.EventStream.Add(Skunked.Domain.Events.StreamEvent)">
+        <member name="M:Skunked.Domain.EventStream.Add(Skunked.Domain.Events.GameEvent)">
             <summary>
-            Add an event to the stream.
+            Adds an event to the event stream.
             </summary>
-            <param name="event">The event to add.</param>
+            <param name="event">The event to be added to the stream.</param>
         </member>
         <member name="M:Skunked.Domain.EventStream.GetEnumerator">
             <inheritdoc/>
@@ -526,6 +526,33 @@
             <param name="gameId">Unique identifier of the game.</param>
             <param name="version">The version of the game.</param>
         </member>
+        <member name="T:Skunked.Domain.Events.GameEvent">
+            <summary>
+            Base event.
+            </summary>
+        </member>
+        <member name="M:Skunked.Domain.Events.GameEvent.#ctor(System.Guid,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.Domain.Events.GameEvent"/> class.
+            </summary>
+            <param name="gameId">Unique identifier of the game.</param>
+            <param name="version">The version of the game.</param>
+        </member>
+        <member name="P:Skunked.Domain.Events.GameEvent.GameId">
+            <summary>
+            Gets identifier of the game.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.Events.GameEvent.Version">
+            <summary>
+            Gets version of the game state.
+            </summary>
+        </member>
+        <member name="P:Skunked.Domain.Events.GameEvent.Occurred">
+            <summary>
+            Gets the time stamp this event took place.
+            </summary>
+        </member>
         <member name="T:Skunked.Domain.Events.GameStartedEvent">
             <summary>
             Event when the game has started.
@@ -537,8 +564,8 @@
             </summary>
             <param name="gameId">Unique identifier of the game.</param>
             <param name="version">The version of the game.</param>
-            <param name="players"></param>
-            <param name="rules"></param>
+            <param name="players">Set of players.</param>
+            <param name="rules">Set of Rules for the game.</param>
         </member>
         <member name="T:Skunked.Domain.Events.HandCountedEvent">
             <summary>
@@ -587,7 +614,7 @@
             An event listener.
             </summary>
         </member>
-        <member name="M:Skunked.Domain.Events.IEventListener.Notify(Skunked.Domain.Events.StreamEvent)">
+        <member name="M:Skunked.Domain.Events.IEventListener.Notify(Skunked.Domain.Events.GameEvent)">
             <summary>
             Notify when an event occurs.
             </summary>
@@ -604,7 +631,7 @@
             </summary>
             <param name="gameId">Unique identifier of the game.</param>
             <param name="version">The version of the game.</param>
-            <param name="round"></param>
+            <param name="round">Index of the round.</param>
         </member>
         <member name="T:Skunked.Domain.Events.PlayStartedEvent">
             <summary>
@@ -617,7 +644,7 @@
             </summary>
             <param name="gameId">Unique identifier of the game.</param>
             <param name="version">The version of the game.</param>
-            <param name="round"></param>
+            <param name="round">Index of the round.</param>
         </member>
         <member name="T:Skunked.Domain.Events.RoundStartedEvent">
             <summary>
@@ -647,33 +674,6 @@
         <member name="P:Skunked.Domain.Events.StarterCardSelectedEvent.Starter">
             <summary>
             Gets the starter card.
-            </summary>
-        </member>
-        <member name="T:Skunked.Domain.Events.StreamEvent">
-            <summary>
-            Base event.
-            </summary>
-        </member>
-        <member name="M:Skunked.Domain.Events.StreamEvent.#ctor(System.Guid,System.Int32)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Skunked.Domain.Events.StreamEvent"/> class.
-            </summary>
-            <param name="gameId">Unique identifier of the game.</param>
-            <param name="version">The version of the game.</param>
-        </member>
-        <member name="P:Skunked.Domain.Events.StreamEvent.GameId">
-            <summary>
-            Gets identifier of the game.
-            </summary>
-        </member>
-        <member name="P:Skunked.Domain.Events.StreamEvent.Version">
-            <summary>
-            Gets version of the game state.
-            </summary>
-        </member>
-        <member name="P:Skunked.Domain.Events.StreamEvent.Occurred">
-            <summary>
-            Gets the time stamp this event took place.
             </summary>
         </member>
         <member name="M:Skunked.Domain.GameStateEventListener.#ctor(Skunked.Domain.State.GameState,Skunked.Domain.State.GameStateBuilder)">
@@ -1128,7 +1128,7 @@
         </member>
         <member name="T:Skunked.Rules.GameRules">
             <summary>
-            Set of Cribbage rules.
+            Represents the rules that govern the behavior and scoring in a game.
             </summary>
         </member>
         <member name="M:Skunked.Rules.GameRules.#ctor">
@@ -1241,7 +1241,7 @@
             A set of combinations that can score points.
             </summary>
         </member>
-        <member name="M:Skunked.Score.CalculatedCombinations.#ctor(System.Collections.Generic.IList{System.Collections.Generic.IList{Skunked.Cards.Card}},System.Collections.Generic.IList{System.Collections.Generic.IList{Skunked.Cards.Card}},System.Collections.Generic.IList{System.Collections.Generic.IList{Skunked.Cards.Card}},System.Collections.Generic.IList{Skunked.Cards.Card},Skunked.Cards.Card)">
+        <member name="M:Skunked.Score.CalculatedCombinations.#ctor(System.Collections.Generic.List{System.Collections.Generic.List{Skunked.Cards.Card}},System.Collections.Generic.List{System.Collections.Generic.List{Skunked.Cards.Card}},System.Collections.Generic.List{System.Collections.Generic.List{Skunked.Cards.Card}},System.Collections.Generic.List{Skunked.Cards.Card},Skunked.Cards.Card)">
             <summary>
             A set of combinations that can score points.
             </summary>
@@ -1301,7 +1301,7 @@
             <param name="pile">The current pile.</param>
             <returns>The points in the pile.</returns>
         </member>
-        <member name="M:Skunked.Score.ScoreCalculator.FindFifteens(System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.List{System.Collections.Generic.IList{Skunked.Cards.Card}}})">
+        <member name="M:Skunked.Score.ScoreCalculator.FindFifteens(System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.List{System.Collections.Generic.List{Skunked.Cards.Card}}})">
             <summary>
             Returns collection of all unique sets of cards that add up to 15.
             </summary>
@@ -1316,14 +1316,14 @@
             <param name="starterCard">The starter card.</param>
             <returns>List of cards that make a flush or null if no flush found.</returns>
         </member>
-        <member name="M:Skunked.Score.ScoreCalculator.FindPairs(System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.List{System.Collections.Generic.IList{Skunked.Cards.Card}}})">
+        <member name="M:Skunked.Score.ScoreCalculator.FindPairs(System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.List{System.Collections.Generic.List{Skunked.Cards.Card}}})">
             <summary>
             A pair of cards of a kind.
             </summary>
             <param name="combinations">Lookup of all card combinations by permutation count.</param>
             <returns>Returns all pairs found.</returns>
         </member>
-        <member name="M:Skunked.Score.ScoreCalculator.FindRuns(System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.List{System.Collections.Generic.IList{Skunked.Cards.Card}}})">
+        <member name="M:Skunked.Score.ScoreCalculator.FindRuns(System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.List{System.Collections.Generic.List{Skunked.Cards.Card}}})">
             <summary>
             Find all unique runs of 3, 4, or 5 cards.
             </summary>
@@ -1387,18 +1387,6 @@
             Represents a starter card and a score.
             </summary>
         </member>
-        <member name="T:Skunked.Utility.EnumHelper">
-            <summary>
-            Set of enum helper functions.
-            </summary>
-        </member>
-        <member name="M:Skunked.Utility.EnumHelper.GetValues``1">
-            <summary>
-            Returns all values of an enumeration.
-            </summary>
-            <typeparam name="T">The enum type to enumerate.</typeparam>
-            <returns>Returns all values of an enumeration.</returns>
-        </member>
         <member name="T:Skunked.Utility.GameStateExtensions">
             <summary>
             Set of convenience methods to aggregate state from GameState.
@@ -1406,25 +1394,25 @@
         </member>
         <member name="M:Skunked.Utility.GameStateExtensions.IsGameFinished(Skunked.Domain.State.GameState)">
             <summary>
-            If the game finished.
+            Checks whether the game has finished based on the team scores and game rules.
             </summary>
-            <param name="game"></param>
-            <returns></returns>
+            <param name="gameState">The current state of the game.</param>
+            <returns>True if the game has finished; otherwise, false.</returns>
         </member>
         <member name="M:Skunked.Utility.GameStateExtensions.GetCurrentRound(Skunked.Domain.State.GameState)">
             <summary>
             Get the current round.
             </summary>
-            <param name="game">The game state.</param>
+            <param name="gameState">The current state of the game, containing player information.</param>
             <returns>The current round.</returns>
         </member>
         <member name="M:Skunked.Utility.GameStateExtensions.GetNextPlayerFrom(Skunked.Domain.State.GameState,System.Int32)">
             <summary>
-            Get the next player after the given playerId in the rotation.
+            Retrieves the ID of the next player in the rotation following the specified player.
             </summary>
-            <param name="gameState">The game state.</param>
-            <param name="playerId">The id of the player.</param>
-            <returns></returns>
+            <param name="gameState">The current state of the game, containing player information.</param>
+            <param name="playerId">The unique identifier of the current player.</param>
+            <returns>The unique identifier of the next player in the rotation.</returns>
         </member>
         <member name="T:Skunked.Utility.LinqExtended">
             <summary>
@@ -1445,10 +1433,10 @@
             The type of the elements of the result sequence.</typeparam>
             <param name="first">The first sequence of elements.</param>
             <param name="second">The second sequence of elements.</param>
-            <param name="resultSelector">A projection function that combines
-            elements from all of the sequences.</param>
-            <returns>A sequence of elements returned by
-            <paramref name="resultSelector"/>.</returns>
+            <returns>
+            An enumerable containing pairs of elements where each pair combines an
+            element from <paramref name="first"/> with an element from <paramref name="second"/>.
+            </returns>
             <remarks>
             <para>
             The method returns items in the same order as a nested foreach
@@ -1524,6 +1512,12 @@
             <summary>
             Restart instance of random generator.
             </summary>
+        </member>
+        <member name="M:Skunked.Utility.RandomProvider.GetThreadRandom">
+            <summary>
+            Provides a thread-safe instance of <see cref="T:System.Random"/> for use within the current thread.
+            </summary>
+            <returns>An instance of <see cref="T:System.Random"/> specific to the current thread.</returns>
         </member>
     </members>
 </doc>

@@ -37,6 +37,10 @@ public static class RandomProvider
         _randomWrapper = new ThreadLocal<Random>(() => new Random(Interlocked.Increment(ref _seed)));
     }
 
+    /// <summary>
+    /// Provides a thread-safe instance of <see cref="System.Random"/> for use within the current thread.
+    /// </summary>
+    /// <returns>An instance of <see cref="System.Random"/> specific to the current thread.</returns>
     public static Random GetThreadRandom()
     {
         return _randomWrapper.Value;

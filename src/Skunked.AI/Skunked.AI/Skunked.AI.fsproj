@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Combinatorics" Version="1.1.0.19" />
+    <PackageReference Include="Combinatorics" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>

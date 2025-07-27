@@ -12,12 +12,14 @@ namespace Skunked.Score;
 /// </summary>
 public class ScoreCalculator
 {
-    private static readonly AceLowFaceTenCardValueStrategy ValueStrategy = new ();
+    private static readonly AceLowFaceTenCardValueStrategy ValueStrategy = new();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ScoreCalculator"/> class.
     /// </summary>
-    public ScoreCalculator() { }
+    public ScoreCalculator()
+    {
+    }
 
     /// <summary>
     /// Check cut card for dealer.
@@ -100,6 +102,7 @@ public class ScoreCalculator
                 scored += count;
                 break;
             }
+
             count--;
         }
 
@@ -118,7 +121,7 @@ public class ScoreCalculator
     /// </summary>
     /// <param name="combinationsToCount">Lookup of all card combinations by permutation count.</param>
     /// <returns>List of all 15 combinations.</returns>
-    public List<IList<Card>> FindFifteens(Dictionary<int, List<IList<Card>>> combinationsToCount) =>
+    public List<List<Card>> FindFifteens(Dictionary<int, List<List<Card>>> combinationsToCount) =>
         combinationsToCount
             .Where(d => d.Key > 1)
             .SelectMany(kv => kv.Value)
@@ -133,7 +136,10 @@ public class ScoreCalculator
     /// <returns>List of cards that make a flush or null if no flush found.</returns>
     public List<Card>? FindFlush(List<Card> playersHand, Card starterCard)
     {
-        if (playersHand.Count < 4) { return []; }
+        if (playersHand.Count < 4)
+        {
+            return [];
+        }
 
         var fourCardFlush = playersHand.GroupBy(c => c.Suit).Where(g => g.Count() == 4).ToList();
 
@@ -158,7 +164,7 @@ public class ScoreCalculator
     /// </summary>
     /// <param name="combinations">Lookup of all card combinations by permutation count.</param>
     /// <returns>Returns all pairs found.</returns>
-    public List<IList<Card>> FindPairs(Dictionary<int, List<IList<Card>>> combinations) =>
+    public List<List<Card>> FindPairs(Dictionary<int, List<List<Card>>> combinations) =>
         combinations[2].Where(c => c[0].Rank == c[1].Rank).ToList();
 
     /// <summary>
@@ -167,7 +173,7 @@ public class ScoreCalculator
     /// <param name="combinations">Lookup of all card combinations by permutation count.</param>
     /// <returns>Set of all combinations of runs.</returns>
     // only looking for runs of 3, 4, and 5
-    public List<IList<Card>> FindRuns(Dictionary<int, List<IList<Card>>> combinations)
+    public List<List<Card>> FindRuns(Dictionary<int, List<List<Card>>> combinations)
     {
         var returnList = combinations[5].Where(IsRun).ToList();
 
@@ -194,40 +200,29 @@ public class ScoreCalculator
     /// <param name="cards">Player's hand.</param>
     /// <param name="starterCard">The starter or the cut.</param>
     /// <returns>The Nob.</returns>
-    public Card? FindNobs(IEnumerable<Card> cards, Card starterCard)
-    {
-        return cards.SingleOrDefault(c => c.Rank == Rank.Jack && c.Suit == starterCard.Suit);
-    }
+    public Card? FindNobs(IEnumerable<Card> cards, Card starterCard) =>
+        cards.SingleOrDefault(c => c.Rank == Rank.Jack && c.Suit == starterCard.Suit);
 
     /// <summary>
     ///  Separate combination of two or more cards totaling exactly fifteen.
     /// </summary>
     /// <param name="set">Set of cards to check.</param>
     /// <returns>True of set adds up to 15.</returns>
-    public bool IsFifteen(IList<Card> set)
-    {
-        return SumValues(set) == 15;
-    }
+    public bool IsFifteen(IList<Card> set) => SumValues(set) == 15;
 
     /// <summary>
     /// Sum of the value of the cards.
     /// </summary>
     /// <param name="set">Set of cards to sum.</param>
     /// <returns>The sum of the values.</returns>
-    public int SumValues(IEnumerable<Card> set)
-    {
-        return set.Sum(c => ValueStrategy.GetValue(c));
-    }
+    public int SumValues(IEnumerable<Card> set) => set.Sum(c => ValueStrategy.GetValue(c));
 
     /// <summary>
     /// Check if cards are all of same kind..
     /// </summary>
     /// <param name="set">Set of cards to check.</param>
     /// <returns>True of all cards are of the same kind.</returns>
-    public bool IsSameKind(IEnumerable<Card> set)
-    {
-        return set.DistinctBy(c => c.Rank).Count() == 1;
-    }
+    public bool IsSameKind(IEnumerable<Card> set) => set.DistinctBy(c => c.Rank).Count() == 1;
 
     /// <summary>
     /// Three or more consecutive cards (regardless of suit).
@@ -273,9 +268,7 @@ public class ScoreCalculator
     /// <typeparam name="T">The type of class to find combinations.</typeparam>
     /// <param name="source">The set of cards.</param>
     /// <returns>A dictionary where the key is the number of combinations.</returns>
-    public Dictionary<int, List<IList<T>>> GetCombinations<T>(IList<T> source)
-    {
-        return Enumerable.Range(1, source.Count)
-            .ToDictionary(size => size, size => new Combinations<T>(source, size).ToList());
-    }
+    public Dictionary<int, List<List<T>>> GetCombinations<T>(IList<T> source) =>
+        Enumerable.Range(1, source.Count)
+            .ToDictionary(size => size, size => new Combinations<T>(source, size).Select(set => set.ToList()).ToList());
 }

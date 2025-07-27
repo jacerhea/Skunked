@@ -35,8 +35,8 @@ public record CalculatedPoints(
 /// A set of combinations that can score points.
 /// </summary>
 public record CalculatedCombinations(
-    IList<IList<Card>> Fifteens,
-    IList<IList<Card>> Pairs,
-    IList<IList<Card>> Runs,
-    IList<Card> Flushes,
+    List<List<Card>> Fifteens,
+    List<List<Card>> Pairs,
+    List<List<Card>> Runs,
+    List<Card> Flushes,
     Card? Nobs);

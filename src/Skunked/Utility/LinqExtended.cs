@@ -22,10 +22,10 @@ public static class LinqExtended
     /// The type of the elements of the result sequence.</typeparam>
     /// <param name="first">The first sequence of elements.</param>
     /// <param name="second">The second sequence of elements.</param>
-    /// <param name="resultSelector">A projection function that combines
-    /// elements from all of the sequences.</param>
-    /// <returns>A sequence of elements returned by
-    /// <paramref name="resultSelector"/>.</returns>
+    /// <returns>
+    /// An enumerable containing pairs of elements where each pair combines an
+    /// element from <paramref name="first"/> with an element from <paramref name="second"/>.
+    /// </returns>
     /// <remarks>
     /// <para>
     /// The method returns items in the same order as a nested foreach

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Threading;
 using Skunked.Domain.Events;
 
 namespace Skunked.Domain;
@@ -12,7 +13,7 @@ namespace Skunked.Domain;
 /// </summary>
 public class EventStream : IEnumerable<GameEvent>
 {
-    private static readonly object Locker = new ();
+    private static readonly Lock Locker = new();
 
     private readonly ImmutableList<IEventListener> _eventListeners;
     private readonly List<GameEvent> _events;
@@ -28,9 +29,9 @@ public class EventStream : IEnumerable<GameEvent>
     }
 
     /// <summary>
-    /// Add an event to the stream.
+    /// Adds an event to the event stream.
     /// </summary>
-    /// <param name="event">The event to add.</param>
+    /// <param name="event">The event to be added to the stream.</param>
     public void Add(GameEvent @event)
     {
         lock (Locker)
@@ -38,7 +39,8 @@ public class EventStream : IEnumerable<GameEvent>
             var lastEvent = _events.LastOrDefault();
             if (lastEvent != null && @event.Occurred <= lastEvent.Occurred)
             {
-                throw new InvalidOperationException($"Concurrency problem detected. Given event occurred at {@event.Occurred:F} and before last recorded event at {lastEvent.Occurred:F} ");
+                throw new InvalidOperationException(
+                    $"Concurrency problem detected. Given event occurred at {@event.Occurred:F} and before last recorded event at {lastEvent.Occurred:F} ");
             }
 
             _events.Add(@event);
