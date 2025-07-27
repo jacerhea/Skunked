@@ -1,19 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Include="WeatherForecast.fs" />
-    <Compile Include="Controllers\DeckController.fs" />
-    <Compile Include="Startup.fs" />
-    <Compile Include="Program.fs" />
-  </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Controllers\DecksController.fs" />
+        <Compile Include="Program.fs"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Skunked.AI\Skunked.AI\Skunked.AI.fsproj" />
-    <ProjectReference Include="..\Skunked\Skunked.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Skunked\Skunked.csproj" />
+    </ItemGroup>
 
 </Project>
