@@ -1,24 +1,23 @@
 ﻿using System;
 
-namespace Skunked.Domain.Events
+namespace Skunked.Domain.Events;
+
+/// <summary>
+/// Event when the play has completed.
+/// </summary>
+public class PlayFinishedEvent : GameEvent
 {
     /// <summary>
-    /// Event when the play has completed.
+    /// Initializes a new instance of the <see cref="PlayFinishedEvent"/> class.
     /// </summary>
-    public class PlayFinishedEvent : StreamEvent
+    /// <param name="gameId">Unique identifier of the game.</param>
+    /// <param name="version">The version of the game.</param>
+    /// <param name="round">Index of the round.</param>
+    public PlayFinishedEvent(Guid gameId, int version, int round)
+        : base(gameId, version)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PlayFinishedEvent"/> class.
-        /// </summary>
-        /// <param name="gameId">Unique identifier of the game.</param>
-        /// <param name="version">The version of the game.</param>
-        /// <param name="round"></param>
-        public PlayFinishedEvent(Guid gameId, int version, int round)
-            : base(gameId, version)
-        {
-            Round = round;
-        }
-
-        public int Round { get; }
+        Round = round;
     }
+
+    public int Round { get; }
 }

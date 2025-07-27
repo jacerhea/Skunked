@@ -1,28 +1,27 @@
-﻿namespace Skunked.Cards
+﻿namespace Skunked.Cards;
+
+/// <summary>
+/// Categories into which the cards of a deck are divided.
+/// </summary>
+public enum Suit
 {
     /// <summary>
-    /// Categories into which the cards of a deck are divided.
+    /// ♣
     /// </summary>
-    public enum Suit
-    {
-        /// <summary>
-        /// ♣
-        /// </summary>
-        Clubs,
+    Clubs,
 
-        /// <summary>
-        /// ♦
-        /// </summary>
-        Diamonds,
+    /// <summary>
+    /// ♦
+    /// </summary>
+    Diamonds,
 
-        /// <summary>
-        /// ♥
-        /// </summary>
-        Hearts,
+    /// <summary>
+    /// ♥
+    /// </summary>
+    Hearts,
 
-        /// <summary>
-        /// ♠
-        /// </summary>
-        Spades,
-    }
+    /// <summary>
+    /// ♠
+    /// </summary>
+    Spades,
 }
