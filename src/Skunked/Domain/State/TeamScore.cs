@@ -8,7 +8,7 @@ public class TeamScore
     /// <summary>
     /// Player id's on a team.
     /// </summary>
-    public List<int> Players { get; set; } = new ();
+    public List<int> Players { get; set; } = new();
 
     /// <summary>
     /// The team's score.

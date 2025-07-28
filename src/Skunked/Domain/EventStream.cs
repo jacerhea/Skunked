@@ -9,7 +9,7 @@ namespace Skunked.Domain;
 /// </summary>
 public class EventStream : IEnumerable<StreamEvent>
 {
-    private static readonly object Locker = new ();
+    private static readonly object Locker = new();
 
     private readonly ImmutableList<IEventListener> _eventListeners;
     private readonly List<StreamEvent> _events;
@@ -35,7 +35,8 @@ public class EventStream : IEnumerable<StreamEvent>
             var lastEvent = _events.LastOrDefault();
             if (lastEvent != null && @event.Occurred <= lastEvent.Occurred)
             {
-                throw new InvalidOperationException($"Concurrency problem detected. Given event occurred at {@event.Occurred:F} and before last recorded event at {lastEvent.Occurred:F} ");
+                throw new InvalidOperationException(
+                    $"Concurrency problem detected. Given event occurred at {@event.Occurred:F} and before last recorded event at {lastEvent.Occurred:F} ");
             }
 
             _events.Add(@event);

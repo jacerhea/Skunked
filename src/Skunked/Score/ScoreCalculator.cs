@@ -15,7 +15,9 @@ public class ScoreCalculator
     /// <summary>
     /// Initializes a new instance of the <see cref="ScoreCalculator"/> class.
     /// </summary>
-    public ScoreCalculator() { }
+    public ScoreCalculator()
+    {
+    }
 
     /// <summary>
     /// Check cut card for dealer.
@@ -98,6 +100,7 @@ public class ScoreCalculator
                 scored += count;
                 break;
             }
+
             count--;
         }
 
@@ -131,7 +134,10 @@ public class ScoreCalculator
     /// <returns>List of cards that make a flush or null if no flush found.</returns>
     public List<Card>? FindFlush(List<Card> playersHand, Card starterCard)
     {
-        if (playersHand.Count < 4) { return new List<Card>(0); }
+        if (playersHand.Count < 4)
+        {
+            return new List<Card>(0);
+        }
 
         var fourCardFlush = playersHand.GroupBy(c => c.Suit).Where(g => g.Count() == 4).ToList();
 

@@ -63,7 +63,7 @@ public class GameRules
         public static int Fifteen => 2;
 
         /// <summary>
-        /// Gets jack is cut as the starter card. Points are awarded to dealer.
+        /// Points awarded to the dealer when a jack is cut as the starter card. 
         /// </summary>
         public static int Nibs => 2;
 

@@ -13,7 +13,9 @@ public class CountCribCommandValidation : ValidationBase, IValidation<CountCribC
     /// <summary>
     /// Initializes a new instance of the <see cref="CountCribCommandValidation"/> class.
     /// </summary>
-    public CountCribCommandValidation() { }
+    public CountCribCommandValidation()
+    {
+    }
 
     /// <inheritdoc />
     public void Validate(GameState gameState, CountCribCommand command)

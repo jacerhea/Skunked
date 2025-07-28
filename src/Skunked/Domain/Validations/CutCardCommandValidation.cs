@@ -12,7 +12,9 @@ public class CutCardCommandValidation : ValidationBase, IValidation<CutCardComma
     /// <summary>
     /// Initializes a new instance of the <see cref="CutCardCommandValidation"/> class.
     /// </summary>
-    public CutCardCommandValidation() { }
+    public CutCardCommandValidation()
+    {
+    }
 
     /// <inheritdoc />
     public void Validate(GameState gameState, CutCardCommand command)

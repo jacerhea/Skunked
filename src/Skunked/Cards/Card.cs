@@ -1,5 +1,4 @@
-
-namespace Skunked.Cards;
+﻿namespace Skunked.Cards;
 
 /// <summary>
 /// Standard 52-card deck playing card.
@@ -10,7 +9,9 @@ public record Card
     /// Initializes a new instance of the <see cref="Card"/> class.
     /// </summary>
     public Card()
-        : this(Rank.Ace) { }
+        : this(Rank.Ace)
+    {
+    }
 
 
     /// <summary>

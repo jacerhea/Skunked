@@ -7,7 +7,6 @@ namespace Skunked.Score;
 /// </summary>
 public class ComboPossibleScores
 {
-
     /// <summary>
     /// Initializes a new instance of the <see cref="ComboPossibleScores"/> class.
     /// </summary>

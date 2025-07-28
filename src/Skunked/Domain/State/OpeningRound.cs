@@ -10,12 +10,12 @@ public class OpeningRound
     /// <summary>
     /// State of the deck
     /// </summary>
-    public List<Card> Deck { get; set; } = new ();
+    public List<Card> Deck { get; set; } = new();
 
     /// <summary>
     /// State of the cut cards.
     /// </summary>
-    public List<PlayerIdCard> CutCards { get; set; } = new ();
+    public List<PlayerIdCard> CutCards { get; set; } = new();
 
     /// <summary>
     /// Is the opening round complete.

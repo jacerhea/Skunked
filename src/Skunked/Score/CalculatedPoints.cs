@@ -97,7 +97,8 @@ public class CalculatedPoints
 /// <param name="Runs"> Sets of runs that can score points</param>
 /// <param name="Flushes"> Sets of flushes that can score points</param>
 /// <param name="Nobs"> Sets of nobs that can score points</param>
-public record CalculatedCombinations(IList<IReadOnlyList<Card>> Fifteens,
+public record CalculatedCombinations(
+    IList<IReadOnlyList<Card>> Fifteens,
     IList<IReadOnlyList<Card>> Pairs,
     IList<IReadOnlyList<Card>> Runs,
     IList<Card> Flushes,
