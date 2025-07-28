@@ -15,7 +15,7 @@ public class ComboPossibleScores
     /// <param name="possibleScores">Possible scores.</param>
     public ComboPossibleScores(IEnumerable<Card> combo, IEnumerable<ScoreWithCut> possibleScores)
     {
-        if (combo == null) throw new ArgumentNullException(nameof(combo));
+        ArgumentNullException.ThrowIfNull(combo);
         Combo = combo.ToList();
         PossibleScores = possibleScores.ToList();
         Total = PossibleScores.Sum(score => score.Score);

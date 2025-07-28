@@ -1687,18 +1687,6 @@
             Gets the cut card.
             </summary>
         </member>
-        <member name="T:Skunked.Utility.EnumHelper">
-            <summary>
-            Set of enum helper functions.
-            </summary>
-        </member>
-        <member name="M:Skunked.Utility.EnumHelper.GetValues``1">
-            <summary>
-            Returns all values of an enumeration.
-            </summary>
-            <typeparam name="T">The enum type to enumerate.</typeparam>
-            <returns>The values of an enumeration.</returns>
-        </member>
         <member name="T:Skunked.Utility.GameStateExtensions">
             <summary>
             Set of convenience methods to aggregate state from GameState.
@@ -1706,32 +1694,32 @@
         </member>
         <member name="M:Skunked.Utility.GameStateExtensions.IsGameFinished(Skunked.Domain.State.GameState)">
             <summary>
-            If the game finished.
+            Checks whether the game has finished based on the team scores and game rules.
             </summary>
-            <param name="game">The game state.</param>
-            <returns>True if the game is finished and no more moves may be made.</returns>
+            <param name="gameState">The current state of the game.</param>
+            <returns>True if the game has finished; otherwise, false.</returns>
         </member>
         <member name="M:Skunked.Utility.GameStateExtensions.GetCurrentRound(Skunked.Domain.State.GameState)">
             <summary>
             Get the current round.
             </summary>
-            <param name="game">The game state.</param>
+            <param name="gameState">The current state of the game, containing player information.</param>
             <returns>The current round.</returns>
         </member>
         <member name="M:Skunked.Utility.GameStateExtensions.GetNextPlayerFrom(Skunked.Domain.State.GameState,System.Int32)">
             <summary>
-            Get the next player after the given playerId in the rotation.
+            Retrieves the ID of the next player in the rotation following the specified player.
             </summary>
-            <param name="gameState">The game state.</param>
-            <param name="playerId">The id of the player.</param>
-            <returns>The next player id in the rotation.</returns>
+            <param name="gameState">The current state of the game, containing player information.</param>
+            <param name="playerId">The unique identifier of the current player.</param>
+            <returns>The unique identifier of the next player in the rotation.</returns>
         </member>
         <member name="T:Skunked.Utility.LinqExtended">
             <summary>
             Functionally similar projections as LINQ library.
             </summary>
         </member>
-        <member name="M:Skunked.Utility.LinqExtended.Cartesian``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,``2})">
+        <member name="M:Skunked.Utility.LinqExtended.Cartesian``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1})">
             <summary>
             Returns the Cartesian product of two sequences by enumerating all
             possible combinations of one item from each sequence, and applying
@@ -1741,14 +1729,9 @@
             The type of the elements of <paramref name="first"/>.</typeparam>
             <typeparam name="T2">
             The type of the elements of <paramref name="second"/>.</typeparam>
-            <typeparam name="TResult">
-            The type of the elements of the result sequence.</typeparam>
             <param name="first">The first sequence of elements.</param>
             <param name="second">The second sequence of elements.</param>
-            <param name="resultSelector">A projection function that combines
-            elements from all of the sequences.</param>
-            <returns>A sequence of elements returned by
-            <paramref name="resultSelector"/>.</returns>
+            <returns>A sequence of elements.</returns>
             <remarks>
             <para>
             The method returns items in the same order as a nested foreach

@@ -47,9 +47,9 @@ public class TestPlayer : IEquatable<TestPlayer>, IGameRunnerPlayer
 
     public Card DetermineCardsToPlay(GameRules gameRules, List<Card> pile, List<Card> handLeft)
     {
-        if (gameRules == null) throw new ArgumentNullException(nameof(gameRules));
-        if (pile == null) throw new ArgumentNullException(nameof(pile));
-        if (handLeft == null) throw new ArgumentNullException(nameof(handLeft));
+        ArgumentNullException.ThrowIfNull(gameRules);
+        ArgumentNullException.ThrowIfNull(pile);
+        ArgumentNullException.ThrowIfNull(handLeft);
         if (handLeft.Count == 0) throw new ArgumentException(nameof(handLeft));
 
         return handLeft.OrderBy(card => card, RankComparer.Instance).First();
@@ -58,7 +58,7 @@ public class TestPlayer : IEquatable<TestPlayer>, IGameRunnerPlayer
     public Card CutCards(IEnumerable<Card> cardsToChoose)
     {
         var cards = cardsToChoose.ToList();
-        if (cardsToChoose == null) throw new ArgumentNullException(nameof(cardsToChoose));
+        ArgumentNullException.ThrowIfNull(cardsToChoose);
         var randomIndex = RandomProvider.GetThreadRandom().Next(0, cards.Count - 1);
         return cards[randomIndex];
     }

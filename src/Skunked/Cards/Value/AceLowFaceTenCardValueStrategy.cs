@@ -29,7 +29,7 @@ public class AceLowFaceTenCardValueStrategy
     /// <returns>Value of the card for the play.</returns>
     public int GetValue(Card card)
     {
-        if (card == null) throw new ArgumentNullException(nameof(card));
+        ArgumentNullException.ThrowIfNull(card);
         return ValueLookup[card.Rank];
     }
 }

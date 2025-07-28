@@ -1,3 +1,4 @@
+using System.Linq;
 using Skunked.Domain.State;
 
 namespace Skunked.Utility;
@@ -8,31 +9,31 @@ namespace Skunked.Utility;
 public static class GameStateExtensions
 {
     /// <summary>
-    /// If the game finished.
+    /// Checks whether the game has finished based on the team scores and game rules.
     /// </summary>
-    /// <param name="game">The game state.</param>
-    /// <returns>True if the game is finished and no more moves may be made.</returns>
-    public static bool IsGameFinished(this GameState game)
+    /// <param name="gameState">The current state of the game.</param>
+    /// <returns>True if the game has finished; otherwise, false.</returns>
+    public static bool IsGameFinished(this GameState gameState)
     {
-        return game.TeamScores.Any(teamScore => teamScore.Score >= game.GameRules.WinningScore);
+        return gameState.TeamScores.Any(teamScore => teamScore.Score >= gameState.GameRules.WinningScore);
     }
 
     /// <summary>
     /// Get the current round.
     /// </summary>
-    /// <param name="game">The game state.</param>
+    /// <param name="gameState">The current state of the game, containing player information.</param>
     /// <returns>The current round.</returns>
-    public static RoundState GetCurrentRound(this GameState game)
+    public static RoundState GetCurrentRound(this GameState gameState)
     {
-        return game.Rounds.MaxBy(round => round.Round);
+        return gameState.Rounds.MaxBy(round => round.Round) !;
     }
 
     /// <summary>
-    /// Get the next player after the given playerId in the rotation.
+    /// Retrieves the ID of the next player in the rotation following the specified player.
     /// </summary>
-    /// <param name="gameState">The game state.</param>
-    /// <param name="playerId">The id of the player.</param>
-    /// <returns>The next player id in the rotation.</returns>
+    /// <param name="gameState">The current state of the game, containing player information.</param>
+    /// <param name="playerId">The unique identifier of the current player.</param>
+    /// <returns>The unique identifier of the next player in the rotation.</returns>
     public static int GetNextPlayerFrom(this GameState gameState, int playerId)
     {
         var currentPlayer = gameState.PlayerIds.Single(id => id == playerId);

@@ -14,14 +14,9 @@ public static class LinqExtended
     /// The type of the elements of <paramref name="first"/>.</typeparam>
     /// <typeparam name="T2">
     /// The type of the elements of <paramref name="second"/>.</typeparam>
-    /// <typeparam name="TResult">
-    /// The type of the elements of the result sequence.</typeparam>
     /// <param name="first">The first sequence of elements.</param>
     /// <param name="second">The second sequence of elements.</param>
-    /// <param name="resultSelector">A projection function that combines
-    /// elements from all of the sequences.</param>
-    /// <returns>A sequence of elements returned by
-    /// <paramref name="resultSelector"/>.</returns>
+    /// <returns>A sequence of elements.</returns>
     /// <remarks>
     /// <para>
     /// The method returns items in the same order as a nested foreach
@@ -31,18 +26,16 @@ public static class LinqExtended
     /// <para>
     /// This method uses deferred execution and stream its results.</para>
     /// </remarks>
-    public static IEnumerable<TResult> Cartesian<T1, T2, TResult>(
+    public static IEnumerable<(T1 Item1, T2 Item2)> Cartesian<T1, T2>(
         this IEnumerable<T1> first,
-        IEnumerable<T2> second,
-        Func<T1, T2, TResult> resultSelector)
+        IEnumerable<T2> second)
     {
-        if (first == null) throw new ArgumentNullException(nameof(first));
-        if (second == null) throw new ArgumentNullException(nameof(second));
-        if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+        ArgumentNullException.ThrowIfNull(first);
+        ArgumentNullException.ThrowIfNull(second);
 
         var bufferedSecond = second.ToList();
 
-        return first.SelectMany(item1 => bufferedSecond.Select(item2 => resultSelector(item1, item2)));
+        return first.SelectMany(item1 => bufferedSecond.Select(item2 => (item1, item2)));
     }
 
     /// <summary>
@@ -103,10 +96,9 @@ public static class LinqExtended
     /// ]]></code>
     /// The <c>result</c> variable, when iterated over, will yield 1, 3 and 5, in turn.
     /// </example>
-
     public static IEnumerable<TSource> TakeEvery<TSource>(this IEnumerable<TSource> source, int step)
     {
-        if (source == null) throw new ArgumentNullException(nameof(source));
+        ArgumentNullException.ThrowIfNull(source);
         if (step <= 0) throw new ArgumentOutOfRangeException(nameof(step));
         return source.Where((_, i) => i % step == 0);
     }
@@ -121,7 +113,7 @@ public static class LinqExtended
     /// <exception cref="ArgumentNullException">source must not be null.</exception>
     public static IEnumerable<TSource> Infinite<TSource>(this IEnumerable<TSource> source)
     {
-        if (source == null) throw new ArgumentNullException(nameof(source));
+        ArgumentNullException.ThrowIfNull(source);
         while (true)
         {
             foreach (var item in source)

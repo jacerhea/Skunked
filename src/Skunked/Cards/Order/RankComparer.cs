@@ -13,8 +13,8 @@ public class RankComparer : IComparer<Card>
     /// <inheritdoc />
     public int Compare(Card? x, Card? y)
     {
-        if (x == null) throw new ArgumentNullException(nameof(x));
-        if (y == null) throw new ArgumentNullException(nameof(y));
+        ArgumentNullException.ThrowIfNull(x);
+        ArgumentNullException.ThrowIfNull(y);
         return x.Rank.CompareTo(y.Rank);
     }
 }

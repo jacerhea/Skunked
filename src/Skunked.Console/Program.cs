@@ -17,7 +17,7 @@ class Program
     static void Main(string[] args)
     {
         var playerId = 1;
-        IGameRunnerPlayer ai = new AiPlayer.optimizedPlayer(2);
+        IGameRunnerPlayer ai = new AiPlayer.OptimizedPlayer(2);
 
         var players = new List<int> { playerId, ai.Id };
         var state = new GameState();

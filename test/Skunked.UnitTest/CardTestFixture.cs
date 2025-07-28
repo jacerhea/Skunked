@@ -9,8 +9,8 @@ public class CardTestFixture
     [Fact]
     public void TestCardProperties()
     {
-        IEnumerable<Rank> allRanks = EnumHelper.GetValues<Rank>();
-        IEnumerable<Suit> allSuits = EnumHelper.GetValues<Suit>();
+        IEnumerable<Rank> allRanks = Enum.GetValues<Rank>();
+        IEnumerable<Suit> allSuits = Enum.GetValues<Suit>();
 
         foreach (var rank in allRanks)
         {
@@ -26,8 +26,8 @@ public class CardTestFixture
     [Fact]
     public void TestCardEqualsTyped()
     {
-        IEnumerable<Rank> allRanks = EnumHelper.GetValues<Rank>();
-        IEnumerable<Suit> allSuits = EnumHelper.GetValues<Suit>();
+        IEnumerable<Rank> allRanks = Enum.GetValues<Rank>();
+        IEnumerable<Suit> allSuits = Enum.GetValues<Suit>();
 
         foreach (var rank in allRanks)
         {
