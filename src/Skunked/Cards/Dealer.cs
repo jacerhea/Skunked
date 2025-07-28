@@ -23,6 +23,9 @@ public class Dealer
         ArgumentNullException.ThrowIfNull(players);
         var startingIndex = players.IndexOf(startingWith);
         var playersOrdered = players.Infinite().Skip(startingIndex).Take(players.Count).ToList();
-        return playersOrdered.Select(p => new PlayerHand(p, deck.Skip(playersOrdered.IndexOf(p)).TakeEvery(players.Count).Take(handSize).ToList())).ToList();
+        return playersOrdered.Select(p =>
+                new PlayerHand(p,
+                    deck.Skip(playersOrdered.IndexOf(p)).TakeEvery(players.Count).Take(handSize).ToList()))
+            .ToList();
     }
 }

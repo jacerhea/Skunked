@@ -1,16 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
-  <metadata>
-    <id>Skunked</id>
-    <version>$version$</version>
-    <title>Skunked</title>
-    <authors>Jace Rhea</authors>
-    <owners>Jace Rhea</owners>
-    <projectUrl>https://github.com/jacerhea/Skunked</projectUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A library of classes to model the game of Cribbage.</description>
-    <summary>A library that models the game of Cribbage.</summary>
-    <copyright>2021</copyright>
-    <tags>cribbage ai a.i. game games card</tags>
-  </metadata>
+    <metadata>
+        <id>Skunked</id>
+        <version>$version$</version>
+        <title>Skunked</title>
+        <authors>Jace Rhea</authors>
+        <owners>Jace Rhea</owners>
+        <projectUrl>https://github.com/jacerhea/Skunked</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>A library of classes to model the game of Cribbage.</description>
+        <summary>A library that models the game of Cribbage.</summary>
+        <copyright>2021</copyright>
+        <tags>cribbage ai a.i. game games card</tags>
+    </metadata>
 </package>

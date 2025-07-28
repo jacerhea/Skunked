@@ -72,14 +72,15 @@ public class GameStateBuilder : IEventListener
             CutCards = new List<PlayerIdCard>(),
             WinningPlayerCut = null,
         };
-        gameState.IndividualScores = new List<PlayerScore>(streamEvent.Players.Select(player => new PlayerScore { Player = player, Score = 0 }));
+        gameState.IndividualScores =
+            new List<PlayerScore>(streamEvent.Players.Select(player => new PlayerScore { Player = player, Score = 0 }));
         gameState.PlayerIds = streamEvent.Players.ToList();
         gameState.TeamScores = streamEvent.Players.Count == 2
             ? streamEvent.Players.Select(p => new TeamScore { Players = new List<int> { p } }).ToList()
             : new List<TeamScore>
             {
-                new () { Players = new List<int> { streamEvent.Players[0], streamEvent.Players[2] } },
-                new () { Players = new List<int> { streamEvent.Players[1], streamEvent.Players[3] } },
+                new() { Players = new List<int> { streamEvent.Players[0], streamEvent.Players[2] } },
+                new() { Players = new List<int> { streamEvent.Players[1], streamEvent.Players[3] } },
             };
         gameState.Rounds = new List<RoundState>();
     }
@@ -110,14 +111,16 @@ public class GameStateBuilder : IEventListener
     /// <param name="gameState">The game state.</param>
     private void Handle(CardCutEvent streamEvent, GameState gameState)
     {
-        gameState.OpeningRound.CutCards.Add(new PlayerIdCard { Player = streamEvent.PlayerId, Card = new Card(streamEvent.CutCard) });
+        gameState.OpeningRound.CutCards.Add(new PlayerIdCard
+            { Player = streamEvent.PlayerId, Card = new Card(streamEvent.CutCard) });
 
         bool isDone = gameState.PlayerIds.Count == gameState.OpeningRound.CutCards.Count;
         gameState.OpeningRound.Complete = isDone;
 
         if (isDone && gameState.Rounds.Count == 0)
         {
-            var winningPlayerCut = gameState.OpeningRound.CutCards.MinBy(playerCard => playerCard.Card, RankComparer.Instance)!;
+            var winningPlayerCut =
+                gameState.OpeningRound.CutCards.MinBy(playerCard => playerCard.Card, RankComparer.Instance)!;
             gameState.OpeningRound.WinningPlayerCut = winningPlayerCut.Player;
         }
     }
@@ -129,7 +132,6 @@ public class GameStateBuilder : IEventListener
     /// <param name="gameState">The game state.</param>
     private void Handle(PlayStartedEvent streamEvent, GameState gameState)
     {
-
     }
 
     /// <summary>
@@ -139,14 +141,16 @@ public class GameStateBuilder : IEventListener
     /// <param name="gameState">The game state.</param>
     private void Handle(RoundStartedEvent streamEvent, GameState gameState)
     {
-        var playerShowScores = new List<PlayerScoreShow>(gameState.PlayerIds.Select(player => new PlayerScoreShow { CribScore = null, HasShowed = false, Player = player, PlayerCountedShowScore = 0, ShowScore = 0 }));
+        var playerShowScores = new List<PlayerScoreShow>(gameState.PlayerIds.Select(player => new PlayerScoreShow
+            { CribScore = null, HasShowed = false, Player = player, PlayerCountedShowScore = 0, ShowScore = 0 }));
 
         var currentRound = gameState.Rounds.Count == 0 ? 0 : gameState.GetCurrentRound().Round;
 
         int cribPlayerId;
         if (gameState.OpeningRound.Complete && gameState.Rounds.Count != 0)
         {
-            cribPlayerId = gameState.PlayerIds.NextOf(gameState.PlayerIds.Single(sp => gameState.Rounds.Single(r => r.Round == currentRound).PlayerCrib == sp));
+            cribPlayerId = gameState.PlayerIds.NextOf(gameState.PlayerIds.Single(sp =>
+                gameState.Rounds.Single(r => r.Round == currentRound).PlayerCrib == sp));
         }
         else
         {
@@ -250,7 +254,9 @@ public class GameStateBuilder : IEventListener
         // create new round
         var playedCards = setOfPlays.SelectMany(c => c).Select(spc => spc.Card);
         var playsLeft = gameState.GetCurrentRound().Hands.SelectMany(kv => kv.Hand).Except(playedCards);
-        if (playsLeft.All(c => _scoreCalculator.SumValues(currentPlayRound.Select(spc => spc.Card).Append(c)) > GameRules.Points.MaxPlayCount))
+        if (playsLeft.All(c =>
+                _scoreCalculator.SumValues(currentPlayRound.Select(spc => spc.Card).Append(c)) >
+                GameRules.Points.MaxPlayCount))
         {
             // add Go Value.  not counted if 31 as was included with ScoreCalculation.CountThePlay
             int playCountNew = _scoreCalculator.SumValues(currentPlayRound.Select(ppi => ppi.Card));
@@ -273,7 +279,8 @@ public class GameStateBuilder : IEventListener
         currentTeamScore.Score += playScore;
 
         // 5.  Check if done with Play
-        bool isDone = setOfPlays.SelectMany(c => c).Select(spc => spc.Card).Count() == gameState.PlayerIds.Count * GameRules.HandSize;
+        bool isDone = setOfPlays.SelectMany(c => c).Select(spc => spc.Card).Count() ==
+                      gameState.PlayerIds.Count * GameRules.HandSize;
         currentRound.PlayedCardsComplete = isDone;
     }
 
@@ -354,10 +361,9 @@ public class GameStateBuilder : IEventListener
     /// <param name="gameState">The game state.</param>
     private void Handle(PlayFinishedEvent streamEvent, GameState gameState)
     {
-       
     }
 
-    
+
     private bool CheckEndOfGame(GameState gameState)
     {
         if (gameState.TeamScores.Any(ts => ts.Score >= gameState.GameRules.WinningScore))
@@ -365,6 +371,7 @@ public class GameStateBuilder : IEventListener
             gameState.CompletedAt = DateTimeOffset.Now;
             return true;
         }
+
         return false;
     }
 
@@ -389,7 +396,8 @@ public class GameStateBuilder : IEventListener
         // move to next player with valid move
         while (true)
         {
-            var nextPlayerAvailableCardsToPlay = roundState.Hands.Single(ph => ph.PlayerId == nextPlayer).Hand.Except(playedCards).ToList();
+            var nextPlayerAvailableCardsToPlay = roundState.Hands.Single(ph => ph.PlayerId == nextPlayer).Hand
+                .Except(playedCards).ToList();
             if (!nextPlayerAvailableCardsToPlay.Any())
             {
                 nextPlayer = state.PlayerIds.NextOf(nextPlayer);
@@ -397,7 +405,8 @@ public class GameStateBuilder : IEventListener
             }
 
             var nextPlayerPlaySequence = playerCardPlayedScores.Select(s => s.Card).ToList();
-            nextPlayerPlaySequence.Add(nextPlayerAvailableCardsToPlay.MinBy(c => new AceLowFaceTenCardValueStrategy().GetValue(c))!);
+            nextPlayerPlaySequence.Add(
+                nextPlayerAvailableCardsToPlay.MinBy(c => new AceLowFaceTenCardValueStrategy().GetValue(c))!);
             var scoreTest = _scoreCalculator.SumValues(nextPlayerPlaySequence);
             if (scoreTest <= GameRules.Points.MaxPlayCount)
             {

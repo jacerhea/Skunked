@@ -13,7 +13,7 @@ namespace Skunked.Domain.Validations;
 /// </summary>
 public class PlayCardCommandValidation : ValidationBase, IValidation<PlayCardCommand>
 {
-    private readonly ScoreCalculator _scoreCalculator = new ();
+    private readonly ScoreCalculator _scoreCalculator = new();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PlayCardCommandValidation"/> class.
@@ -30,7 +30,10 @@ public class PlayCardCommandValidation : ValidationBase, IValidation<PlayCardCom
         ValidateCore(gameState, command.PlayerId, currentRound.Round);
         var setOfPlays = currentRound.ThePlay;
 
-        if (!currentRound.ThrowCardsComplete || currentRound.PlayedCardsComplete) { throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidStateForPlay); }
+        if (!currentRound.ThrowCardsComplete || currentRound.PlayedCardsComplete)
+        {
+            throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidStateForPlay);
+        }
 
         var playersCards = currentRound.Hands.Single(ph => ph.PlayerId == command.PlayerId).Hand.ToList();
         if (playersCards.SingleOrDefault(card => card.Equals(command.Card)) == null)
@@ -39,8 +42,15 @@ public class PlayCardCommandValidation : ValidationBase, IValidation<PlayCardCom
         }
 
         var playedCards = setOfPlays.SelectMany(c => c).Select(spc => spc.Card);
-        if (playedCards.Any(c => c.Equals(command.Card))) { throw new InvalidCribbageOperationException(InvalidCribbageOperation.CardHasBeenPlayed); }
-        if (!setOfPlays.Any()) { throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidStateForPlay); }
+        if (playedCards.Any(c => c.Equals(command.Card)))
+        {
+            throw new InvalidCribbageOperationException(InvalidCribbageOperation.CardHasBeenPlayed);
+        }
+
+        if (!setOfPlays.Any())
+        {
+            throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidStateForPlay);
+        }
 
         if (setOfPlays.Count == 1 && !setOfPlays.Last().Any())
         {
@@ -61,8 +71,11 @@ public class PlayCardCommandValidation : ValidationBase, IValidation<PlayCardCom
         if (playCount > GameRules.Points.MaxPlayCount)
         {
             var playedCardsThisRound = setOfPlays.Last().Select(ppi => ppi.Card).ToList();
-            var playersCardsLeftToPlay = playersCards.Except(playedCardsThisRound).Except(new List<Card> { command.Card });
-            if (playersCardsLeftToPlay.Any(c => _scoreCalculator.SumValues(new List<Card>(playedCardsThisRound) { c }) <= GameRules.Points.MaxPlayCount))
+            var playersCardsLeftToPlay =
+                playersCards.Except(playedCardsThisRound).Except(new List<Card> { command.Card });
+            if (playersCardsLeftToPlay.Any(c =>
+                    _scoreCalculator.SumValues(new List<Card>(playedCardsThisRound) { c }) <=
+                    GameRules.Points.MaxPlayCount))
             {
                 throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidCard);
             }

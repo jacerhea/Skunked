@@ -8,5 +8,7 @@ public class GameFinishedException : Exception
     /// <summary>
     /// Initializes a new instance of the <see cref="GameFinishedException"/> class.
     /// </summary>
-    public GameFinishedException() { }
+    public GameFinishedException()
+    {
+    }
 }

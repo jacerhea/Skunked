@@ -18,7 +18,10 @@ public abstract class ValidationBase
     protected void ValidateCore(GameState gameState, int playerId, int round)
     {
         CheckEndOfGame(gameState);
-        if (gameState.PlayerIds.All(id => id == playerId)) { throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidPlayer); }
+        if (gameState.PlayerIds.All(id => id == playerId))
+        {
+            throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidPlayer);
+        }
 
         if (gameState.Rounds.Count(r => r.Round == round) != 1)
         {
@@ -39,6 +42,7 @@ public abstract class ValidationBase
                 gameState.CompletedAt = DateTimeOffset.Now;
                 gameState.GetCurrentRound().Complete = true;
             }
+
             throw new GameFinishedException();
         }
     }

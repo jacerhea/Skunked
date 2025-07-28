@@ -13,7 +13,9 @@ public class ThrowCardsCommandValidation : ValidationBase, IValidation<ThrowCard
     /// <summary>
     /// Initializes a new instance of the <see cref="ThrowCardsCommandValidation"/> class.
     /// </summary>
-    public ThrowCardsCommandValidation() { }
+    public ThrowCardsCommandValidation()
+    {
+    }
 
     /// <inheritdoc />
     public void Validate(GameState gameState, ThrowCardsCommand command)
@@ -36,12 +38,14 @@ public class ThrowCardsCommandValidation : ValidationBase, IValidation<ThrowCard
         var cardsAlreadyThrownToCrib = dealtCards.Intersect(currentRound.Crib).Count();
         var twoPlayer = new List<int> { 2 };
         var threeOrFourPlayer = new List<int> { 3, 4 };
-        if (cardsAlreadyThrownToCrib == 1 && threeOrFourPlayer.Contains(gameState.GameRules.GetDealSize(gameState.PlayerIds.Count)))
+        if (cardsAlreadyThrownToCrib == 1 &&
+            threeOrFourPlayer.Contains(gameState.GameRules.GetDealSize(gameState.PlayerIds.Count)))
         {
             throw new InvalidCribbageOperationException(InvalidCribbageOperation.CardsHaveBeenThrown);
         }
 
-        if (cardsAlreadyThrownToCrib == 2 && twoPlayer.Contains(gameState.GameRules.GetDealSize(gameState.PlayerIds.Count)))
+        if (cardsAlreadyThrownToCrib == 2 &&
+            twoPlayer.Contains(gameState.GameRules.GetDealSize(gameState.PlayerIds.Count)))
         {
             throw new InvalidCribbageOperationException(InvalidCribbageOperation.CardsHaveBeenThrown);
         }

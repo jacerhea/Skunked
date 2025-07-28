@@ -11,12 +11,14 @@ namespace Skunked.Domain.Validations;
 /// </summary>
 public class CountHandCommandValidation : ValidationBase, IValidation<CountHandCommand>
 {
-    private readonly ScoreCalculator _scoreCalculator = new ();
+    private readonly ScoreCalculator _scoreCalculator = new();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CountHandCommandValidation"/> class.
     /// </summary>
-    public CountHandCommandValidation() { }
+    public CountHandCommandValidation()
+    {
+    }
 
     /// <inheritdoc />
     public void Validate(GameState gameState, CountHandCommand command)
@@ -46,8 +48,15 @@ public class CountHandCommandValidation : ValidationBase, IValidation<CountHandC
         {
             var playerScoreShow = currentRound.ShowScores.Single(pss => pss.Player == currentPlayer);
 
-            if (playerScoreShow.Player == command.PlayerId) { break; }
-            if (!playerScoreShow.HasShowed) { throw new InvalidCribbageOperationException(InvalidCribbageOperation.NotPlayersTurn); }
+            if (playerScoreShow.Player == command.PlayerId)
+            {
+                break;
+            }
+
+            if (!playerScoreShow.HasShowed)
+            {
+                throw new InvalidCribbageOperationException(InvalidCribbageOperation.NotPlayersTurn);
+            }
 
             currentPlayer = gameState.PlayerIds.NextOf(currentPlayer);
         }

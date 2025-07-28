@@ -65,7 +65,8 @@ public class Cribbage
             Emit(new RoundStartedEvent(State.Id, NewVersion));
             _deck.Shuffle();
             Emit(new DeckShuffledEvent(State.Id, NewVersion, _deck.ToList()));
-            var playerHands = _dealer.Deal(_deck, State.PlayerIds, State.PlayerIds.NextOf(command.PlayerId), State.GameRules.GetDealSize(State.PlayerIds.Count)); // get next player from who won cut.
+            var playerHands = _dealer.Deal(_deck, State.PlayerIds, State.PlayerIds.NextOf(command.PlayerId),
+                State.GameRules.GetDealSize(State.PlayerIds.Count)); // get next player from who won cut.
             Emit(new HandsDealtEvent(State.Id, NewVersion, playerHands));
         }
     }
@@ -84,7 +85,8 @@ public class Cribbage
         var currentRound = State.GetCurrentRound();
         if (currentRound.ThrowCardsComplete)
         {
-            var cardsNotDealt = _deck.Except(currentRound.Crib).Except(currentRound.Hands.SelectMany(s => s.Hand)).ToList();
+            var cardsNotDealt = _deck.Except(currentRound.Crib).Except(currentRound.Hands.SelectMany(s => s.Hand))
+                .ToList();
             var randomIndex = RandomProvider.GetThreadRandom().Next(0, cardsNotDealt.Count - 1);
             var startingCard = cardsNotDealt[randomIndex];
             Emit(new StarterCardSelectedEvent(State.Id, NewVersion, startingCard));
@@ -135,7 +137,9 @@ public class Cribbage
         Emit(new RoundStartedEvent(State.Id, NewVersion));
         _deck.Shuffle(3);
         Emit(new DeckShuffledEvent(State.Id, NewVersion, _deck.ToList()));
-        var playerHands = _dealer.Deal(_deck, State.PlayerIds, State.PlayerIds.NextOf(State.PlayerIds.NextOf(command.PlayerId)), State.GameRules.GetDealSize(State.PlayerIds.Count));
+        var playerHands = _dealer.Deal(_deck, State.PlayerIds,
+            State.PlayerIds.NextOf(State.PlayerIds.NextOf(command.PlayerId)),
+            State.GameRules.GetDealSize(State.PlayerIds.Count));
         Emit(new HandsDealtEvent(State.Id, NewVersion, playerHands));
     }
 
