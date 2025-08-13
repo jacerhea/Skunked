@@ -1,6 +1,4 @@
-using Skunked.Rules;
-
-namespace Skunked.Domain.State;
+﻿namespace Skunked.Domain.State;
 
 /// <summary>
 /// Snapshot of a game's state.

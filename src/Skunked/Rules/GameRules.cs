@@ -1,4 +1,4 @@
-namespace Skunked.Rules;
+﻿namespace Skunked;
 
 /// <summary>
 /// Set of Cribbage rules.
@@ -11,7 +11,7 @@ public sealed class GameRules
     /// Initializes a new instance of the <see cref="GameRules"/> class.
     /// </summary>
     public GameRules()
-        : this(Rules.WinningScore.Standard121)
+        : this(Skunked.WinningScore.Standard121)
     {
     }
 
@@ -32,7 +32,7 @@ public sealed class GameRules
     /// <summary>
     /// Gets the score a player needs to reach first to win the game.
     /// </summary>
-    public int WinningScore => _winningScore == Rules.WinningScore.Standard121 ? 121 : 61;
+    public int WinningScore => _winningScore == Skunked.WinningScore.Standard121 ? 121 : 61;
 
 
     /// <summary>

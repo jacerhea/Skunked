@@ -2,7 +2,6 @@ using Skunked.Cards;
 using Skunked.Domain.Commands;
 using Skunked.Domain.State;
 using Skunked.Exceptions;
-using Skunked.Rules;
 using Skunked.Score;
 using Skunked.Utility;
 

@@ -4,7 +4,6 @@ using Skunked.Domain.Commands;
 using Skunked.Domain.Events;
 using Skunked.Domain.State;
 using Skunked.Domain.Validations;
-using Skunked.Rules;
 using Skunked.Utility;
 
 namespace Skunked;

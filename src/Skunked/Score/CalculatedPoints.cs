@@ -1,6 +1,6 @@
 using Skunked.Cards;
 
-namespace Skunked.Score;
+namespace Skunked;
 
 /// <summary>
 /// Result Calculated.

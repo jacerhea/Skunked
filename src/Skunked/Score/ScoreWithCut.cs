@@ -1,4 +1,4 @@
-using Skunked.Cards;
+﻿using Skunked.Cards;
 
 namespace Skunked.Score;
 

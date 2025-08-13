@@ -1,9 +1,8 @@
-using Skunked.Cards;
+﻿using Skunked.Cards;
 using Skunked.Cards.Order;
 using Skunked.Cards.Value;
 using Skunked.Domain.Events;
 using Skunked.Players;
-using Skunked.Rules;
 using Skunked.Score;
 using Skunked.Utility;
 

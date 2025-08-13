@@ -1,4 +1,4 @@
-﻿namespace Skunked.Rules;
+﻿namespace Skunked;
 
 /// <summary>
 /// Set of winning scores.
