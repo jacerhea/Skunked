@@ -5,7 +5,7 @@ namespace Skunked.Domain.Events;
 /// <summary>
 /// Event when a card has been played.
 /// </summary>
-public class CardPlayedEvent : StreamEvent
+public sealed class CardPlayedEvent : StreamEvent
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CardPlayedEvent"/> class.

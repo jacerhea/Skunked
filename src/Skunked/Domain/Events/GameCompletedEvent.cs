@@ -3,7 +3,7 @@
 /// <summary>
 /// Event when the game has completed.
 /// </summary>
-public class GameCompletedEvent : StreamEvent
+public sealed class GameCompletedEvent : StreamEvent
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="GameCompletedEvent"/> class.

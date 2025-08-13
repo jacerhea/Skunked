@@ -7,7 +7,7 @@ namespace Skunked.Domain;
 /// <summary>
 /// A stream of events.
 /// </summary>
-public class EventStream : IEnumerable<StreamEvent>
+public sealed class EventStream : IEnumerable<StreamEvent>
 {
     private static readonly object Locker = new();
 

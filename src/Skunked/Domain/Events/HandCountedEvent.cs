@@ -3,7 +3,7 @@
 /// <summary>
 /// Event when a hand has been counted.
 /// </summary>
-public class HandCountedEvent : StreamEvent
+public sealed class HandCountedEvent : StreamEvent
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="HandCountedEvent"/> class.

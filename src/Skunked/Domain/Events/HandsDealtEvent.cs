@@ -5,7 +5,7 @@ namespace Skunked.Domain.Events;
 /// <summary>
 /// Event when all hands have been dealt.
 /// </summary>
-public class HandsDealtEvent : StreamEvent
+public sealed class HandsDealtEvent : StreamEvent
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="HandsDealtEvent"/> class.

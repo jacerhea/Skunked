@@ -1,4 +1,4 @@
-﻿using Skunked.Cards;
+using Skunked.Cards;
 using Skunked.Domain.Commands;
 using Skunked.Domain.State;
 using Skunked.Exceptions;
@@ -11,7 +11,7 @@ namespace Skunked.Domain.Validations;
 /// <summary>
 /// Validates <see cref="PlayCardCommand"/> command.
 /// </summary>
-public class PlayCardCommandValidation : ValidationBase, IValidation<PlayCardCommand>
+public sealed class PlayCardCommandValidation : ValidationBase, IValidation<PlayCardCommand>
 {
     private readonly ScoreCalculator _scoreCalculator = new();
 

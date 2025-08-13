@@ -3,7 +3,7 @@
 /// <summary>
 /// An invalid move was attempted in the game.
 /// </summary>
-public class InvalidCribbageOperationException : InvalidOperationException
+public sealed class InvalidCribbageOperationException : Exception
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="InvalidCribbageOperationException"/> class.

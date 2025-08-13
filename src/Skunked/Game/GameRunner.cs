@@ -1,4 +1,4 @@
-﻿using Skunked.Cards;
+using Skunked.Cards;
 using Skunked.Domain.Commands;
 using Skunked.Exceptions;
 using Skunked.Players;
@@ -11,7 +11,7 @@ namespace Skunked.Game;
 /// Runs a game of cribbage with the given player strategies provided.
 /// Used for testing, AI comparison, or any other need to run through many games automatically.
 /// </summary>
-public class GameRunner
+public sealed class GameRunner
 {
     private readonly Deck _deck;
 

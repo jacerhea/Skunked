@@ -3,7 +3,7 @@
 /// <summary>
 /// Command to count the points in the crib.
 /// </summary>
-public class CountCribCommand : CommandBase
+public sealed class CountCribCommand : CommandBase
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CountCribCommand"/> class.

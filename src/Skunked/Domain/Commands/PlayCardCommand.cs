@@ -5,7 +5,7 @@ namespace Skunked.Domain.Commands;
 /// <summary>
 /// Command to play a card.
 /// </summary>
-public class PlayCardCommand : CommandBase
+public sealed class PlayCardCommand : CommandBase
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="PlayCardCommand"/> class.

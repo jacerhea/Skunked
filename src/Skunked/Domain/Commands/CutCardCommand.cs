@@ -5,7 +5,7 @@ namespace Skunked.Domain.Commands;
 /// <summary>
 /// Command to cut the deck.
 /// </summary>
-public class CutCardCommand : CommandBase
+public sealed class CutCardCommand : CommandBase
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CutCardCommand"/> class.

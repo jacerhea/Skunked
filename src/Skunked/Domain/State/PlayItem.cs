@@ -5,7 +5,7 @@ namespace Skunked.Domain.State;
 /// <summary>
 /// Players play.
 /// </summary>
-public class PlayItem
+public sealed class PlayItem
 {
     /// <summary>
     /// Id of the player.

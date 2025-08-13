@@ -12,7 +12,7 @@ namespace Skunked;
 /// <summary>
 /// The class for creating and modeling a game of Cribbage. "Plays" are validated and stored as a stream of events. Event listeners allow de-normalized state to be created from the stream.
 /// </summary>
-public class Cribbage
+public sealed class Cribbage
 {
     private readonly Dealer _dealer = new();
     private readonly Deck _deck = new();

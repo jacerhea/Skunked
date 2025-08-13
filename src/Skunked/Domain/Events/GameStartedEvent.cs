@@ -1,11 +1,10 @@
-﻿using Skunked.Rules;
-
+﻿
 namespace Skunked.Domain.Events;
 
 /// <summary>
 /// Event when the game has started.
 /// </summary>
-public class GameStartedEvent : StreamEvent
+public sealed class GameStartedEvent : StreamEvent
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="GameStartedEvent"/> class.

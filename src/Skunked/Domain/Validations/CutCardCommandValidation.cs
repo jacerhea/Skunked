@@ -7,7 +7,7 @@ namespace Skunked.Domain.Validations;
 /// <summary>
 /// Validates <see cref="CutCardCommand"/> command.
 /// </summary>
-public class CutCardCommandValidation : ValidationBase, IValidation<CutCardCommand>
+public sealed class CutCardCommandValidation : ValidationBase, IValidation<CutCardCommand>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CutCardCommandValidation"/> class.

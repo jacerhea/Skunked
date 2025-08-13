@@ -3,7 +3,7 @@
 /// <summary>
 /// Standard 52-card deck playing card.
 /// </summary>
-public record Card
+public sealed record Card
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="Card"/> class.

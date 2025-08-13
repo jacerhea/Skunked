@@ -3,7 +3,7 @@
 /// <summary>
 /// Event when the crib has been counted.
 /// </summary>
-public class CribCountedEvent : StreamEvent
+public sealed class CribCountedEvent : StreamEvent
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CribCountedEvent"/> class.

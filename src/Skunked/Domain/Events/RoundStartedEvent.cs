@@ -3,7 +3,7 @@
 /// <summary>
 /// Event when a round started.
 /// </summary>
-public class RoundStartedEvent : StreamEvent
+public sealed class RoundStartedEvent : StreamEvent
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="RoundStartedEvent"/> class.

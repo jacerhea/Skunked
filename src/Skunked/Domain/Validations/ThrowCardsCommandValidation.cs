@@ -8,7 +8,7 @@ namespace Skunked.Domain.Validations;
 /// <summary>
 /// Validates <see cref="ThrowCardsCommand"/> command.
 /// </summary>
-public class ThrowCardsCommandValidation : ValidationBase, IValidation<ThrowCardsCommand>
+public sealed class ThrowCardsCommandValidation : ValidationBase, IValidation<ThrowCardsCommand>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="ThrowCardsCommandValidation"/> class.

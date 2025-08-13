@@ -5,7 +5,7 @@ namespace Skunked.Domain.Events;
 /// <summary>
 /// Event when a starter card has been selected.
 /// </summary>
-public class StarterCardSelectedEvent : StreamEvent
+public sealed class StarterCardSelectedEvent : StreamEvent
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="StarterCardSelectedEvent"/> class.

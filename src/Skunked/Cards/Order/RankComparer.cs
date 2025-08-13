@@ -3,7 +3,7 @@
 /// <summary>
 /// Compare by value of the Cards rank only.
 /// </summary>
-public class RankComparer : IComparer<Card>
+public sealed class RankComparer : IComparer<Card>
 {
     /// <summary>
     /// Gets instance of <see cref="RankComparer"/> RankComparer.

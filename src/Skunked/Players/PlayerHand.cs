@@ -5,7 +5,7 @@ namespace Skunked.Players;
 /// <summary>
 /// A player id and their hand.
 /// </summary>
-public class PlayerHand
+public sealed class PlayerHand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="PlayerHand"/> class.

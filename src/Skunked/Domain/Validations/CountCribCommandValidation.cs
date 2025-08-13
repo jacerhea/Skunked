@@ -8,7 +8,7 @@ namespace Skunked.Domain.Validations;
 /// <summary>
 /// Validates <see cref="CountCribCommand"/> command.
 /// </summary>
-public class CountCribCommandValidation : ValidationBase, IValidation<CountCribCommand>
+public sealed class CountCribCommandValidation : ValidationBase, IValidation<CountCribCommand>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CountCribCommandValidation"/> class.

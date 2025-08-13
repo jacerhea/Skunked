@@ -3,7 +3,7 @@
 /// <summary>
 /// The team and their score.
 /// </summary>
-public class TeamScore
+public sealed class TeamScore
 {
     /// <summary>
     /// Player id's on a team.

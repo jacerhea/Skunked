@@ -1,11 +1,11 @@
-﻿using Skunked.Cards;
+using Skunked.Cards;
 
 namespace Skunked.Score;
 
 /// <summary>
 /// Couple a set of cards with all of the possible scoring outcomes for that combo.
 /// </summary>
-public class ComboPossibleScores
+public sealed class ComboPossibleScores
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="ComboPossibleScores"/> class.

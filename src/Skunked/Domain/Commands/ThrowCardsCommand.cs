@@ -5,7 +5,7 @@ namespace Skunked.Domain.Commands;
 /// <summary>
 /// Command to discard cards to the crib.
 /// </summary>
-public class ThrowCardsCommand : CommandBase
+public sealed class ThrowCardsCommand : CommandBase
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="ThrowCardsCommand"/> class.

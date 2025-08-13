@@ -1,9 +1,9 @@
-﻿namespace Skunked.Rules;
+namespace Skunked.Rules;
 
 /// <summary>
 /// Set of Cribbage rules.
 /// </summary>
-public class GameRules
+public sealed class GameRules
 {
     private readonly WinningScore _winningScore;
 

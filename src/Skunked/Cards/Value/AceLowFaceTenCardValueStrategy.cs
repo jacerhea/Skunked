@@ -3,7 +3,7 @@
 /// <summary>
 /// Returns value of a card.  Ace = 1, 9 = 9, face cards  = 10.
 /// </summary>
-public class AceLowFaceTenCardValueStrategy
+public sealed class AceLowFaceTenCardValueStrategy
 {
     private static readonly Dictionary<Rank, int> ValueLookup = new()
     {

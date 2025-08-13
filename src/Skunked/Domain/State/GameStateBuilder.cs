@@ -1,4 +1,4 @@
-﻿using Skunked.Cards;
+using Skunked.Cards;
 using Skunked.Cards.Order;
 using Skunked.Cards.Value;
 using Skunked.Domain.Events;
@@ -12,7 +12,7 @@ namespace Skunked.Domain.State;
 /// <summary>
 /// Builds the GameState from the game events.
 /// </summary>
-public class GameStateBuilder : IEventListener
+public sealed class GameStateBuilder : IEventListener
 {
     private readonly GameState _gameState;
     private readonly ScoreCalculator _scoreCalculator;

@@ -3,7 +3,7 @@
 /// <summary>
 /// Command to count the points in a hand.
 /// </summary>
-public class CountHandCommand : CommandBase
+public sealed class CountHandCommand : CommandBase
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CountHandCommand"/> class.

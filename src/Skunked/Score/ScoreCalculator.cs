@@ -1,4 +1,4 @@
-﻿using Combinatorics.Collections;
+using Combinatorics.Collections;
 using Skunked.Cards;
 using Skunked.Cards.Value;
 using Skunked.Rules;
@@ -8,7 +8,7 @@ namespace Skunked.Score;
 /// <summary>
 /// Calculates points scored in shows and plays.
 /// </summary>
-public class ScoreCalculator
+public sealed class ScoreCalculator
 {
     private static readonly AceLowFaceTenCardValueStrategy ValueStrategy = new();
 

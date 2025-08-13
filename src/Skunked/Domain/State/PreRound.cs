@@ -5,7 +5,7 @@ namespace Skunked.Domain.State;
 /// <summary>
 /// The state of the pre-round.
 /// </summary>
-public class PreRound
+public sealed class PreRound
 {
     /// <summary>
     /// The state of the deck before the round begins.

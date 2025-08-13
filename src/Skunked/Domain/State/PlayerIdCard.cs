@@ -5,7 +5,7 @@ namespace Skunked.Domain.State;
 /// <summary>
 /// A player id and a card.
 /// </summary>
-public class PlayerIdCard
+public sealed class PlayerIdCard
 {
     /// <summary>
     /// Gets the playerId.

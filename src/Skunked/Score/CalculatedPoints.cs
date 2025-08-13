@@ -1,11 +1,11 @@
-﻿using Skunked.Cards;
+using Skunked.Cards;
 
 namespace Skunked.Score;
 
 /// <summary>
 /// Result Calculated.
 /// </summary>
-public class CalculatedResult
+public sealed class CalculatedResult
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CalculatedResult"/> class.
@@ -32,7 +32,7 @@ public class CalculatedResult
 /// <summary>
 /// Set of points calculated.
 /// </summary>
-public class CalculatedPoints
+public sealed class CalculatedPoints
 {
     /// <summary>
     /// Total points scored.

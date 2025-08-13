@@ -3,7 +3,7 @@
 /// <summary>
 /// Player Id and a score.
 /// </summary>
-public class PlayerScore
+public sealed class PlayerScore
 {
     /// <summary>
     /// Gets or sets player Id.

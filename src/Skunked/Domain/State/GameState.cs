@@ -1,11 +1,11 @@
-﻿using Skunked.Rules;
+using Skunked.Rules;
 
 namespace Skunked.Domain.State;
 
 /// <summary>
 /// Snapshot of a game's state.
 /// </summary>
-public class GameState
+public sealed class GameState
 {
     /// <summary>
     /// Gets or sets unique identifier of the game.

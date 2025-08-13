@@ -6,7 +6,7 @@ namespace Skunked.Cards;
 /// <summary>
 /// Standard dealer.  One card per pass.
 /// </summary>
-public class Dealer
+public sealed class Dealer
 {
     // todo: make the startingWith into the dealer.  this saves a step for the caller to figure out who needs to be dealt to first.
 

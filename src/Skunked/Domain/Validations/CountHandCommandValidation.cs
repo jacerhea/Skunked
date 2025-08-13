@@ -9,7 +9,7 @@ namespace Skunked.Domain.Validations;
 /// <summary>
 /// Validates <see cref="CountHandCommand"/> command.
 /// </summary>
-public class CountHandCommandValidation : ValidationBase, IValidation<CountHandCommand>
+public sealed class CountHandCommandValidation : ValidationBase, IValidation<CountHandCommand>
 {
     private readonly ScoreCalculator _scoreCalculator = new();
 

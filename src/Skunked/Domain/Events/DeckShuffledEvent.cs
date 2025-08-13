@@ -5,7 +5,7 @@ namespace Skunked.Domain.Events;
 /// <summary>
 /// Event when the deck has been shuffled.
 /// </summary>
-public class DeckShuffledEvent : StreamEvent
+public sealed class DeckShuffledEvent : StreamEvent
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DeckShuffledEvent"/> class.

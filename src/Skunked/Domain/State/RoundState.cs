@@ -6,7 +6,7 @@ namespace Skunked.Domain.State;
 /// <summary>
 /// The state of the Round.
 /// </summary>
-public class RoundState
+public sealed class RoundState
 {
     /// <summary>
     /// Gets or sets the stater card.

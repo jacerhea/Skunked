@@ -5,7 +5,7 @@ namespace Skunked.Domain.State;
 /// <summary>
 /// State of the opening round
 /// </summary>
-public class OpeningRound
+public sealed class OpeningRound
 {
     /// <summary>
     /// State of the deck

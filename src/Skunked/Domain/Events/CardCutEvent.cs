@@ -5,7 +5,7 @@ namespace Skunked.Domain.Events;
 /// <summary>
 /// Event when a card has been cut.
 /// </summary>
-public class CardCutEvent : StreamEvent
+public sealed class CardCutEvent : StreamEvent
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CardCutEvent"/> class.

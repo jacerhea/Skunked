@@ -1,11 +1,11 @@
-﻿using Skunked.Cards;
+using Skunked.Cards;
 
 namespace Skunked.Score;
 
 /// <summary>
 /// Represents a starter card and a score.
 /// </summary>
-public class ScoreWithCut
+public sealed class ScoreWithCut
 {
     /// <summary>
     /// Gets the score.
