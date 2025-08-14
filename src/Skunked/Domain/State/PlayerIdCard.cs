@@ -1,6 +1,4 @@
-﻿using Skunked.Cards;
-
-namespace Skunked.Domain.State;
+﻿namespace Skunked;
 
 /// <summary>
 /// A player id and a card.

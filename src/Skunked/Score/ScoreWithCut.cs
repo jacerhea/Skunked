@@ -1,6 +1,4 @@
-﻿using Skunked.Cards;
-
-namespace Skunked.Score;
+﻿namespace Skunked;
 
 /// <summary>
 /// Represents a starter card and a score.

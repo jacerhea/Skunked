@@ -1,11 +1,5 @@
-using Skunked.Cards;
-using Skunked.Domain.Commands;
-using Skunked.Domain.State;
-using Skunked.Exceptions;
-using Skunked.Score;
-using Skunked.Utility;
+﻿namespace Skunked;
 
-namespace Skunked.Domain.Validations;
 
 /// <summary>
 /// Validates <see cref="PlayCardCommand"/> command.
@@ -64,7 +58,7 @@ public sealed class PlayCardCommandValidation : ValidationBase, IValidation<Play
             throw new InvalidCribbageOperationException(InvalidCribbageOperation.NotPlayersTurn);
         }
 
-        // is the player starting new round with card sum over 31 and they have a playable card for current round?
+        // Is the player starting a new round with the card sum over 31, and they have a playable card for the current round?
         var currentPlayCount = _scoreCalculator.SumValues(setOfPlays.Last().Select(scs => scs.Card));
         int playCount = currentPlayCount + _scoreCalculator.SumValues(new List<Card> { new(command.Card) });
         if (playCount > GameRules.Points.MaxPlayCount)

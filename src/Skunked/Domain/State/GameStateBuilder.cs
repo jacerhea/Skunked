@@ -1,12 +1,5 @@
-﻿using Skunked.Cards;
-using Skunked.Cards.Order;
-using Skunked.Cards.Value;
-using Skunked.Domain.Events;
-using Skunked.Players;
-using Skunked.Score;
-using Skunked.Utility;
-
-namespace Skunked.Domain.State;
+﻿
+namespace Skunked;
 
 /// <summary>
 /// Builds the GameState from the game events.

@@ -1,12 +1,6 @@
 ﻿using Konsole;
 using Skunked.AI;
-using Skunked.Cards;
-using Skunked.Domain.Commands;
-using Skunked.Domain.Events;
-using Skunked.Domain.State;
-using Skunked.Players;
-using Skunked.Rules;
-using Skunked.Utility;
+using Skunked;
 using static System.ConsoleColor;
 using static System.Enum;
 

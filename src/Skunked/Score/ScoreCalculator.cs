@@ -1,8 +1,6 @@
 ﻿using Combinatorics.Collections;
-using Skunked.Cards;
-using Skunked.Cards.Value;
 
-namespace Skunked.Score;
+namespace Skunked;
 
 /// <summary>
 /// Calculates points scored in shows and plays.

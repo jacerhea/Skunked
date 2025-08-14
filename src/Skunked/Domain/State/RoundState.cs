@@ -1,7 +1,4 @@
-﻿using Skunked.Cards;
-using Skunked.Players;
-
-namespace Skunked.Domain.State;
+﻿namespace Skunked;
 
 /// <summary>
 /// The state of the Round.

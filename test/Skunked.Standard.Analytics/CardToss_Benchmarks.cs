@@ -1,7 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
-using Skunked.Cards;
-using Skunked.Score;
 
 namespace Skunked.Benchmarks;
 

@@ -1,8 +1,5 @@
-using Skunked.Domain.State;
-using Skunked.Exceptions;
-using Skunked.Utility;
 
-namespace Skunked.Domain.Validations;
+namespace Skunked;
 
 /// <summary>
 /// Base class for validating cribbage commands.

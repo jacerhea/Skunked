@@ -1,4 +1,4 @@
-﻿namespace Skunked.Exceptions;
+﻿namespace Skunked;
 
 /// <summary>
 /// An exception to stop the game.

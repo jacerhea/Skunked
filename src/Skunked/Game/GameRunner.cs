@@ -1,10 +1,4 @@
-﻿using Skunked.Cards;
-using Skunked.Domain.Commands;
-using Skunked.Exceptions;
-using Skunked.Players;
-using Skunked.Utility;
-
-namespace Skunked.Game;
+﻿namespace Skunked;
 
 /// <summary>
 /// Runs a game of cribbage with the given player strategies provided.

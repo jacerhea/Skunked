@@ -1,4 +1,4 @@
-﻿namespace Skunked.Domain.Events;
+﻿namespace Skunked;
 
 /// <summary>
 /// The base cribbage game event.

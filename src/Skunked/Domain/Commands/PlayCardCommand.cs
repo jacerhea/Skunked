@@ -1,6 +1,5 @@
-﻿using Skunked.Cards;
-
-namespace Skunked.Domain.Commands;
+﻿
+namespace Skunked;
 
 /// <summary>
 /// Command to play a card.

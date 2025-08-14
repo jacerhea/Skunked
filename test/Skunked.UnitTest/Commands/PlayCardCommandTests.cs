@@ -1,8 +1,4 @@
-﻿using Skunked.Cards;
-using Skunked.Domain.State;
-using Skunked.Players;
-using Skunked.Rules;
-using Xunit;
+﻿using Xunit;
 
 namespace Skunked.UnitTest.Commands;
 

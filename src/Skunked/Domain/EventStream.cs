@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Immutable;
-using Skunked.Domain.Events;
 
-namespace Skunked.Domain;
+namespace Skunked;
 
 /// <summary>
 /// A stream of events.

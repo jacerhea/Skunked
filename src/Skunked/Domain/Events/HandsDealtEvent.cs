@@ -1,6 +1,4 @@
-﻿using Skunked.Players;
-
-namespace Skunked.Domain.Events;
+﻿namespace Skunked;
 
 /// <summary>
 /// Event when all hands have been dealt.

@@ -1,4 +1,4 @@
-﻿namespace Skunked.Domain.State;
+﻿namespace Skunked;
 
 /// <summary>
 /// Player Id and a score.

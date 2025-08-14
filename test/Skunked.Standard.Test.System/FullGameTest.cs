@@ -14,7 +14,7 @@ public class FullGameTest
     {
         var players = new List<int> { 1, 2, 3, 4 };
 
-        //var game = new Cribbage(players, new GameRules(WinningScoreType.Short61, 4));
+        var game = new Cribbage(players, new GameRules(WinningScore.Short61));
 
         ////cut cards for first deal.
         //game.CutCard(1, new Card(Rank.Eight, Suit.Diamonds));
@@ -47,4 +47,8 @@ public class FullGameTest
         //game.PlayCard(3, new Card(Rank.Nine, Suit.Diamonds));
         //game.PlayCard(4, new Card(Rank.Nine, Suit.Diamonds));
     }
+}
+
+public class WinningScoreType
+{
 }

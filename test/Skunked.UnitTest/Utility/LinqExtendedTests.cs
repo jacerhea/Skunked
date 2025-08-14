@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using FluentAssertions;
-using Skunked.Utility;
+﻿using FluentAssertions;
 using Xunit;
 
 namespace Skunked.UnitTest.Utility;
@@ -30,17 +26,17 @@ public class LinqExtendedTests
     public void Cartesian_WithNullInputs_ThrowsArgumentNullException()
     {
         // Arrange
-        IEnumerable<int> first = null;
+        IEnumerable<int> first = null!;
         var second = new[] { 'A', 'B' };
 
         // Act & Assert
         var act1 = () => first.Cartesian(second).ToList();
         act1.Should().Throw<ArgumentNullException>();
 
-        var act2 = () => new[] { 1, 2 }.Cartesian(((char[])null)!).ToList();
+        var act2 = () => new[] { 1, 2 }.Cartesian((int[])null!).ToList();
         act2.Should().Throw<ArgumentNullException>();
 
-        var act3 = () => new[] { 1, 2 }.Cartesian(((char[])null)!).ToList();
+        var act3 = () => new[] { 1, 2 }.Cartesian((int[])null!).ToList();
         act3.Should().Throw<ArgumentNullException>();
     }
 

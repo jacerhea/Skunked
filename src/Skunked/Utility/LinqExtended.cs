@@ -1,4 +1,4 @@
-﻿namespace Skunked.Utility;
+﻿namespace Skunked;
 
 /// <summary>
 /// Functionally similar projections as LINQ library.

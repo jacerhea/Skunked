@@ -1,4 +1,4 @@
-﻿namespace Skunked.Cards.Order;
+﻿namespace Skunked;
 
 /// <summary>
 /// Compare by value of the Cards rank only.

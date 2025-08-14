@@ -1,10 +1,4 @@
-﻿using Skunked.Domain.Commands;
-using Skunked.Domain.State;
-using Skunked.Exceptions;
-using Skunked.Score;
-using Skunked.Utility;
-
-namespace Skunked.Domain.Validations;
+﻿namespace Skunked;
 
 /// <summary>
 /// Validates <see cref="CountHandCommand"/> command.

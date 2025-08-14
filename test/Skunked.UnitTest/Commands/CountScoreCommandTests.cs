@@ -1,10 +1,4 @@
-﻿using Skunked.Cards;
-using Skunked.Domain.State;
-using Skunked.Players;
-using Skunked.Rules;
-using Skunked.Score;
-
-namespace Skunked.UnitTest.Commands;
+﻿namespace Skunked.UnitTest.Commands;
 
 public class CountScoreCommandTests
 {

@@ -1,6 +1,4 @@
-﻿using Skunked.Cards;
-
-namespace Skunked.Domain.Events;
+﻿namespace Skunked;
 
 /// <summary>
 /// Event when a cards have been thrown to the crib.

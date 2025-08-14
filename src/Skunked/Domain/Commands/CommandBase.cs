@@ -1,4 +1,4 @@
-﻿namespace Skunked.Domain.Commands;
+﻿namespace Skunked;
 
 /// <summary>
 /// Base class for all commands.

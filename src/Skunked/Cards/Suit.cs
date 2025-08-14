@@ -1,4 +1,4 @@
-﻿namespace Skunked.Cards;
+﻿namespace Skunked;
 
 /// <summary>
 /// Categories into which the cards of a deck are divided.

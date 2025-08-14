@@ -1,4 +1,4 @@
-﻿namespace Skunked.Exceptions;
+﻿namespace Skunked;
 
 /// <summary>
 /// Set of exception types that can be thrown by the game when a rule is violated.

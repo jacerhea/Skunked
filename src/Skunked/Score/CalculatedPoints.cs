@@ -1,6 +1,4 @@
-using Skunked.Cards;
-
-namespace Skunked;
+﻿namespace Skunked;
 
 /// <summary>
 /// Result Calculated.
@@ -98,8 +96,8 @@ public sealed class CalculatedPoints
 /// <param name="Flushes"> Sets of flushes that can score points</param>
 /// <param name="Nobs"> Sets of nobs that can score points</param>
 public record CalculatedCombinations(
-    IList<IReadOnlyList<Card>> Fifteens,
-    IList<IReadOnlyList<Card>> Pairs,
-    IList<IReadOnlyList<Card>> Runs,
-    IList<Card> Flushes,
+    List<IReadOnlyList<Card>> Fifteens,
+    List<IReadOnlyList<Card>> Pairs,
+    List<IReadOnlyList<Card>> Runs,
+    List<Card> Flushes,
     Card? Nobs);

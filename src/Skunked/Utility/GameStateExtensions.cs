@@ -1,7 +1,4 @@
-using System.Linq;
-using Skunked.Domain.State;
-
-namespace Skunked.Utility;
+namespace Skunked;
 
 /// <summary>
 /// Set of convenience methods to aggregate state from GameState.

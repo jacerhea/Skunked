@@ -1,4 +1,4 @@
-﻿namespace Skunked.Cards;
+﻿namespace Skunked;
 
 /// <summary>
 /// Set of playing card ranks.

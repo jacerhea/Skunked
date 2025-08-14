@@ -1,6 +1,4 @@
-﻿using Skunked.Cards;
-
-namespace Skunked.Score;
+﻿namespace Skunked;
 
 /// <summary>
 /// Couple a set of cards with all of the possible scoring outcomes for that combo.

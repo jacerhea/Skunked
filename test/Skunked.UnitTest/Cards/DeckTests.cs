@@ -1,6 +1,5 @@
 ﻿using System.Text.Json;
 using FluentAssertions;
-using Skunked.Cards;
 using Xunit;
 
 namespace Skunked.UnitTest.Cards;

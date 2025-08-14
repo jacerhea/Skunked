@@ -1,4 +1,4 @@
-namespace Skunked.Utility;
+namespace Skunked;
 
 /// <summary>
 /// Thread Safe Implementation of a Random class provider by Jon Skeet

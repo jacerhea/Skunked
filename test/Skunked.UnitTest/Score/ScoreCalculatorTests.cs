@@ -1,6 +1,4 @@
 ﻿using FluentAssertions;
-using Skunked.Cards;
-using Skunked.Score;
 using Xunit;
 
 namespace Skunked.UnitTest.Score;

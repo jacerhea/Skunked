@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using Skunked.Cards;
 using Xunit;
 
 namespace Skunked.UnitTest.Cards;

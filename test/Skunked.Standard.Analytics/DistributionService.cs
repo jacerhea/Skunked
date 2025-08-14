@@ -1,6 +1,4 @@
 ﻿using Combinatorics.Collections;
-using Skunked.Cards;
-using Skunked.Score;
 
 namespace Skunked.Benchmarks;
 

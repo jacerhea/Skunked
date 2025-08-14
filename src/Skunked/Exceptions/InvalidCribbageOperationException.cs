@@ -1,4 +1,4 @@
-﻿namespace Skunked.Exceptions;
+﻿namespace Skunked;
 
 /// <summary>
 /// An invalid move was attempted in the game.

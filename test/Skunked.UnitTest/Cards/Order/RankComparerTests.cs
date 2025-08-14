@@ -1,6 +1,4 @@
 ﻿using FluentAssertions;
-using Skunked.Cards;
-using Skunked.Cards.Order;
 using Xunit;
 
 namespace Skunked.UnitTest.Cards.Order;

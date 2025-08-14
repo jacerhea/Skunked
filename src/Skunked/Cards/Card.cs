@@ -1,4 +1,4 @@
-﻿namespace Skunked.Cards;
+﻿namespace Skunked;
 
 /// <summary>
 /// Standard 52-card deck playing card.

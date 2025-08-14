@@ -1,8 +1,6 @@
-﻿using Skunked.Domain.Commands;
-using Skunked.Domain.State;
-using Skunked.Exceptions;
+﻿
+namespace Skunked;
 
-namespace Skunked.Domain.Validations;
 
 /// <summary>
 /// Validates <see cref="CutCardCommand"/> command.

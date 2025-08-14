@@ -1,7 +1,6 @@
-﻿using Skunked.Domain.Commands;
-using Skunked.Domain.State;
+﻿
+namespace Skunked;
 
-namespace Skunked.Domain.Validations;
 
 /// <summary>
 /// Validate commands are valid given the current state of the game.

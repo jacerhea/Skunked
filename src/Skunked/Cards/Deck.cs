@@ -1,7 +1,6 @@
 ﻿using System.Collections;
-using Skunked.Utility;
 
-namespace Skunked.Cards;
+namespace Skunked;
 
 /// <summary>
 /// Deck of playing cards.

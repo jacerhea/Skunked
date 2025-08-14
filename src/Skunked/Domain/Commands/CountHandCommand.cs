@@ -1,4 +1,4 @@
-﻿namespace Skunked.Domain.Commands;
+﻿namespace Skunked;
 
 /// <summary>
 /// Command to count the points in a hand.

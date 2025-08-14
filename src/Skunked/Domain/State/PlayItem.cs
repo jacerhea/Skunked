@@ -1,6 +1,5 @@
-﻿using Skunked.Cards;
-
-namespace Skunked.Domain.State;
+﻿
+namespace Skunked;
 
 /// <summary>
 /// Players play.

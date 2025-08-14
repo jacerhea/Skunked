@@ -1,6 +1,4 @@
-﻿using Skunked.Cards;
-using Skunked.Utility;
-using Xunit;
+﻿using Xunit;
 
 namespace Skunked.UnitTest;
 

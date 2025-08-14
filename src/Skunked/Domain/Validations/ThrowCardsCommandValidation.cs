@@ -1,9 +1,5 @@
-﻿using Skunked.Domain.Commands;
-using Skunked.Domain.State;
-using Skunked.Exceptions;
-using Skunked.Utility;
+﻿namespace Skunked;
 
-namespace Skunked.Domain.Validations;
 
 /// <summary>
 /// Validates <see cref="ThrowCardsCommand"/> command.

@@ -1,6 +1,4 @@
-﻿using Skunked.Cards;
-
-namespace Skunked.Domain.Commands;
+﻿namespace Skunked;
 
 /// <summary>
 /// Command to cut the deck.

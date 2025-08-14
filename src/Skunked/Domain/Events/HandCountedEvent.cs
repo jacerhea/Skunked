@@ -1,5 +1,4 @@
-﻿namespace Skunked.Domain.Events;
-
+﻿namespace Skunked;
 /// <summary>
 /// Event when a hand has been counted.
 /// </summary>

@@ -1,5 +1,5 @@
 ﻿
-namespace Skunked.Domain.Events;
+namespace Skunked;
 
 /// <summary>
 /// Event when the game has started.

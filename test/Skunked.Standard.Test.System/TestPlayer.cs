@@ -1,10 +1,4 @@
-﻿using Skunked.Cards;
-using Skunked.Cards.Order;
-using Skunked.Players;
-using Skunked.Rules;
-using Skunked.Score;
-using Skunked.Utility;
-
+﻿
 namespace Skunked.Test.System;
 
 public class TestPlayer : IEquatable<TestPlayer>, IGameRunnerPlayer

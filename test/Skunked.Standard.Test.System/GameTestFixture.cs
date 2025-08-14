@@ -1,5 +1,4 @@
-﻿using Skunked.Rules;
-using Xunit;
+﻿using Xunit;
 
 namespace Skunked.Test.System;
 

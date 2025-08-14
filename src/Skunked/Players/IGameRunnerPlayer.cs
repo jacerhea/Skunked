@@ -1,6 +1,4 @@
-using Skunked.Cards;
-
-namespace Skunked.Players;
+namespace Skunked;
 
 /// <summary>
 /// An interface to implement an automated player's decisions.

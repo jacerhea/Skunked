@@ -1,4 +1,4 @@
-﻿namespace Skunked.Domain.Events;
+﻿namespace Skunked;
 
 /// <summary>
 /// Event when the crib has been counted.

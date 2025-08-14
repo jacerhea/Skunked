@@ -1,7 +1,5 @@
-﻿using Skunked.Players;
-using Skunked.Utility;
-
-namespace Skunked.Cards;
+﻿
+namespace Skunked;
 
 /// <summary>
 /// Standard dealer.  One card per pass.

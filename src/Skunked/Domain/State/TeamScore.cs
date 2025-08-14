@@ -1,4 +1,4 @@
-﻿namespace Skunked.Domain.State;
+﻿namespace Skunked;
 
 /// <summary>
 /// The team and their score.

@@ -1,9 +1,4 @@
 ﻿using FluentAssertions;
-using Skunked.Cards;
-using Skunked.Game;
-using Skunked.Players;
-using Skunked.Rules;
-using Skunked.Utility;
 using Xunit;
 
 namespace Skunked.Test.System;

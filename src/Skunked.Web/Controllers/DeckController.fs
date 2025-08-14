@@ -2,7 +2,7 @@
 
 open Microsoft.AspNetCore.Mvc
 open Microsoft.Extensions.Logging
-open Skunked.Cards
+open Skunked
 
 [<ApiController>]
 [<Route("[controller]")>]

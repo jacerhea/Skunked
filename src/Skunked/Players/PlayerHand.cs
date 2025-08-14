@@ -1,6 +1,5 @@
-﻿using Skunked.Cards;
-
-namespace Skunked.Players;
+﻿
+namespace Skunked;
 
 /// <summary>
 /// A player id and their hand.

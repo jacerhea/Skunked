@@ -1,4 +1,5 @@
-﻿namespace Skunked.Cards.Value;
+﻿
+namespace Skunked;
 
 /// <summary>
 /// Returns value of a card.  Ace = 1, 9 = 9, face cards  = 10.

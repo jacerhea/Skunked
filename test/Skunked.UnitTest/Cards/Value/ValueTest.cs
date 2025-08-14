@@ -1,6 +1,4 @@
 ﻿using FluentAssertions;
-using Skunked.Cards;
-using Skunked.Cards.Value;
 using Xunit;
 
 namespace Skunked.UnitTest.Cards.Value;
@@ -40,7 +38,7 @@ public class ValueTest
     public void Null_Argument_Will_Throw_ArgumentNullException()
     {
         var strategy = new AceLowFaceTenCardValueStrategy();
-        Action valueOf = () => strategy.GetValue(null);
+        Action valueOf = () => strategy.GetValue(null!);
         valueOf.Should().Throw<ArgumentNullException>();
     }
 }
