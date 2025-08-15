@@ -56,9 +56,9 @@ public static class LinqExtended
     /// <typeparam name="T">The type of source sequence elements.</typeparam>
     public static void Shuffle<T>(this IList<T> source, Random random)
     {
-        for (int index = source.Count - 1; index > 0; index--)
+        for (var index = source.Count - 1; index > 0; index--)
         {
-            int position = random.Next(index + 1);
+            var position = random.Next(index + 1);
             (source[index], source[position]) = (source[position], source[index]);
         }
     }
@@ -72,7 +72,7 @@ public static class LinqExtended
     /// <returns>The found item.</returns>
     public static T NextOf<T>(this IList<T> list, T item)
     {
-        if (list.Count == 0) throw new ArgumentOutOfRangeException(nameof(list));
+        ArgumentOutOfRangeException.ThrowIfZero(list.Count, nameof(list));
         return list[(list.IndexOf(item) + 1) % list.Count];
     }
 
@@ -99,7 +99,7 @@ public static class LinqExtended
     public static IEnumerable<TSource> TakeEvery<TSource>(this IEnumerable<TSource> source, int step)
     {
         ArgumentNullException.ThrowIfNull(source);
-        if (step <= 0) throw new ArgumentOutOfRangeException(nameof(step));
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(step);
         return source.Where((_, i) => i % step == 0);
     }
 
@@ -121,5 +121,6 @@ public static class LinqExtended
                 yield return item;
             }
         }
+        // ReSharper disable once IteratorNeverReturns
     }
 }

@@ -99,5 +99,5 @@ public record CalculatedCombinations(
     List<IReadOnlyList<Card>> Fifteens,
     List<IReadOnlyList<Card>> Pairs,
     List<IReadOnlyList<Card>> Runs,
-    List<Card> Flushes,
+    List<Card>? Flushes,
     Card? Nobs);

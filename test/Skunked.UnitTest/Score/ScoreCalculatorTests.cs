@@ -296,7 +296,7 @@ public class ScoreCalculatorTests
     }
 
     [Theory]
-    [MemberData(nameof(ContinousTestData))]
+    [MemberData(nameof(ContinuousTestData))]
     public void ScoreCalculatorAreContinuous(List<int> play, bool expectation)
     {
         var areContinuous = _scoreCalculator.IsContinuous(play);
@@ -330,7 +330,7 @@ public class ScoreCalculatorTests
             }, new Card(Rank.Three, Suit.Clubs), new Card(Rank.Jack, Suit.Clubs)  },
         };
 
-    public static IEnumerable<object[]> ContinousTestData =>
+    public static IEnumerable<object[]> ContinuousTestData =>
         new List<object[]>
         {
             new object[] { new List<int> { 109 } ,true },
@@ -340,6 +340,7 @@ public class ScoreCalculatorTests
             new object[] { new List<int> { 108, 110 }, false },
             new object[] { new List<int> { 110, 107, 108 }, false },
             new object[] { new List<int> { 0, -2 }, false },
+            new object[] { new List<int> { 0, 0 }, false },
         };
 
 

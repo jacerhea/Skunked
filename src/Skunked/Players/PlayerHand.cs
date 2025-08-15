@@ -1,5 +1,4 @@
-﻿
-namespace Skunked;
+﻿namespace Skunked;
 
 /// <summary>
 /// A player id and their hand.
@@ -13,8 +12,9 @@ public sealed class PlayerHand
     /// <param name="hand">The players hand.</param>
     public PlayerHand(int playerId, List<Card> hand)
     {
+        ArgumentNullException.ThrowIfNull(hand, nameof(hand));
         PlayerId = playerId;
-        Hand = hand ?? throw new ArgumentNullException(nameof(hand));
+        Hand = hand;
     }
 
     /// <summary>

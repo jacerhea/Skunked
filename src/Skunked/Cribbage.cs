@@ -19,7 +19,7 @@ public sealed class Cribbage
         State = new GameState();
         var internalStateBuilder = new GameStateBuilder(State);
         var listeners = new List<IEventListener> { internalStateBuilder };
-        listeners.AddRange(eventListeners ?? Enumerable.Empty<IEventListener>());
+        listeners.AddRange(eventListeners ?? []);
         Stream = new EventStream(listeners);
 
         Emit(new GameStartedEvent(Guid.NewGuid(), NewVersion, players.ToList(), rules));

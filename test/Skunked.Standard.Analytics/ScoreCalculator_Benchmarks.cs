@@ -3,7 +3,7 @@ using BenchmarkDotNet.Jobs;
 
 namespace Skunked.Benchmarks;
 
-[SimpleJob(RuntimeMoniker.NetCoreApp50)]
+[SimpleJob(RuntimeMoniker.Net90)]
 [HtmlExporter]
 public class ScoreCalculator_Benchmarks
 {
@@ -15,13 +15,13 @@ public class ScoreCalculator_Benchmarks
 
     public ScoreCalculator_Benchmarks()
     {
-        _hand = new List<Card>
-        {
+        _hand =
+        [
             new(Rank.Six, Suit.Clubs),
             new(Rank.Eight, Suit.Diamonds),
             new(Rank.Two, Suit.Hearts),
             new(Rank.Queen, Suit.Spades)
-        };
+        ];
         _starter = new Card(Rank.Seven, Suit.Diamonds);
         _nonContinuous = Enumerable.Range(0, 100).ToList();
         _nonContinuous.RemoveAt(50);
