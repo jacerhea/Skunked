@@ -1,5 +1,4 @@
-﻿
-namespace Skunked;
+﻿namespace Skunked;
 
 /// <summary>
 /// Builds the GameState from the game events.
@@ -43,6 +42,8 @@ public sealed class GameStateBuilder : IEventListener
             default:
                 throw new NotImplementedException($"Event Type {@event.GetType()} not implemented.");
         }
+
+        _gameState.Version++;
     }
 
     /// <summary>
@@ -86,7 +87,7 @@ public sealed class GameStateBuilder : IEventListener
     {
         if (!gameState.OpeningRound.Complete)
         {
-            gameState.OpeningRound.Deck = streamEvent.Deck;
+            gameState.OpeningRound.Deck = streamEvent.Deck.ToList();
         }
         else
         {
@@ -105,6 +106,8 @@ public sealed class GameStateBuilder : IEventListener
     {
         gameState.OpeningRound.CutCards.Add(new PlayerIdCard
             { Player = streamEvent.PlayerId, Card = new Card(streamEvent.CutCard) });
+
+        gameState.OpeningRound.Deck.Remove(streamEvent.CutCard);
 
         bool isDone = gameState.PlayerIds.Count == gameState.OpeningRound.CutCards.Count;
         gameState.OpeningRound.Complete = isDone;

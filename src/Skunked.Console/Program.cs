@@ -1,8 +1,7 @@
 ﻿using Konsole;
 using Skunked.AI;
 using Skunked;
-using static System.ConsoleColor;
-using static System.Enum;
+using System.Text;
 
 namespace Skunked.ConsoleApp;
 
@@ -10,42 +9,38 @@ class Program
 {
     static void Main(string[] args)
     {
-        var playerId = 1;
-        IGameRunnerPlayer ai = new AiPlayer.OptimizedPlayer(2);
+        var console = new Window();
+        var rules = new GameRules();
+        var human = 1;
+        var ai = 2;
+        var players = new List<IGameRunnerPlayer>
+            { new HumanConsolePlayer(1, console), CreateOpponent(ai) };
 
-        var players = new List<int> { playerId, ai.Id };
-        var state = new GameState();
-        var stateEventListener = new GameStateBuilder(state);
-        var consoleListener = new ConsoleEventListener(state);
-        var cribbage = new Cribbage(players, new GameRules(WinningScore.Standard121), new List<IEventListener> { stateEventListener, consoleListener });
+        console.WriteLine("Welcome to Cribbage!");
+        console.WriteLine("You are playing against the AI.");
+        console.WriteLine("This sample plays hands/crib counting (no pegging). First to 121 wins.");
+        console.WriteLine("");
 
-        // cut opening round
-        foreach (var tuple in players.Select((playerId, index) => (playerId, index)))
+        var cribbage = new Cribbage([1, 2], rules, new List<IEventListener>());
+
+        foreach (var player in players)
         {
-            cribbage.CutCard(new CutCardCommand(tuple.playerId, cribbage.State.OpeningRound.Deck[tuple.index]));
+            var cut = Draw(cribbage.State.OpeningRound.Deck);
+            cribbage.CutCard(new CutCardCommand(player.Id, cut));
         }
-
 
         while (true)
         {
-            var currentRound = state.GetCurrentRound();
-            foreach (var player in players)
+            var round = cribbage.State.GetCurrentRound();
+            console.WriteLine("----------------------------------------");
+            console.WriteLine(round.PlayerCrib == human ? "You are the dealer." : "AI is the dealer.");
+
+            var currentRound = cribbage.State.GetCurrentRound();
+            foreach (var playerDiscard in players)
             {
-                var dealtPlayerHand = cribbage.State.GetCurrentRound().DealtCards.Single(ph => ph.PlayerId == player);
-
-                IEnumerable<Card> toThrow = new List<Card>();
-                if (player == playerId)
-                {
-                    var readLine = Console.ReadLine();
-                    var x = readLine.Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(input => int.Parse(input));
-                    toThrow = x.Select(value => dealtPlayerHand.Hand[value - 1]);
-                }
-                else
-                {
-                    toThrow = ai.DetermineCardsToThrow(dealtPlayerHand.Hand);
-                }
-
-                cribbage.ThrowCards(new ThrowCardsCommand(player, toThrow));
+                var tossed = playerDiscard.DetermineCardsToThrow(currentRound.DealtCards
+                    .Single(p => p.PlayerId == playerDiscard.Id).Hand);
+                cribbage.ThrowCards(new ThrowCardsCommand(playerDiscard.Id, tossed));
             }
 
             while (!currentRound.PlayedCardsComplete)
@@ -53,188 +48,255 @@ class Program
                 var currentPlayerPlayItems = currentRound.ThePlay.Last();
                 var lastPlayerPlayItem = currentRound.ThePlay.SelectMany(ppi => ppi).LastOrDefault();
                 var isFirstPlay = currentRound.ThePlay.Count == 1 && lastPlayerPlayItem == null;
-                //var player = isFirstPlay
-                //    ? players.NextOf(players.Single(p => p.Id == currentRound.PlayerCrib))
-                //    : players.Single(p => p.Id == lastPlayerPlayItem.NextPlayer);
-                //var playedCards = currentRound.ThePlay.SelectMany(ppi => ppi).Select(ppi => ppi.Card).ToList();
-                //var handLeft = currentRound.Hands.Single(playerHand => playerHand.PlayerId == player.Id).Hand.Except(playedCards).ToList();
-                //var show = player.DetermineCardsToPlay(gameRules, currentPlayerPlayItems.Select(playItem => playItem.Card).ToList(), handLeft);
-
-                //cribbage.PlayCard(new PlayCardCommand(player.Id, show));
+                var player = isFirstPlay
+                    ? players.NextOf(players.Single(p => p.Id == currentRound.PlayerCrib))
+                    : players.Single(p => p.Id == lastPlayerPlayItem.NextPlayer);
+                var playedCards = currentRound.ThePlay.SelectMany(ppi => ppi).Select(ppi => ppi.Card).ToList();
+                var handLeft = currentRound.Hands.Single(playerHand => playerHand.PlayerId == player.Id).Hand
+                    .Except(playedCards).ToList();
+                var show = player.DetermineCardsToPlay(cribbage.State.GameRules,
+                    currentPlayerPlayItems.Select(playItem => playItem.Card).ToList(), handLeft);
+            
+                cribbage.PlayCard(new PlayCardCommand(player.Id, show));
             }
-
-            // var startingPlayer = players.Single(player => player.Id == state.GetNextPlayerFrom(currentRound.PlayerCrib));
-            //foreach (var player in players.Infinite().Skip(players.IndexOf(startingPlayer)).Take(players.Count).ToList())
-            //{
-            //    var playerCount = player.CountHand(currentRound.Starter, currentRound.Hands.Single(playerHand => playerHand.PlayerId == player.Id).Hand);
-            //    cribbage.CountHand(new CountHandCommand(player.Id, playerCount));
-            //}
-
-            // var cribCount = players.Single(p => p.Id == currentRound.PlayerCrib).CountHand(currentRound.Starter, currentRound.Crib);
+            //
+            // var startingPlayer = players.Single(player =>
+            //     player.Id == gameState.GetNextPlayerFrom(currentRound.PlayerCrib));
+            // foreach (var player in players.Infinite().Skip(players.IndexOf(startingPlayer)).Take(players.Count)
+            //              .ToList())
+            // {
+            //     var playerCount = player.CountHand(currentRound.Starter,
+            //         currentRound.Hands.Single(playerHand => playerHand.PlayerId == player.Id).Hand);
+            //     cribbage.CountHand(new CountHandCommand(player.Id, playerCount));
+            // }
+            //
+            // var cribCount = players.Single(p => p.Id == currentRound.PlayerCrib)
+            //     .CountHand(currentRound.Starter, currentRound.Crib);
 
             // cribbage.CountCrib(new CountCribCommand(currentRound.PlayerCrib, cribCount));
         }
+    }
 
+    private static IGameRunnerPlayer CreateOpponent(int id)
+    {
+        return new AiPlayer.OptimizedPlayer(id);
+    }
 
+    // Basic “deck” helpers (52-card deck)
+    private static List<Card> BuildDeck()
+    {
+        var deck = new List<Card>(52);
+        foreach (var suit in Enum.GetValues<Suit>())
+        {
+            foreach (var rank in Enum.GetValues<Rank>())
+            {
+                deck.Add(new Card(rank, suit));
+            }
+        }
 
+        return deck;
+    }
+
+    private static void Shuffle<T>(IList<T> list)
+    {
+        var rng = new Random();
+        for (int i = list.Count - 1; i > 0; i--)
+        {
+            int j = rng.Next(i + 1);
+            (list[i], list[j]) = (list[j], list[i]);
+        }
+    }
+
+    private static List<Card> Deal(List<Card> deck, int count)
+    {
+        var result = deck.Take(count).ToList();
+        deck.RemoveRange(0, count);
+        return result;
+    }
+
+    private static Card Draw(List<Card> deck)
+    {
+        var c = deck[0];
+        deck.RemoveAt(0);
+        return c;
+    }
+
+    private static void RemoveCardsFromHand(List<Card> hand, List<Card> toRemove)
+    {
+        foreach (var c in toRemove)
+        {
+            // Remove by matching rank/suit
+            var idx = hand.FindIndex(h => h.Suit == c.Suit && h.Rank == c.Rank);
+            if (idx >= 0) hand.RemoveAt(idx);
+        }
+    }
+
+    private static bool CheckWinner(int scoreHuman, int scoreAI, int target, IConsole console)
+    {
+        if (scoreHuman >= target)
+        {
+            console.WriteLine($"You reached {scoreHuman}!");
+            return true;
+        }
+
+        if (scoreAI >= target)
+        {
+            console.WriteLine($"AI reached {scoreAI}!");
+            return true;
+        }
+
+        return false;
+    }
+
+    private static string DescribeCard(Card c)
+    {
+        // Prefer Card.ToString() if it’s meaningful
+        var s = c.ToString();
+        if (!string.IsNullOrWhiteSpace(s) && !s.Contains(c.GetType().Name, StringComparison.OrdinalIgnoreCase))
+            return s;
+        return $"{c.Rank} of {c.Suit}";
+    }
+
+    private static void PrintCards(IConsole console, IReadOnlyList<Card> cards)
+    {
+        if (cards.Count == 0)
+        {
+            console.WriteLine("(none)");
+            return;
+        }
+
+        for (int i = 0; i < cards.Count; i++)
+        {
+            console.WriteLine($"[{i}] {DescribeCard(cards[i])}");
+        }
+    }
+
+    private static T InvokeSafe<T>(Func<T> call, Func<T> fallback)
+    {
+        try
+        {
+            return call();
+        }
+        catch
+        {
+            return fallback();
+        }
+    }
+
+    private static List<Card> SimpleRandomSelect(List<Card> hand, int count)
+    {
+        var rng = new Random();
+        return hand.OrderBy(_ => rng.Next()).Take(count).ToList();
     }
 }
 
-public class ConsoleEventListener : IEventListener
+// Human player implementation driven by console prompts
+file sealed class HumanConsolePlayer : IGameRunnerPlayer
 {
-    private readonly GameState _gameState;
-    private IConsole _userWindow;
-    private Dictionary<int, IConsole> _windowLookup;
-    private IConsole _ai;
-    private IConsole _crib;
-    private Layout _layout = new Layout();
+    private readonly IConsole _console;
 
-    public ConsoleEventListener(GameState gameState)
+    public HumanConsolePlayer(int id, IConsole console)
     {
-        _gameState = gameState;
+        Id = id;
+        _console = console;
     }
 
+    public int Id { get; }
 
-
-    public void Notify(StreamEvent @event)
+    public List<Card> DetermineCardsToThrow(IEnumerable<Card> hand)
     {
-        dynamic dynamicEvent = @event;
-        Handle(dynamicEvent);
+        var list = hand.ToList();
+        _console.WriteLine("");
+        _console.WriteLine("Choose two cards to throw to the crib.");
+        for (int i = 0; i < list.Count; i++)
+            _console.WriteLine($"[{i}] {DescribeCard(list[i])}");
+
+        var indices = ReadIndices(2, list.Count);
+        var result = indices.Select(i => list[i]).ToList();
+
+        _console.WriteLine("You threw to the crib:");
+        foreach (var c in result) _console.WriteLine($"- {DescribeCard(c)}");
+
+        return result;
     }
 
-    private void Handle(GameStartedEvent @event)
+    public Card DetermineCardsToPlay(GameRules gameRules, List<Card> pile, List<Card> handLeft)
     {
-        _userWindow = Window.OpenBox("You: 0", _layout.Player1X, _layout.Player1Y, _layout.PlayerWidth, _layout.PlayerHeight, new BoxStyle()
+        // Pegging not used in this simplified sample. If used, prompt similarly.
+        // Return the first card as placeholder to satisfy interface if called.
+        return handLeft.First();
+    }
+
+    public Card CutCards(IEnumerable<Card> cardsToChoose)
+    {
+        var list = cardsToChoose.ToList();
+        for (int i = 0; i < list.Count; i++)
+            _console.WriteLine($"[{i}] {DescribeCard(list[i])}");
+        _console.WriteLine("Select a card to cut by index.");
+        var idx = ReadIndex(0, list.Count - 1);
+        return list[idx];
+    }
+
+    public int CountHand(Card starter, IEnumerable<Card> hand)
+    {
+        var list = hand.ToList();
+        _console.WriteLine("");
+        _console.WriteLine($"Count with starter: {DescribeCard(starter)}");
+        for (int i = 0; i < list.Count; i++)
+            _console.WriteLine($"[{i}] {DescribeCard(list[i])}");
+
+        _console.WriteLine("Enter the total points you count for this hand:");
+        return ReadInt(0, 29); // typical max
+    }
+
+    private int ReadIndex(int min, int max)
+    {
+        while (true)
         {
-            ThickNess = LineThickNess.Single,
-            Title = new Colors(White, Red)
-        });
+            _console.Write("> ");
+            var s = Console.ReadLine();
+            if (int.TryParse(s, out var value) && value >= min && value <= max)
+                return value;
+            _console.WriteLine($"Enter a number between {min} and {max}.");
+        }
+    }
 
-        _ai = Window.OpenBox("Computer: 0", _layout.Player2X, _layout.Player2Y, _layout.PlayerWidth, _layout.PlayerHeight, new BoxStyle
+    private int[] ReadIndices(int count, int upperExclusive)
+    {
+        while (true)
         {
-            ThickNess = LineThickNess.Single,
-            Title = new Colors(White, Blue)
-        });
+            _console.Write("> ");
+            var line = (Console.ReadLine() ?? "");
+            var parts = line
+                .Replace(",", " ")
+                .Replace(";", " ")
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-        _crib = Window.OpenBox("Crib", _layout.Player2X, _layout.Player2Y, _layout.PlayerWidth, _layout.PlayerHeight, new BoxStyle
+            if (parts.Length == count &&
+                parts.All(p => int.TryParse(p, out var x) && x >= 0 && x < upperExclusive))
+            {
+                var indices = parts.Select(int.Parse).Distinct().ToArray();
+                if (indices.Length == count) return indices;
+                _console.WriteLine("Indices must be distinct.");
+                continue;
+            }
+
+            _console.WriteLine($"Please enter {count} valid indices separated by space.");
+        }
+    }
+
+    private int ReadInt(int min, int max)
+    {
+        while (true)
         {
-            ThickNess = LineThickNess.Single,
-            Title = new Colors(White, Blue)
-        });
-
-
-        _windowLookup = new Dictionary<int, IConsole> { { 1, _userWindow }, { 2, _ai } };
+            _console.Write("> ");
+            var s = Console.ReadLine();
+            if (int.TryParse(s, out var value) && value >= min && value <= max)
+                return value;
+            _console.WriteLine($"Enter a number between {min} and {max}.");
+        }
     }
 
-    private void Handle(CardCutEvent @event)
-    {
-
-    }
-
-    private void Handle(CardPlayedEvent @event)
-    {
-
-    }
-
-    private void Handle(CardsThrownEvent @event)
-    {
-        var player = _windowLookup[@event.PlayerId];
-        var hand = Aggregate(_gameState.GetCurrentRound().Crib);
-        _crib.Clear();
-        _crib.Write(hand);
-        var playerHand = _gameState.GetCurrentRound().Hands.Single(ph => ph.PlayerId == @event.PlayerId);
-        player.Clear();
-        player.Write(Aggregate(playerHand.Hand));
-    }
-
-    private void Handle(CribCountedEvent @event)
-    {
-
-    }
-
-    private void Handle(DeckShuffledEvent @event)
-    {
-
-    }
-
-    private void Handle(GameCompletedEvent @event)
-    {
-
-    }
-
-    private void Handle(HandCountedEvent @event)
-    {
-
-    }
-
-    private void Handle(HandsDealtEvent @event)
-    {
-        var hand = Aggregate(@event.Hands.Single(ph => ph.PlayerId == 1).Hand);
-        var aihand = Aggregate(@event.Hands.Single(ph => ph.PlayerId == 2).Hand);
-        _userWindow.Write(hand);
-        _ai.Write(aihand);
-    }
-
-    private void Handle(PlayFinishedEvent @event)
-    {
-
-    }
-
-    private void Handle(PlayStartedEvent @event)
-    {
-
-    }
-
-    private void Handle(RoundStartedEvent @event)
-    {
-
-        _crib = Window.OpenBox("                  ", _layout.CribX, _layout.Player1Y, _layout.PlayerWidth, _layout.PlayerHeight, new BoxStyle
-        {
-            ThickNess = LineThickNess.Single,
-            Title = new Colors(Black, Black),
-            Line = new Colors(Black, Black)
-        });
-
-        _crib = Window.OpenBox("Crib", _layout.CribX, _layout.Player1Y, _layout.PlayerWidth, _layout.PlayerHeight, new BoxStyle
-        {
-            ThickNess = LineThickNess.Single,
-            Title = new Colors(White, Red)
-        });
-    }
-
-    private void Handle(StarterCardSelectedEvent @event)
-    {
-
-    }
-
-    private static string Aggregate(IEnumerable<Card> cards) =>
-        cards
-            .OrderBy(card => card.Rank)
-            .ThenBy(card => card.Suit)
-            .Aggregate("", (result, card) => result + " " + GetString(card));
-
-    private static string GetString(Card card)
-    {
-
-        var rank = card.Rank < Rank.Jack ? ((int)card.Rank).ToString() : GetName(card.Rank).Substring(0, 1);
-        var suitLookup = new Dictionary<Suit, string> { { Suit.Clubs, "♣" }, { Suit.Diamonds, "♦" }, { Suit.Hearts, "♥" }, { Suit.Spades, "♠" } };
-
-        return rank + suitLookup[card.Suit];
-    }
-
-}
-
-
-public class Layout
-{
-    public int Player1X { get; set; } = 0;
-    public int Player1Y { get; set; } = 1;
-
-    public int Player2X { get; set; } = 0;
-    public int Player2Y { get; set; } = 15;
-
-    public int CribX { get; set; } = 50;
-
-    public int PlayerHeight { get; set; } = 6;
-    public int PlayerWidth { get; set; } = 40;
+    private static string DescribeCard(Card c)
+        => $"{c.Rank} of {c.Suit}";
 }
