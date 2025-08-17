@@ -2,21 +2,26 @@
 
 
 
-module AiPlayer = 
+module AiPlayer =
     open System.Collections.Generic
     open Skunked
 
-    type OptimizedPlayer(id) = 
+    type OptimizedPlayer(id) =
         let idInternal = id
+        let calculator = new ScoreCalculator()
 
-        interface  IGameRunnerPlayer with
-            member this.Id with get () = idInternal
-            member this.CountHand(starter: Card, hand: IEnumerable<Card>): int = 
-                raise (System.NotImplementedException())
-            member this.CutCards(cardsToChoose: IEnumerable<Card>): Card = 
-                raise (System.NotImplementedException())
-            member this.DetermineCardsToPlay(gameRules: GameRules, pile: List<Card>, handLeft: List<Card>): Card = 
-                raise (System.NotImplementedException())
-            member this.DetermineCardsToThrow(hand: IEnumerable<Card>) =  CardToss.maxAverage hand |> ResizeArray<Card>
-            
+        interface IGameRunnerPlayer with
+            member this.Id = idInternal
 
+            member this.CountHand(starter: Card, hand: IEnumerable<Card>) : int =
+                let result = calculator.CountShowPoints(starter, hand, false)
+                result.Points.Score
+
+            member this.CutCards(cardsToChoose: IEnumerable<Card>) : Card =
+                raise (System.NotImplementedException())
+
+            member this.DetermineCardsToPlay(gameRules: GameRules, pile: List<Card>, handLeft: List<Card>) : Card =
+                raise (System.NotImplementedException())
+
+            member this.DetermineCardsToThrow(hand: IEnumerable<Card>) =
+                CardToss.maxAverage hand |> ResizeArray<Card>
