@@ -23,6 +23,7 @@ public sealed class Cribbage
         Stream = new EventStream(listeners);
 
         Emit(new GameStartedEvent(Guid.NewGuid(), NewVersion, players.ToList(), rules));
+        _deck.Shuffle();
         Emit(new DeckShuffledEvent(State.Id, NewVersion, _deck.ToList()));
     }
 

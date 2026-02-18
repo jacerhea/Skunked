@@ -1284,7 +1284,7 @@
             <param name="hand">The set of cards dealt to the player.</param>
             <returns>Set of Cards to throw in crib.</returns>
         </member>
-        <member name="M:Skunked.IGameRunnerPlayer.DetermineCardsToPlay(Skunked.GameRules,System.Collections.Generic.List{Skunked.Card},System.Collections.Generic.List{Skunked.Card})">
+        <member name="M:Skunked.IGameRunnerPlayer.DetermineCardsToPlay(Skunked.GameRules,System.Collections.Generic.IEnumerable{Skunked.Card},System.Collections.Generic.IEnumerable{Skunked.Card})">
             <summary>
             Determine card to throw to play pile.
             </summary>
