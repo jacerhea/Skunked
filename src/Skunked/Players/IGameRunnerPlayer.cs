@@ -24,7 +24,7 @@ public interface IGameRunnerPlayer
     /// <param name="pile">Cards currently in the pile.</param>
     /// <param name="handLeft">Cards not yet played from hand.</param>
     /// <returns>The card to throw to the pile.</returns>
-    Card DetermineCardsToPlay(GameRules gameRules, List<Card> pile, List<Card> handLeft);
+    Card DetermineCardsToPlay(GameRules gameRules, IEnumerable<Card> pile, IEnumerable<Card> handLeft);
 
     /// <summary>
     /// Get the card to cut.

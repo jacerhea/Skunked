@@ -13,15 +13,14 @@ module AiPlayer =
         interface IGameRunnerPlayer with
             member this.Id = idInternal
 
-            member this.CountHand(starter: Card, hand: IEnumerable<Card>) : int =
+            member this.CountHand(starter: Card, hand: IEnumerable<Card>) =
                 let result = calculator.CountShowPoints(starter, hand, false)
                 result.Points.Score
 
-            member this.CutCards(cardsToChoose: IEnumerable<Card>) : Card =
-                raise (System.NotImplementedException())
+            member this.CutCards(cardsToChoose: IEnumerable<Card>)  = cardsToChoose |> Seq.head
 
-            member this.DetermineCardsToPlay(gameRules: GameRules, pile: List<Card>, handLeft: List<Card>) : Card =
-                raise (System.NotImplementedException())
+            member this.DetermineCardsToPlay(gameRules: GameRules, pile: IEnumerable<Card>, handLeft: IEnumerable<Card>) : Card =
+                handLeft |> Seq.head
 
             member this.DetermineCardsToThrow(hand: IEnumerable<Card>) =
                 CardToss.maxAverage hand |> ResizeArray<Card>

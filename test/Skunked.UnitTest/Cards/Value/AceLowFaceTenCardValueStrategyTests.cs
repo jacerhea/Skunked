@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Skunked.UnitTest.Cards.Value;
 
-public class ValueTest
+public class AceLowFaceTenCardValueStrategyTests
 {
     [Fact]
     public void Value_Of_Every_Card_Will_Match_Expected_Values()

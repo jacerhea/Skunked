@@ -39,12 +39,12 @@ public class TestPlayer : IEquatable<TestPlayer>, IGameRunnerPlayer
         return handCopy.Take(cardCountToThrow).ToList();
     }
 
-    public Card DetermineCardsToPlay(GameRules gameRules, List<Card> pile, List<Card> handLeft)
+    public Card DetermineCardsToPlay(GameRules gameRules, IEnumerable<Card> pile, IEnumerable<Card> handLeft)
     {
         ArgumentNullException.ThrowIfNull(gameRules);
         ArgumentNullException.ThrowIfNull(pile);
         ArgumentNullException.ThrowIfNull(handLeft);
-        if (handLeft.Count == 0) throw new ArgumentException(nameof(handLeft));
+        if (handLeft.Count() == 0) throw new ArgumentException(nameof(handLeft));
 
         return handLeft.OrderBy(card => card, RankComparer.Instance).First();
     }

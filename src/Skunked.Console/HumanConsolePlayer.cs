@@ -4,9 +4,9 @@ namespace Skunked.ConsoleApp;
 
 public sealed class HumanConsolePlayer : IGameRunnerPlayer
 {
-    private readonly IConsole _console;
+    private readonly Window _console;
 
-    public HumanConsolePlayer(int id, IConsole console)
+    public HumanConsolePlayer(int id, Window console)
     {
         Id = id;
         _console = console;
@@ -24,19 +24,26 @@ public sealed class HumanConsolePlayer : IGameRunnerPlayer
         _console.WriteLine("Choose two cards to throw to the crib.");
         foreach (var (index, card) in list.Index())
         {
-            _console.WriteLine($"[{index}] {DescribeCard(card)}");
+            _console.Write($"[{index}] ");
+            WriteCard(card);
+            _console.WriteLine("");
         }
 
         var indices = ReadIndices(2, list.Count);
         var result = indices.Select(i => list[i]).ToList();
 
         _console.WriteLine("You threw to the crib:");
-        foreach (var c in result) _console.WriteLine($"- {DescribeCard(c)}");
+        foreach (var c in result)
+        {
+            _console.Write("- ");
+            WriteCard(c);
+            _console.WriteLine("");
+        }
 
         return result;
     }
 
-    public Card DetermineCardsToPlay(GameRules gameRules, List<Card> pile, List<Card> handLeft)
+    public Card DetermineCardsToPlay(GameRules gameRules, IEnumerable<Card> pile, IEnumerable<Card> handLeft)
     {
         // Pegging not used in this simplified sample. If used, prompt similarly.
         // Return the first card as placeholder to satisfy interface if called.
@@ -51,7 +58,9 @@ public sealed class HumanConsolePlayer : IGameRunnerPlayer
             .ToList();
         foreach (var (index, card) in list.Index())
         {
-            _console.WriteLine($"[{index}] {DescribeCard(card)}");
+            _console.Write($"[{index}] ");
+            WriteCard(card);
+            _console.WriteLine("");
         }
 
         _console.WriteLine("Select a card to cut by index.");
@@ -63,10 +72,14 @@ public sealed class HumanConsolePlayer : IGameRunnerPlayer
     {
         var list = hand.ToList();
         _console.WriteLine("");
-        _console.WriteLine($"Count with starter: {DescribeCard(starter)}");
+        _console.Write("Count with starter: ");
+        WriteCard(starter);
+        _console.WriteLine("");
         foreach (var (index, card) in list.Index())
         {
-            _console.WriteLine($"[{index}] {DescribeCard(card)}");
+            _console.Write($"[{index}] ");
+            WriteCard(card);
+            _console.WriteLine("");
         }
 
         _console.WriteLine("Enter the total points you count for this hand:");
@@ -121,6 +134,24 @@ public sealed class HumanConsolePlayer : IGameRunnerPlayer
         }
     }
 
-    private static string DescribeCard(Card c)
-        => $"{c.Rank} of {c.Suit}";
+    private void WriteCard(Card c)
+    {
+        var (symbol, color) = c.Suit switch
+        {
+            Suit.Hearts   => ("♥", ConsoleColor.Red),
+            Suit.Diamonds => ("♦", ConsoleColor.Red),
+            Suit.Clubs    => ("♣", ConsoleColor.White),
+            Suit.Spades   => ("♠", ConsoleColor.White),
+            _             => ("?", ConsoleColor.White)
+        };
+        var rank = c.Rank switch
+        {
+            Rank.Ace   => "A",
+            Rank.Jack  => "J",
+            Rank.Queen => "Q",
+            Rank.King  => "K",
+            _          => ((int)c.Rank).ToString()
+        };
+        _console.Write(color, $"{rank}{symbol}");
+    }
 }
