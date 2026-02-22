@@ -18,17 +18,17 @@ public sealed record GameState
     /// <summary>
     /// Gets or sets player ids.
     /// </summary>
-    public List<int> PlayerIds { get; set; } = new();
+    public List<int> PlayerIds { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the players scores.
     /// </summary>
-    public List<PlayerScore> IndividualScores { get; set; } = new();
+    public List<PlayerScore> IndividualScores { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the team scores.
     /// </summary>
-    public List<TeamScore> TeamScores { get; set; } = new();
+    public List<TeamScore> TeamScores { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the set of rules for the game.
@@ -43,7 +43,7 @@ public sealed record GameState
     /// <summary>
     /// Gets or set the set of rounds.
     /// </summary>
-    public List<RoundState> Rounds { get; set; } = new();
+    public List<RoundState> Rounds { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the time stamp of when the game started.

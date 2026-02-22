@@ -62,20 +62,20 @@ public sealed class GameStateBuilder : IEventListener
         {
             Deck = deck,
             Complete = false,
-            CutCards = new List<PlayerIdCard>(),
+            CutCards = [],
             WinningPlayerCut = null,
         };
         gameState.IndividualScores =
             new List<PlayerScore>(streamEvent.Players.Select(player => new PlayerScore { Player = player, Score = 0 }));
         gameState.PlayerIds = streamEvent.Players.ToList();
         gameState.TeamScores = streamEvent.Players.Count == 2
-            ? streamEvent.Players.Select(p => new TeamScore { Players = new List<int> { p } }).ToList()
-            : new List<TeamScore>
-            {
-                new() { Players = new List<int> { streamEvent.Players[0], streamEvent.Players[2] } },
-                new() { Players = new List<int> { streamEvent.Players[1], streamEvent.Players[3] } },
-            };
-        gameState.Rounds = new List<RoundState>();
+            ? streamEvent.Players.Select(p => new TeamScore { Players = [p] }).ToList()
+            :
+            [
+                new() { Players = [streamEvent.Players[0], streamEvent.Players[2]] },
+                new() { Players = [streamEvent.Players[1], streamEvent.Players[3]] }
+            ];
+        gameState.Rounds = [];
     }
 
     /// <summary>
@@ -153,12 +153,12 @@ public sealed class GameStateBuilder : IEventListener
 
         var roundState = new RoundState
         {
-            Crib = new List<Card>(),
-            DealtCards = new List<PlayerHand>(),
+            Crib = [],
+            DealtCards = [],
             Complete = false,
             PlayerCrib = cribPlayerId,
-            Hands = new List<PlayerHand>(),
-            ThePlay = new List<List<PlayItem>> { new() },
+            Hands = [],
+            ThePlay = [[]],
             Round = currentRound + 1,
             ShowScores = playerShowScores,
         };
@@ -262,7 +262,7 @@ public sealed class GameStateBuilder : IEventListener
             }
 
             // not done playing, so add new play round
-            setOfPlays.Add(new List<PlayItem>());
+            setOfPlays.Add([]);
         }
 
         var currentPlayerScore = gameState.IndividualScores.Single(ps => ps.Player == streamEvent.PlayerId);

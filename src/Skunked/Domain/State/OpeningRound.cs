@@ -9,12 +9,12 @@ public sealed record OpeningRound
     /// <summary>
     /// State of the deck
     /// </summary>
-    public List<Card> Deck { get; set; } = new();
+    public List<Card> Deck { get; set; } = [];
 
     /// <summary>
     /// State of the cut cards.
     /// </summary>
-    public List<PlayerIdCard> CutCards { get; set; } = new();
+    public List<PlayerIdCard> CutCards { get; set; } = [];
 
     /// <summary>
     /// Is the opening round complete.

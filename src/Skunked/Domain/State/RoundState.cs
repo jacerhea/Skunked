@@ -18,17 +18,17 @@ public sealed record RoundState
     /// <summary>
     /// Gets or sets the set of cards initially dealt to all players.
     /// </summary>
-    public List<PlayerHand> DealtCards { get; set; } = new();
+    public List<PlayerHand> DealtCards { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the set of cards in each players hand after thrown to the crib.
     /// </summary>
-    public List<PlayerHand> Hands { get; set; } = new();
+    public List<PlayerHand> Hands { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the set of Play items.
     /// </summary>
-    public List<List<PlayItem>> ThePlay { get; set; } = new();
+    public List<List<PlayItem>> ThePlay { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the condition if the throwing of cards is complete.
@@ -53,12 +53,12 @@ public sealed record RoundState
     /// <summary>
     /// The cards thrown to the crib.
     /// </summary>
-    public List<Card> Crib { get; set; } = new();
+    public List<Card> Crib { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the scores for each team.
     /// </summary>
-    public List<PlayerScoreShow> ShowScores { get; set; } = new();
+    public List<PlayerScoreShow> ShowScores { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the preround state.
