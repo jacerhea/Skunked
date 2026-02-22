@@ -868,16 +868,21 @@
             <summary>
             A player id and a card.
             </summary>
+            <param name="Player">The player identifier.</param>
+            <param name="Card">The card associated with the player.</param>
+        </member>
+        <member name="M:Skunked.PlayerIdCard.#ctor(System.Int32,Skunked.Card)">
+            <summary>
+            A player id and a card.
+            </summary>
+            <param name="Player">The player identifier.</param>
+            <param name="Card">The card associated with the player.</param>
         </member>
         <member name="P:Skunked.PlayerIdCard.Player">
-            <summary>
-            Gets the playerId.
-            </summary>
+            <summary>The player identifier.</summary>
         </member>
         <member name="P:Skunked.PlayerIdCard.Card">
-            <summary>
-            Gets the card.
-            </summary>
+            <summary>The card associated with the player.</summary>
         </member>
         <member name="T:Skunked.PlayerScore">
             <summary>
@@ -981,7 +986,7 @@
         </member>
         <member name="P:Skunked.RoundState.Starter">
             <summary>
-            Gets or sets the stater card.
+            Gets or sets the starter card.
             </summary>
         </member>
         <member name="P:Skunked.RoundState.Round">
@@ -1147,7 +1152,7 @@
         </member>
         <member name="M:Skunked.ValidationBase.CheckEndOfGame(Skunked.GameState)">
             <summary>
-            Throw if game is complete..
+            Throw if game is complete.
             </summary>
             <param name="gameState">Current state of the game.</param>
         </member>
@@ -1315,7 +1320,7 @@
         </member>
         <member name="M:Skunked.PlayerHand.#ctor(System.Int32,System.Collections.Generic.List{Skunked.Card})">
             <summary>
-            Initializes a new instance of the <see cref="T:Skunked.PlayerHand"/> class.
+            Initializes a new instance of the <see cref="T:Skunked.PlayerHand"/> record.
             </summary>
             <param name="playerId">The id of the player.</param>
             <param name="hand">The players hand.</param>
@@ -1371,6 +1376,11 @@
         <member name="P:Skunked.GameRules.Points.Go">
             <summary>
             Gets points for laying the last card in a play where the count is under 31.
+            </summary>
+        </member>
+        <member name="P:Skunked.GameRules.Points.ThirtyOne">
+            <summary>
+            Gets points for playing the last card that brings the count to exactly 31.
             </summary>
         </member>
         <member name="P:Skunked.GameRules.Points.MaxPlayCount">
@@ -1432,69 +1442,61 @@
             <summary>
             Result Calculated.
             </summary>
+            <param name="Points">The set of points that can be scored.</param>
+            <param name="Combinations">The set of combinations that can score points.</param>
         </member>
         <member name="M:Skunked.CalculatedResult.#ctor(Skunked.CalculatedPoints,Skunked.CalculatedCombinations)">
             <summary>
-            Initializes a new instance of the <see cref="T:Skunked.CalculatedResult"/> class.
+            Result Calculated.
             </summary>
-            <param name="points"></param>
-            <param name="combinations"></param>
+            <param name="Points">The set of points that can be scored.</param>
+            <param name="Combinations">The set of combinations that can score points.</param>
         </member>
         <member name="P:Skunked.CalculatedResult.Points">
-            <summary>
-            The set of points that can be scored.
-            </summary>
+            <summary>The set of points that can be scored.</summary>
         </member>
         <member name="P:Skunked.CalculatedResult.Combinations">
-            <summary>
-            The set of combinations that can score points.
-            </summary>
+            <summary>The set of combinations that can score points.</summary>
         </member>
         <member name="T:Skunked.CalculatedPoints">
             <summary>
             Set of points calculated.
             </summary>
-        </member>
-        <member name="P:Skunked.CalculatedPoints.Score">
-            <summary>
-            Total points scored.
-            </summary>
-        </member>
-        <member name="P:Skunked.CalculatedPoints.FifteenScore">
-            <summary>
-            Points scored for fifteens. 
-            </summary>
-        </member>
-        <member name="P:Skunked.CalculatedPoints.PairScore">
-            <summary>
-            Points scored for pairs.
-            </summary>
-        </member>
-        <member name="P:Skunked.CalculatedPoints.RunScore">
-            <summary>
-            Points scored for runs.
-            </summary>
-        </member>
-        <member name="P:Skunked.CalculatedPoints.FlushScore">
-            <summary>
-            Points scored for flushes.
-            </summary>
-        </member>
-        <member name="P:Skunked.CalculatedPoints.NobScore">
-            <summary>
-            Points scored for nobs.
-            </summary>
+            <param name="Score">Total points scored.</param>
+            <param name="FifteenScore">Points scored for fifteens.</param>
+            <param name="PairScore">Points scored for pairs.</param>
+            <param name="RunScore">Points scored for runs.</param>
+            <param name="FlushScore">Points scored for flushes.</param>
+            <param name="NobScore">Points scored for nobs.</param>
         </member>
         <member name="M:Skunked.CalculatedPoints.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
             <summary>
-            
+            Set of points calculated.
             </summary>
-            <param name="score"></param>
-            <param name="fifteenScore"></param>
-            <param name="pairScore"></param>
-            <param name="runScore"></param>
-            <param name="flushScore"></param>
-            <param name="nobScore"></param>
+            <param name="Score">Total points scored.</param>
+            <param name="FifteenScore">Points scored for fifteens.</param>
+            <param name="PairScore">Points scored for pairs.</param>
+            <param name="RunScore">Points scored for runs.</param>
+            <param name="FlushScore">Points scored for flushes.</param>
+            <param name="NobScore">Points scored for nobs.</param>
+        </member>
+        <member name="P:Skunked.CalculatedPoints.Score">
+            <summary>Total points scored.</summary>
+        </member>
+        <member name="P:Skunked.CalculatedPoints.FifteenScore">
+            <summary>Points scored for fifteens.</summary>
+        </member>
+        <member name="P:Skunked.CalculatedPoints.PairScore">
+            <summary>Points scored for pairs.</summary>
+        </member>
+        <member name="P:Skunked.CalculatedPoints.RunScore">
+            <summary>Points scored for runs.</summary>
+        </member>
+        <member name="P:Skunked.CalculatedPoints.FlushScore">
+            <summary>Points scored for flushes.</summary>
+        </member>
+        <member name="P:Skunked.CalculatedPoints.NobScore">
+            <summary>Points scored for nobs.</summary>
         </member>
         <member name="T:Skunked.CalculatedCombinations">
             <summary>
@@ -1789,7 +1791,7 @@
         </member>
         <member name="M:Skunked.LinqExtended.Infinite``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>
-            Endless iterates source.  l
+            Endless iterates source.
             </summary>
             <param name="source"></param>
             <typeparam name="TSource"></typeparam>

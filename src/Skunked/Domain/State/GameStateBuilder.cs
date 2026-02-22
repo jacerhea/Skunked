@@ -104,8 +104,7 @@ public sealed class GameStateBuilder : IEventListener
     /// <param name="gameState">The game state.</param>
     private void Handle(CardCutEvent streamEvent, GameState gameState)
     {
-        gameState.OpeningRound.CutCards.Add(new PlayerIdCard
-            { Player = streamEvent.PlayerId, Card = new Card(streamEvent.CutCard) });
+        gameState.OpeningRound.CutCards.Add(new PlayerIdCard(streamEvent.PlayerId, new Card(streamEvent.CutCard)));
 
         gameState.OpeningRound.Deck.Remove(streamEvent.CutCard);
 

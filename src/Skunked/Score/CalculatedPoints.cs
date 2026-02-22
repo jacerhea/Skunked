@@ -1,91 +1,28 @@
-﻿namespace Skunked;
+namespace Skunked;
 
 /// <summary>
 /// Result Calculated.
 /// </summary>
-public sealed class CalculatedResult
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="CalculatedResult"/> class.
-    /// </summary>
-    /// <param name="points"></param>
-    /// <param name="combinations"></param>
-    public CalculatedResult(CalculatedPoints points, CalculatedCombinations combinations)
-    {
-        Points = points;
-        Combinations = combinations;
-    }
-
-    /// <summary>
-    /// The set of points that can be scored.
-    /// </summary>
-    public CalculatedPoints Points { get; }
-
-    /// <summary>
-    /// The set of combinations that can score points.
-    /// </summary>
-    public CalculatedCombinations Combinations { get; }
-}
+/// <param name="Points">The set of points that can be scored.</param>
+/// <param name="Combinations">The set of combinations that can score points.</param>
+public sealed record CalculatedResult(CalculatedPoints Points, CalculatedCombinations Combinations);
 
 /// <summary>
 /// Set of points calculated.
 /// </summary>
-public sealed class CalculatedPoints
-{
-    /// <summary>
-    /// Total points scored.
-    /// </summary>
-    public int Score { get; }
-
-    /// <summary>
-    /// Points scored for fifteens. 
-    /// </summary>
-    public int FifteenScore { get; }
-
-    /// <summary>
-    /// Points scored for pairs.
-    /// </summary>
-    public int PairScore { get; }
-
-    /// <summary>
-    /// Points scored for runs.
-    /// </summary>
-    public int RunScore { get; }
-
-    /// <summary>
-    /// Points scored for flushes.
-    /// </summary>
-    public int FlushScore { get; }
-
-    /// <summary>
-    /// Points scored for nobs.
-    /// </summary>
-    public int NobScore { get; }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="score"></param>
-    /// <param name="fifteenScore"></param>
-    /// <param name="pairScore"></param>
-    /// <param name="runScore"></param>
-    /// <param name="flushScore"></param>
-    /// <param name="nobScore"></param>
-    public CalculatedPoints(int score,
-        int fifteenScore,
-        int pairScore,
-        int runScore,
-        int flushScore,
-        int nobScore)
-    {
-        Score = score;
-        FifteenScore = fifteenScore;
-        PairScore = pairScore;
-        RunScore = runScore;
-        FlushScore = flushScore;
-        NobScore = nobScore;
-    }
-}
+/// <param name="Score">Total points scored.</param>
+/// <param name="FifteenScore">Points scored for fifteens.</param>
+/// <param name="PairScore">Points scored for pairs.</param>
+/// <param name="RunScore">Points scored for runs.</param>
+/// <param name="FlushScore">Points scored for flushes.</param>
+/// <param name="NobScore">Points scored for nobs.</param>
+public sealed record CalculatedPoints(
+    int Score,
+    int FifteenScore,
+    int PairScore,
+    int RunScore,
+    int FlushScore,
+    int NobScore);
 
 /// <summary>
 /// A set of combinations that can score points.

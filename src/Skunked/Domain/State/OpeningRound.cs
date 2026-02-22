@@ -4,7 +4,7 @@ namespace Skunked;
 /// <summary>
 /// State of the opening round
 /// </summary>
-public sealed class OpeningRound
+public sealed record OpeningRound
 {
     /// <summary>
     /// State of the deck

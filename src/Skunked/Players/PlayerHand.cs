@@ -3,10 +3,10 @@
 /// <summary>
 /// A player id and their hand.
 /// </summary>
-public sealed class PlayerHand
+public sealed record PlayerHand
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlayerHand"/> class.
+    /// Initializes a new instance of <see cref="PlayerHand"/>.
     /// </summary>
     /// <param name="playerId">The id of the player.</param>
     /// <param name="hand">The players hand.</param>

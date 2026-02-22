@@ -3,10 +3,10 @@
 /// <summary>
 /// The state of the Round.
 /// </summary>
-public sealed class RoundState
+public sealed record RoundState
 {
     /// <summary>
-    /// Gets or sets the stater card.
+    /// Gets or sets the starter card.
     /// </summary>
     public Card Starter { get; set; }
 
