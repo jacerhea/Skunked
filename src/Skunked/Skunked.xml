@@ -386,193 +386,197 @@
             <summary>
             Event when a card has been cut.
             </summary>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
+            <param name="PlayerId">The id of the player who cut the card.</param>
+            <param name="CutCard">The card that was cut.</param>
         </member>
         <member name="M:Skunked.CardCutEvent.#ctor(System.Guid,System.Int32,System.Int32,Skunked.Card)">
             <summary>
-            Initializes a new instance of the <see cref="T:Skunked.CardCutEvent"/> class.
+            Event when a card has been cut.
             </summary>
-            <param name="gameId">Unique identifier of the game.</param>
-            <param name="version">The version of the game.</param>
-            <param name="playerId">The id of the player.</param>
-            <param name="cutCard">Card that was cut.</param>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
+            <param name="PlayerId">The id of the player who cut the card.</param>
+            <param name="CutCard">The card that was cut.</param>
         </member>
         <member name="P:Skunked.CardCutEvent.PlayerId">
-            <summary>
-            Gets the player's id who cut the card.
-            </summary>
+            <summary>The id of the player who cut the card.</summary>
         </member>
         <member name="P:Skunked.CardCutEvent.CutCard">
-            <summary>
-            Gets the card that was cut.
-            </summary>
+            <summary>The card that was cut.</summary>
         </member>
         <member name="T:Skunked.CardPlayedEvent">
             <summary>
             Event when a card has been played.
             </summary>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
+            <param name="PlayerId">The id of the player.</param>
+            <param name="Played">The card played.</param>
         </member>
         <member name="M:Skunked.CardPlayedEvent.#ctor(System.Guid,System.Int32,System.Int32,Skunked.Card)">
             <summary>
-            Initializes a new instance of the <see cref="T:Skunked.CardPlayedEvent"/> class.
+            Event when a card has been played.
             </summary>
-            <param name="gameId">Unique identifier of the game.</param>
-            <param name="version">The version of the game.</param>
-            <param name="playerId">The id of the player.</param>
-            <param name="played">The card played.</param>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
+            <param name="PlayerId">The id of the player.</param>
+            <param name="Played">The card played.</param>
         </member>
         <member name="P:Skunked.CardPlayedEvent.PlayerId">
-            <summary>
-            Gets the player id.
-            </summary>
+            <summary>The id of the player.</summary>
         </member>
         <member name="P:Skunked.CardPlayedEvent.Played">
-            <summary>
-            Gets the Card being played.
-            </summary>
+            <summary>The card played.</summary>
         </member>
         <member name="T:Skunked.CardsThrownEvent">
             <summary>
-            Event when a cards have been thrown to the crib.
+            Event when cards have been thrown to the crib.
             </summary>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
+            <param name="PlayerId">The id of the player.</param>
+            <param name="Thrown">The cards thrown to the crib.</param>
         </member>
         <member name="M:Skunked.CardsThrownEvent.#ctor(System.Guid,System.Int32,System.Int32,System.Collections.Generic.List{Skunked.Card})">
             <summary>
-            Initializes a new instance of the <see cref="T:Skunked.CardsThrownEvent"/> class.
+            Event when cards have been thrown to the crib.
             </summary>
-            <param name="gameId">Unique identifier of the game.</param>
-            <param name="version">The version of the game.</param>
-            <param name="playerId">The id of the player.</param>
-            <param name="thrown">The cards thrown to the crib.</param>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
+            <param name="PlayerId">The id of the player.</param>
+            <param name="Thrown">The cards thrown to the crib.</param>
         </member>
         <member name="P:Skunked.CardsThrownEvent.PlayerId">
-            <summary>
-            Gets the player id.
-            </summary>
+            <summary>The id of the player.</summary>
         </member>
         <member name="P:Skunked.CardsThrownEvent.Thrown">
-            <summary>
-            Gets the cards throw to the crib.
-            </summary>
+            <summary>The cards thrown to the crib.</summary>
         </member>
         <member name="T:Skunked.CribCountedEvent">
             <summary>
             Event when the crib has been counted.
             </summary>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
+            <param name="PlayerId">The id of the player.</param>
+            <param name="CountedScore">The score the player counted for the crib.</param>
         </member>
         <member name="M:Skunked.CribCountedEvent.#ctor(System.Guid,System.Int32,System.Int32,System.Int32)">
             <summary>
-            Initializes a new instance of the <see cref="T:Skunked.CribCountedEvent"/> class.
+            Event when the crib has been counted.
             </summary>
-            <param name="gameId">Unique identifier of the game.</param>
-            <param name="version">The version of the game.</param>
-            <param name="playerId">The id of the player.</param>
-            <param name="countedScore">The counted score.</param>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
+            <param name="PlayerId">The id of the player.</param>
+            <param name="CountedScore">The score the player counted for the crib.</param>
         </member>
         <member name="P:Skunked.CribCountedEvent.PlayerId">
-            <summary>
-            Gets the player id.
-            </summary>
+            <summary>The id of the player.</summary>
         </member>
         <member name="P:Skunked.CribCountedEvent.CountedScore">
-            <summary>
-            Gets the score the player counted for the crib.
-            </summary>
+            <summary>The score the player counted for the crib.</summary>
         </member>
         <member name="T:Skunked.DeckShuffledEvent">
             <summary>
             Event when the deck has been shuffled.
             </summary>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
+            <param name="Deck">The new state of the deck after the shuffle.</param>
         </member>
         <member name="M:Skunked.DeckShuffledEvent.#ctor(System.Guid,System.Int32,System.Collections.Generic.List{Skunked.Card})">
             <summary>
-            Initializes a new instance of the <see cref="T:Skunked.DeckShuffledEvent"/> class.
+            Event when the deck has been shuffled.
             </summary>
-            <param name="gameId">Unique identifier of the game.</param>
-            <param name="version">The version of the game.</param>
-            <param name="deck">The shuffled deck.</param>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
+            <param name="Deck">The new state of the deck after the shuffle.</param>
         </member>
         <member name="P:Skunked.DeckShuffledEvent.Deck">
-            <summary>
-            Gets the new state of the deck after the shuffle.
-            </summary>
+            <summary>The new state of the deck after the shuffle.</summary>
         </member>
         <member name="T:Skunked.GameCompletedEvent">
             <summary>
             Event when the game has completed.
             </summary>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
         </member>
         <member name="M:Skunked.GameCompletedEvent.#ctor(System.Guid,System.Int32)">
             <summary>
-            Initializes a new instance of the <see cref="T:Skunked.GameCompletedEvent"/> class.
+            Event when the game has completed.
             </summary>
-            <param name="gameId">Unique identifier of the game.</param>
-            <param name="version">The version of the game.</param>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
         </member>
         <member name="T:Skunked.GameStartedEvent">
             <summary>
             Event when the game has started.
             </summary>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
+            <param name="Players">The players in turn order.</param>
+            <param name="Rules">The set of rules for the game.</param>
         </member>
         <member name="M:Skunked.GameStartedEvent.#ctor(System.Guid,System.Int32,System.Collections.Generic.List{System.Int32},Skunked.GameRules)">
             <summary>
-            Initializes a new instance of the <see cref="T:Skunked.GameStartedEvent"/> class.
+            Event when the game has started.
             </summary>
-            <param name="gameId">Unique identifier of the game.</param>
-            <param name="version">The version of the game.</param>
-            <param name="players">The players.</param>
-            <param name="rules">The set of rules for the game.</param>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
+            <param name="Players">The players in turn order.</param>
+            <param name="Rules">The set of rules for the game.</param>
         </member>
         <member name="P:Skunked.GameStartedEvent.Players">
-            <summary>
-            Gets the set of players.
-            </summary>
+            <summary>The players in turn order.</summary>
         </member>
         <member name="P:Skunked.GameStartedEvent.Rules">
-            <summary>
-            Gets the set of rules for the game.
-            </summary>
+            <summary>The set of rules for the game.</summary>
         </member>
         <member name="T:Skunked.HandCountedEvent">
             <summary>
             Event when a hand has been counted.
             </summary>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
+            <param name="PlayerId">The id of the player.</param>
+            <param name="CountedScore">The score the player declared for their hand.</param>
         </member>
         <member name="M:Skunked.HandCountedEvent.#ctor(System.Guid,System.Int32,System.Int32,System.Int32)">
             <summary>
-            Initializes a new instance of the <see cref="T:Skunked.HandCountedEvent"/> class.
+            Event when a hand has been counted.
             </summary>
-            <param name="gameId">Unique identifier of the game.</param>
-            <param name="version">The version of the game.</param>
-            <param name="playerId">The id of the player.</param>
-            <param name="countedScore">Gets the counted score.</param>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
+            <param name="PlayerId">The id of the player.</param>
+            <param name="CountedScore">The score the player declared for their hand.</param>
         </member>
         <member name="P:Skunked.HandCountedEvent.PlayerId">
-            <summary>
-            Gets the player id.
-            </summary>
+            <summary>The id of the player.</summary>
         </member>
         <member name="P:Skunked.HandCountedEvent.CountedScore">
-            <summary>
-            Gets the counted score.
-            </summary>
+            <summary>The score the player declared for their hand.</summary>
         </member>
         <member name="T:Skunked.HandsDealtEvent">
             <summary>
             Event when all hands have been dealt.
             </summary>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
+            <param name="Hands">All player hands that were dealt.</param>
         </member>
         <member name="M:Skunked.HandsDealtEvent.#ctor(System.Guid,System.Int32,System.Collections.Generic.List{Skunked.PlayerHand})">
             <summary>
-            Initializes a new instance of the <see cref="T:Skunked.HandsDealtEvent"/> class.
+            Event when all hands have been dealt.
             </summary>
-            <param name="gameId">Unique identifier of the game.</param>
-            <param name="version">The version of the game.</param>
-            <param name="hands">All player hands have been dealt.</param>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
+            <param name="Hands">All player hands that were dealt.</param>
         </member>
         <member name="P:Skunked.HandsDealtEvent.Hands">
-            <summary>
-            All of the player hands that were dealt.
-            </summary>
+            <summary>All player hands that were dealt.</summary>
         </member>
         <member name="T:Skunked.IEventListener">
             <summary>
@@ -587,91 +591,94 @@
         </member>
         <member name="T:Skunked.PlayFinishedEvent">
             <summary>
-            Event when the play has completed.
+            Event when the play phase has completed.
             </summary>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
+            <param name="Round">The round number.</param>
         </member>
         <member name="M:Skunked.PlayFinishedEvent.#ctor(System.Guid,System.Int32,System.Int32)">
             <summary>
-            Initializes a new instance of the <see cref="T:Skunked.PlayFinishedEvent"/> class.
+            Event when the play phase has completed.
             </summary>
-            <param name="gameId">Unique identifier of the game.</param>
-            <param name="version">The version of the game.</param>
-            <param name="round">The round.</param>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
+            <param name="Round">The round number.</param>
         </member>
         <member name="P:Skunked.PlayFinishedEvent.Round">
-            <summary>
-            Gets the round.
-            </summary>
+            <summary>The round number.</summary>
         </member>
         <member name="T:Skunked.PlayStartedEvent">
             <summary>
-            Event when the play has started.
+            Event when the play phase has started.
             </summary>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
+            <param name="Round">The round number.</param>
         </member>
         <member name="M:Skunked.PlayStartedEvent.#ctor(System.Guid,System.Int32,System.Int32)">
             <summary>
-            Initializes a new instance of the <see cref="T:Skunked.PlayStartedEvent"/> class.
+            Event when the play phase has started.
             </summary>
-            <param name="gameId">Unique identifier of the game.</param>
-            <param name="version">The version of the game.</param>
-            <param name="round">The round.</param>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
+            <param name="Round">The round number.</param>
         </member>
         <member name="P:Skunked.PlayStartedEvent.Round">
-            <summary>
-            The round.
-            </summary>
+            <summary>The round number.</summary>
         </member>
         <member name="T:Skunked.RoundStartedEvent">
             <summary>
-            Event when a round started.
+            Event when a round has started.
             </summary>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
         </member>
         <member name="M:Skunked.RoundStartedEvent.#ctor(System.Guid,System.Int32)">
             <summary>
-            Initializes a new instance of the <see cref="T:Skunked.RoundStartedEvent"/> class.
+            Event when a round has started.
             </summary>
-            <param name="gameId">Unique identifier of the game.</param>
-            <param name="version">The version of the game.</param>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
         </member>
         <member name="T:Skunked.StarterCardSelectedEvent">
             <summary>
             Event when a starter card has been selected.
             </summary>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
+            <param name="Starter">The starter card that was cut.</param>
         </member>
         <member name="M:Skunked.StarterCardSelectedEvent.#ctor(System.Guid,System.Int32,Skunked.Card)">
             <summary>
-            Initializes a new instance of the <see cref="T:Skunked.StarterCardSelectedEvent"/> class.
+            Event when a starter card has been selected.
             </summary>
-            <param name="gameId">Unique identifier of the game.</param>
-            <param name="version">The version of the game.</param>
-            <param name="starter">The starter card that was cut.</param>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
+            <param name="Starter">The starter card that was cut.</param>
         </member>
         <member name="P:Skunked.StarterCardSelectedEvent.Starter">
-            <summary>
-            Gets the starter card.
-            </summary>
+            <summary>The starter card that was cut.</summary>
         </member>
         <member name="T:Skunked.StreamEvent">
             <summary>
             The base cribbage game event.
             </summary>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
         </member>
         <member name="M:Skunked.StreamEvent.#ctor(System.Guid,System.Int32)">
             <summary>
-            Initializes a new instance of the <see cref="T:Skunked.StreamEvent"/> class.
+            The base cribbage game event.
             </summary>
-            <param name="gameId">Unique identifier of the game.</param>
-            <param name="version">The version of the game.</param>
+            <param name="GameId">Unique identifier of the game.</param>
+            <param name="Version">The version of the game.</param>
         </member>
         <member name="P:Skunked.StreamEvent.GameId">
-            <summary>
-            Gets identifier of the game.
-            </summary>
+            <summary>Unique identifier of the game.</summary>
         </member>
         <member name="P:Skunked.StreamEvent.Version">
-            <summary>
-            Gets version of the game state.
-            </summary>
+            <summary>The version of the game.</summary>
         </member>
         <member name="P:Skunked.StreamEvent.Occurred">
             <summary>
@@ -1320,7 +1327,7 @@
         </member>
         <member name="M:Skunked.PlayerHand.#ctor(System.Int32,System.Collections.Generic.List{Skunked.Card})">
             <summary>
-            Initializes a new instance of the <see cref="T:Skunked.PlayerHand"/> record.
+            Initializes a new instance of <see cref="T:Skunked.PlayerHand"/>.
             </summary>
             <param name="playerId">The id of the player.</param>
             <param name="hand">The players hand.</param>

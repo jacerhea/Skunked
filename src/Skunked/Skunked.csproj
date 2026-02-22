@@ -21,7 +21,9 @@
 		<NoWarn>1701;1702;CS8625;</NoWarn>
 		<DocumentationFile>Skunked.xml</DocumentationFile>
 	</PropertyGroup>
-
+<ItemGroup>
+    <InternalsVisibleTo Include="Skunked.UnitTest" />
+</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Combinatorics" Version="2.0.0" />
 	</ItemGroup>
