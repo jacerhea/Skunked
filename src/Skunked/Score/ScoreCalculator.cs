@@ -133,7 +133,7 @@ public sealed class ScoreCalculator
     {
         if (playersHand.Count < 4)
         {
-            return new List<Card>(0);
+            return [];
         }
 
         var fourCardFlush = playersHand.GroupBy(c => c.Suit).Where(g => g.Count() == 4).ToList();

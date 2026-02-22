@@ -8,5 +8,5 @@ public sealed record PreRound
     /// <summary>
     /// The state of the deck before the round begins.
     /// </summary>
-    public List<Card> Deck { get; set; } = new();
+    public List<Card> Deck { get; set; } = [];
 }
