@@ -1,9 +1,11 @@
-﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
 
 namespace Skunked.Benchmarks;
 
 [SimpleJob(RuntimeMoniker.Net10_0)]
+[SimpleJob(RuntimeMoniker.Net90)]
+[SimpleJob(RuntimeMoniker.Net80)]
 [HtmlExporter]
 public class ScoreCalculator_Benchmarks
 {

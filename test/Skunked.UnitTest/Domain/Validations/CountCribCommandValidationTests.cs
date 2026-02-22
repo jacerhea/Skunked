@@ -1,8 +1,7 @@
 using FluentAssertions;
-using Skunked;
 using Xunit;
 
-namespace Skunked.UnitTest.State.Validations;
+namespace Skunked.UnitTest.Domain.Validations;
 
 public sealed class CountCribCommandValidationTests
 {
@@ -15,16 +14,16 @@ public sealed class CountCribCommandValidationTests
         new()
         {
             Id = Guid.NewGuid(),
-            PlayerIds = new List<int> { 1, 2 },
+            PlayerIds = [1, 2],
             GameRules = new GameRules(),
-            TeamScores = new List<TeamScore>
-            {
-                new() { Players = new List<int> { 1 } },
-                new() { Players = new List<int> { 2 } }
-            },
-            OpeningRound = new OpeningRound { CutCards = new List<PlayerIdCard>() },
-            Rounds = new List<RoundState>
-            {
+            TeamScores =
+            [
+                new() { Players = [1] },
+                new() { Players = [2] }
+            ],
+            OpeningRound = new OpeningRound { CutCards = [] },
+            Rounds =
+            [
                 new()
                 {
                     Round = 1,
@@ -32,13 +31,13 @@ public sealed class CountCribCommandValidationTests
                     ThrowCardsComplete = throwComplete,
                     PlayedCardsComplete = playComplete,
                     Complete = roundComplete,
-                    ShowScores = new List<PlayerScoreShow>
-                    {
+                    ShowScores =
+                    [
                         new() { Player = 1, HasShowed = false },
                         new() { Player = 2, HasShowed = otherPlayerHasShowed, Complete = otherPlayerHasShowed }
-                    }
+                    ]
                 }
-            }
+            ]
         };
 
     [Fact]
