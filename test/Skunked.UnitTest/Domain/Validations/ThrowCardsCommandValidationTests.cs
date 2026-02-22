@@ -1,8 +1,7 @@
 using FluentAssertions;
-using Skunked;
 using Xunit;
 
-namespace Skunked.UnitTest.State.Validations;
+namespace Skunked.UnitTest.Domain.Validations;
 
 public sealed class ThrowCardsCommandValidationTests
 {
@@ -10,38 +9,37 @@ public sealed class ThrowCardsCommandValidationTests
         new()
         {
             Id = Guid.NewGuid(),
-            PlayerIds = new List<int> { 1, 2 },
+            PlayerIds = [1, 2],
             GameRules = new GameRules(),
-            TeamScores = new List<TeamScore>
-            {
-                new() { Players = new List<int> { 1 } },
-                new() { Players = new List<int> { 2 } }
-            },
-            OpeningRound = new OpeningRound { CutCards = new List<PlayerIdCard>() },
-            Rounds = new List<RoundState>
-            {
+            TeamScores =
+            [
+                new() { Players = [1] },
+                new() { Players = [2] }
+            ],
+            OpeningRound = new OpeningRound { CutCards = [] },
+            Rounds =
+            [
                 new()
                 {
                     Round = 1,
                     ThrowCardsComplete = throwComplete,
-                    Crib = new List<Card>(),
-                    DealtCards = new List<PlayerHand>
-                    {
-                        new(1, new List<Card>
-                        {
+                    Crib = [],
+                    DealtCards =
+                    [
+                        new(1, [
                             new(Rank.Ace, Suit.Clubs), new(Rank.Two, Suit.Clubs),
                             new(Rank.Three, Suit.Clubs), new(Rank.Four, Suit.Clubs),
                             new(Rank.Five, Suit.Clubs), new(Rank.Six, Suit.Clubs)
-                        }),
-                        new(2, new List<Card>
-                        {
+                        ]),
+
+                        new(2, [
                             new(Rank.Seven, Suit.Hearts), new(Rank.Eight, Suit.Hearts),
                             new(Rank.Nine, Suit.Hearts), new(Rank.Ten, Suit.Hearts),
                             new(Rank.Jack, Suit.Hearts), new(Rank.Queen, Suit.Hearts)
-                        })
-                    }
+                        ])
+                    ]
                 }
-            }
+            ]
         };
 
     [Fact]

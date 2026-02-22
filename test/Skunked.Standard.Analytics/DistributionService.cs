@@ -23,7 +23,7 @@ public class DistributionService
 
         foreach (var combo in combinations)
         {
-            var possibleScores = possibleCardsCut.Select(cutCard => new ScoreWithCut { Cut = cutCard, Score = _scoreCalculator.CountShowPoints(cutCard, combo).Points.Score }).ToList();
+            var possibleScores = possibleCardsCut.Select(cutCard => new ScoreWithCut(_scoreCalculator.CountShowPoints(cutCard, combo).Points.Score, cutCard)).ToList();
             var comboPossibleScores = new ComboPossibleScores(combo, possibleScores);
             comboPossibleScorings.Add(comboPossibleScores);
         }
