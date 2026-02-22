@@ -15,7 +15,7 @@ public abstract class ValidationBase
     protected void ValidateCore(GameState gameState, int playerId, int round)
     {
         CheckEndOfGame(gameState);
-        if (gameState.PlayerIds.All(id => id == playerId))
+        if (!gameState.PlayerIds.Any(id => id == playerId))
         {
             throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidPlayer);
         }
@@ -27,7 +27,7 @@ public abstract class ValidationBase
     }
 
     /// <summary>
-    /// Throw if game is complete..
+    /// Throw if game is complete.
     /// </summary>
     /// <param name="gameState">Current state of the game.</param>
     protected void CheckEndOfGame(GameState gameState)
