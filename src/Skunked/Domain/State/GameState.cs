@@ -3,7 +3,7 @@
 /// <summary>
 /// Snapshot of a game's state.
 /// </summary>
-public sealed class GameState
+public sealed record GameState
 {
     /// <summary>
     /// Gets or sets unique identifier of the game.

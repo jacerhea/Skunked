@@ -1,17 +1,8 @@
-﻿namespace Skunked;
+namespace Skunked;
 
 /// <summary>
-/// Event when a round started.
+/// Event when a round has started.
 /// </summary>
-public sealed class RoundStartedEvent : StreamEvent
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="RoundStartedEvent"/> class.
-    /// </summary>
-    /// <param name="gameId">Unique identifier of the game.</param>
-    /// <param name="version">The version of the game.</param>
-    public RoundStartedEvent(Guid gameId, int version)
-        : base(gameId, version)
-    {
-    }
-}
+/// <param name="GameId">Unique identifier of the game.</param>
+/// <param name="Version">The version of the game.</param>
+public sealed record RoundStartedEvent(Guid GameId, int Version) : StreamEvent(GameId, Version);

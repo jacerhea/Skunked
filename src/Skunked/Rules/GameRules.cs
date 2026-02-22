@@ -52,6 +52,12 @@ public sealed class GameRules
         /// </summary>
         public static int Go => 1;
 
+
+        /// <summary>
+        /// Gets points for playing the last card that brings the count to exactly 31.
+        /// </summary>
+        public static int ThirtyOne => 2;
+
         /// <summary>
         /// Gets max count a play can reach before starting a new play.
         /// </summary>

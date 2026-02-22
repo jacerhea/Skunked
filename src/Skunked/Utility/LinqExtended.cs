@@ -105,7 +105,7 @@ public static class LinqExtended
 
 
     /// <summary>
-    /// Endless iterates source.  l
+    /// Endless iterates source.
     /// </summary>
     /// <param name="source"></param>
     /// <typeparam name="TSource"></typeparam>

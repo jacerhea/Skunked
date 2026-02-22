@@ -3,7 +3,7 @@
 /// <summary>
 /// 
 /// </summary>
-public sealed class PlayerScoreShow
+public sealed record PlayerScoreShow
 {
     /// <summary>
     /// 

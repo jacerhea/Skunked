@@ -104,7 +104,7 @@ public sealed class ScoreCalculator
         // 31 count
         if (SumValues(pile) == GameRules.Points.MaxPlayCount)
         {
-            scored += 2;
+            scored += GameRules.Points.ThirtyOne;
         }
 
         return scored;

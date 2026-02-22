@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents a starter card and a score.
 /// </summary>
-public sealed class ScoreWithCut
+public sealed record ScoreWithCut
 {
     /// <summary>
     /// Gets the score.

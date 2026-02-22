@@ -1,24 +1,10 @@
-﻿namespace Skunked;
+namespace Skunked;
 
 /// <summary>
 /// Event when the deck has been shuffled.
 /// </summary>
-public sealed class DeckShuffledEvent : StreamEvent
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="DeckShuffledEvent"/> class.
-    /// </summary>
-    /// <param name="gameId">Unique identifier of the game.</param>
-    /// <param name="version">The version of the game.</param>
-    /// <param name="deck">The shuffled deck.</param>
-    public DeckShuffledEvent(Guid gameId, int version, List<Card> deck)
-        : base(gameId, version)
-    {
-        Deck = deck;
-    }
-
-    /// <summary>
-    /// Gets the new state of the deck after the shuffle.
-    /// </summary>
-    public List<Card> Deck { get; }
-}
+/// <param name="GameId">Unique identifier of the game.</param>
+/// <param name="Version">The version of the game.</param>
+/// <param name="Deck">The new state of the deck after the shuffle.</param>
+public sealed record DeckShuffledEvent(Guid GameId, int Version, List<Card> Deck)
+    : StreamEvent(GameId, Version);

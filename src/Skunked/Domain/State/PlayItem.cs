@@ -4,7 +4,7 @@ namespace Skunked;
 /// <summary>
 /// Players play.
 /// </summary>
-public sealed class PlayItem
+public sealed record PlayItem
 {
     /// <summary>
     /// Id of the player.

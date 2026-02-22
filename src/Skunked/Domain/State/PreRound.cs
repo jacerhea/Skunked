@@ -3,7 +3,7 @@
 /// <summary>
 /// The state of the pre-round.
 /// </summary>
-public sealed class PreRound
+public sealed record PreRound
 {
     /// <summary>
     /// The state of the deck before the round begins.
