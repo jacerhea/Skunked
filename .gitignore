@@ -323,3 +323,7 @@ ASALocalRun/
 *.binlog
 
 codealike\.json
+
+.DS_Store
+
+Library/Application Support/Microsoft/DeveloperTools/deviceid
