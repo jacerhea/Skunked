@@ -1,8 +1,7 @@
 using FluentAssertions;
-using Skunked;
 using Xunit;
 
-namespace Skunked.UnitTest.State.Validations;
+namespace Skunked.UnitTest.Domain.Validations;
 
 public class HandCountedEventValidationTests
 {
@@ -14,13 +13,12 @@ public class HandCountedEventValidationTests
         new()
         {
             Id = Guid.NewGuid(),
-            PlayerIds = new List<int> { 1, 2 },
+            PlayerIds = [1, 2],
             GameRules = new GameRules(),
-            TeamScores = new List<TeamScore>
-                { new() { Players = new List<int> { 1 } }, new() { Players = new List<int> { 2 } } },
-            OpeningRound = new OpeningRound { CutCards = new List<PlayerIdCard>() },
-            Rounds = new List<RoundState>
-            {
+            TeamScores = [new() { Players = [1] }, new() { Players = [2] }],
+            OpeningRound = new OpeningRound { CutCards = [] },
+            Rounds =
+            [
                 new()
                 {
                     Round = 1,
@@ -28,26 +26,25 @@ public class HandCountedEventValidationTests
                     ThrowCardsComplete = throwComplete,
                     PlayedCardsComplete = playComplete,
                     Starter = new Card(Rank.Ten, Suit.Diamonds),
-                    Hands = new List<PlayerHand>
-                    {
-                        new(1, new List<Card>
-                        {
+                    Hands =
+                    [
+                        new(1, [
                             new(Rank.Ace, Suit.Clubs), new(Rank.Ace, Suit.Diamonds),
                             new(Rank.Ace, Suit.Hearts), new(Rank.Ace, Suit.Spades)
-                        }),
-                        new(2, new List<Card>
-                        {
+                        ]),
+
+                        new(2, [
                             new(Rank.Two, Suit.Clubs), new(Rank.Three, Suit.Clubs),
                             new(Rank.Four, Suit.Clubs), new(Rank.Five, Suit.Clubs)
-                        })
-                    },
-                    ShowScores = new List<PlayerScoreShow>
-                    {
+                        ])
+                    ],
+                    ShowScores =
+                    [
                         new() { Player = 1, HasShowed = false },
                         new() { Player = 2, HasShowed = player2HasShowed, Complete = player2HasShowed }
-                    }
+                    ]
                 }
-            }
+            ]
         };
 
     [Fact]

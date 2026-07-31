@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Xunit;
 
-namespace Skunked.UnitTest.State.Validations;
+namespace Skunked.UnitTest.Domain.Validations;
 
 public class CardPlayedEventValidationTests
 {
@@ -11,21 +11,20 @@ public class CardPlayedEventValidationTests
         var state = new GameState
         {
             Id = Guid.NewGuid(),
-            PlayerIds = new List<int> { 1, 2 },
+            PlayerIds = [1, 2],
             GameRules = new GameRules(),
-            TeamScores = new List<TeamScore>
-                {new() {Players = new List<int> {1}}, new() {Players = new List<int> {2}}},
+            TeamScores = [new() { Players = [1] }, new() { Players = [2] }],
             OpeningRound = new OpeningRound
             {
-                CutCards = new List<PlayerIdCard>()
+                CutCards = []
             },
-            Rounds = new List<RoundState>
-            {
+            Rounds =
+            [
                 new()
                 {
                     ThrowCardsComplete = false
                 }
-            }
+            ]
         };
 
         var @event = new PlayCardCommand(1, new Card(Rank.Eight, Suit.Clubs));
@@ -41,26 +40,22 @@ public class CardPlayedEventValidationTests
         var state = new GameState
         {
             Id = Guid.NewGuid(),
-            PlayerIds = new List<int> { 1, 2 },
+            PlayerIds = [1, 2],
             GameRules = new GameRules(),
-            TeamScores = new List<TeamScore>
-                {new() {Players = new List<int> {1}}, new() {Players = new List<int> {2}}},
+            TeamScores = [new() { Players = [1] }, new() { Players = [2] }],
             OpeningRound = new OpeningRound
             {
-                CutCards = new List<PlayerIdCard>()
+                CutCards = []
             },
-            Rounds = new List<RoundState>
-            {
+            Rounds =
+            [
                 new()
                 {
                     ThrowCardsComplete = true,
                     PlayedCardsComplete = true,
-                    Hands = new List<PlayerHand>
-                    {
-                        new(1, new List<Card>())
-                    }
+                    Hands = [new(1, [])]
                 }
-            }
+            ]
         };
 
         var @event = new PlayCardCommand(1, new Card(Rank.Eight, Suit.Clubs));
@@ -76,27 +71,26 @@ public class CardPlayedEventValidationTests
         var state = new GameState
         {
             Id = Guid.NewGuid(),
-            PlayerIds = new List<int> { 1, 2 },
+            PlayerIds = [1, 2],
             GameRules = new GameRules(),
-            TeamScores = new List<TeamScore>
-                {new() {Players = new List<int> {1}}, new() {Players = new List<int> {2}}},
+            TeamScores = [new() { Players = [1] }, new() { Players = [2] }],
             OpeningRound = new OpeningRound
             {
-                CutCards = new List<PlayerIdCard>()
+                CutCards = []
             },
-            Rounds = new List<RoundState>
-            {
+            Rounds =
+            [
                 new()
                 {
                     ThrowCardsComplete = true,
                     PlayedCardsComplete = false,
-                    Hands = new List<PlayerHand>
-                    {
-                        new(1, new List<Card>{new(Rank.Five, Suit.Clubs), new(Rank.Eight, Suit.Clubs)}),
-                        new(2, new List<Card>{new(Rank.Seven, Suit.Hearts), new(Rank.Nine, Suit.Diamonds)})
-                    }
+                    Hands =
+                    [
+                        new(1, [new(Rank.Five, Suit.Clubs), new(Rank.Eight, Suit.Clubs)]),
+                        new(2, [new(Rank.Seven, Suit.Hearts), new(Rank.Nine, Suit.Diamonds)])
+                    ]
                 }
-            }
+            ]
         };
 
         var @event = new PlayCardCommand(1, new Card(Rank.King, Suit.Diamonds));

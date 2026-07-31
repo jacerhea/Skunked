@@ -1685,16 +1685,21 @@
             <summary>
             Represents a starter card and a score.
             </summary>
+            <param name="Score">Gets the score.</param>
+            <param name="Cut">Gets the cut card.</param>
+        </member>
+        <member name="M:Skunked.ScoreWithCut.#ctor(System.Int32,Skunked.Card)">
+            <summary>
+            Represents a starter card and a score.
+            </summary>
+            <param name="Score">Gets the score.</param>
+            <param name="Cut">Gets the cut card.</param>
         </member>
         <member name="P:Skunked.ScoreWithCut.Score">
-            <summary>
-            Gets the score.
-            </summary>
+            <summary>Gets the score.</summary>
         </member>
         <member name="P:Skunked.ScoreWithCut.Cut">
-            <summary>
-            Gets the cut card.
-            </summary>
+            <summary>Gets the cut card.</summary>
         </member>
         <member name="T:Skunked.GameStateExtensions">
             <summary>
