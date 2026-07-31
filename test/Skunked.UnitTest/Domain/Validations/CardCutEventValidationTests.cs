@@ -38,7 +38,7 @@ public class CardCutEventValidationTests
                 {new() {Players = new List<int> {1}}, new() {Players = new List<int> {2}}},
             OpeningRound = new OpeningRound
             {
-                CutCards = new List<PlayerIdCard> { new() { Card = new Card(Rank.Eight, Suit.Diamonds), Player = 1 } }
+                CutCards = new List<PlayerIdCard> { new(1, new Card(Rank.Eight, Suit.Diamonds)) }
             }
         };
 
@@ -59,7 +59,7 @@ public class CardCutEventValidationTests
                 {new() {Players = new List<int> {1}}, new() {Players = new List<int> {2}}},
             OpeningRound = new OpeningRound
             {
-                CutCards = new List<PlayerIdCard> { new() { Card = new Card(Rank.Nine, Suit.Hearts), Player = 1 } }
+                CutCards = new List<PlayerIdCard> { new(1, new Card(Rank.Nine, Suit.Hearts)) }
             }
         };
 
