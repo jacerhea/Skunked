@@ -359,29 +359,6 @@
             Gets cards being discarded to crib.
             </summary>
         </member>
-        <member name="T:Skunked.EventStream">
-            <summary>
-            A stream of events.
-            </summary>
-        </member>
-        <member name="M:Skunked.EventStream.#ctor(System.Collections.Generic.IEnumerable{Skunked.IEventListener})">
-            <summary>
-            Initializes a new instance of the <see cref="T:Skunked.EventStream"/> class.
-            </summary>
-            <param name="eventListeners">Listeners for events.</param>
-        </member>
-        <member name="M:Skunked.EventStream.Add(Skunked.StreamEvent)">
-            <summary>
-            Add an event to the stream.
-            </summary>
-            <param name="event">The event to add.</param>
-        </member>
-        <member name="M:Skunked.EventStream.GetEnumerator">
-            <inheritdoc/>
-        </member>
-        <member name="M:Skunked.EventStream.System#Collections#IEnumerable#GetEnumerator">
-            <inheritdoc/>
-        </member>
         <member name="T:Skunked.CardCutEvent">
             <summary>
             Event when a card has been cut.
@@ -684,6 +661,29 @@
             <summary>
             Gets the time stamp this event took place.
             </summary>
+        </member>
+        <member name="T:Skunked.EventStream">
+            <summary>
+            A stream of events.
+            </summary>
+        </member>
+        <member name="M:Skunked.EventStream.#ctor(System.Collections.Generic.IEnumerable{Skunked.IEventListener})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Skunked.EventStream"/> class.
+            </summary>
+            <param name="eventListeners">Listeners for events.</param>
+        </member>
+        <member name="M:Skunked.EventStream.Add(Skunked.StreamEvent)">
+            <summary>
+            Add an event to the stream.
+            </summary>
+            <param name="event">The event to add.</param>
+        </member>
+        <member name="M:Skunked.EventStream.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Skunked.EventStream.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
         </member>
         <member name="T:Skunked.GameState">
             <summary>
