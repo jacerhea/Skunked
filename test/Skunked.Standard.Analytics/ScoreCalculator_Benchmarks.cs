@@ -3,7 +3,7 @@ using BenchmarkDotNet.Jobs;
 
 namespace Skunked.Benchmarks;
 
-[SimpleJob(RuntimeMoniker.Net90)]
+[SimpleJob(RuntimeMoniker.Net10_0)]
 [HtmlExporter]
 public class ScoreCalculator_Benchmarks
 {
