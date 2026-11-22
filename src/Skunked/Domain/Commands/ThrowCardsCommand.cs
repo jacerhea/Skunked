@@ -13,7 +13,7 @@ public sealed class ThrowCardsCommand : CommandBase
     public ThrowCardsCommand(int playerId, IEnumerable<Card> cribCards)
         : base(playerId)
     {
-        CribCards = cribCards;
+        CribCards = (cribCards ?? throw new ArgumentNullException(nameof(cribCards))).ToList();
     }
 
     /// <summary>
