@@ -1,4 +1,4 @@
-﻿namespace Skunked;
+namespace Skunked;
 
 /// <summary>
 /// Runs a game of cribbage with the given player strategies provided.
@@ -20,7 +20,8 @@ public sealed class GameRunner
     /// <param name="randomFactory">Creates a random generator for each game; use separate seeded instances for reproducible concurrent games.</param>
     public GameRunner(Deck deck, Func<Random> randomFactory)
     {
-        _deck = deck ?? throw new ArgumentNullException(nameof(deck));
+        ArgumentNullException.ThrowIfNull(deck);
+        _deck = new Deck(deck);
         _randomFactory = randomFactory ?? throw new ArgumentNullException(nameof(randomFactory));
     }
 
@@ -60,7 +61,7 @@ public sealed class GameRunner
                 foreach (var playerDiscard in players)
                 {
                     var tossed = playerDiscard.DetermineCardsToThrow(currentRound.DealtCards
-                        .Single(p => p.PlayerId == playerDiscard.Id).Hand);
+                        .Single(p => p.PlayerId == playerDiscard.Id).Hand.ToArray());
                     cribbage.ThrowCards(new ThrowCardsCommand(playerDiscard.Id, tossed));
                     if (gameState.IsGameFinished()) return cribbage;
                 }
@@ -90,13 +91,13 @@ public sealed class GameRunner
                              .ToList())
                 {
                     var playerCount = player.CountHand(starter,
-                        currentRound.Hands.Single(playerHand => playerHand.PlayerId == player.Id).Hand);
+                        currentRound.Hands.Single(playerHand => playerHand.PlayerId == player.Id).Hand.ToArray());
                     cribbage.CountHand(new CountHandCommand(player.Id, playerCount));
                     if (gameState.IsGameFinished()) return cribbage;
                 }
 
                 var cribCount = players.Single(p => p.Id == currentRound.PlayerCrib)
-                    .CountCrib(starter, currentRound.Crib);
+                    .CountCrib(starter, currentRound.Crib.ToArray());
 
                 cribbage.CountCrib(new CountCribCommand(currentRound.PlayerCrib, cribCount));
                     if (gameState.IsGameFinished()) return cribbage;
