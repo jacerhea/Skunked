@@ -23,3 +23,7 @@ cribbage.CutCard(new CutCardCommand(player2, gameState.OpeningRound.Deck[46]));
 ## Supported frameworks
 
 The core library targets .NET 8, .NET 9, and .NET 10. Its unit tests run against every target in CI. The AI, console, web, and system-test projects target .NET 10. When changing core framework support, update the target list, CI matrix, and this section together.
+
+## Packaging
+
+Build packages with `dotnet pack src/Skunked/Skunked.csproj -c Release` and `dotnet pack src/Skunked.AI/Skunked.AI.fsproj -c Release`. Run `pwsh ./scripts/Verify-Packages.ps1` to inspect their contents and build a consumer against the generated core package.
