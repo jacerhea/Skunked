@@ -31,12 +31,15 @@ public sealed class EventStream : IEnumerable<StreamEvent>
     {
         lock (Locker)
         {
+            ArgumentNullException.ThrowIfNull(@event);
             var lastEvent = _events.LastOrDefault();
-            if (lastEvent != null && @event.Occurred <= lastEvent.Occurred)
+            if (lastEvent is null)
             {
-                throw new InvalidOperationException(
-                    $"Concurrency problem detected. Given event occurred at {@event.Occurred:F} and before last recorded event at {lastEvent.Occurred:F} ");
+                if (@event is not GameStartedEvent || @event.Version != 1 || @event.GameId == Guid.Empty)
+                    throw new InvalidOperationException("A stream must start with version 1 of a game.");
             }
+            else if (@event.GameId != lastEvent.GameId || @event.Version != lastEvent.Version + 1)
+                throw new InvalidOperationException("Event game ID or version does not match the stream.");
 
             _events.Add(@event);
             foreach (var eventListener in _eventListeners)
