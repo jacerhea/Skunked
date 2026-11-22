@@ -3,8 +3,8 @@
 	<PropertyGroup>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<NuspecProperties>$(NuspecProperties);version=$(Version)</NuspecProperties>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<EmbedAllSources>true</EmbedAllSources>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -13,13 +13,13 @@
 		<Authors>Jace Rhea</Authors>
 		<Description>A library of classes to model the game of Cribbage.</Description>
 		<RepositoryUrl>https://github.com/jacerhea/Skunked</RepositoryUrl>
-		<PackageProjectUrl>https://github.com/jacerhea/Skunked</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageProjectUrl>https://github.com/jacerhea/Skunked</PackageProjectUrl>
 		<Copyright>2023</Copyright>
 		<TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<NoWarn>1701;1702;CS8625;</NoWarn>
-		<DocumentationFile>Skunked.xml</DocumentationFile>
 	</PropertyGroup>
 <ItemGroup>
     <InternalsVisibleTo Include="Skunked.UnitTest" />
@@ -28,4 +28,7 @@
 		<PackageReference Include="Combinatorics" Version="2.0.0" />
 	</ItemGroup>
 
+    <ItemGroup>
+        <None Include="../../README.md" Pack="true" PackagePath="/" />
+    </ItemGroup>
 </Project>
