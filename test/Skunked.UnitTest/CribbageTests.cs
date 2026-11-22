@@ -31,8 +31,8 @@ public sealed class CribbageTests
     {
         // Arrange
         var (game, collector) = CreateGame();
-        var openingDeck = game.State.OpeningRound.Deck;
-        var players = game.State.PlayerIds;
+        var openingDeck = game.LiveState.OpeningRound.Deck;
+        var players = game.LiveState.PlayerIds;
 
         // Capture the card before cutting: Handle(CardCutEvent) removes it from the deck list,
         // so openingDeck[0] would be a different card after the call.
@@ -56,8 +56,8 @@ public sealed class CribbageTests
     {
         // Arrange
         var (game, collector) = CreateGame();
-        var openingDeck = game.State.OpeningRound.Deck;
-        var players = game.State.PlayerIds.ToArray();
+        var openingDeck = game.LiveState.OpeningRound.Deck;
+        var players = game.LiveState.PlayerIds.ToArray();
 
         // Act
         // Both players cut. After the second cut, the opening round should complete and the game should start the round.
@@ -75,7 +75,7 @@ public sealed class CribbageTests
         Assert.Contains(typeof(HandsDealtEvent), lastFive);
 
         // Ensure state reflects a round has started and cards were dealt
-        var currentRound = game.State.GetCurrentRound();
+        var currentRound = game.LiveState.GetCurrentRound();
         Assert.NotNull(currentRound);
         Assert.True(currentRound.DealtCards.Count > 0);
     }
@@ -85,14 +85,14 @@ public sealed class CribbageTests
     {
         // Arrange
         var (game, collector) = CreateGame();
-        var openingDeck = game.State.OpeningRound.Deck;
-        var players = game.State.PlayerIds.ToArray();
+        var openingDeck = game.LiveState.OpeningRound.Deck;
+        var players = game.LiveState.PlayerIds.ToArray();
 
         // Complete opening cut -> round start + deal
         game.CutCard(new CutCardCommand(players[0], openingDeck.First(c => c.Rank == Rank.Ace)));
         game.CutCard(new CutCardCommand(players[1], openingDeck.First(c => c.Rank == Rank.Two)));
 
-        var currentRound = game.State.GetCurrentRound();
+        var currentRound = game.LiveState.GetCurrentRound();
 
         // Each player throws cards to the crib. We pick the first two cards from each player's current hand.
         // The validation should enforce correct counts; this mirrors typical cribbage expectations.
@@ -113,7 +113,7 @@ public sealed class CribbageTests
         Assert.IsType<PlayStartedEvent>(lastTwo[1]);
 
         // Also confirm state toggled the throw complete flag
-        currentRound = game.State.GetCurrentRound();
+        currentRound = game.LiveState.GetCurrentRound();
         Assert.True(currentRound.ThrowCardsComplete);
         Assert.NotEqual(default, currentRound.Starter);
     }
@@ -123,8 +123,8 @@ public sealed class CribbageTests
     {
         // Arrange
         var (game, collector) = AdvanceThroughThrows();
-        var round = game.State.GetCurrentRound();
-        var firstPlayerId = game.State.GetNextPlayerFrom(round.PlayerCrib);
+        var round = game.LiveState.GetCurrentRound();
+        var firstPlayerId = game.LiveState.GetNextPlayerFrom(round.PlayerCrib);
         var card = round.Hands.Single(h => h.PlayerId == firstPlayerId).Hand.First();
 
         // Act
@@ -142,8 +142,8 @@ public sealed class CribbageTests
         // Arrange
         var (game, collector) = AdvanceThroughThrows();
         CompletePlays(game);
-        var round = game.State.GetCurrentRound();
-        var firstShowerId = game.State.GetNextPlayerFrom(round.PlayerCrib);
+        var round = game.LiveState.GetCurrentRound();
+        var firstShowerId = game.LiveState.GetNextPlayerFrom(round.PlayerCrib);
         var hand = round.Hands.Single(h => h.PlayerId == firstShowerId).Hand;
         var score = new ScoreCalculator().CountShowPoints(round.Starter, hand).Points.Score;
 
@@ -161,7 +161,7 @@ public sealed class CribbageTests
         var (game, collector) = AdvanceThroughThrows();
         CompletePlays(game);
         CompleteHandCounts(game);
-        var round = game.State.GetCurrentRound();
+        var round = game.LiveState.GetCurrentRound();
         var cribScore = new ScoreCalculator().CountShowPoints(round.Starter, round.Crib, true).Points.Score;
 
         // Act
@@ -169,7 +169,7 @@ public sealed class CribbageTests
 
         // Assert
         Assert.Contains(collector.Events, e => e is CribCountedEvent);
-        Assert.True(game.State.Rounds.Count >= 2, "A new round should have started after counting the crib.");
+        Assert.True(game.LiveState.Rounds.Count >= 2, "A new round should have started after counting the crib.");
     }
 
     // ── Helpers ───────────────────────────────────────────────────────────
@@ -179,13 +179,13 @@ public sealed class CribbageTests
         IReadOnlyList<int>? players = null, GameRules? rules = null)
     {
         var (game, collector) = CreateGame(players, rules);
-        var openingDeck = game.State.OpeningRound.Deck;
-        var playerIds = game.State.PlayerIds.ToArray();
+        var openingDeck = game.LiveState.OpeningRound.Deck;
+        var playerIds = game.LiveState.PlayerIds.ToArray();
 
         game.CutCard(new CutCardCommand(playerIds[0], openingDeck.First(c => c.Rank == Rank.Ace)));
         game.CutCard(new CutCardCommand(playerIds[1], openingDeck.First(c => c.Rank == Rank.Two)));
 
-        var round = game.State.GetCurrentRound();
+        var round = game.LiveState.GetCurrentRound();
         foreach (var pid in playerIds)
         {
             var hand = round.DealtCards.Single(h => h.PlayerId == pid).Hand;
@@ -199,11 +199,11 @@ public sealed class CribbageTests
     private static void CompletePlays(Cribbage game)
     {
         var scorer = new ScoreCalculator();
-        var round = game.State.GetCurrentRound();
+        var round = game.LiveState.GetCurrentRound();
         while (!round.PlayedCardsComplete)
         {
             var lastPlay = round.ThePlay.SelectMany(p => p).LastOrDefault();
-            var playerId = lastPlay?.NextPlayer ?? game.State.GetNextPlayerFrom(round.PlayerCrib);
+            var playerId = lastPlay?.NextPlayer ?? game.LiveState.GetNextPlayerFrom(round.PlayerCrib);
             var allPlayed = round.ThePlay.SelectMany(p => p).Select(p => p.Card).ToList();
             var pileCount = scorer.SumValues(round.ThePlay.Last().Select(p => p.Card));
             var available = round.Hands.Single(h => h.PlayerId == playerId).Hand.Except(allPlayed);
@@ -218,14 +218,14 @@ public sealed class CribbageTests
     private static void CompleteHandCounts(Cribbage game)
     {
         var scorer = new ScoreCalculator();
-        var round = game.State.GetCurrentRound();
-        var current = game.State.GetNextPlayerFrom(round.PlayerCrib);
-        for (var i = 0; i < game.State.PlayerIds.Count; i++)
+        var round = game.LiveState.GetCurrentRound();
+        var current = game.LiveState.GetNextPlayerFrom(round.PlayerCrib);
+        for (var i = 0; i < game.LiveState.PlayerIds.Count; i++)
         {
             var hand = round.Hands.Single(h => h.PlayerId == current).Hand;
             var score = scorer.CountShowPoints(round.Starter, hand).Points.Score;
             game.CountHand(new CountHandCommand(current, score));
-            current = game.State.GetNextPlayerFrom(current);
+            current = game.LiveState.GetNextPlayerFrom(current);
         }
     }
 

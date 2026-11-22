@@ -11,7 +11,7 @@ public class CompletionRegressionTests
     [Fact] public void WinningHandEmitsCompletionImmediatelyAndStopsCommands()
     {
         var game = new Cribbage([1,2], new GameRules(WinningScore.Short61));
-        var state = game.State;
+        var state = game.LiveState;
         var hand = new List<Card> { new(Rank.Five,Suit.Clubs),new(Rank.Five,Suit.Diamonds),new(Rank.Five,Suit.Hearts),new(Rank.Jack,Suit.Spades) };
         var starter = new Card(Rank.Five,Suit.Spades);
         state.Rounds.Add(new RoundState { Round=1, PlayerCrib=1, Starter=starter, ThrowCardsComplete=true, PlayedCardsComplete=true,
@@ -26,7 +26,7 @@ public class CompletionRegressionTests
     }
     [Fact] public void WinningCribDoesNotStartAnotherRound()
     {
-        var game = new Cribbage([1,2], new GameRules(WinningScore.Short61)); var state=game.State;
+        var game = new Cribbage([1,2], new GameRules(WinningScore.Short61)); var state=game.LiveState;
         var starter=new Card(Rank.King,Suit.Spades);
         var crib=new List<Card> { new(Rank.Ace,Suit.Clubs),new(Rank.Two,Suit.Clubs),new(Rank.Three,Suit.Clubs),new(Rank.Four,Suit.Clubs) };
         state.Rounds.Add(new RoundState { Round=1, PlayerCrib=1, Starter=starter, Crib=crib, ThrowCardsComplete=true, PlayedCardsComplete=true,
@@ -37,7 +37,7 @@ public class CompletionRegressionTests
     }
     [Fact] public void WinningPlayEndsGameBeforePlayFinishedEvent()
     {
-        var game = new Cribbage([1,2], new GameRules(WinningScore.Short61)); var state=game.State;
+        var game = new Cribbage([1,2], new GameRules(WinningScore.Short61)); var state=game.LiveState;
         var ten=new Card(Rank.Ten,Suit.Clubs); var five=new Card(Rank.Five,Suit.Hearts);
         state.Rounds.Add(new RoundState { Round=1, PlayerCrib=1, ThrowCardsComplete=true,
             Hands=[new(1,[ten,new(Rank.Ace,Suit.Clubs),new(Rank.Two,Suit.Clubs),new(Rank.Three,Suit.Clubs)]),new(2,[five,new(Rank.Six,Suit.Hearts),new(Rank.Seven,Suit.Hearts),new(Rank.Eight,Suit.Hearts)])],
