@@ -11,10 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build Packages", "Build Packages", "{0CA42EF2-F639-4987-9DDF-106A71FA6E48}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{8FE34C12-58B9-4E0A-8D50-9CDE0FA1ACD8}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skunked.Benchmarks", "test\Skunked.Standard.Analytics\Skunked.Benchmarks.csproj", "{49065AE8-5ABC-4D54-80AC-8D80F7EFE88D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skunked.Test.System", "test\Skunked.Standard.Test.System\Skunked.Test.System.csproj", "{9F2641CE-D020-4CFE-9E82-BE4C27504804}"
@@ -22,8 +18,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skunked", "src\Skunked\Skunked.csproj", "{1EE80031-1E34-4CC8-B505-2EF64E66E7B2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skunked.ConsoleApp", "src\Skunked.Console\Skunked.ConsoleApp.csproj", "{0095446B-5FD3-42BA-A715-A1B8F344E53C}"
-EndProject
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Skunked.Web", "src\Skunked.Web\Skunked.Web.fsproj", "{74EBB88F-2E9C-471F-A068-77117073A952}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skunked.UnitTest", "test\Skunked.UnitTest\Skunked.UnitTest.csproj", "{B813803F-E5B6-460E-BD57-61EE0013C706}"
 EndProject
@@ -55,10 +49,6 @@ Global
 		{0095446B-5FD3-42BA-A715-A1B8F344E53C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0095446B-5FD3-42BA-A715-A1B8F344E53C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0095446B-5FD3-42BA-A715-A1B8F344E53C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{74EBB88F-2E9C-471F-A068-77117073A952}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{74EBB88F-2E9C-471F-A068-77117073A952}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{74EBB88F-2E9C-471F-A068-77117073A952}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{74EBB88F-2E9C-471F-A068-77117073A952}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B813803F-E5B6-460E-BD57-61EE0013C706}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B813803F-E5B6-460E-BD57-61EE0013C706}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B813803F-E5B6-460E-BD57-61EE0013C706}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -78,9 +68,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{0CA42EF2-F639-4987-9DDF-106A71FA6E48} = {446CA3CE-C95D-43A0-A22A-8F73A6AA2EBD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C403DEB5-D801-4CC6-853A-DE84AC86532E}
