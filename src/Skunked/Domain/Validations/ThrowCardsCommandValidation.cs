@@ -16,6 +16,8 @@ public sealed class ThrowCardsCommandValidation : ValidationBase, IValidation<Th
     /// <inheritdoc />
     public void Validate(GameState gameState, ThrowCardsCommand command)
     {
+        if (gameState.Rounds.Count == 0)
+            throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidRequest);
         var currentRound = gameState.GetCurrentRound();
         ValidateCore(gameState, command.PlayerId, currentRound.Round);
         if (currentRound.ThrowCardsComplete)

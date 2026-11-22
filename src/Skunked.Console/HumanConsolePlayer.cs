@@ -86,6 +86,8 @@ public sealed class HumanConsolePlayer : IGameRunnerPlayer
         return ReadInt(0, 29);
     }
 
+    public int CountCrib(Card starter, IEnumerable<Card> crib) => CountHand(starter, crib);
+
     private int ReadIndex(int min, int max)
     {
         while (true)

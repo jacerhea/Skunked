@@ -314,25 +314,11 @@ public sealed class GameStateBuilder : IEventListener
         var starterCard = currentRound.Starter;
         var crib = currentRound.Crib;
 
-        var calculatedCribShowScore = _scoreCalculator.CountShowPoints(starterCard, crib);
+        var calculatedCribShowScore = _scoreCalculator.CountShowPoints(starterCard, crib, isCrib: true);
 
         var calculatedCribScore = calculatedCribShowScore.Points.Score;
-        // penalty for over counting
-        var applicableScore = 0;
-        if (streamEvent.CountedScore == calculatedCribScore)
-        {
-            applicableScore = calculatedCribScore;
-        }
-        else if (streamEvent.CountedScore > calculatedCribScore)
-        {
-            // todo: fix
-            // var score = calculatedCribScore - ScorePenalty;
-            // applicableScore = score < 0 ? 0 : score;
-        }
-        else
-        {
-            applicableScore = streamEvent.CountedScore;
-        }
+        // Undercounts are accepted; overcounts are rejected by validation.
+        var applicableScore = streamEvent.CountedScore;
 
         var playerScore = gameState.IndividualScores.Single(ps => ps.Player == streamEvent.PlayerId);
         var teamScore = gameState.TeamScores.Single(ps => ps.Players.Contains(streamEvent.PlayerId));

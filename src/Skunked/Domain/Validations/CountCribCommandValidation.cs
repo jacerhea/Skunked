@@ -16,6 +16,8 @@ public sealed class CountCribCommandValidation : ValidationBase, IValidation<Cou
     /// <inheritdoc />
     public void Validate(GameState gameState, CountCribCommand command)
     {
+        if (gameState.Rounds.Count == 0)
+            throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidRequest);
         var currentRound = gameState.GetCurrentRound();
 
         ValidateCore(gameState, command.PlayerId, currentRound.Round);
@@ -23,6 +25,11 @@ public sealed class CountCribCommandValidation : ValidationBase, IValidation<Cou
         {
             throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidStateForCribCount);
         }
+
+        if (command.PlayerId != currentRound.PlayerCrib || !currentRound.ShowScores.All(pss => pss.HasShowed))
+            throw new InvalidCribbageOperationException(InvalidCribbageOperation.NotPlayersTurn);
+        if (command.Score < 0 || command.Score > new ScoreCalculator().CountShowPoints(currentRound.Starter, currentRound.Crib, true).Points.Score)
+            throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidShowCount);
 
         if (!currentRound.ShowScores.Where(pss => pss.Player != command.PlayerId).All(pss => pss.HasShowed))
         {
