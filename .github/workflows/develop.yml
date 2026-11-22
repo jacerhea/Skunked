@@ -13,6 +13,8 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 10.0.x
+      - name: Show selected SDK
+        run: dotnet --version
       - name: Restore solution
         run: dotnet restore Skunked.sln
       - name: Build solution
