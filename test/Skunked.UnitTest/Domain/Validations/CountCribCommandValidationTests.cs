@@ -111,10 +111,11 @@ public sealed class CountCribCommandValidationTests
         Action act = () => new CountCribCommandValidation().Validate(state, new CountCribCommand(2, 0));
         act.Should().Throw<InvalidCribbageOperationException>().And.Operation.Should().Be(InvalidCribbageOperation.NotPlayersTurn);
     }
-    [Fact] public void Validate_Rejects_Negative_Score()
+    [Theory] [InlineData(-1)] [InlineData(99)]
+    public void Validate_Rejects_Invalid_Declared_Score(int score)
     {
         var state = BuildState();
-        Action act = () => new CountCribCommandValidation().Validate(state, new CountCribCommand(1, -1));
+        Action act = () => new CountCribCommandValidation().Validate(state, new CountCribCommand(1, score));
         act.Should().Throw<InvalidCribbageOperationException>().And.Operation.Should().Be(InvalidCribbageOperation.InvalidShowCount);
     }
 }

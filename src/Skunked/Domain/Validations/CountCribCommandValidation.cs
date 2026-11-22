@@ -28,12 +28,9 @@ public sealed class CountCribCommandValidation : ValidationBase, IValidation<Cou
 
         if (command.PlayerId != currentRound.PlayerCrib || !currentRound.ShowScores.All(pss => pss.HasShowed))
             throw new InvalidCribbageOperationException(InvalidCribbageOperation.NotPlayersTurn);
-        if (command.Score < 0 || command.Score > new ScoreCalculator().CountShowPoints(currentRound.Starter, currentRound.Crib, true).Points.Score)
+        var actualScore = new ScoreCalculator().CountShowPoints(currentRound.Starter, currentRound.Crib, isCrib: true).Points.Score;
+        if (command.Score < 0 || command.Score > actualScore)
             throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidShowCount);
 
-        if (!currentRound.ShowScores.Where(pss => pss.Player != command.PlayerId).All(pss => pss.HasShowed))
-        {
-            throw new InvalidCribbageOperationException(InvalidCribbageOperation.NotPlayersTurn);
-        }
     }
 }
