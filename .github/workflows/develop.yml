@@ -25,3 +25,8 @@ jobs:
         run: dotnet test test/Skunked.Standard.Test.System/Skunked.Test.System.csproj --configuration Release --no-build
       - name: AI tests
         run: dotnet test test/Skunked.AI.Tests/Skunked.AI.Tests.fsproj --configuration Release --no-build
+      - name: Run getting-started example
+        run: dotnet run --project examples/GettingStarted/GettingStarted.csproj --configuration Release
+      - name: Verify README example
+        shell: pwsh
+        run: ./scripts/Verify-Example.ps1
