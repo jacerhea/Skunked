@@ -856,6 +856,9 @@
             State of the deck
             </summary>
         </member>
+        <member name="P:Skunked.OpeningRound.EligiblePlayers">
+            <summary>Players eligible for a tie-breaking cut; empty means all players.</summary>
+        </member>
         <member name="P:Skunked.OpeningRound.CutCards">
             <summary>
             State of the cut cards.

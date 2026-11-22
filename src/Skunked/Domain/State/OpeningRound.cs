@@ -11,6 +11,9 @@ public sealed record OpeningRound
     /// </summary>
     public List<Card> Deck { get; set; } = [];
 
+    /// <summary>Players eligible for a tie-breaking cut; empty means all players.</summary>
+    public List<int> EligiblePlayers { get; set; } = [];
+
     /// <summary>
     /// State of the cut cards.
     /// </summary>
