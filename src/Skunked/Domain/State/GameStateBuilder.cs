@@ -17,6 +17,30 @@ public sealed class GameStateBuilder : IEventListener
         _scoreCalculator = new ScoreCalculator();
     }
 
+    /// <summary>Rebuilds state from an ordered, complete event stream.</summary>
+    /// <param name="events">Events beginning with a version-one game start.</param>
+    /// <returns>The reconstructed state.</returns>
+    public static GameState Replay(IEnumerable<StreamEvent> events)
+    {
+        ArgumentNullException.ThrowIfNull(events);
+        var state = new GameState();
+        var builder = new GameStateBuilder(state);
+        var expectedVersion = 1;
+        Guid? gameId = null;
+        foreach (var item in events)
+        {
+            if (item is null || item.Version != expectedVersion ||
+                (expectedVersion == 1 && (item is not GameStartedEvent || item.GameId == Guid.Empty)) ||
+                (gameId.HasValue && item.GameId != gameId.Value))
+                throw new InvalidOperationException("The event stream is not a complete ordered game history.");
+            gameId ??= item.GameId;
+            builder.Notify(item);
+            expectedVersion++;
+        }
+        if (!gameId.HasValue) throw new InvalidOperationException("The event stream is empty.");
+        return state;
+    }
+
     /// <summary>
     /// 
     /// </summary>
@@ -45,6 +69,7 @@ public sealed class GameStateBuilder : IEventListener
         }
 
         _gameState.Version++;
+        _gameState.LastUpdated = @event.Occurred;
     }
 
     /// <summary>
@@ -94,7 +119,7 @@ public sealed class GameStateBuilder : IEventListener
         {
             var currentRound = gameState.GetCurrentRound();
             currentRound.PreRound ??= new();
-            currentRound.PreRound.Deck = streamEvent.Deck;
+            currentRound.PreRound.Deck = streamEvent.Deck.ToList();
         }
     }
 
@@ -183,7 +208,7 @@ public sealed class GameStateBuilder : IEventListener
     private void Handle(HandsDealtEvent streamEvent, GameState gameState)
     {
         var round = gameState.GetCurrentRound();
-        round.DealtCards = streamEvent.Hands;
+        round.DealtCards = streamEvent.Hands.Select(h => new PlayerHand(h.PlayerId, h.Hand.ToList())).ToList();
     }
 
     /// <summary>
