@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Immutable;
 
 namespace Skunked;
@@ -49,7 +49,7 @@ public sealed class EventStream : IEnumerable<StreamEvent>
         }
     }
 
-    private static StreamEvent CopyEvent(StreamEvent item) => item switch
+    internal static StreamEvent CopyEvent(StreamEvent item) => item switch
     {
         GameStartedEvent e => e with { Players = e.Players.ToList() },
         DeckShuffledEvent e => e with { Deck = e.Deck.ToList() },

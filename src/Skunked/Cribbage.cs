@@ -6,7 +6,9 @@ namespace Skunked;
 public sealed class Cribbage
 {
     private readonly object _sync = new();
-    private bool _executing;
+    private readonly Queue<StreamEvent> _notifications = new();
+    private bool _dispatching;
+    private readonly List<IEventListener> _listeners;
     private readonly System.Collections.Concurrent.ConcurrentQueue<Exception> _listenerFailures = new();
     private readonly GameState _state = new();
     private readonly Dealer _dealer = new();
@@ -18,7 +20,7 @@ public sealed class Cribbage
     /// </summary>
     /// <param name="players">Players in order by index and the value of the player id.</param>
     /// <param name="rules">The set of rules for the game.</param>
-    /// <param name="eventListeners">Listen to all game events.</param>
+    /// <param name="eventListeners">Listeners are notified in event order outside game locks. When another notification is in progress, commands can return before their notifications are delivered.</param>
     public Cribbage(IEnumerable<int> players, GameRules rules, IEnumerable<IEventListener>? eventListeners = null)
         : this(players, rules, Random.Shared, null, eventListeners)
     {
@@ -29,7 +31,7 @@ public sealed class Cribbage
     /// <param name="rules">Rules for the game.</param>
     /// <param name="random">Per-game random generator for reproducible games.</param>
     /// <param name="deck">Optional full deck used for the game.</param>
-    /// <param name="eventListeners">Listeners for game events.</param>
+    /// <param name="eventListeners">Listeners are notified in event order outside game locks. When another notification is in progress, commands can return before their notifications are delivered.</param>
     public Cribbage(IEnumerable<int> players, GameRules rules, Random random, Deck? deck, IEnumerable<IEventListener>? eventListeners = null)
     {
         ArgumentNullException.ThrowIfNull(players);
@@ -44,13 +46,13 @@ public sealed class Cribbage
             throw new ArgumentException("The deck must contain the 52 standard cards.", nameof(deck));
         _deck = new Deck(cards);
         var internalStateBuilder = new GameStateBuilder(_state);
-        var listeners = new List<IEventListener> { internalStateBuilder };
-        listeners.AddRange((eventListeners ?? []).Select(listener => new SafeListener(listener, _listenerFailures)));
-        Stream = new EventStream(listeners);
+        _listeners = (eventListeners ?? []).Select(listener => new SafeListener(listener, _listenerFailures)).Cast<IEventListener>().ToList();
+        Stream = new EventStream([internalStateBuilder]);
 
         Emit(new GameStartedEvent(Guid.NewGuid(), NewVersion, playerIds, rules));
         _deck.Shuffle(_random);
         Emit(new DeckShuffledEvent(_state.Id, NewVersion, _deck.ToList()));
+        DispatchNotifications();
     }
 
 
@@ -71,17 +73,36 @@ public sealed class Cribbage
 
     private int NewVersion => _state.Version + 1;
 
+    // A single drainer preserves event and listener order. Commands invoked by a listener
+    // enqueue their events and return without waiting for the active drainer.
     private void Execute(Action action)
+    {
+        try { lock (_sync) action(); }
+        finally { DispatchNotifications(); }
+    }
+
+    private void DispatchNotifications()
     {
         lock (_sync)
         {
-            if (_executing) throw new InvalidOperationException("A listener cannot issue a command while a command is executing.");
-            _executing = true;
-            try { action(); }
-            finally { _executing = false; }
+            if (_dispatching || _notifications.Count == 0) return;
+            _dispatching = true;
+        }
+        while (true)
+        {
+            StreamEvent item;
+            lock (_sync)
+            {
+                if (_notifications.Count == 0)
+                {
+                    _dispatching = false;
+                    return;
+                }
+                item = _notifications.Dequeue();
+            }
+            foreach (var listener in _listeners) listener.Notify(EventStream.CopyEvent(item));
         }
     }
-
     private sealed class SafeListener(IEventListener listener, System.Collections.Concurrent.ConcurrentQueue<Exception> failures) : IEventListener
     {
         public void Notify(StreamEvent item)
@@ -203,8 +224,13 @@ public sealed class Cribbage
     private void Emit(StreamEvent @event)
     {
         Stream.Add(@event);
+        _notifications.Enqueue(EventStream.CopyEvent(@event));
         if ((@event is StarterCardSelectedEvent or CardPlayedEvent or HandCountedEvent or CribCountedEvent) &&
             _state.IsGameFinished() && _state.CompletedAt is null)
-            Stream.Add(new GameCompletedEvent(_state.Id, NewVersion));
+        {
+            var completion = new GameCompletedEvent(_state.Id, NewVersion);
+            Stream.Add(completion);
+            _notifications.Enqueue(completion);
+        }
     }
 }
