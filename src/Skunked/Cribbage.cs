@@ -5,6 +5,9 @@ namespace Skunked;
 /// </summary>
 public sealed class Cribbage
 {
+    private readonly object _sync = new();
+    private bool _executing;
+    private readonly System.Collections.Concurrent.ConcurrentQueue<Exception> _listenerFailures = new();
     private readonly GameState _state = new();
     private readonly Dealer _dealer = new();
     private readonly Deck _deck;
@@ -42,7 +45,7 @@ public sealed class Cribbage
         _deck = new Deck(cards);
         var internalStateBuilder = new GameStateBuilder(_state);
         var listeners = new List<IEventListener> { internalStateBuilder };
-        listeners.AddRange(eventListeners ?? []);
+        listeners.AddRange((eventListeners ?? []).Select(listener => new SafeListener(listener, _listenerFailures)));
         Stream = new EventStream(listeners);
 
         Emit(new GameStartedEvent(Guid.NewGuid(), NewVersion, playerIds, rules));
@@ -54,7 +57,7 @@ public sealed class Cribbage
     /// <summary>
     /// Gets a detached snapshot of the game state. Request another snapshot after issuing a command.
     /// </summary>
-    public GameState State => GameStateSnapshot.Copy(_state);
+    public GameState State { get { lock (_sync) return GameStateSnapshot.Copy(_state); } }
 
     internal GameState LiveState => _state;
 
@@ -63,13 +66,38 @@ public sealed class Cribbage
     /// </summary>
     public EventStream Stream { get; }
 
+    /// <summary>Exceptions raised by external listeners, in notification order.</summary>
+    public IReadOnlyCollection<Exception> ListenerFailures => _listenerFailures.ToArray();
+
     private int NewVersion => _state.Version + 1;
+
+    private void Execute(Action action)
+    {
+        lock (_sync)
+        {
+            if (_executing) throw new InvalidOperationException("A listener cannot issue a command while a command is executing.");
+            _executing = true;
+            try { action(); }
+            finally { _executing = false; }
+        }
+    }
+
+    private sealed class SafeListener(IEventListener listener, System.Collections.Concurrent.ConcurrentQueue<Exception> failures) : IEventListener
+    {
+        public void Notify(StreamEvent item)
+        {
+            try { listener.Notify(item); }
+            catch (Exception error) { failures.Enqueue(error); }
+        }
+    }
 
     /// <summary>
     /// Cut the deck.
     /// </summary>
     /// <param name="command">The command to execute.</param>
-    public void CutCard(CutCardCommand command)
+    public void CutCard(CutCardCommand command) => Execute(() => CutCardCore(command));
+
+    private void CutCardCore(CutCardCommand command)
     {
         var validation = new CutCardCommandValidation();
         validation.Validate(_state, command);
@@ -92,7 +120,9 @@ public sealed class Cribbage
     /// Throw cards to the crib.
     /// </summary>
     /// <param name="command">Command to throw cards.</param>
-    public void ThrowCards(ThrowCardsCommand command)
+    public void ThrowCards(ThrowCardsCommand command) => Execute(() => ThrowCardsCore(command));
+
+    private void ThrowCardsCore(ThrowCardsCommand command)
     {
         var validation = new ThrowCardsCommandValidation();
         var cardsThrown = new CardsThrownEvent(_state.Id, NewVersion, command.PlayerId, command.CribCards.ToList());
@@ -116,7 +146,9 @@ public sealed class Cribbage
     /// Play a card.
     /// </summary>
     /// <param name="command">Command to play card.</param>
-    public void PlayCard(PlayCardCommand command)
+    public void PlayCard(PlayCardCommand command) => Execute(() => PlayCardCore(command));
+
+    private void PlayCardCore(PlayCardCommand command)
     {
         var validation = new PlayCardCommandValidation();
         var @event = new CardPlayedEvent(_state.Id, NewVersion, command.PlayerId, command.Card);
@@ -133,7 +165,9 @@ public sealed class Cribbage
     /// Count a players hand.
     /// </summary>
     /// <param name="command">Command to count hand.</param>
-    public void CountHand(CountHandCommand command)
+    public void CountHand(CountHandCommand command) => Execute(() => CountHandCore(command));
+
+    private void CountHandCore(CountHandCommand command)
     {
         var validation = new CountHandCommandValidation();
         var @event = new HandCountedEvent(_state.Id, NewVersion, command.PlayerId, command.Score);
@@ -145,7 +179,9 @@ public sealed class Cribbage
     /// Count a players crib.
     /// </summary>
     /// <param name="command">The id of the player.</param>
-    public void CountCrib(CountCribCommand command)
+    public void CountCrib(CountCribCommand command) => Execute(() => CountCribCore(command));
+
+    private void CountCribCore(CountCribCommand command)
     {
         var validation = new CountCribCommandValidation();
         var @event = new CribCountedEvent(_state.Id, NewVersion, command.PlayerId, command.Score);

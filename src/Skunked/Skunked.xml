@@ -245,6 +245,9 @@
             Gets set of events that have occurred in the game.
             </summary>
         </member>
+        <member name="P:Skunked.Cribbage.ListenerFailures">
+            <summary>Exceptions raised by external listeners, in notification order.</summary>
+        </member>
         <member name="M:Skunked.Cribbage.CutCard(Skunked.CutCardCommand)">
             <summary>
             Cut the deck.

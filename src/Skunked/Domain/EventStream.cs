@@ -8,7 +8,7 @@ namespace Skunked;
 /// </summary>
 public sealed class EventStream : IEnumerable<StreamEvent>
 {
-    private static readonly object Locker = new();
+    private readonly object _locker = new();
 
     private readonly ImmutableList<IEventListener> _eventListeners;
     private readonly List<StreamEvent> _events;
@@ -29,7 +29,7 @@ public sealed class EventStream : IEnumerable<StreamEvent>
     /// <param name="event">The event to add.</param>
     internal void Add(StreamEvent @event)
     {
-        lock (Locker)
+        lock (_locker)
         {
             var lastEvent = _events.LastOrDefault();
             if (lastEvent != null && @event.Occurred <= lastEvent.Occurred)
@@ -58,7 +58,7 @@ public sealed class EventStream : IEnumerable<StreamEvent>
     /// <inheritdoc/>
     public IEnumerator<StreamEvent> GetEnumerator()
     {
-        return _events.Select(CopyEvent).ToList().GetEnumerator();
+        lock (_locker) return _events.Select(CopyEvent).ToList().GetEnumerator();
     }
 
     /// <inheritdoc/>
