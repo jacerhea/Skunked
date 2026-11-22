@@ -105,6 +105,12 @@ public sealed class CountCribCommandValidationTests
         act.Should().Throw<InvalidCribbageOperationException>()
             .And.Operation.Should().Be(InvalidCribbageOperation.NotPlayersTurn);
     }
+    [Fact] public void Validate_Rejects_NonDealer()
+    {
+        var state = BuildState();
+        Action act = () => new CountCribCommandValidation().Validate(state, new CountCribCommand(2, 0));
+        act.Should().Throw<InvalidCribbageOperationException>().And.Operation.Should().Be(InvalidCribbageOperation.NotPlayersTurn);
+    }
     [Theory] [InlineData(-1)] [InlineData(99)]
     public void Validate_Rejects_Invalid_Declared_Score(int score)
     {

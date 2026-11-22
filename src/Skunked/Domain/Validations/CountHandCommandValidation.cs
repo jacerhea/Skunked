@@ -17,6 +17,8 @@ public sealed class CountHandCommandValidation : ValidationBase, IValidation<Cou
     /// <inheritdoc />
     public void Validate(GameState gameState, CountHandCommand command)
     {
+        if (gameState.Rounds.Count == 0)
+            throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidRequest);
         var currentRound = gameState.GetCurrentRound();
 
         ValidateCore(gameState, command.PlayerId, currentRound.Round);
@@ -32,7 +34,7 @@ public sealed class CountHandCommandValidation : ValidationBase, IValidation<Cou
 
         var playersHand = currentRound.Hands.Single(hand => hand.PlayerId == command.PlayerId);
         var maxScorePossible = _scoreCalculator.CountShowPoints(currentRound.Starter, playersHand.Hand);
-        if (command.Score > maxScorePossible.Points.Score)
+        if (command.Score < 0 || command.Score > maxScorePossible.Points.Score)
         {
             throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidShowCount);
         }

@@ -16,13 +16,19 @@ public sealed class Cribbage
     /// <param name="eventListeners">Listen to all game events.</param>
     public Cribbage(IEnumerable<int> players, GameRules rules, IEnumerable<IEventListener>? eventListeners = null)
     {
+        ArgumentNullException.ThrowIfNull(players);
+        ArgumentNullException.ThrowIfNull(rules);
+        var playerIds = players.ToList();
+        if (playerIds.Count is not (2 or 4) || playerIds.Distinct().Count() != playerIds.Count)
+            throw new ArgumentException("A game requires two or four distinct players.", nameof(players));
+
         State = new GameState();
         var internalStateBuilder = new GameStateBuilder(State);
         var listeners = new List<IEventListener> { internalStateBuilder };
         listeners.AddRange(eventListeners ?? []);
         Stream = new EventStream(listeners);
 
-        Emit(new GameStartedEvent(Guid.NewGuid(), NewVersion, players.ToList(), rules));
+        Emit(new GameStartedEvent(Guid.NewGuid(), NewVersion, playerIds, rules));
         _deck.Shuffle();
         Emit(new DeckShuffledEvent(State.Id, NewVersion, _deck.ToList()));
     }
@@ -79,9 +85,10 @@ public sealed class Cribbage
         {
             var cardsNotDealt = _deck.Except(currentRound.Crib).Except(currentRound.Hands.SelectMany(s => s.Hand))
                 .ToList();
-            var randomIndex = RandomProvider.GetThreadRandom().Next(0, cardsNotDealt.Count - 1);
+            var randomIndex = ChooseStarterIndex(RandomProvider.GetThreadRandom(), cardsNotDealt.Count);
             var startingCard = cardsNotDealt[randomIndex];
             Emit(new StarterCardSelectedEvent(State.Id, NewVersion, startingCard));
+            if (State.IsGameFinished()) return;
             Emit(new PlayStartedEvent(State.Id, NewVersion, currentRound.Round));
         }
     }
@@ -97,7 +104,7 @@ public sealed class Cribbage
         validation.Validate(State, command);
         Emit(@event);
 
-        if (State.GetCurrentRound().PlayedCardsComplete)
+        if (!State.IsGameFinished() && State.GetCurrentRound().PlayedCardsComplete)
         {
             Emit(new PlayFinishedEvent(State.Id, NewVersion, State.GetCurrentRound().Round));
         }
@@ -126,6 +133,7 @@ public sealed class Cribbage
         validation.Validate(State, command);
         Emit(@event);
 
+        if (State.IsGameFinished()) return;
         Emit(new RoundStartedEvent(State.Id, NewVersion));
         _deck.Shuffle(3);
         Emit(new DeckShuffledEvent(State.Id, NewVersion, _deck.ToList()));
@@ -135,8 +143,13 @@ public sealed class Cribbage
         Emit(new HandsDealtEvent(State.Id, NewVersion, playerHands));
     }
 
+    internal static int ChooseStarterIndex(Random random, int count) => random.Next(count);
+
     private void Emit(StreamEvent @event)
     {
         Stream.Add(@event);
+        if ((@event is StarterCardSelectedEvent or CardPlayedEvent or HandCountedEvent or CribCountedEvent) &&
+            State.IsGameFinished() && State.CompletedAt is null)
+            Stream.Add(new GameCompletedEvent(State.Id, NewVersion));
     }
 }

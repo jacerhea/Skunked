@@ -34,12 +34,6 @@ public abstract class ValidationBase
     {
         if (gameState.IsGameFinished())
         {
-            if (gameState.CompletedAt == null)
-            {
-                gameState.CompletedAt = DateTimeOffset.Now;
-                gameState.GetCurrentRound().Complete = true;
-            }
-
             throw new GameFinishedException();
         }
     }

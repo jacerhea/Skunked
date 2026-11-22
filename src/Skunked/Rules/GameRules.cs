@@ -21,6 +21,7 @@ public sealed class GameRules
     /// <param name="winningScore">The winning score.</param>
     public GameRules(WinningScore winningScore)
     {
+        if (!Enum.IsDefined(winningScore)) throw new ArgumentOutOfRangeException(nameof(winningScore));
         _winningScore = winningScore;
     }
 
