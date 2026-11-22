@@ -38,6 +38,7 @@ while (true)
         cribbage.ThrowCards(new ThrowCardsCommand(playerDiscard.Id, tossed));
     }
 
+    currentRound = cribbage.State.GetCurrentRound();
     while (!currentRound.PlayedCardsComplete)
     {
         var currentPlayerPlayItems = currentRound.ThePlay.Last();
@@ -53,6 +54,7 @@ while (true)
             currentPlayerPlayItems.Select(playItem => playItem.Card).ToList(), handLeft);
 
         cribbage.PlayCard(new PlayCardCommand(player.Id, show));
+        currentRound = cribbage.State.GetCurrentRound();
     }
 
     var startingPlayer = players.Single(player =>

@@ -39,7 +39,7 @@ public sealed class GameRunner
         var gameRules = new GameRules(winningScore);
 
         var cribbage = new Cribbage(players.Select(p => p.Id), gameRules, random: _randomFactory(), deck: _deck);
-        var gameState = cribbage.State;
+        var gameState = cribbage.LiveState;
 
         while (!gameState.OpeningRound.Complete)
         {
