@@ -27,7 +27,7 @@ public sealed class EventStream : IEnumerable<StreamEvent>
     /// Add an event to the stream.
     /// </summary>
     /// <param name="event">The event to add.</param>
-    public void Add(StreamEvent @event)
+    internal void Add(StreamEvent @event)
     {
         lock (Locker)
         {
@@ -41,18 +41,27 @@ public sealed class EventStream : IEnumerable<StreamEvent>
             else if (@event.GameId != lastEvent.GameId || @event.Version != lastEvent.Version + 1)
                 throw new InvalidOperationException("Event game ID or version does not match the stream.");
 
-            _events.Add(@event);
+            _events.Add(CopyEvent(@event));
             foreach (var eventListener in _eventListeners)
             {
-                eventListener.Notify(@event);
+                eventListener.Notify(CopyEvent(@event));
             }
         }
     }
 
+    private static StreamEvent CopyEvent(StreamEvent item) => item switch
+    {
+        GameStartedEvent e => e with { Players = e.Players.ToList() },
+        DeckShuffledEvent e => e with { Deck = e.Deck.ToList() },
+        HandsDealtEvent e => e with { Hands = e.Hands.Select(GameStateSnapshot.CopyHand).ToList() },
+        CardsThrownEvent e => e with { Thrown = e.Thrown.ToList() },
+        _ => item
+    };
+
     /// <inheritdoc/>
     public IEnumerator<StreamEvent> GetEnumerator()
     {
-        return _events.GetEnumerator();
+        return _events.Select(CopyEvent).ToList().GetEnumerator();
     }
 
     /// <inheritdoc/>

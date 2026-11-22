@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - develop
+permissions:
+  contents: read
 jobs:
   publish:
     name: build and run tests
