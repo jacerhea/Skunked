@@ -53,6 +53,7 @@ public sealed class GameRunner
                     var tossed = playerDiscard.DetermineCardsToThrow(currentRound.DealtCards
                         .Single(p => p.PlayerId == playerDiscard.Id).Hand);
                     cribbage.ThrowCards(new ThrowCardsCommand(playerDiscard.Id, tossed));
+                    if (gameState.IsGameFinished()) return cribbage;
                 }
 
                 while (!currentRound.PlayedCardsComplete)
@@ -70,6 +71,7 @@ public sealed class GameRunner
                         currentPlayerPlayItems.Select(playItem => playItem.Card).ToList(), handLeft);
 
                     cribbage.PlayCard(new PlayCardCommand(player.Id, show));
+                    if (gameState.IsGameFinished()) return cribbage;
                 }
 
                 var startingPlayer = players.Single(player =>
@@ -80,12 +82,14 @@ public sealed class GameRunner
                     var playerCount = player.CountHand(currentRound.Starter,
                         currentRound.Hands.Single(playerHand => playerHand.PlayerId == player.Id).Hand);
                     cribbage.CountHand(new CountHandCommand(player.Id, playerCount));
+                    if (gameState.IsGameFinished()) return cribbage;
                 }
 
                 var cribCount = players.Single(p => p.Id == currentRound.PlayerCrib)
                     .CountCrib(currentRound.Starter, currentRound.Crib);
 
                 cribbage.CountCrib(new CountCribCommand(currentRound.PlayerCrib, cribCount));
+                    if (gameState.IsGameFinished()) return cribbage;
             }
         }
         catch (GameFinishedException)
