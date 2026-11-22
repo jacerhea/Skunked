@@ -14,9 +14,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build Packages", "Build Packages", "{0CA42EF2-F639-4987-9DDF-106A71FA6E48}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{8FE34C12-58B9-4E0A-8D50-9CDE0FA1ACD8}"
-	ProjectSection(SolutionItems) = preProject
-		Release Packages\Skunked.nuspec = Release Packages\Skunked.nuspec
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skunked.Benchmarks", "test\Skunked.Standard.Analytics\Skunked.Benchmarks.csproj", "{49065AE8-5ABC-4D54-80AC-8D80F7EFE88D}"
 EndProject

@@ -20,3 +20,6 @@ cribbage.CutCard(new CutCardCommand(player, gameState.OpeningRound.Deck[17]));
 cribbage.CutCard(new CutCardCommand(player2, gameState.OpeningRound.Deck[46]));
 
 ```
+## Packaging
+
+Build packages with `dotnet pack src/Skunked/Skunked.csproj -c Release` and `dotnet pack src/Skunked.AI/Skunked.AI.fsproj -c Release`. Run `pwsh ./scripts/Verify-Packages.ps1` to inspect their contents and build a consumer against the generated core package.
