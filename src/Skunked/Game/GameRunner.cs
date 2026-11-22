@@ -7,14 +7,21 @@
 public sealed class GameRunner
 {
     private readonly Deck _deck;
+    private readonly Func<Random> _randomFactory;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="GameRunner"/> class.
     /// </summary>
-    /// <param name="deck">The deck to use.</param>
-    public GameRunner(Deck deck)
+    /// <param name="deck">A full deck copied for each game.</param>
+    public GameRunner(Deck deck) : this(deck, () => Random.Shared) { }
+
+    /// <summary>Creates a runner with a per-game random generator factory.</summary>
+    /// <param name="deck">A full deck copied for each game.</param>
+    /// <param name="randomFactory">Creates a random generator for each game; use separate seeded instances for reproducible concurrent games.</param>
+    public GameRunner(Deck deck, Func<Random> randomFactory)
     {
-        _deck = deck;
+        _deck = deck ?? throw new ArgumentNullException(nameof(deck));
+        _randomFactory = randomFactory ?? throw new ArgumentNullException(nameof(randomFactory));
     }
 
     /// <summary>
@@ -31,7 +38,7 @@ public sealed class GameRunner
 
         var gameRules = new GameRules(winningScore);
 
-        var cribbage = new Cribbage(players.Select(p => p.Id), gameRules);
+        var cribbage = new Cribbage(players.Select(p => p.Id), gameRules, random: _randomFactory(), deck: _deck);
         var gameState = cribbage.State;
 
         while (!gameState.OpeningRound.Complete)
