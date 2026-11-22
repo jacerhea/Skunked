@@ -25,7 +25,9 @@ public sealed class GameRunner
     /// <returns>The game of cribbage after it has completed.</returns>
     public Cribbage Run(List<IGameRunnerPlayer> players, WinningScore winningScore)
     {
-        if (players.Count is > 4 or < 2) throw new ArgumentOutOfRangeException(nameof(players));
+        ArgumentNullException.ThrowIfNull(players);
+        if (players.Count is not (2 or 4) || players.Any(p => p is null) || players.Select(p => p.Id).Distinct().Count() != players.Count)
+            throw new ArgumentException("A game requires two or four distinct players.", nameof(players));
 
         var gameRules = new GameRules(winningScore);
 

@@ -16,13 +16,19 @@ public sealed class Cribbage
     /// <param name="eventListeners">Listen to all game events.</param>
     public Cribbage(IEnumerable<int> players, GameRules rules, IEnumerable<IEventListener>? eventListeners = null)
     {
+        ArgumentNullException.ThrowIfNull(players);
+        ArgumentNullException.ThrowIfNull(rules);
+        var playerIds = players.ToList();
+        if (playerIds.Count is not (2 or 4) || playerIds.Distinct().Count() != playerIds.Count)
+            throw new ArgumentException("A game requires two or four distinct players.", nameof(players));
+
         State = new GameState();
         var internalStateBuilder = new GameStateBuilder(State);
         var listeners = new List<IEventListener> { internalStateBuilder };
         listeners.AddRange(eventListeners ?? []);
         Stream = new EventStream(listeners);
 
-        Emit(new GameStartedEvent(Guid.NewGuid(), NewVersion, players.ToList(), rules));
+        Emit(new GameStartedEvent(Guid.NewGuid(), NewVersion, playerIds, rules));
         _deck.Shuffle();
         Emit(new DeckShuffledEvent(State.Id, NewVersion, _deck.ToList()));
     }
