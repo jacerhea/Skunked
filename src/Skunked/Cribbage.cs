@@ -82,6 +82,7 @@ public sealed class Cribbage
             var randomIndex = RandomProvider.GetThreadRandom().Next(0, cardsNotDealt.Count - 1);
             var startingCard = cardsNotDealt[randomIndex];
             Emit(new StarterCardSelectedEvent(State.Id, NewVersion, startingCard));
+            if (State.IsGameFinished()) return;
             Emit(new PlayStartedEvent(State.Id, NewVersion, currentRound.Round));
         }
     }
@@ -97,7 +98,7 @@ public sealed class Cribbage
         validation.Validate(State, command);
         Emit(@event);
 
-        if (State.GetCurrentRound().PlayedCardsComplete)
+        if (!State.IsGameFinished() && State.GetCurrentRound().PlayedCardsComplete)
         {
             Emit(new PlayFinishedEvent(State.Id, NewVersion, State.GetCurrentRound().Round));
         }
@@ -126,6 +127,7 @@ public sealed class Cribbage
         validation.Validate(State, command);
         Emit(@event);
 
+        if (State.IsGameFinished()) return;
         Emit(new RoundStartedEvent(State.Id, NewVersion));
         _deck.Shuffle(3);
         Emit(new DeckShuffledEvent(State.Id, NewVersion, _deck.ToList()));
@@ -138,5 +140,8 @@ public sealed class Cribbage
     private void Emit(StreamEvent @event)
     {
         Stream.Add(@event);
+        if ((@event is StarterCardSelectedEvent or CardPlayedEvent or HandCountedEvent or CribCountedEvent) &&
+            State.IsGameFinished() && State.CompletedAt is null)
+            Stream.Add(new GameCompletedEvent(State.Id, NewVersion));
     }
 }
