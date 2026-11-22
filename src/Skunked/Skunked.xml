@@ -73,11 +73,20 @@
             Randomly shuffles the deck.
             </summary>
         </member>
+        <member name="M:Skunked.Deck.Shuffle(System.Random)">
+            <summary>Shuffles using the supplied random generator.</summary>
+            <param name="random">The source of randomness.</param>
+        </member>
         <member name="M:Skunked.Deck.Shuffle(System.Int32)">
             <summary>
             Randomly shuffles the deck the given number of times.
             </summary>
             <param name="count">Number of times to shuffle the card.</param>
+        </member>
+        <member name="M:Skunked.Deck.Shuffle(System.Int32,System.Random)">
+            <summary>Shuffles repeatedly with the supplied random generator.</summary>
+            <param name="count">Number of shuffles.</param>
+            <param name="random">The source of randomness.</param>
         </member>
         <member name="M:Skunked.Deck.GetEnumerator">
             <inheritdoc/>
@@ -217,6 +226,14 @@
             <param name="players">Players in order by index and the value of the player id.</param>
             <param name="rules">The set of rules for the game.</param>
             <param name="eventListeners">Listen to all game events.</param>
+        </member>
+        <member name="M:Skunked.Cribbage.#ctor(System.Collections.Generic.IEnumerable{System.Int32},Skunked.GameRules,System.Random,Skunked.Deck,System.Collections.Generic.IEnumerable{Skunked.IEventListener})">
+            <summary>Creates a game using a supplied random generator and optional deck.</summary>
+            <param name="players">Players in turn order.</param>
+            <param name="rules">Rules for the game.</param>
+            <param name="random">Per-game random generator for reproducible games.</param>
+            <param name="deck">Optional full deck used for the game.</param>
+            <param name="eventListeners">Listeners for game events.</param>
         </member>
         <member name="P:Skunked.Cribbage.State">
             <summary>
@@ -1272,7 +1289,12 @@
             <summary>
             Initializes a new instance of the <see cref="T:Skunked.GameRunner"/> class.
             </summary>
-            <param name="deck">The deck to use.</param>
+            <param name="deck">A full deck copied for each game.</param>
+        </member>
+        <member name="M:Skunked.GameRunner.#ctor(Skunked.Deck,System.Func{System.Random})">
+            <summary>Creates a runner with a per-game random generator factory.</summary>
+            <param name="deck">A full deck copied for each game.</param>
+            <param name="randomFactory">Creates a random generator for each game; use separate seeded instances for reproducible concurrent games.</param>
         </member>
         <member name="M:Skunked.GameRunner.Run(System.Collections.Generic.List{Skunked.IGameRunnerPlayer},Skunked.WinningScore)">
             <summary>

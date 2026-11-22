@@ -7,7 +7,8 @@ public sealed class Cribbage
 {
     private readonly GameState _state = new();
     private readonly Dealer _dealer = new();
-    private readonly Deck _deck = new();
+    private readonly Deck _deck;
+    private readonly Random _random;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Cribbage"/> class.
@@ -16,6 +17,17 @@ public sealed class Cribbage
     /// <param name="rules">The set of rules for the game.</param>
     /// <param name="eventListeners">Listen to all game events.</param>
     public Cribbage(IEnumerable<int> players, GameRules rules, IEnumerable<IEventListener>? eventListeners = null)
+        : this(players, rules, Random.Shared, null, eventListeners)
+    {
+    }
+
+    /// <summary>Creates a game using a supplied random generator and optional deck.</summary>
+    /// <param name="players">Players in turn order.</param>
+    /// <param name="rules">Rules for the game.</param>
+    /// <param name="random">Per-game random generator for reproducible games.</param>
+    /// <param name="deck">Optional full deck used for the game.</param>
+    /// <param name="eventListeners">Listeners for game events.</param>
+    public Cribbage(IEnumerable<int> players, GameRules rules, Random random, Deck? deck, IEnumerable<IEventListener>? eventListeners = null)
     {
         ArgumentNullException.ThrowIfNull(players);
         ArgumentNullException.ThrowIfNull(rules);
@@ -23,13 +35,18 @@ public sealed class Cribbage
         if (playerIds.Count is not (2 or 4) || playerIds.Distinct().Count() != playerIds.Count)
             throw new ArgumentException("A game requires two or four distinct players.", nameof(players));
 
+        _random = random ?? throw new ArgumentNullException(nameof(random));
+        var cards = (deck ?? new Deck()).ToList();
+        if (cards.Count != 52 || cards.Distinct().Count() != 52 || cards.Except(new Deck()).Any())
+            throw new ArgumentException("The deck must contain the 52 standard cards.", nameof(deck));
+        _deck = new Deck(cards);
         var internalStateBuilder = new GameStateBuilder(_state);
         var listeners = new List<IEventListener> { internalStateBuilder };
         listeners.AddRange(eventListeners ?? []);
         Stream = new EventStream(listeners);
 
         Emit(new GameStartedEvent(Guid.NewGuid(), NewVersion, playerIds, rules));
-        _deck.Shuffle();
+        _deck.Shuffle(_random);
         Emit(new DeckShuffledEvent(_state.Id, NewVersion, _deck.ToList()));
     }
 
@@ -63,7 +80,7 @@ public sealed class Cribbage
         if (_state.OpeningRound.Complete)
         {
             Emit(new RoundStartedEvent(_state.Id, NewVersion));
-            _deck.Shuffle();
+            _deck.Shuffle(_random);
             Emit(new DeckShuffledEvent(_state.Id, NewVersion, _deck.ToList()));
             var playerHands = _dealer.Deal(_deck, _state.PlayerIds, _state.PlayerIds.NextOf(_state.OpeningRound.WinningPlayerCut!.Value),
                 _state.GameRules.GetDealSize(_state.PlayerIds.Count)); // get next player from who won cut.
@@ -87,7 +104,7 @@ public sealed class Cribbage
         {
             var cardsNotDealt = _deck.Except(currentRound.Crib).Except(currentRound.Hands.SelectMany(s => s.Hand))
                 .ToList();
-            var randomIndex = ChooseStarterIndex(RandomProvider.GetThreadRandom(), cardsNotDealt.Count);
+            var randomIndex = ChooseStarterIndex(_random, cardsNotDealt.Count);
             var startingCard = cardsNotDealt[randomIndex];
             Emit(new StarterCardSelectedEvent(_state.Id, NewVersion, startingCard));
             if (_state.IsGameFinished()) return;
@@ -137,7 +154,7 @@ public sealed class Cribbage
 
         if (_state.IsGameFinished()) return;
         Emit(new RoundStartedEvent(_state.Id, NewVersion));
-        _deck.Shuffle(3);
+        _deck.Shuffle(3, _random);
         Emit(new DeckShuffledEvent(_state.Id, NewVersion, _deck.ToList()));
         var playerHands = _dealer.Deal(_deck, _state.PlayerIds,
             _state.PlayerIds.NextOf(_state.PlayerIds.NextOf(command.PlayerId)),

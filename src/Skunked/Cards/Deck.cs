@@ -34,9 +34,14 @@ public sealed class Deck : IEnumerable<Card>
     /// <summary>
     /// Randomly shuffles the deck.
     /// </summary>
-    public void Shuffle()
+    public void Shuffle() => Shuffle(RandomProvider.GetThreadRandom());
+
+    /// <summary>Shuffles using the supplied random generator.</summary>
+    /// <param name="random">The source of randomness.</param>
+    public void Shuffle(Random random)
     {
-        _deck.Shuffle();
+        ArgumentNullException.ThrowIfNull(random);
+        _deck.Shuffle(random);
     }
 
 
@@ -44,12 +49,15 @@ public sealed class Deck : IEnumerable<Card>
     /// Randomly shuffles the deck the given number of times.
     /// </summary>
     /// <param name="count">Number of times to shuffle the card.</param>
-    public void Shuffle(int count)
+    public void Shuffle(int count) => Shuffle(count, RandomProvider.GetThreadRandom());
+
+    /// <summary>Shuffles repeatedly with the supplied random generator.</summary>
+    /// <param name="count">Number of shuffles.</param>
+    /// <param name="random">The source of randomness.</param>
+    public void Shuffle(int count, Random random)
     {
-        foreach (var _ in Enumerable.Range(1, count))
-        {
-            _deck.Shuffle();
-        }
+        ArgumentNullException.ThrowIfNull(random);
+        foreach (var _ in Enumerable.Range(1, count)) _deck.Shuffle(random);
     }
 
     /// <inheritdoc/>
