@@ -1320,6 +1320,12 @@
             <param name="hand">The player's hand.</param>
             <returns>The points counted.</returns>
         </member>
+        <member name="M:Skunked.IGameRunnerPlayer.CountCrib(Skunked.Card,System.Collections.Generic.IEnumerable{Skunked.Card})">
+            <summary>Count a crib using crib-specific rules.</summary>
+            <param name="starter">The starter card.</param>
+            <param name="crib">The crib cards.</param>
+            <returns>The points counted.</returns>
+        </member>
         <member name="T:Skunked.PlayerHand">
             <summary>
             A player id and their hand.

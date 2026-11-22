@@ -28,12 +28,14 @@ public sealed class CountCribCommandValidationTests
                 {
                     Round = 1,
                     PlayerCrib = 1,
+                    Starter = new Card(Rank.King, Suit.Spades),
+                    Crib = [new(Rank.Ace, Suit.Clubs), new(Rank.Two, Suit.Clubs), new(Rank.Three, Suit.Clubs), new(Rank.Four, Suit.Clubs)],
                     ThrowCardsComplete = throwComplete,
                     PlayedCardsComplete = playComplete,
                     Complete = roundComplete,
                     ShowScores =
                     [
-                        new() { Player = 1, HasShowed = false },
+                        new() { Player = 1, HasShowed = true },
                         new() { Player = 2, HasShowed = otherPlayerHasShowed, Complete = otherPlayerHasShowed }
                     ]
                 }
@@ -44,7 +46,7 @@ public sealed class CountCribCommandValidationTests
     public void Validate_Succeeds_When_All_Non_Crib_Players_Have_Showed()
     {
         var state = BuildState(otherPlayerHasShowed: true);
-        var command = new CountCribCommand(1, 4);
+        var command = new CountCribCommand(1, 0);
         var validation = new CountCribCommandValidation();
 
         Action act = () => validation.Validate(state, command);
@@ -102,5 +104,17 @@ public sealed class CountCribCommandValidationTests
 
         act.Should().Throw<InvalidCribbageOperationException>()
             .And.Operation.Should().Be(InvalidCribbageOperation.NotPlayersTurn);
+    }
+    [Fact] public void Validate_Rejects_NonDealer()
+    {
+        var state = BuildState();
+        Action act = () => new CountCribCommandValidation().Validate(state, new CountCribCommand(2, 0));
+        act.Should().Throw<InvalidCribbageOperationException>().And.Operation.Should().Be(InvalidCribbageOperation.NotPlayersTurn);
+    }
+    [Fact] public void Validate_Rejects_Negative_Score()
+    {
+        var state = BuildState();
+        Action act = () => new CountCribCommandValidation().Validate(state, new CountCribCommand(1, -1));
+        act.Should().Throw<InvalidCribbageOperationException>().And.Operation.Should().Be(InvalidCribbageOperation.InvalidShowCount);
     }
 }

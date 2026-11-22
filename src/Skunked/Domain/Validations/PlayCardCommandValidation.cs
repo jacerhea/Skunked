@@ -18,6 +18,8 @@ public sealed class PlayCardCommandValidation : ValidationBase, IValidation<Play
     /// <inheritdoc />
     public void Validate(GameState gameState, PlayCardCommand command)
     {
+        if (gameState.Rounds.Count == 0)
+            throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidRequest);
         var currentRound = gameState.GetCurrentRound();
 
         ValidateCore(gameState, command.PlayerId, currentRound.Round);
@@ -53,25 +55,13 @@ public sealed class PlayCardCommandValidation : ValidationBase, IValidation<Play
             }
         }
 
-        if (setOfPlays.Last().Count > 0 && setOfPlays.SelectMany(s => s).Last().NextPlayer != command.PlayerId)
+        if (setOfPlays.SelectMany(s => s).Any() && setOfPlays.SelectMany(s => s).Last().NextPlayer != command.PlayerId)
         {
             throw new InvalidCribbageOperationException(InvalidCribbageOperation.NotPlayersTurn);
         }
 
-        // Is the player starting a new round with the card sum over 31, and they have a playable card for the current round?
-        var currentPlayCount = _scoreCalculator.SumValues(setOfPlays.Last().Select(scs => scs.Card));
-        int playCount = currentPlayCount + _scoreCalculator.SumValues(new List<Card> { new(command.Card) });
-        if (playCount > GameRules.Points.MaxPlayCount)
-        {
-            var playedCardsThisRound = setOfPlays.Last().Select(ppi => ppi.Card).ToList();
-            var playersCardsLeftToPlay =
-                playersCards.Except(playedCardsThisRound).Except(new List<Card> { command.Card });
-            if (playersCardsLeftToPlay.Any(c =>
-                    _scoreCalculator.SumValues(new List<Card>(playedCardsThisRound) { c }) <=
-                    GameRules.Points.MaxPlayCount))
-            {
-                throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidCard);
-            }
-        }
+        var currentPlayCount = _scoreCalculator.SumValues(setOfPlays.Last().Select(play => play.Card));
+        if (currentPlayCount + _scoreCalculator.SumValues([command.Card]) > GameRules.Points.MaxPlayCount)
+            throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidCard);
     }
 }
