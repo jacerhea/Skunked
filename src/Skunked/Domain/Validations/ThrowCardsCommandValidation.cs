@@ -23,27 +23,14 @@ public sealed class ThrowCardsCommandValidation : ValidationBase, IValidation<Th
             throw new InvalidCribbageOperationException(InvalidCribbageOperation.CardsHaveBeenThrown);
         }
 
-        var dealtCards = currentRound.DealtCards.Single(playerHand => playerHand.PlayerId == command.PlayerId).Hand;
+        if (currentRound.Hands.Any(hand => hand.PlayerId == command.PlayerId))
+            throw new InvalidCribbageOperationException(InvalidCribbageOperation.CardsHaveBeenThrown);
 
-        if (dealtCards.Intersect(command.CribCards).Count() != command.CribCards.Count())
-        {
-            // invalid request, player was not dealt these cards
+        var dealtCards = currentRound.DealtCards.Single(hand => hand.PlayerId == command.PlayerId).Hand;
+        var cards = command.CribCards.ToList();
+        var requiredCount = gameState.GameRules.GetDealSize(gameState.PlayerIds.Count) - GameRules.HandSize;
+        if (cards.Count != requiredCount || cards.Distinct().Count() != requiredCount ||
+            cards.Any(card => !dealtCards.Contains(card)))
             throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidCard);
-        }
-
-        var cardsAlreadyThrownToCrib = dealtCards.Intersect(currentRound.Crib).Count();
-        var twoPlayer = new List<int> { 2 };
-        var threeOrFourPlayer = new List<int> { 3, 4 };
-        if (cardsAlreadyThrownToCrib == 1 &&
-            threeOrFourPlayer.Contains(gameState.GameRules.GetDealSize(gameState.PlayerIds.Count)))
-        {
-            throw new InvalidCribbageOperationException(InvalidCribbageOperation.CardsHaveBeenThrown);
-        }
-
-        if (cardsAlreadyThrownToCrib == 2 &&
-            twoPlayer.Contains(gameState.GameRules.GetDealSize(gameState.PlayerIds.Count)))
-        {
-            throw new InvalidCribbageOperationException(InvalidCribbageOperation.CardsHaveBeenThrown);
-        }
     }
 }
