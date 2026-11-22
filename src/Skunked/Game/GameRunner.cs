@@ -32,13 +32,15 @@ public sealed class GameRunner
         var cribbage = new Cribbage(players.Select(p => p.Id), gameRules);
         var gameState = cribbage.State;
 
-        var cardsForCut = _deck.ToList();
-
-        foreach (var player in players)
+        while (!gameState.OpeningRound.Complete)
         {
-            var cutCard = player.CutCards(cardsForCut);
-            cardsForCut.Remove(cutCard);
-            cribbage.CutCard(new CutCardCommand(player.Id, cutCard));
+            var eligible = gameState.OpeningRound.EligiblePlayers.Count == 0
+                ? gameState.PlayerIds.ToList() : gameState.OpeningRound.EligiblePlayers.ToList();
+            foreach (var player in players.Where(p => eligible.Contains(p.Id)))
+            {
+                var cardsForCut = gameState.OpeningRound.Deck.ToList();
+                cribbage.CutCard(new CutCardCommand(player.Id, player.CutCards(cardsForCut)));
+            }
         }
 
         try

@@ -15,6 +15,7 @@ public class CardCutEventValidationTests
             TeamScores = [new() { Players = [1] }, new() { Players = [2] }],
             OpeningRound = new OpeningRound
             {
+                Deck = new Deck().ToList(),
                 CutCards = []
             }
         };
@@ -35,6 +36,7 @@ public class CardCutEventValidationTests
             TeamScores = [new() { Players = [1] }, new() { Players = [2] }],
             OpeningRound = new OpeningRound
             {
+                Deck = new Deck().ToList(),
                 CutCards = [new(1, new Card(Rank.Eight, Suit.Diamonds))]
             }
         };
@@ -55,6 +57,7 @@ public class CardCutEventValidationTests
             TeamScores = [new() { Players = [1] }, new() { Players = [2] }],
             OpeningRound = new OpeningRound
             {
+                Deck = new Deck().ToList(),
                 CutCards = [new(1, new Card(Rank.Nine, Suit.Hearts))]
             }
         };

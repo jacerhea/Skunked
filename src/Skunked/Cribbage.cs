@@ -57,7 +57,7 @@ public sealed class Cribbage
             Emit(new RoundStartedEvent(State.Id, NewVersion));
             _deck.Shuffle();
             Emit(new DeckShuffledEvent(State.Id, NewVersion, _deck.ToList()));
-            var playerHands = _dealer.Deal(_deck, State.PlayerIds, State.PlayerIds.NextOf(command.PlayerId),
+            var playerHands = _dealer.Deal(_deck, State.PlayerIds, State.PlayerIds.NextOf(State.OpeningRound.WinningPlayerCut!.Value),
                 State.GameRules.GetDealSize(State.PlayerIds.Count)); // get next player from who won cut.
             Emit(new HandsDealtEvent(State.Id, NewVersion, playerHands));
         }

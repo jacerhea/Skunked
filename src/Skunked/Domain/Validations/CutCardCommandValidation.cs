@@ -18,6 +18,11 @@ public sealed class CutCardCommandValidation : ValidationBase, IValidation<CutCa
     public void Validate(GameState gameState, CutCardCommand command)
     {
         CheckEndOfGame(gameState);
+        if (!gameState.PlayerIds.Contains(command.PlayerId) ||
+            (gameState.OpeningRound.EligiblePlayers.Count > 0 && !gameState.OpeningRound.EligiblePlayers.Contains(command.PlayerId)))
+            throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidPlayer);
+        if (!gameState.OpeningRound.Deck.Contains(command.CutCard))
+            throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidCard);
         if (gameState.OpeningRound.WinningPlayerCut.HasValue)
         {
             throw new InvalidCribbageOperationException(InvalidCribbageOperation.CutCardCardAlreadyCut);

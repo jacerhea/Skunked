@@ -61,8 +61,8 @@ public sealed class CribbageTests
 
         // Act
         // Both players cut. After the second cut, the opening round should complete and the game should start the round.
-        game.CutCard(new CutCardCommand(players[0], openingDeck[0]));
-        game.CutCard(new CutCardCommand(players[1], openingDeck[1]));
+        game.CutCard(new CutCardCommand(players[0], openingDeck.First(c => c.Rank == Rank.Ace)));
+        game.CutCard(new CutCardCommand(players[1], openingDeck.First(c => c.Rank == Rank.Two)));
 
         // Assert
         // We expect at least: ... CardCutEvent, CardCutEvent, RoundStartedEvent, DeckShuffledEvent, HandsDealtEvent
@@ -89,8 +89,8 @@ public sealed class CribbageTests
         var players = game.State.PlayerIds.ToArray();
 
         // Complete opening cut -> round start + deal
-        game.CutCard(new CutCardCommand(players[0], openingDeck[0]));
-        game.CutCard(new CutCardCommand(players[1], openingDeck[1]));
+        game.CutCard(new CutCardCommand(players[0], openingDeck.First(c => c.Rank == Rank.Ace)));
+        game.CutCard(new CutCardCommand(players[1], openingDeck.First(c => c.Rank == Rank.Two)));
 
         var currentRound = game.State.GetCurrentRound();
 
@@ -182,8 +182,8 @@ public sealed class CribbageTests
         var openingDeck = game.State.OpeningRound.Deck;
         var playerIds = game.State.PlayerIds.ToArray();
 
-        game.CutCard(new CutCardCommand(playerIds[0], openingDeck[0]));
-        game.CutCard(new CutCardCommand(playerIds[1], openingDeck[1]));
+        game.CutCard(new CutCardCommand(playerIds[0], openingDeck.First(c => c.Rank == Rank.Ace)));
+        game.CutCard(new CutCardCommand(playerIds[1], openingDeck.First(c => c.Rank == Rank.Two)));
 
         var round = game.State.GetCurrentRound();
         foreach (var pid in playerIds)

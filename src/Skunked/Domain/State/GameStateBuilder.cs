@@ -108,14 +108,22 @@ public sealed class GameStateBuilder : IEventListener
 
         gameState.OpeningRound.Deck.Remove(streamEvent.CutCard);
 
-        bool isDone = gameState.PlayerIds.Count == gameState.OpeningRound.CutCards.Count;
-        gameState.OpeningRound.Complete = isDone;
-
-        if (isDone && gameState.Rounds.Count == 0)
+        var opening = gameState.OpeningRound;
+        var required = opening.EligiblePlayers.Count == 0 ? gameState.PlayerIds.Count : opening.EligiblePlayers.Count;
+        if (opening.CutCards.Count != required) return;
+        var lowest = opening.CutCards.MinBy(c => c.Card, RankComparer.Instance)!;
+        var tied = opening.CutCards.Where(c => RankComparer.Instance.Compare(c.Card, lowest.Card) == 0).ToList();
+        if (tied.Count == 1)
         {
-            var winningPlayerCut =
-                gameState.OpeningRound.CutCards.MinBy(playerCard => playerCard.Card, RankComparer.Instance)!;
-            gameState.OpeningRound.WinningPlayerCut = winningPlayerCut.Player;
+            opening.WinningPlayerCut = lowest.Player;
+            opening.Complete = true;
+        }
+        else
+        {
+            opening.EligiblePlayers = tied.Select(c => c.Player).ToList();
+            opening.CutCards.Clear();
+            // Return cards to the deck if repeated ties exhaust the available cuts.
+            if (opening.Deck.Count < opening.EligiblePlayers.Count) opening.Deck = new Deck().ToList();
         }
     }
 
