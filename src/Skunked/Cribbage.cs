@@ -74,7 +74,7 @@ public sealed class Cribbage
         var validation = new CutCardCommandValidation();
         validation.Validate(_state, command);
 
-        var cardCutEvent = new CardCutEvent(_state.Id, 1, command.PlayerId, command.CutCard);
+        var cardCutEvent = new CardCutEvent(_state.Id, NewVersion, command.PlayerId, command.CutCard);
         Emit(cardCutEvent);
 
         if (_state.OpeningRound.Complete)

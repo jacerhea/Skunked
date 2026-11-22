@@ -772,6 +772,11 @@
             Initializes a new instance of the <see cref="T:Skunked.GameStateBuilder"/> class.
             </summary>
         </member>
+        <member name="M:Skunked.GameStateBuilder.Replay(System.Collections.Generic.IEnumerable{Skunked.StreamEvent})">
+            <summary>Rebuilds state from an ordered, complete event stream.</summary>
+            <param name="events">Events beginning with a version-one game start.</param>
+            <returns>The reconstructed state.</returns>
+        </member>
         <member name="M:Skunked.GameStateBuilder.Notify(Skunked.StreamEvent)">
             <summary>
             
