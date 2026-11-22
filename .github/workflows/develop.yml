@@ -1,17 +1,25 @@
-name: build and run tests
+name: Build and test
 on:
+  pull_request:
   push:
-    branches:
-      - develop
+    branches: [main, develop]
 permissions:
   contents: read
 jobs:
-  publish:
-    name: build and run tests
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Build
-        run: dotnet build src/Skunked/Skunked.csproj --configuration Release -p:Version=1.0.$GITHUB_RUN_NUMBER
-      - name: Test
-        run: dotnet test  test/Skunked.UnitTest/Skunked.UnitTest.csproj
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - name: Restore solution
+        run: dotnet restore Skunked.sln
+      - name: Build solution
+        run: dotnet build Skunked.sln --configuration Release --no-restore
+      - name: Core unit tests
+        run: dotnet test test/Skunked.UnitTest/Skunked.UnitTest.csproj --configuration Release --no-build
+      - name: Full-game system tests
+        run: dotnet test test/Skunked.Standard.Test.System/Skunked.Test.System.csproj --configuration Release --no-build
+      - name: AI tests
+        run: dotnet test test/Skunked.AI.Tests/Skunked.AI.Tests.fsproj --configuration Release --no-build
