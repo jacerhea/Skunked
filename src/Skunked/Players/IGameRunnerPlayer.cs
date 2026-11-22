@@ -40,4 +40,10 @@ public interface IGameRunnerPlayer
     /// <param name="hand">The player's hand.</param>
     /// <returns>The points counted.</returns>
     int CountHand(Card starter, IEnumerable<Card> hand);
+    /// <summary>Count a crib using crib-specific rules.</summary>
+    /// <param name="starter">The starter card.</param>
+    /// <param name="crib">The crib cards.</param>
+    /// <returns>The points counted.</returns>
+    int CountCrib(Card starter, IEnumerable<Card> crib) =>
+        new ScoreCalculator().CountShowPoints(starter, crib, isCrib: true).Points.Score;
 }

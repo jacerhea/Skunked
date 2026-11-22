@@ -81,7 +81,7 @@ public sealed class GameRunner
                 }
 
                 var cribCount = players.Single(p => p.Id == currentRound.PlayerCrib)
-                    .CountHand(currentRound.Starter, currentRound.Crib);
+                    .CountCrib(currentRound.Starter, currentRound.Crib);
 
                 cribbage.CountCrib(new CountCribCommand(currentRound.PlayerCrib, cribCount));
             }
