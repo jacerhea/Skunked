@@ -79,7 +79,7 @@ public sealed class Cribbage
         {
             var cardsNotDealt = _deck.Except(currentRound.Crib).Except(currentRound.Hands.SelectMany(s => s.Hand))
                 .ToList();
-            var randomIndex = RandomProvider.GetThreadRandom().Next(0, cardsNotDealt.Count - 1);
+            var randomIndex = ChooseStarterIndex(RandomProvider.GetThreadRandom(), cardsNotDealt.Count);
             var startingCard = cardsNotDealt[randomIndex];
             Emit(new StarterCardSelectedEvent(State.Id, NewVersion, startingCard));
             Emit(new PlayStartedEvent(State.Id, NewVersion, currentRound.Round));
@@ -134,6 +134,8 @@ public sealed class Cribbage
             State.GameRules.GetDealSize(State.PlayerIds.Count));
         Emit(new HandsDealtEvent(State.Id, NewVersion, playerHands));
     }
+
+    internal static int ChooseStarterIndex(Random random, int count) => random.Next(count);
 
     private void Emit(StreamEvent @event)
     {
