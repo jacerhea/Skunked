@@ -220,7 +220,7 @@
         </member>
         <member name="P:Skunked.Cribbage.State">
             <summary>
-            Gets the state of the game.
+            Gets a detached snapshot of the game state. Request another snapshot after issuing a command.
             </summary>
         </member>
         <member name="P:Skunked.Cribbage.Stream">

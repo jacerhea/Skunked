@@ -8,6 +8,7 @@ public sealed class Cribbage
     private readonly object _sync = new();
     private bool _executing;
     private readonly System.Collections.Concurrent.ConcurrentQueue<Exception> _listenerFailures = new();
+    private readonly GameState _state = new();
     private readonly Dealer _dealer = new();
     private readonly Deck _deck = new();
 
@@ -25,22 +26,23 @@ public sealed class Cribbage
         if (playerIds.Count is not (2 or 4) || playerIds.Distinct().Count() != playerIds.Count)
             throw new ArgumentException("A game requires two or four distinct players.", nameof(players));
 
-        State = new GameState();
-        var internalStateBuilder = new GameStateBuilder(State);
+        var internalStateBuilder = new GameStateBuilder(_state);
         var listeners = new List<IEventListener> { internalStateBuilder };
         listeners.AddRange((eventListeners ?? []).Select(listener => new SafeListener(listener, _listenerFailures)));
         Stream = new EventStream(listeners);
 
         Emit(new GameStartedEvent(Guid.NewGuid(), NewVersion, playerIds, rules));
         _deck.Shuffle();
-        Emit(new DeckShuffledEvent(State.Id, NewVersion, _deck.ToList()));
+        Emit(new DeckShuffledEvent(_state.Id, NewVersion, _deck.ToList()));
     }
 
 
     /// <summary>
-    /// Gets the state of the game.
+    /// Gets a detached snapshot of the game state. Request another snapshot after issuing a command.
     /// </summary>
-    public GameState State { get; }
+    public GameState State { get { lock (_sync) return GameStateSnapshot.Copy(_state); } }
+
+    internal GameState LiveState => _state;
 
     /// <summary>
     /// Gets set of events that have occurred in the game.
@@ -50,7 +52,7 @@ public sealed class Cribbage
     /// <summary>Exceptions raised by external listeners, in notification order.</summary>
     public IReadOnlyCollection<Exception> ListenerFailures => _listenerFailures.ToArray();
 
-    private int NewVersion => State.Version + 1;
+    private int NewVersion => _state.Version + 1;
 
     private void Execute(Action action)
     {
@@ -81,19 +83,19 @@ public sealed class Cribbage
     private void CutCardCore(CutCardCommand command)
     {
         var validation = new CutCardCommandValidation();
-        validation.Validate(State, command);
+        validation.Validate(_state, command);
 
-        var cardCutEvent = new CardCutEvent(State.Id, 1, command.PlayerId, command.CutCard);
+        var cardCutEvent = new CardCutEvent(_state.Id, 1, command.PlayerId, command.CutCard);
         Emit(cardCutEvent);
 
-        if (State.OpeningRound.Complete)
+        if (_state.OpeningRound.Complete)
         {
-            Emit(new RoundStartedEvent(State.Id, NewVersion));
+            Emit(new RoundStartedEvent(_state.Id, NewVersion));
             _deck.Shuffle();
-            Emit(new DeckShuffledEvent(State.Id, NewVersion, _deck.ToList()));
-            var playerHands = _dealer.Deal(_deck, State.PlayerIds, State.PlayerIds.NextOf(State.OpeningRound.WinningPlayerCut!.Value),
-                State.GameRules.GetDealSize(State.PlayerIds.Count)); // get next player from who won cut.
-            Emit(new HandsDealtEvent(State.Id, NewVersion, playerHands));
+            Emit(new DeckShuffledEvent(_state.Id, NewVersion, _deck.ToList()));
+            var playerHands = _dealer.Deal(_deck, _state.PlayerIds, _state.PlayerIds.NextOf(_state.OpeningRound.WinningPlayerCut!.Value),
+                _state.GameRules.GetDealSize(_state.PlayerIds.Count)); // get next player from who won cut.
+            Emit(new HandsDealtEvent(_state.Id, NewVersion, playerHands));
         }
     }
 
@@ -106,20 +108,20 @@ public sealed class Cribbage
     private void ThrowCardsCore(ThrowCardsCommand command)
     {
         var validation = new ThrowCardsCommandValidation();
-        var cardsThrown = new CardsThrownEvent(State.Id, NewVersion, command.PlayerId, command.CribCards.ToList());
-        validation.Validate(State, command);
+        var cardsThrown = new CardsThrownEvent(_state.Id, NewVersion, command.PlayerId, command.CribCards.ToList());
+        validation.Validate(_state, command);
 
         Emit(cardsThrown);
-        var currentRound = State.GetCurrentRound();
+        var currentRound = _state.GetCurrentRound();
         if (currentRound.ThrowCardsComplete)
         {
             var cardsNotDealt = _deck.Except(currentRound.Crib).Except(currentRound.Hands.SelectMany(s => s.Hand))
                 .ToList();
             var randomIndex = ChooseStarterIndex(RandomProvider.GetThreadRandom(), cardsNotDealt.Count);
             var startingCard = cardsNotDealt[randomIndex];
-            Emit(new StarterCardSelectedEvent(State.Id, NewVersion, startingCard));
-            if (State.IsGameFinished()) return;
-            Emit(new PlayStartedEvent(State.Id, NewVersion, currentRound.Round));
+            Emit(new StarterCardSelectedEvent(_state.Id, NewVersion, startingCard));
+            if (_state.IsGameFinished()) return;
+            Emit(new PlayStartedEvent(_state.Id, NewVersion, currentRound.Round));
         }
     }
 
@@ -132,13 +134,13 @@ public sealed class Cribbage
     private void PlayCardCore(PlayCardCommand command)
     {
         var validation = new PlayCardCommandValidation();
-        var @event = new CardPlayedEvent(State.Id, NewVersion, command.PlayerId, command.Card);
-        validation.Validate(State, command);
+        var @event = new CardPlayedEvent(_state.Id, NewVersion, command.PlayerId, command.Card);
+        validation.Validate(_state, command);
         Emit(@event);
 
-        if (!State.IsGameFinished() && State.GetCurrentRound().PlayedCardsComplete)
+        if (!_state.IsGameFinished() && _state.GetCurrentRound().PlayedCardsComplete)
         {
-            Emit(new PlayFinishedEvent(State.Id, NewVersion, State.GetCurrentRound().Round));
+            Emit(new PlayFinishedEvent(_state.Id, NewVersion, _state.GetCurrentRound().Round));
         }
     }
 
@@ -151,8 +153,8 @@ public sealed class Cribbage
     private void CountHandCore(CountHandCommand command)
     {
         var validation = new CountHandCommandValidation();
-        var @event = new HandCountedEvent(State.Id, NewVersion, command.PlayerId, command.Score);
-        validation.Validate(State, command);
+        var @event = new HandCountedEvent(_state.Id, NewVersion, command.PlayerId, command.Score);
+        validation.Validate(_state, command);
         Emit(@event);
     }
 
@@ -165,18 +167,18 @@ public sealed class Cribbage
     private void CountCribCore(CountCribCommand command)
     {
         var validation = new CountCribCommandValidation();
-        var @event = new CribCountedEvent(State.Id, NewVersion, command.PlayerId, command.Score);
-        validation.Validate(State, command);
+        var @event = new CribCountedEvent(_state.Id, NewVersion, command.PlayerId, command.Score);
+        validation.Validate(_state, command);
         Emit(@event);
 
-        if (State.IsGameFinished()) return;
-        Emit(new RoundStartedEvent(State.Id, NewVersion));
+        if (_state.IsGameFinished()) return;
+        Emit(new RoundStartedEvent(_state.Id, NewVersion));
         _deck.Shuffle(3);
-        Emit(new DeckShuffledEvent(State.Id, NewVersion, _deck.ToList()));
-        var playerHands = _dealer.Deal(_deck, State.PlayerIds,
-            State.PlayerIds.NextOf(State.PlayerIds.NextOf(command.PlayerId)),
-            State.GameRules.GetDealSize(State.PlayerIds.Count));
-        Emit(new HandsDealtEvent(State.Id, NewVersion, playerHands));
+        Emit(new DeckShuffledEvent(_state.Id, NewVersion, _deck.ToList()));
+        var playerHands = _dealer.Deal(_deck, _state.PlayerIds,
+            _state.PlayerIds.NextOf(_state.PlayerIds.NextOf(command.PlayerId)),
+            _state.GameRules.GetDealSize(_state.PlayerIds.Count));
+        Emit(new HandsDealtEvent(_state.Id, NewVersion, playerHands));
     }
 
     internal static int ChooseStarterIndex(Random random, int count) => random.Next(count);
@@ -185,7 +187,7 @@ public sealed class Cribbage
     {
         Stream.Add(@event);
         if ((@event is StarterCardSelectedEvent or CardPlayedEvent or HandCountedEvent or CribCountedEvent) &&
-            State.IsGameFinished() && State.CompletedAt is null)
-            Stream.Add(new GameCompletedEvent(State.Id, NewVersion));
+            _state.IsGameFinished() && _state.CompletedAt is null)
+            Stream.Add(new GameCompletedEvent(_state.Id, NewVersion));
     }
 }
