@@ -128,7 +128,7 @@ public class LinqExtendedTests
     public void TakeEvery_WithNullSource_ThrowsArgumentNullException()
     {
         // Arrange
-        IEnumerable<int> numbers = null;
+        IEnumerable<int> numbers = null!;
 
         // Act
         var act = () => numbers.TakeEvery(2).ToList();
@@ -154,7 +154,7 @@ public class LinqExtendedTests
     public void Infinite_WithNullSource_ThrowsArgumentNullException()
     {
         // Arrange
-        IEnumerable<int> numbers = null;
+        IEnumerable<int> numbers = null!;
 
         // Act
         var act = () => numbers.Infinite().Take(1).ToList();

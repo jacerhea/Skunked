@@ -145,7 +145,7 @@ public sealed class CribbageTests
         var round = game.LiveState.GetCurrentRound();
         var firstShowerId = game.LiveState.GetNextPlayerFrom(round.PlayerCrib);
         var hand = round.Hands.Single(h => h.PlayerId == firstShowerId).Hand;
-        var score = new ScoreCalculator().CountShowPoints(round.Starter, hand).Points.Score;
+        var score = new ScoreCalculator().CountShowPoints(round.Starter ?? throw new InvalidOperationException("Missing starter"), hand).Points.Score;
 
         // Act
         game.CountHand(new CountHandCommand(firstShowerId, score));
@@ -162,7 +162,7 @@ public sealed class CribbageTests
         CompletePlays(game);
         CompleteHandCounts(game);
         var round = game.LiveState.GetCurrentRound();
-        var cribScore = new ScoreCalculator().CountShowPoints(round.Starter, round.Crib, true).Points.Score;
+        var cribScore = new ScoreCalculator().CountShowPoints(round.Starter ?? throw new InvalidOperationException("Missing starter"), round.Crib, true).Points.Score;
 
         // Act
         game.CountCrib(new CountCribCommand(round.PlayerCrib, cribScore));
@@ -223,7 +223,7 @@ public sealed class CribbageTests
         for (var i = 0; i < game.LiveState.PlayerIds.Count; i++)
         {
             var hand = round.Hands.Single(h => h.PlayerId == current).Hand;
-            var score = scorer.CountShowPoints(round.Starter, hand).Points.Score;
+            var score = scorer.CountShowPoints(round.Starter ?? throw new InvalidOperationException("Missing starter"), hand).Points.Score;
             game.CountHand(new CountHandCommand(current, score));
             current = game.LiveState.GetNextPlayerFrom(current);
         }

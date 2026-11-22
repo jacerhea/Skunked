@@ -100,6 +100,7 @@ public class ScoreCalculatorTests
         var combos = _scoreCalculator.GetCombinations(hand);
 
         var pairsCombinations = _scoreCalculator.FindPairs(combos);
+        Assert.NotNull(pairsCombinations);
         pairsCombinations.Count.Should().Be(2);
     }
 
@@ -150,6 +151,7 @@ public class ScoreCalculatorTests
         var combos = _scoreCalculator.GetCombinations(hand);
 
         var pairsCombinations = _scoreCalculator.FindPairs(combos);
+        Assert.NotNull(pairsCombinations);
         pairsCombinations.Count.Should().Be(3);
     }
 
@@ -165,6 +167,7 @@ public class ScoreCalculatorTests
         };
 
         var pairsCombinations = _scoreCalculator.FindFlush(hand, new Card(Rank.Queen, Suit.Clubs));
+        Assert.NotNull(pairsCombinations);
         pairsCombinations.Count.Should().Be(4);
     }
 
@@ -180,6 +183,7 @@ public class ScoreCalculatorTests
         };
 
         var pairsCombinations = _scoreCalculator.FindFlush(hand, new Card(Rank.Queen, Suit.Spades));
+        Assert.NotNull(pairsCombinations);
         pairsCombinations.Count.Should().Be(5);
     }
 
@@ -320,7 +324,7 @@ public class ScoreCalculatorTests
                 new(Rank.Seven, Suit.Spades),
                 new(Rank.Queen, Suit.Hearts),
                 new(Rank.Jack, Suit.Clubs)
-            }, new Card(Rank.Three, Suit.Diamonds) , null },
+            }, new Card(Rank.Three, Suit.Diamonds) , null! },
             new object[] { new List<Card>
             {
                 new(Rank.Six, Suit.Spades),

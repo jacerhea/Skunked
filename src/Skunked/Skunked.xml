@@ -1021,7 +1021,7 @@
         </member>
         <member name="P:Skunked.RoundState.Starter">
             <summary>
-            Gets or sets the starter card.
+            Gets or sets the starter card, or null until it has been selected.
             </summary>
         </member>
         <member name="P:Skunked.RoundState.Round">

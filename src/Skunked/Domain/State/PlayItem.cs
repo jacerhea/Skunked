@@ -14,7 +14,7 @@ public sealed record PlayItem
     /// <summary>
     /// Card played.
     /// </summary>
-    public Card Card { get; set; }
+    public required Card Card { get; set; }
 
     /// <summary>
     /// The count of the cards played.

@@ -6,13 +6,16 @@ public class DistributionService
 {
     private readonly ScoreCalculator _scoreCalculator;
 
-    public DistributionService(ScoreCalculator scoreCalculator = null)
+    public DistributionService(ScoreCalculator? scoreCalculator = null)
     {
         _scoreCalculator = scoreCalculator ?? new ScoreCalculator();
     }
 
     public Distribution CalculateDistribution(List<Card> hand)
     {
+        ArgumentNullException.ThrowIfNull(hand);
+        if (hand.Count < 4 || hand.Count >= 52 || hand.Distinct().Count() != hand.Count)
+            throw new ArgumentException("A hand must contain at least four distinct cards and leave a possible starter.", nameof(hand));
         var handCopy = hand.ToList();
         var combinations = new Combinations<Card>(handCopy, 4);
         var deck = new Deck();
@@ -44,23 +47,23 @@ public class DistributionService
             Sets = distributionSets,
             Mean = mean,
             Median = median[(int)Math.Floor(median.Count / 2M)],
-            Mode = distributionSets.MaxBy(ds => ds.Count).Score,
-            Range = new Range<int> { Upper = distributionSets.MaxBy(ds => ds.Score).Score, Lower = distributionSets.MinBy(ds => ds.Score).Score },
+            Mode = distributionSets.MaxBy(ds => ds.Count)!.Score,
+            Range = new Range<int> { Upper = distributionSets.MaxBy(ds => ds.Score)!.Score, Lower = distributionSets.MinBy(ds => ds.Score)!.Score },
             StandardDeviation = Math.Sqrt(squaredDifferences / resultCount),
-            BestCut = comboPossibleScorings.SelectMany(spc => spc.PossibleScores).MaxBy(ps => ps.Score).Cut
+            BestCut = comboPossibleScorings.SelectMany(spc => spc.PossibleScores).MaxBy(ps => ps.Score)!.Cut
         };
     }
 }
 
 public class Distribution
 {
-    public List<DistributionSet> Sets { get; set; }
+    public required List<DistributionSet> Sets { get; set; }
     public decimal Mean { get; set; }
     public int Median { get; set; }
     public int Mode { get; set; }
-    public Range<int> Range { get; set; }
+    public required Range<int> Range { get; set; }
     public double StandardDeviation { get; set; }
-    public Card BestCut { get; set; }
+    public required Card BestCut { get; set; }
 }
 
 public class DistributionSet
@@ -71,6 +74,6 @@ public class DistributionSet
 
 public class Range<T>
 {
-    public T Upper { get; set; }
-    public T Lower { get; set; }
+    public required T Upper { get; set; }
+    public required T Lower { get; set; }
 }
