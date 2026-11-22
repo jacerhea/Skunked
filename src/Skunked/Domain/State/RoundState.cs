@@ -6,9 +6,9 @@
 public sealed record RoundState
 {
     /// <summary>
-    /// Gets or sets the starter card.
+    /// Gets or sets the starter card, or null until it has been selected.
     /// </summary>
-    public Card Starter { get; set; }
+    public Card? Starter { get; set; }
 
     /// <summary>
     /// Gets or sets round number.

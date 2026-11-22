@@ -22,7 +22,8 @@ public static class GameStateExtensions
     /// <returns>The current round.</returns>
     public static RoundState GetCurrentRound(this GameState gameState)
     {
-        return gameState.Rounds.MaxBy(round => round.Round) !;
+        return gameState.Rounds.MaxBy(round => round.Round)
+            ?? throw new InvalidOperationException("No round has started.");
     }
 
     /// <summary>

@@ -109,7 +109,7 @@ public class HandCountedEventValidationTests
         var scorer = new ScoreCalculator();
         var round = state.GetCurrentRound();
         var hand = round.Hands.Single(h => h.PlayerId == 2).Hand;
-        var score = scorer.CountShowPoints(round.Starter, hand).Points.Score;
+        var score = scorer.CountShowPoints(round.Starter ?? throw new InvalidOperationException("Missing starter"), hand).Points.Score;
         var command = new CountHandCommand(2, score);
         var validation = new CountHandCommandValidation();
 

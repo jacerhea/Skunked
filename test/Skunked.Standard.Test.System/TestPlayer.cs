@@ -62,7 +62,7 @@ public class TestPlayer : IEquatable<TestPlayer>, IGameRunnerPlayer
         return _calculator.CountShowPoints(starter, hand).Points.Score;
     }
 
-    public bool Equals(TestPlayer other)
+    public bool Equals(TestPlayer? other)
     {
         return other?.Id == Id;
     }

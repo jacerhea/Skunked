@@ -46,7 +46,7 @@ while (true)
         var isFirstPlay = currentRound.ThePlay.Count == 1 && lastPlayerPlayItem == null;
         var player = isFirstPlay
             ? players.NextOf(players.Single(p => p.Id == currentRound.PlayerCrib))
-            : players.Single(p => p.Id == lastPlayerPlayItem.NextPlayer);
+            : players.Single(p => p.Id == (lastPlayerPlayItem?.NextPlayer ?? throw new InvalidOperationException("No next player is available.")));
         var playedCards = currentRound.ThePlay.SelectMany(ppi => ppi).Select(ppi => ppi.Card).ToList();
         var handLeft = currentRound.Hands.Single(playerHand => playerHand.PlayerId == player.Id).Hand
             .Except(playedCards).ToList();
@@ -57,18 +57,19 @@ while (true)
         currentRound = cribbage.State.GetCurrentRound();
     }
 
+    var starter = currentRound.Starter ?? throw new InvalidOperationException("The starter card has not been selected.");
     var startingPlayer = players.Single(player =>
         player.Id == cribbage.State.GetNextPlayerFrom(currentRound.PlayerCrib));
     foreach (var player in players.Infinite().Skip(players.IndexOf(startingPlayer)).Take(players.Count)
                  .ToList())
     {
-        var playerCount = player.CountHand(currentRound.Starter,
+        var playerCount = player.CountHand(starter,
             currentRound.Hands.Single(playerHand => playerHand.PlayerId == player.Id).Hand);
         cribbage.CountHand(new CountHandCommand(player.Id, playerCount));
     }
 
     var cribCount = players.Single(p => p.Id == currentRound.PlayerCrib)
-        .CountHand(currentRound.Starter, currentRound.Crib);
+        .CountCrib(starter, currentRound.Crib);
 
     cribbage.CountCrib(new CountCribCommand(currentRound.PlayerCrib, cribCount));
 }

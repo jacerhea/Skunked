@@ -14,7 +14,7 @@ public class StarterVictoryTests
             game.LiveState.TeamScores.Single(t=>t.Players.Contains(dealer)).Score=60;
             foreach(var id in game.State.PlayerIds)
                 game.ThrowCards(new(id,game.State.GetCurrentRound().DealtCards.Single(h=>h.PlayerId==id).Hand.Take(2)));
-            if (game.State.GetCurrentRound().Starter.Rank != Rank.Jack) continue;
+            if (game.State.GetCurrentRound().Starter?.Rank != Rank.Jack) continue;
             Assert.IsType<GameCompletedEvent>(game.Stream.Last());
             Assert.DoesNotContain(game.Stream, e => e is PlayStartedEvent);
             Assert.NotNull(game.State.CompletedAt);

@@ -22,7 +22,7 @@ public sealed class CountHandCommandValidation : ValidationBase, IValidation<Cou
         var currentRound = gameState.GetCurrentRound();
 
         ValidateCore(gameState, command.PlayerId, currentRound.Round);
-        if (currentRound.Complete || !currentRound.ThrowCardsComplete || !currentRound.PlayedCardsComplete)
+        if (currentRound.Complete || !currentRound.ThrowCardsComplete || !currentRound.PlayedCardsComplete || currentRound.Starter is null)
         {
             throw new InvalidCribbageOperationException(InvalidCribbageOperation.InvalidStateForCount);
         }

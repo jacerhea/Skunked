@@ -182,7 +182,8 @@ public sealed class GameStateBuilder : IEventListener
         }
         else
         {
-            cribPlayerId = gameState.OpeningRound.WinningPlayerCut.Value;
+            cribPlayerId = gameState.OpeningRound.WinningPlayerCut
+                ?? throw new InvalidOperationException("The opening cut must be completed before the round starts.");
         }
 
         var roundState = new RoundState
@@ -320,7 +321,7 @@ public sealed class GameStateBuilder : IEventListener
     private void Handle(HandCountedEvent streamEvent, GameState gameState)
     {
         var roundState = gameState.GetCurrentRound();
-        var starterCard = roundState.Starter;
+        var starterCard = roundState.Starter ?? throw new InvalidOperationException("The starter card has not been selected.");
         var playerHand = roundState.Hands.First(ph => ph.PlayerId == streamEvent.PlayerId);
 
         var calculatedShowScore = _scoreCalculator.CountShowPoints(starterCard, playerHand.Hand);
@@ -345,7 +346,7 @@ public sealed class GameStateBuilder : IEventListener
     private void Handle(CribCountedEvent streamEvent, GameState gameState)
     {
         var currentRound = gameState.GetCurrentRound();
-        var starterCard = currentRound.Starter;
+        var starterCard = currentRound.Starter ?? throw new InvalidOperationException("The starter card has not been selected.");
         var crib = currentRound.Crib;
 
         var calculatedCribShowScore = _scoreCalculator.CountShowPoints(starterCard, crib, isCrib: true);
