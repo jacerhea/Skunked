@@ -13,8 +13,8 @@
 Run these commands from the repository root with the .NET 10 SDK and .NET 8, 9, and 10 runtimes installed:
 
 ```sh
-dotnet build Skunked.sln -c Release
-dotnet test Skunked.sln -c Release
+dotnet build Skunked.slnx -c Release
+dotnet test Skunked.slnx -c Release
 dotnet run --project examples/GettingStarted/GettingStarted.csproj -c Release
 pwsh ./scripts/Verify-Packages.ps1
 ```

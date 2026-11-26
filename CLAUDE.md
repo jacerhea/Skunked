@@ -7,8 +7,8 @@ Skunked is a cribbage engine and scoring library for .NET. The core library is i
 Use the .NET 10 SDK from `global.json`. The core library and its unit tests target .NET 8, 9, and 10; the AI, console, system tests, and AI tests target .NET 10. Install the corresponding runtimes when running all tests.
 
 ```sh
-dotnet build Skunked.sln -c Release
-dotnet test Skunked.sln -c Release
+dotnet build Skunked.slnx -c Release
+dotnet test Skunked.slnx -c Release
 dotnet run --project examples/GettingStarted/GettingStarted.csproj -c Release
 pwsh ./scripts/Verify-Packages.ps1
 ```

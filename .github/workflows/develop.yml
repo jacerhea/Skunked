@@ -16,9 +16,9 @@ jobs:
       - name: Show selected SDK
         run: dotnet --version
       - name: Restore solution
-        run: dotnet restore Skunked.sln
+        run: dotnet restore Skunked.slnx
       - name: Build solution
-        run: dotnet build Skunked.sln --configuration Release --no-restore
+        run: dotnet build Skunked.slnx --configuration Release --no-restore
       - name: Core unit tests
         run: dotnet test test/Skunked.UnitTest/Skunked.UnitTest.csproj --configuration Release --no-build
       - name: Full-game system tests

@@ -149,19 +149,19 @@ public sealed class HumanConsolePlayer : IGameRunnerPlayer
     {
         var (symbol, color) = c.Suit switch
         {
-            Suit.Hearts   => ("?", ConsoleColor.Red),
-            Suit.Diamonds => ("?", ConsoleColor.Red),
-            Suit.Clubs    => ("?", ConsoleColor.White),
-            Suit.Spades   => ("?", ConsoleColor.White),
-            _             => ("?", ConsoleColor.White)
+            Suit.Hearts => ("♥", ConsoleColor.Red),
+            Suit.Diamonds => ("♦", ConsoleColor.Red),
+            Suit.Clubs => ("♣", ConsoleColor.White),
+            Suit.Spades => ("♠", ConsoleColor.White),
+            _ => ("?", ConsoleColor.White)
         };
         var rank = c.Rank switch
         {
-            Rank.Ace   => "A",
-            Rank.Jack  => "J",
+            Rank.Ace => "A",
+            Rank.Jack => "J",
             Rank.Queen => "Q",
-            Rank.King  => "K",
-            _          => ((int)c.Rank).ToString()
+            Rank.King => "K",
+            _ => ((int)c.Rank).ToString()
         };
         _console.Write(color, $"{rank}{symbol}");
     }

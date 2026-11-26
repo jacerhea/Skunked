@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Skunked.Console",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build Skunked.Console",
+            "program": "${workspaceFolder}/src/Skunked.Console/bin/Debug/net10.0/Skunked.ConsoleApp.dll",
+            "cwd": "${workspaceFolder}/src/Skunked.Console",
+            "console": "integratedTerminal"
+        }
+    ]
+}

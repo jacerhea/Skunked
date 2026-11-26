@@ -49,8 +49,8 @@ Send `ThrowCardsCommand`, `PlayCardCommand`, `CountHandCommand`, and `CountCribC
 ## Build and test
 
 ```sh
-dotnet build Skunked.sln -c Release
-dotnet test Skunked.sln -c Release
+dotnet build Skunked.slnx -c Release
+dotnet test Skunked.slnx -c Release
 ```
 
 The core unit tests run on .NET 8, 9, and 10. The system and AI tests run on .NET 10. When changing core framework support, update the target list, CI matrix, and this document together. See [CONTRIBUTING.md](CONTRIBUTING.md) for API and documentation conventions.
