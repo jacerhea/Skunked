@@ -1,4 +1,4 @@
-﻿using Konsole;
+using Konsole;
 
 namespace Skunked.ConsoleApp;
 
@@ -45,9 +45,18 @@ public sealed class HumanConsolePlayer : IGameRunnerPlayer
 
     public Card DetermineCardsToPlay(GameRules gameRules, IEnumerable<Card> pile, IEnumerable<Card> handLeft)
     {
-        // Pegging not used in this simplified sample. If used, prompt similarly.
-        // Return the first card as placeholder to satisfy interface if called.
-        return handLeft.First();
+        var calculator = new ScoreCalculator();
+        var count = calculator.SumValues(pile);
+        var legal = handLeft.Where(card => count + calculator.SumValues([card]) <= GameRules.Points.MaxPlayCount).ToList();
+        if (legal.Count == 0) throw new InvalidOperationException("No legal card is available.");
+        _console.WriteLine($"Current count: {count}. Choose a card to play:");
+        foreach (var (index, card) in legal.Index())
+        {
+            _console.Write($"[{index}] ");
+            WriteCard(card);
+            _console.WriteLine("");
+        }
+        return legal[ReadIndex(0, legal.Count - 1)];
     }
 
     public Card CutCards(IEnumerable<Card> cardsToChoose)
@@ -140,10 +149,10 @@ public sealed class HumanConsolePlayer : IGameRunnerPlayer
     {
         var (symbol, color) = c.Suit switch
         {
-            Suit.Hearts   => ("♥", ConsoleColor.Red),
-            Suit.Diamonds => ("♦", ConsoleColor.Red),
-            Suit.Clubs    => ("♣", ConsoleColor.White),
-            Suit.Spades   => ("♠", ConsoleColor.White),
+            Suit.Hearts   => ("?", ConsoleColor.Red),
+            Suit.Diamonds => ("?", ConsoleColor.Red),
+            Suit.Clubs    => ("?", ConsoleColor.White),
+            Suit.Spades   => ("?", ConsoleColor.White),
             _             => ("?", ConsoleColor.White)
         };
         var rank = c.Rank switch
