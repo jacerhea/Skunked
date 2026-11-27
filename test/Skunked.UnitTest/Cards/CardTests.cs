@@ -1,6 +1,5 @@
-﻿using System.Text.Encodings.Web;
+using System.Text.Encodings.Web;
 using System.Text.Json;
-using FluentAssertions;
 using Xunit;
 
 namespace Skunked.UnitTest.Cards;
@@ -11,8 +10,8 @@ public class CardTests
     public void Card_Constructor_With_Rank_And_Suit_Will_Set_Rank_And_Suit_Correctly()
     {
         var card = new Card(Rank.King, Suit.Hearts);
-        card.Rank.Should().Be(Rank.King);
-        card.Suit.Should().Be(Suit.Hearts);
+        Assert.Equal(Rank.King, card.Rank);
+        Assert.Equal(Suit.Hearts, card.Suit);
     }
 
     [Fact]
@@ -20,9 +19,9 @@ public class CardTests
     {
         var original = new Card(Rank.Four, Suit.Spades);
         var testCard = new Card(original);
-        original.Rank.Should().Be(Rank.Four);
-        original.Suit.Should().Be(Suit.Spades);
-        original.Should().Be(testCard);
+        Assert.Equal(Rank.Four, original.Rank);
+        Assert.Equal(Suit.Spades, original.Suit);
+        Assert.Equal(testCard, original);
     }
 
     [Fact]
@@ -32,8 +31,8 @@ public class CardTests
 
         var serializedCard = JsonSerializer.Serialize(original);
         var deserializedCard = JsonSerializer.Deserialize<Card>(serializedCard);
-        original.Rank.Should().Be(Rank.Four);
-        original.Suit.Should().Be(Suit.Spades);
-        deserializedCard.Should().Be(original);
+        Assert.Equal(Rank.Four, original.Rank);
+        Assert.Equal(Suit.Spades, original.Suit);
+        Assert.Equal(original, deserializedCard);
     }
 }

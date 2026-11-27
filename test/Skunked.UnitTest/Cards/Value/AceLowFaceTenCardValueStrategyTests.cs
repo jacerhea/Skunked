@@ -1,4 +1,3 @@
-﻿using FluentAssertions;
 using Xunit;
 
 namespace Skunked.UnitTest.Cards.Value;
@@ -30,7 +29,7 @@ public class AceLowFaceTenCardValueStrategyTests
         foreach (var testCase in expectedValues)
         {
             int calculatedValue = strategy.GetValue(testCase.Item1);
-            calculatedValue.Should().Be(testCase.Item2);
+            Assert.Equal(testCase.Item2, calculatedValue);
         }
     }
 
@@ -39,6 +38,6 @@ public class AceLowFaceTenCardValueStrategyTests
     {
         var strategy = new AceLowFaceTenCardValueStrategy();
         Action valueOf = () => strategy.GetValue(null!);
-        valueOf.Should().Throw<ArgumentNullException>();
+        Assert.ThrowsAny<ArgumentNullException>(valueOf);
     }
 }

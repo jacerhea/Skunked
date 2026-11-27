@@ -1,4 +1,3 @@
-﻿using FluentAssertions;
 using Xunit;
 
 namespace Skunked.UnitTest.Score;
@@ -25,13 +24,13 @@ public class ScoreCalculatorTests
         };
 
         var resultSets = _scoreCalculator.GetCombinations(hand);
-        resultSets.Count.Should().Be(5);
+        Assert.Equal(5, resultSets.Count);
 
-        resultSets[1].Count.Should().Be(5);
-        resultSets[2].Count.Should().Be(10);
-        resultSets[3].Count.Should().Be(10);
-        resultSets[4].Count.Should().Be(5);
-        resultSets[5].Count.Should().Be(1);
+        Assert.Equal(5, resultSets[1].Count);
+        Assert.Equal(10, resultSets[2].Count);
+        Assert.Equal(10, resultSets[3].Count);
+        Assert.Equal(5, resultSets[4].Count);
+        Assert.Single(resultSets[5]);
     }
 
     [Fact]
@@ -46,7 +45,7 @@ public class ScoreCalculatorTests
         };
 
         var result = _scoreCalculator.CountShowPoints(new Card(Rank.Two, Suit.Spades), hand);
-        result.Combinations.Fifteens.Count.Should().Be(2);
+        Assert.Equal(2, result.Combinations.Fifteens.Count);
     }
 
     [Fact]
@@ -64,7 +63,7 @@ public class ScoreCalculatorTests
         var combos = _scoreCalculator.GetCombinations(hand);
 
         var combosMakeRuns = _scoreCalculator.FindRuns(combos);
-        combosMakeRuns.Count.Should().Be(2);
+        Assert.Equal(2, combosMakeRuns.Count);
     }
 
     [Fact]
@@ -82,7 +81,7 @@ public class ScoreCalculatorTests
         var combos = _scoreCalculator.GetCombinations(hand);
 
         var combosMakeRuns = _scoreCalculator.FindRuns(combos);
-        combosMakeRuns.Count.Should().Be(2);
+        Assert.Equal(2, combosMakeRuns.Count);
     }
 
     [Fact]
@@ -101,7 +100,7 @@ public class ScoreCalculatorTests
 
         var pairsCombinations = _scoreCalculator.FindPairs(combos);
         Assert.NotNull(pairsCombinations);
-        pairsCombinations.Count.Should().Be(2);
+        Assert.Equal(2, pairsCombinations.Count);
     }
 
     [Fact]
@@ -117,7 +116,7 @@ public class ScoreCalculatorTests
 
         var areSameKind = _scoreCalculator.IsSameKind(hand);
 
-        areSameKind.Should().BeTrue();
+        Assert.True(areSameKind);
     }
 
     [Fact]
@@ -133,7 +132,7 @@ public class ScoreCalculatorTests
 
         var areNotSameKind = _scoreCalculator.IsSameKind(hand);
 
-        areNotSameKind.Should().BeFalse();
+        Assert.False(areNotSameKind);
     }
 
     [Fact]
@@ -152,7 +151,7 @@ public class ScoreCalculatorTests
 
         var pairsCombinations = _scoreCalculator.FindPairs(combos);
         Assert.NotNull(pairsCombinations);
-        pairsCombinations.Count.Should().Be(3);
+        Assert.Equal(3, pairsCombinations.Count);
     }
 
     [Fact]
@@ -168,7 +167,7 @@ public class ScoreCalculatorTests
 
         var pairsCombinations = _scoreCalculator.FindFlush(hand, new Card(Rank.Queen, Suit.Clubs));
         Assert.NotNull(pairsCombinations);
-        pairsCombinations.Count.Should().Be(4);
+        Assert.Equal(4, pairsCombinations.Count);
     }
 
     [Fact]
@@ -184,7 +183,7 @@ public class ScoreCalculatorTests
 
         var pairsCombinations = _scoreCalculator.FindFlush(hand, new Card(Rank.Queen, Suit.Spades));
         Assert.NotNull(pairsCombinations);
-        pairsCombinations.Count.Should().Be(5);
+        Assert.Equal(5, pairsCombinations.Count);
     }
 
     [Fact]
@@ -199,7 +198,7 @@ public class ScoreCalculatorTests
         };
 
         var pairsCombinations = _scoreCalculator.FindFlush(hand, new Card(Rank.Queen, Suit.Spades));
-        pairsCombinations.Should().BeNull();
+        Assert.Null(pairsCombinations);
     }
 
     [Fact]
@@ -214,11 +213,11 @@ public class ScoreCalculatorTests
         };
 
         var score = _scoreCalculator.CountShowPoints(new Card(Rank.Five, Suit.Spades), hand);
-        score.Points.Score.Should().Be(29);
-        score.Points.PairScore.Should().Be(12);
-        score.Points.NobScore.Should().Be(1);
-        score.Points.FifteenScore.Should().Be(16);
-        score.Points.FlushScore.Should().Be(0);
+        Assert.Equal(29, score.Points.Score);
+        Assert.Equal(12, score.Points.PairScore);
+        Assert.Equal(1, score.Points.NobScore);
+        Assert.Equal(16, score.Points.FifteenScore);
+        Assert.Equal(0, score.Points.FlushScore);
     }
 
 
@@ -234,12 +233,12 @@ public class ScoreCalculatorTests
         };
 
         var scoreResult = _scoreCalculator.CountShowPoints(new Card(Rank.Seven, Suit.Diamonds), hand);
-        scoreResult.Points.Score.Should().Be(24);
-        scoreResult.Points.PairScore.Should().Be(4);
-        scoreResult.Points.NobScore.Should().Be(0);
-        scoreResult.Points.FifteenScore.Should().Be(8);
-        scoreResult.Points.FlushScore.Should().Be(0);
-        scoreResult.Points.RunScore.Should().Be(12);
+        Assert.Equal(24, scoreResult.Points.Score);
+        Assert.Equal(4, scoreResult.Points.PairScore);
+        Assert.Equal(0, scoreResult.Points.NobScore);
+        Assert.Equal(8, scoreResult.Points.FifteenScore);
+        Assert.Equal(0, scoreResult.Points.FlushScore);
+        Assert.Equal(12, scoreResult.Points.RunScore);
     }
 
     [Fact]
@@ -257,7 +256,7 @@ public class ScoreCalculatorTests
         };
 
         var totalScore = _scoreCalculator.CountPlayPoints(play);
-        totalScore.Should().Be(14);
+        Assert.Equal(14, totalScore);
     }
 
     [Fact]
@@ -272,7 +271,7 @@ public class ScoreCalculatorTests
         };
 
         var isFifteen = _scoreCalculator.IsFifteen(play);
-        isFifteen.Should().BeFalse();
+        Assert.False(isFifteen);
     }
 
     [Fact]
@@ -288,7 +287,7 @@ public class ScoreCalculatorTests
         };
 
         var isFifteen = _scoreCalculator.IsFifteen(play);
-        isFifteen.Should().BeTrue();
+        Assert.True(isFifteen);
     }
 
     [Theory]
@@ -296,7 +295,7 @@ public class ScoreCalculatorTests
     public void ScoreCalculatorDoesNotHaveNobsTest(IEnumerable<Card> play, Card starter, Card expectation)
     {
         var hasNobs = _scoreCalculator.FindNobs(play, starter);
-        hasNobs.Should().Be(expectation);
+        Assert.Equal(expectation, hasNobs);
     }
 
     [Theory]
@@ -304,7 +303,7 @@ public class ScoreCalculatorTests
     public void ScoreCalculatorAreContinuous(List<int> play, bool expectation)
     {
         var areContinuous = _scoreCalculator.IsContinuous(play);
-        areContinuous.Should().Be(expectation);
+        Assert.Equal(expectation, areContinuous);
     }
 
     [Theory]
@@ -312,7 +311,7 @@ public class ScoreCalculatorTests
     public void FiveSixSeven_Is_A_Run(List<Card> hand, bool expectation)
     {
         var isRun = _scoreCalculator.IsRun(hand);
-        isRun.Should().Be(expectation);
+        Assert.Equal(expectation, isRun);
     }
 
     public static IEnumerable<object[]> NobsTestData =>

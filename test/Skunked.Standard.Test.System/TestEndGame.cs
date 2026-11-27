@@ -1,4 +1,3 @@
-﻿using FluentAssertions;
 using Xunit;
 
 namespace Skunked.Test.System;
@@ -12,9 +11,9 @@ public static class TestEndGame
             Assert.Equal(teamScore.Score, gameState.IndividualScores.Where(s => teamScore.Players.Contains(s.Player)).Sum(ps => ps.Score));
         }   
          
-        gameState.TeamScores.Count(ts => ts.Score >= gameState.GameRules.WinningScore).Should().Be(1);
+        Assert.Equal(1, gameState.TeamScores.Count(ts => ts.Score >= gameState.GameRules.WinningScore));
 
-        gameState.IsGameFinished().Should().BeTrue();
+        Assert.True(gameState.IsGameFinished());
         Assert.True(gameState.Rounds.All(r => r.DealtCards.Select(p => p.Hand).All(cards => cards.Distinct().Count() == gameState.GameRules.GetDealSize(gameState.PlayerIds.Count))));
         Assert.True(gameState.Rounds.All(r => r.Hands.Select(p => p.Hand).All(cards => cards.Distinct().Count() == GameRules.HandSize)));
 

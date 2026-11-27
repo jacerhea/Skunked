@@ -1,4 +1,3 @@
-﻿using FluentAssertions;
 using Xunit;
 
 namespace Skunked.UnitTest.Domain.Validations;
@@ -30,8 +29,7 @@ public class CardsThrownEventValidationTests
         var command = new PlayCardCommand(1, new Card(Rank.Eight, Suit.Clubs));
         var validation = new PlayCardCommandValidation();
         Action validate = () => validation.Validate(state, command);
-        validate.Should().Throw<InvalidCribbageOperationException>()
-            .And.Operation.Should().Be(InvalidCribbageOperation.InvalidStateForPlay);
+        Assert.Equal(InvalidCribbageOperation.InvalidStateForPlay, Assert.ThrowsAny<InvalidCribbageOperationException>(validate).Operation);
     }
 
     [Fact]
@@ -62,8 +60,7 @@ public class CardsThrownEventValidationTests
 
         var validation = new PlayCardCommandValidation();
         Action validate = () => validation.Validate(state, command);
-        validate.Should().Throw<InvalidCribbageOperationException>()
-            .And.Operation.Should().Be(InvalidCribbageOperation.InvalidStateForPlay);
+        Assert.Equal(InvalidCribbageOperation.InvalidStateForPlay, Assert.ThrowsAny<InvalidCribbageOperationException>(validate).Operation);
     }
 
     [Fact]
@@ -98,7 +95,6 @@ public class CardsThrownEventValidationTests
 
         var validation = new PlayCardCommandValidation();
         Action validate = () => validation.Validate(state, command);
-        validate.Should().Throw<InvalidCribbageOperationException>()
-            .And.Operation.Should().Be(InvalidCribbageOperation.InvalidCard);
+        Assert.Equal(InvalidCribbageOperation.InvalidCard, Assert.ThrowsAny<InvalidCribbageOperationException>(validate).Operation);
     }
 }

@@ -1,4 +1,3 @@
-﻿using FluentAssertions;
 using Xunit;
 
 namespace Skunked.UnitTest.Cards.Order;
@@ -23,7 +22,7 @@ public class OrderTest
         foreach (var testCase in testCases)
         {
             var sortedByOrderStrategy = testCases.OrderBy(c => c.Item1, RankComparer.Instance).ToList();
-            sortedByOrderStrategy.IndexOf(testCase).Should().Be(testCase.Item2);
+            Assert.Equal(testCase.Item2, sortedByOrderStrategy.IndexOf(testCase));
         }
     }
 
@@ -32,7 +31,7 @@ public class OrderTest
     {
         var orderStrategy = new RankComparer();
         Action order = () => orderStrategy.Compare(null, new Card());
-        order.Should().Throw<ArgumentNullException>();
+        Assert.ThrowsAny<ArgumentNullException>(order);
     }
 
     [Fact]
@@ -40,6 +39,6 @@ public class OrderTest
     {
         var orderStrategy = new RankComparer();
         Action order = () => orderStrategy.Compare(new Card(), null);
-        order.Should().Throw<ArgumentNullException>();
+        Assert.ThrowsAny<ArgumentNullException>(order);
     }
 }

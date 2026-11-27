@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using FluentAssertions;
+using System.Text.Json;
 using Xunit;
 
 namespace Skunked.UnitTest.Cards;
@@ -10,14 +9,14 @@ public class DeckTests
     public void Deck_Has_52_Cards()
     {
         var deck = new Deck();
-        deck.Count().Should().Be(52);
+        Assert.Equal(52, deck.Count());
     }
 
     [Fact]
     public void Deck_Cards_Are_All_Unique()
     {
         var deck = new Deck();
-        deck.Should().OnlyHaveUniqueItems();
+        Assert.Equal(deck.Count(), deck.Distinct().Count());
     }
 
     [Fact]
@@ -26,7 +25,7 @@ public class DeckTests
         var deck = new Deck();
         var cardsOriginal = deck.ToList();
         deck.Shuffle();
-        deck.Should().NotContainInOrder(cardsOriginal);
+        Assert.NotEqual(cardsOriginal, deck.ToList());
     }
 
     [Fact]
@@ -36,6 +35,6 @@ public class DeckTests
 
         var serializedCards = JsonSerializer.Serialize(deckCards);
         var deserializedCards = JsonSerializer.Deserialize<List<Card>>(serializedCards);
-        deckCards.Should().ContainInOrder(deserializedCards);
+        Assert.Equal(deckCards, deserializedCards);
     }
 }

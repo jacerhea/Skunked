@@ -13,7 +13,4 @@
   <Project Path="test/Skunked.Standard.Analytics/Skunked.Benchmarks.csproj" />
   <Project Path="test/Skunked.Standard.Test.System/Skunked.Test.System.csproj" />
   <Project Path="test/Skunked.UnitTest/Skunked.UnitTest.csproj" />
-  <Properties Name="CodealikeProperties" Scope="PostLoad">
-    <Property Name="SolutionGuid" Value="561fe1f7-ece5-4e11-821f-0a2943c8cb01" />
-  </Properties>
 </Solution>

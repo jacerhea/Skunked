@@ -1,4 +1,4 @@
-﻿namespace Skunked.UnitTest.AI.CardToss;
+namespace Skunked.UnitTest.AI.CardToss;
 
 //public class DistributionServiceTests
 //{
@@ -17,7 +17,7 @@
 
 //        var distributionService = new DistributionService();
 //        var distribution = distributionService.CalculateDistribution(hand);
-//        distribution.Sets.Count.Should().Be(15);
+//        Assert.Equal(15, distribution.Sets.Count);
 //    }
 
 //    [Fact]
@@ -33,6 +33,6 @@
 
 //        var distributionService = new DistributionService();
 //        var distribution = distributionService.CalculateDistribution(hand);
-//        distribution.Sets.Count.Should().Be(6);
+//        Assert.Equal(6, distribution.Sets.Count);
 //    }
 //}

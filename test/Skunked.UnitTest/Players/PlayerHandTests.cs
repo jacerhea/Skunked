@@ -1,6 +1,5 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using FluentAssertions;
 using Xunit;
 
 namespace Skunked.UnitTest.Players
@@ -21,9 +20,9 @@ namespace Skunked.UnitTest.Players
             var sut = new PlayerHand(42, handList);
 
             // Assert
-            sut.PlayerId.Should().Be(42);
-            sut.Hand.Should().BeSameAs(handList);
-            sut.Hand.Should().ContainInOrder(handList);
+            Assert.Equal(42, sut.PlayerId);
+            Assert.Same(handList, sut.Hand);
+            Assert.Equal(handList, sut.Hand);
         }
 
         [Fact]
@@ -36,8 +35,7 @@ namespace Skunked.UnitTest.Players
             Action act = () => new PlayerHand(1, hand);
 
             // Assert
-            act.Should().Throw<ArgumentNullException>()
-               .And.ParamName.Should().Be("hand");
+            Assert.Equal("hand", Assert.ThrowsAny<ArgumentNullException>(act).ParamName);
         }
 
         [Fact]
@@ -47,8 +45,8 @@ namespace Skunked.UnitTest.Players
             var sut = new PlayerHand(1, new List<Card>());
 
             // Assert
-            sut.Hand.Should().NotBeNull();
-            sut.Hand.Should().BeEmpty();
+            Assert.NotNull(sut.Hand);
+            Assert.Empty(sut.Hand);
         }
 
         [Fact]
@@ -62,13 +60,13 @@ namespace Skunked.UnitTest.Players
 
             // Assert - modifying original reflects in PlayerHand.Hand
             original.Add(new Card(Rank.Two, Suit.Spades));
-            sut.Hand.Should().HaveCount(2)
-               .And.Contain(new Card(Rank.Two, Suit.Spades));
+            Assert.Equal(2, sut.Hand.Count);
+            Assert.Contains(new Card(Rank.Two, Suit.Spades), sut.Hand);
 
             // Assert - modifying PlayerHand.Hand reflects in original
             sut.Hand.Add(new Card(Rank.Three, Suit.Spades));
-            original.Should().HaveCount(3)
-                .And.Contain(new Card(Rank.Three, Suit.Spades));
+            Assert.Equal(3, original.Count);
+            Assert.Contains(new Card(Rank.Three, Suit.Spades), original);
         }
     }
 }

@@ -1,4 +1,3 @@
-using FluentAssertions;
 using Xunit;
 
 namespace Skunked.UnitTest.Domain.Validations;
@@ -57,8 +56,7 @@ public class HandCountedEventValidationTests
 
         Action act = () => validation.Validate(state, command);
 
-        act.Should().Throw<InvalidCribbageOperationException>()
-            .And.Operation.Should().Be(InvalidCribbageOperation.InvalidShowCount);
+        Assert.Equal(InvalidCribbageOperation.InvalidShowCount, Assert.ThrowsAny<InvalidCribbageOperationException>(act).Operation);
     }
 
     [Fact]
@@ -70,8 +68,7 @@ public class HandCountedEventValidationTests
 
         Action act = () => validation.Validate(state, command);
 
-        act.Should().Throw<InvalidCribbageOperationException>()
-            .And.Operation.Should().Be(InvalidCribbageOperation.InvalidStateForCount);
+        Assert.Equal(InvalidCribbageOperation.InvalidStateForCount, Assert.ThrowsAny<InvalidCribbageOperationException>(act).Operation);
     }
 
     [Fact]
@@ -84,8 +81,7 @@ public class HandCountedEventValidationTests
 
         Action act = () => validation.Validate(state, command);
 
-        act.Should().Throw<InvalidCribbageOperationException>()
-            .And.Operation.Should().Be(InvalidCribbageOperation.PlayerHasAlreadyCounted);
+        Assert.Equal(InvalidCribbageOperation.PlayerHasAlreadyCounted, Assert.ThrowsAny<InvalidCribbageOperationException>(act).Operation);
     }
 
     [Fact]
@@ -98,8 +94,7 @@ public class HandCountedEventValidationTests
 
         Action act = () => validation.Validate(state, command);
 
-        act.Should().Throw<InvalidCribbageOperationException>()
-            .And.Operation.Should().Be(InvalidCribbageOperation.NotPlayersTurn);
+        Assert.Equal(InvalidCribbageOperation.NotPlayersTurn, Assert.ThrowsAny<InvalidCribbageOperationException>(act).Operation);
     }
 
     [Fact]
@@ -115,6 +110,6 @@ public class HandCountedEventValidationTests
 
         Action act = () => validation.Validate(state, command);
 
-        act.Should().NotThrow();
+        act();
     }
 }

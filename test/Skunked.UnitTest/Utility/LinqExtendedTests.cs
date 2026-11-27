@@ -1,4 +1,3 @@
-﻿using FluentAssertions;
 using Xunit;
 
 namespace Skunked.UnitTest.Utility;
@@ -18,8 +17,8 @@ public class LinqExtendedTests
             .ToList();
 
         // Assert
-        result.Should().HaveCount(4);
-        result.Should().Contain(["1A", "1B", "2A", "2B"]);
+        Assert.Equal(4, result.Count);
+        Assert.All(new[] { "1A", "1B", "2A", "2B" }, item => Assert.Contains(item, result));
     }
 
     [Fact]
@@ -31,13 +30,13 @@ public class LinqExtendedTests
 
         // Act & Assert
         var act1 = () => first.Cartesian(second).ToList();
-        act1.Should().Throw<ArgumentNullException>();
+        Assert.ThrowsAny<ArgumentNullException>(act1);
 
         var act2 = () => new[] { 1, 2 }.Cartesian((int[])null!).ToList();
-        act2.Should().Throw<ArgumentNullException>();
+        Assert.ThrowsAny<ArgumentNullException>(act2);
 
         var act3 = () => new[] { 1, 2 }.Cartesian((int[])null!).ToList();
-        act3.Should().Throw<ArgumentNullException>();
+        Assert.ThrowsAny<ArgumentNullException>(act3);
     }
 
     [Fact]
@@ -45,13 +44,14 @@ public class LinqExtendedTests
     {
         // Arrange
         var original = new List<int> { 1, 2, 3, 4, 5 };
+        var copy = original.ToList();
 
         // Act
         original.Shuffle();
 
         // Assert
-        original.Should().HaveCount(original.Count);
-        original.Should().BeEquivalentTo(original);
+        Assert.Equal(copy.Count, original.Count);
+        Assert.Equal(copy.OrderBy(x => x), original.OrderBy(x => x));
     }
 
     [Fact]
@@ -66,9 +66,9 @@ public class LinqExtendedTests
         original.Shuffle(random);
 
         // Assert
-        original.Should().HaveCount(copy.Count);
-        original.Should().NotEqual(copy);
-        original.Should().BeEquivalentTo(copy);
+        Assert.Equal(copy.Count, original.Count);
+        Assert.NotEqual(copy, original);
+        Assert.Equal(copy.OrderBy(x => x), original.OrderBy(x => x));
     }
 
     [Fact]
@@ -78,9 +78,9 @@ public class LinqExtendedTests
         var list = new List<int> { 1, 2, 3 };
 
         // Act & Assert
-        list.NextOf(1).Should().Be(2);
-        list.NextOf(2).Should().Be(3);
-        list.NextOf(3).Should().Be(1); // Wraps around to start
+        Assert.Equal(2, list.NextOf(1));
+        Assert.Equal(3, list.NextOf(2));
+        Assert.Equal(1, list.NextOf(3)); // Wraps around to start
     }
 
     [Fact]
@@ -93,7 +93,7 @@ public class LinqExtendedTests
         var act = () => list.NextOf(1);
 
         // Assert
-        act.Should().Throw<ArgumentOutOfRangeException>();
+        Assert.ThrowsAny<ArgumentOutOfRangeException>(() => { _ = act(); });
     }
 
     [Fact]
@@ -106,7 +106,7 @@ public class LinqExtendedTests
         var result = numbers.TakeEvery(2).ToList();
 
         // Assert
-        result.Should().BeEquivalentTo([1, 3, 5], options => options.WithStrictOrdering());
+        Assert.Equal(new[] {1, 3, 5}, result);
     }
 
     [Theory]
@@ -121,7 +121,7 @@ public class LinqExtendedTests
         var act = () => numbers.TakeEvery(step).ToList();
 
         // Assert
-        act.Should().Throw<ArgumentOutOfRangeException>();
+        Assert.ThrowsAny<ArgumentOutOfRangeException>(act);
     }
 
     [Fact]
@@ -134,7 +134,7 @@ public class LinqExtendedTests
         var act = () => numbers.TakeEvery(2).ToList();
 
         // Assert
-        act.Should().Throw<ArgumentNullException>();
+        Assert.ThrowsAny<ArgumentNullException>(act);
     }
 
     [Fact]
@@ -147,7 +147,7 @@ public class LinqExtendedTests
         var result = numbers.Infinite().Take(7).ToList();
 
         // Assert
-        result.Should().BeEquivalentTo([1, 2, 3, 1, 2, 3, 1], options => options.WithStrictOrdering());
+        Assert.Equal(new[] {1, 2, 3, 1, 2, 3, 1}, result);
     }
 
     [Fact]
@@ -160,6 +160,6 @@ public class LinqExtendedTests
         var act = () => numbers.Infinite().Take(1).ToList();
 
         // Assert
-        act.Should().Throw<ArgumentNullException>();
+        Assert.ThrowsAny<ArgumentNullException>(act);
     }
 }

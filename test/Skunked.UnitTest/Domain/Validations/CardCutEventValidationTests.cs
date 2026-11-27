@@ -1,4 +1,3 @@
-using FluentAssertions;
 using Xunit;
 
 namespace Skunked.UnitTest.Domain.Validations;
@@ -23,7 +22,7 @@ public class CardCutEventValidationTests
         var command = new CutCardCommand(1, new Card(Rank.Eight, Suit.Clubs));
         var validation = new CutCardCommandValidation();
         Action validate = () => validation.Validate(state, command);
-        validate.Should().NotThrow();
+        validate();
     }
 
     [Fact]
@@ -44,7 +43,7 @@ public class CardCutEventValidationTests
         var command = new CutCardCommand(2, new Card(Rank.Eight, Suit.Diamonds));
         var validation = new CutCardCommandValidation();
         Action validate = () => validation.Validate(state, command);
-        validate.Should().Throw<InvalidCribbageOperationException>("player 1 already cut the eight of diamonds");
+        Assert.ThrowsAny<InvalidCribbageOperationException>(validate);
     }
 
     [Fact]
@@ -66,6 +65,6 @@ public class CardCutEventValidationTests
 
         var validation = new CutCardCommandValidation();
         Action validate = () => validation.Validate(state, command);
-        validate.Should().Throw<InvalidCribbageOperationException>("player 1 already cut their card.");
+        Assert.ThrowsAny<InvalidCribbageOperationException>(validate);
     }
 }

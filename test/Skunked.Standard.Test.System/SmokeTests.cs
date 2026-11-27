@@ -1,4 +1,3 @@
-﻿using FluentAssertions;
 using Xunit;
 
 namespace Skunked.Test.System;
@@ -27,7 +26,7 @@ public class SmokeTests : IDisposable
             TestEndGame.Test(result.State);
         });
 
-        result.IsCompleted.Should().BeTrue();
+        Assert.True(result.IsCompleted);
     }
 
     [Fact]
@@ -49,7 +48,7 @@ public class SmokeTests : IDisposable
             TestEndGame.Test(result.State);
         });
 
-        result.IsCompleted.Should().BeTrue();
+        Assert.True(result.IsCompleted);
     }
 
     public void Dispose()

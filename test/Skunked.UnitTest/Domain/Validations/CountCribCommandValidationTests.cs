@@ -1,4 +1,3 @@
-using FluentAssertions;
 using Xunit;
 
 namespace Skunked.UnitTest.Domain.Validations;
@@ -51,7 +50,7 @@ public sealed class CountCribCommandValidationTests
 
         Action act = () => validation.Validate(state, command);
 
-        act.Should().NotThrow();
+        act();
     }
 
     [Fact]
@@ -63,8 +62,7 @@ public sealed class CountCribCommandValidationTests
 
         Action act = () => validation.Validate(state, command);
 
-        act.Should().Throw<InvalidCribbageOperationException>()
-            .And.Operation.Should().Be(InvalidCribbageOperation.InvalidStateForCribCount);
+        Assert.Equal(InvalidCribbageOperation.InvalidStateForCribCount, Assert.ThrowsAny<InvalidCribbageOperationException>(act).Operation);
     }
 
     [Fact]
@@ -76,8 +74,7 @@ public sealed class CountCribCommandValidationTests
 
         Action act = () => validation.Validate(state, command);
 
-        act.Should().Throw<InvalidCribbageOperationException>()
-            .And.Operation.Should().Be(InvalidCribbageOperation.InvalidStateForCribCount);
+        Assert.Equal(InvalidCribbageOperation.InvalidStateForCribCount, Assert.ThrowsAny<InvalidCribbageOperationException>(act).Operation);
     }
 
     [Fact]
@@ -89,8 +86,7 @@ public sealed class CountCribCommandValidationTests
 
         Action act = () => validation.Validate(state, command);
 
-        act.Should().Throw<InvalidCribbageOperationException>()
-            .And.Operation.Should().Be(InvalidCribbageOperation.InvalidStateForCribCount);
+        Assert.Equal(InvalidCribbageOperation.InvalidStateForCribCount, Assert.ThrowsAny<InvalidCribbageOperationException>(act).Operation);
     }
 
     [Fact]
@@ -102,20 +98,19 @@ public sealed class CountCribCommandValidationTests
 
         Action act = () => validation.Validate(state, command);
 
-        act.Should().Throw<InvalidCribbageOperationException>()
-            .And.Operation.Should().Be(InvalidCribbageOperation.NotPlayersTurn);
+        Assert.Equal(InvalidCribbageOperation.NotPlayersTurn, Assert.ThrowsAny<InvalidCribbageOperationException>(act).Operation);
     }
     [Fact] public void Validate_Rejects_NonDealer()
     {
         var state = BuildState();
         Action act = () => new CountCribCommandValidation().Validate(state, new CountCribCommand(2, 0));
-        act.Should().Throw<InvalidCribbageOperationException>().And.Operation.Should().Be(InvalidCribbageOperation.NotPlayersTurn);
+        Assert.Equal(InvalidCribbageOperation.NotPlayersTurn, Assert.ThrowsAny<InvalidCribbageOperationException>(act).Operation);
     }
     [Theory] [InlineData(-1)] [InlineData(99)]
     public void Validate_Rejects_Invalid_Declared_Score(int score)
     {
         var state = BuildState();
         Action act = () => new CountCribCommandValidation().Validate(state, new CountCribCommand(1, score));
-        act.Should().Throw<InvalidCribbageOperationException>().And.Operation.Should().Be(InvalidCribbageOperation.InvalidShowCount);
+        Assert.Equal(InvalidCribbageOperation.InvalidShowCount, Assert.ThrowsAny<InvalidCribbageOperationException>(act).Operation);
     }
 }

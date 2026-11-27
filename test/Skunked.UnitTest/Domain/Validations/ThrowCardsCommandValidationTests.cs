@@ -1,4 +1,3 @@
-using FluentAssertions;
 using Xunit;
 
 namespace Skunked.UnitTest.Domain.Validations;
@@ -55,7 +54,7 @@ public sealed class ThrowCardsCommandValidationTests
 
         Action act = () => validation.Validate(state, command);
 
-        act.Should().NotThrow();
+        act();
     }
 
     [Fact]
@@ -71,8 +70,7 @@ public sealed class ThrowCardsCommandValidationTests
 
         Action act = () => validation.Validate(state, command);
 
-        act.Should().Throw<InvalidCribbageOperationException>()
-            .And.Operation.Should().Be(InvalidCribbageOperation.CardsHaveBeenThrown);
+        Assert.Equal(InvalidCribbageOperation.CardsHaveBeenThrown, Assert.ThrowsAny<InvalidCribbageOperationException>(act).Operation);
     }
 
     [Fact]
@@ -88,7 +86,6 @@ public sealed class ThrowCardsCommandValidationTests
 
         Action act = () => validation.Validate(state, command);
 
-        act.Should().Throw<InvalidCribbageOperationException>()
-            .And.Operation.Should().Be(InvalidCribbageOperation.InvalidCard);
+        Assert.Equal(InvalidCribbageOperation.InvalidCard, Assert.ThrowsAny<InvalidCribbageOperationException>(act).Operation);
     }
 }
